@@ -17,7 +17,7 @@ set_progress(0.300000);
 
 ui_print("Setting permissions...");
 set_perm(1000, 1000, 0755, "/system/etc/init.d/Governor_Tuner");
-set_perm(1000, 1000, 0645, "/system/xbin/tune");
+set_perm(1000, 1000, 0755, "/system/xbin/tune");
 set_progress(0.400000);
 set_progress(0.500000);
 set_progress(0.700000);

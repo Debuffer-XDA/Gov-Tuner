@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Gov-Tuner v1.5.1
+# Gov-Tuner v1.5.3
 # Copyright (C) 2016 Debuffer @ xda-developers
 #=======================================================================#
 #  This program is free software: you can redistribute it and/or modify
@@ -61,6 +61,8 @@ CLUSTER_HIGH_CONSERVATIVEX=$CLUSTER_HIGH/conservativex
 
 CLUSTER_HIGH_INTERACTIVE_PRO=$CLUSTER_HIGH/interactive_pro
 
+CLUSTER_HIGH_ZZMOVE=$CLUSTER_HIGH/zzmove
+
 # Governor for default / non-dual-cluster CPUs
 
 REGULAR_INTERACTIVE=$CPUFREQ_REGULAR/interactive
@@ -102,6 +104,8 @@ REGULAR_OPTIMAX=$CPUFREQ_REGULAR/optimax
 REGULAR_CONSERVATIVEX=$CPUFREQ_REGULAR/conservativex
 
 REGULAR_INTERACTIVE_PRO=$CPUFREQ_REGULAR/interactive_pro
+
+REGULAR_ZZMOVE=$CPUFREQ_REGULAR/zzmove
 
 if [ -d $CLUSTER_HIGH_INTERACTIVE ]; then
 echo "Interactive tweaks for A53 cluster applied"
@@ -261,6 +265,14 @@ interactive_pro=$CLUSTER_HIGH_INTERACTIVE_PRO
 else
 echo "Interactive_pro tweaks applied"
 interactive_pro=$REGULAR_INTERACTIVE_PRO
+fi
+
+if [ -d $CLUSTER_HIGH_ZZMOVE ]; then
+echo "Zzmove tweaks for A53 cluster applied"
+zzmove=$CLUSTER_HIGH_ZZMOVE
+else
+echo "Zzmove tweaks applied"
+zzmove=$REGULAR_ZZMOVE
 fi
 
 # INTERACTIVE
@@ -599,4 +611,98 @@ echo "80000" > $interactive_pro/timer_rate;
 echo "-1" > $interactive_pro/timer_slack;
 echo "0" > $interactive_pro/up_threshold_any_cpu_freq;
 echo "0" > $interactive_pro/up_threshold_any_cpu_load;
+fi
+
+if [ -d $zzmove ]; then
+echo "20" > $zzmove/afs_threshold1;
+echo "40" > $zzmove/afs_threshold2;
+echo "70" > $zzmove/afs_threshold3;
+echo "90" > $zzmove/afs_threshold4;
+echo "0" > $zzmove/auto_adjust_freq_thresholds;
+echo "1" > $zzmove/block_down_multiplier_hotplug1;
+echo "1" > $zzmove/block_down_multiplier_hotplug2;
+echo "1" > $zzmove/block_down_multiplier_hotplug3;
+echo "1" > $zzmove/block_up_multiplier_hotplug1;
+echo "1" > $zzmove/block_up_multiplier_hotplug2;
+echo "1" > $zzmove/block_up_multiplier_hotplug3;
+echo "1" > $zzmove/disable_hotplug;
+echo "1" > $zzmove/disable_hotplug_sleep;
+echo "50" > $zzmove/down_threshold;
+echo "20" > $zzmove/down_threshold_hotplug1;
+echo "40" > $zzmove/down_threshold_hotplug2;
+echo "70" > $zzmove/down_threshold_hotplug3;
+echo "0" > $zzmove/down_threshold_hotplug1;
+echo "0" > $zzmove/down_threshold_hotplug2;
+echo "0" > $zzmove/down_threshold_hotplug3;
+echo "60" > $zzmove/down_threshold_sleep;
+echo "0" > $zzmove/early_demand;
+echo "0" > $zzmove/early_demand_sleep;
+echo "4" > $zzmove/fast_scaling_down;
+echo "4" > $zzmove/fast_scaling_sleep_down;
+echo "0" > $zzmove/fast_scaling_sleep_up;
+echo "0" > $zzmove/fast_scaling_up;
+echo "0" > $zzmove/freq_limit;
+echo "0" > $zzmove/freq_limit_sleep;
+echo "50" > $zzmove/grad_up_threshold;
+echo "75" > $zzmove/grad_up_threshold_sleep;
+echo "2" > $zzmove/hotplug_block_down_cycles;
+echo "2" > $zzmove/hotplug_block_up_cycles;
+echo "750000" > $zzmove/hotplug_engage_freq;
+echo "0" > $zzmove/hotplug_idle_freq;
+echo "0" > $zzmove/hotplug_idle_threshold;
+echo "0" > $zzmove/hotplug_lock;
+echo "0" > $zzmove/hotplug_max_limit;
+echo "0" > $zzmove/hotplug_min_limit;
+echo "0" > $zzmove/hotplug_sleep;
+echo "0" > $zzmove/hotplug_stagger_down;
+echo "0" > $zzmove/hotplug_stagger_up;
+echo "0" > $zzmove/ignore_nice_load;
+echo "0" > $zzmove/inputboost_cycles;
+echo "20" > $zzmove/inputboost_punch_cycles;
+echo "1500000" > $zzmove/inputboost_punch_freq;
+echo "0" > $zzmove/inputboost_punch_on_epenmove;
+echo "1" > $zzmove/inputboost_punch_on_fingerdown;
+echo "0" > $zzmove/inputboost_punch_on_fingermove;
+echo "0" > $zzmove/inputboost_typingbooster_cores;
+echo "100" > $zzmove/inputboost_typingbooster_up_threshold;
+echo "100" > $zzmove/inputboost_up_threshold;
+echo "700000" > $zzmove/music_max_freq;
+echo "0" > $zzmove/music_min_cores;
+echo "$MIN_CPU_FREQ" > $zzmove/music_min_freq;
+echo "1" > $zzmove/music_state;
+echo "Gov Tuner Profile" > $zzmove/profile;
+echo "0" > $zzmove/profile_number;
+echo "1" > $zzmove/profile_stick_mode;
+echo "1" > $zzmove/sampling_down_factor;
+echo "0" > $zzmove/sampling_down_max_momentum;
+echo "50" > $zzmove/sampling_down_momentum_sensitivity;
+echo "100000" > $zzmove/sampling_rate;
+echo "100000" > $zzmove/sampling_rate_current;
+echo "200000" > $zzmove/sampling_rate_idle;
+echo "5" > $zzmove/sampling_rate_idle_delay;
+echo "60" > $zzmove/sampling_rate_idle_threshold;
+echo "100000" > $zzmove/sampling_rate_min;
+echo "4" > $zzmove/sampling_rate_sleep_multiplier;
+echo "0" > $zzmove/scaling_block_cycles;
+echo "2" > $zzmove/scaling_block_force_down;
+echo "0" > $zzmove/scaling_block_freq;
+echo "0" > $zzmove/scaling_block_threshold;
+echo "95" > $zzmove/scaling_fastdown_down_threshold;
+echo "1800000" > $zzmove/scaling_fastdown_freq;
+echo "99" > $zzmove/scaling_fastdown_up_threshold;
+echo "1" > $zzmove/scaling_proportional;
+echo "700000" > $zzmove/scaling_resposiveness_freq;
+echo "25" > $zzmove/scaling_responsiveness_up_threshold;
+echo "0" > $zzmove/scaling_up_block_cycles;
+echo "0" > $zzmove/scaling_up_block_freq;
+echo "100" > $zzmove/smooth_up;
+echo "100" > $zzmove/smooth_up_sleep;
+echo "75" > $zzmove/up_threshold;
+echo "40" > $zzmove/up_threshold_hotplug1;
+echo "60" > $zzmove/up_threshold_hotplug2;
+echo "90" > $zzmove/up_threshold_hotplug3;
+echo "0" > $zzmove/up_threshold_hotplug_freq1;
+echo "0" > $zzmove/up_threshold_hotplug_freq2;
+echo "0" > $zzmove/up_threshold_hotplug_freq3;
+echo "100" > $zzmove/up_threshold_sleep;
 fi

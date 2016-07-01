@@ -14,14 +14,13 @@
 
 MIN_CPU_FREQ=$(cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq);
 
-# this only modifies only the A53 clusters
-
+# Low-power clusters
 CLUSTER_HIGH="/sys/devices/system/cpu/cpu0/cpufreq"
 
+# Regular CPUFreq directory
 CPUFREQ_REGULAR="/sys/devices/system/cpu/cpufreq"
 
-# CLUSTER #
-
+# List of governors for dual-cluster CPUs
 CLUSTER_HIGH_INTERACTIVE=$CLUSTER_HIGH/interactive
 
 CLUSTER_HIGH_CONSERVATIVE=$CLUSTER_HIGH/conservative
@@ -52,8 +51,7 @@ CLUSTER_HIGH_LIONHEART=$CLUSTER_HIGH/lionheart
 
 CLUSTER_HIGH_PEGASUSQ=$CLUSTER_HIGH/pegasusq
 
-# REGULAR #
-
+# Governor for default / non-dual-cluster CPUs
 REGULAR_INTERACTIVE=$CPUFREQ_REGULAR/interactive
 
 REGULAR_CONSERVATIVE=$CPUFREQ_REGULAR/conservative

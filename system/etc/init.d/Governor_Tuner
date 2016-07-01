@@ -57,7 +57,10 @@ CLUSTER_HIGH_SMARTMAX=$CLUSTER_HIGH/smartmax
 
 CLUSTER_HIGH_OPTIMAX=$CLUSTER_HIGH/optimax
 
+CLUSTER_HIGH_CONSERVATIVEX=$CLUSTER_HIGH/conservativex
+
 # Governor for default / non-dual-cluster CPUs
+
 REGULAR_INTERACTIVE=$CPUFREQ_REGULAR/interactive
 
 REGULAR_CONSERVATIVE=$CPUFREQ_REGULAR/conservative
@@ -94,6 +97,7 @@ REGULAR_SMARTMAX=$CPUFREQ_REGULAR/smartmax
 
 REGULAR_OPTIMAX=$CPUFREQ_REGULAR/optimax
 
+REGULAR_CONSERVATIVEX=$CPUFREQ_REGULAR/conservativex
 
 if [ -d $CLUSTER_HIGH_INTERACTIVE ]; then
 echo "Interactive tweaks for A53 cluster applied"
@@ -237,6 +241,14 @@ optimax=$CLUSTER_HIGH_OPTIMAX
 else
 echo "Optimaxtweaks applied"
 optimax=$REGULAR_OPTIMAX
+fi
+
+if [ -d $CLUSTER_HIGH_CONSERVATIVEX ]; then
+echo "Conservativex tweaks for A53 cluster applied"
+conservativex=$CLUSTER_HIGH_CONSERVATIVEX
+else
+echo "Conservativex tweaks applied"
+conservativex=$REGULAR_CONSERVATIVEX
 fi
 
 # INTERACTIVE
@@ -543,4 +555,16 @@ echo "$MIN_CPU_FREQ" > $optimax/sync_freq;
 echo "95" > $optimax/up_threshold;
 echo "95" > $optimax/up_threshold_any_cpu_load;
 echo "95" > $optimax/up_threshold_multi_core;
+fi
+
+# CONSERVATIVEX
+
+if [ -d $conservativex ]; then
+echo "95" > $conservativex/down_threshold;
+echo "1" > $conservativex/freq_step;
+echo "1" > $conservativex/ignore_nice_load;
+echo "1" > $conservativex/sampling_down_factor;
+echo "50000" > $conservativex/sampling_rate;
+echo "10000" > $conservativex/sampling_rate_min;
+echo "99" > $conservativex/up_threshold;
 fi

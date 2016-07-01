@@ -243,7 +243,7 @@ if [ -d $CLUSTER_HIGH_OPTIMAX ]; then
 echo "Optimax tweaks for A53 cluster applied"
 optimax=$CLUSTER_HIGH_OPTIMAX
 else
-echo "Optimaxtweaks applied"
+echo "Optimax tweaks applied"
 optimax=$REGULAR_OPTIMAX
 fi
 

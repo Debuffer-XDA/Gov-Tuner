@@ -613,6 +613,8 @@ echo "0" > $interactive_pro/up_threshold_any_cpu_freq;
 echo "0" > $interactive_pro/up_threshold_any_cpu_load;
 fi
 
+# ZZMOVE 
+
 if [ -d $zzmove ]; then
 echo "20" > $zzmove/afs_threshold1;
 echo "40" > $zzmove/afs_threshold2;

@@ -1,0 +1,456 @@
+#!/system/bin/sh
+# Gov-Tuner v1.4.1
+# Copyright (C) 2016 Debuffer @ xda-developers
+#=======================================================================#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#=======================================================================#
+
+MIN_CPU_FREQ=$(cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq);
+
+# this only modifies only the A53 clusters
+
+CLUSTER_HIGH="/sys/devices/system/cpu/cpu0/cpufreq"
+
+CPUFREQ_REGULAR="/sys/devices/system/cpu/cpufreq"
+
+# CLUSTER #
+
+CLUSTER_HIGH_INTERACTIVE=$CLUSTER_HIGH/interactive
+
+CLUSTER_HIGH_CONSERVATIVE=$CLUSTER_HIGH/conservative
+
+CLUSTER_HIGH_YANKACTIVE=$CLUSTER_HIGH/yankactive
+
+CLUSTER_HIGH_INTELLIACTIVE=$CLUSTER_HIGH/intelliactive
+
+CLUSTER_HIGH_BIOSHOCK=$CLUSTER_HIGH/bioshock
+
+CLUSTER_HIGH_LIONFISH=$CLUSTER_HIGH/lionfish
+
+CLUSTER_HIGH_IMPULSE=$CLUSTER_HIGH/impulse
+
+CLUSTER_HIGH_ELECTROACTIVE=$CLUSTER_HIGH/electroactive
+
+CLUSTER_HIGH_UBERDEMAND=$CLUSTER_HIGH/uberdemand
+
+CLUSTER_HIGH_INTELLIMM=$CLUSTER_HIGH/intellimm
+
+CLUSTER_HIGH_BARRY_ALLEN=$CLUSTER_HIGH/barry_allen
+
+CLUSTER_HIGH_BLUACTIVE=$CLUSTER_HIGH/bluactive
+
+CLUSTER_HIGH_DANCEDANCE=$CLUSTER_HIGH/dancedance
+
+CLUSTER_HIGH_LIONHEART=$CLUSTER_HIGH/lionheart
+
+CLUSTER_HIGH_PEGASUSQ=$CLUSTER_HIGH/pegasusq
+
+# REGULAR #
+
+REGULAR_INTERACTIVE=$CPUFREQ_REGULAR/interactive
+
+REGULAR_CONSERVATIVE=$CPUFREQ_REGULAR/conservative
+
+REGULAR_YANKACTIVE=$CPUFREQ_REGULAR/yankactive
+
+REGULAR_INTELLIACTIVE=$CPUFREQ_REGULAR/intelliactive
+
+REGULAR_BIOSHOCK=$CPUFREQ_REGULAR/bioshock
+
+REGULAR_LIONFISH=$CPUFREQ_REGULAR/lionfish
+
+REGULAR_IMPULSE=$CPUFREQ_REGULAR/impulse
+
+REGULAR_UBERDEMAND=$CPUFREQ_REGULAR/uberdemand
+
+REGULAR_ELECTROACTIVE=$CPUFREQ_REGULAR/electroactive
+
+REGULAR_INTELLIMM=$CPUFREQ_REGULAR/intellimm
+
+REGULAR_BARRY_ALLEN=$CPUFREQ_REGULAR/barry_allen
+
+REGULAR_BLUACTIVE=$CPUFREQ_REGULAR/bluactive
+
+REGULAR_DANCEDANCE=$CPUFREQ_REGULAR/dancedance
+
+REGULAR_LIONHEART=$CPUFREQ_REGULAR/lionheart
+
+REGULAR_PEGASUSQ=$CPUFREQ_REGULAR/pegasusq
+
+if [ -d $CLUSTER_HIGH_INTERACTIVE ]; then
+echo "Interactive tweaks for A53 cluster applied"
+interactive=$CLUSTER_HIGH_INTERACTIVE
+else
+echo "Interactive tweaks applied"
+interactive=$REGULAR_INTERACTIVE
+fi
+
+if [ -d $CLUSTER_HIGH_CONSERVATIVE ]; then
+echo "Conservative tweaks for A53 cluster applied"
+conservative=$CLUSTER_HIGH_CONSERVATIVE
+else
+echo "Conservative tweaks applied"
+conservative=$REGULAR_CONSERVATIVE
+fi
+
+if [ -d $CLUSTER_HIGH_YANKACTIVE ]; then
+echo "Yankactive tweaks for A53 cluster applied"
+yankactive=$CLUSTER_HIGH_YANKACTIVE
+else
+echo "Yankactive tweaks applied"
+yankactive=$REGULAR_YANKACTIVE
+fi
+
+if [ -d $CLUSTER_HIGH_INTELLIACTIVE ]; then
+echo "Intelliactive tweaks for A53 cluster applied"
+intelliactive=$CLUSTER_HIGH_INTELLIACTIVE
+else
+echo "Intelliactive tweaks applied"
+intelliactive=$REGULAR_INTELLIACTIVE
+fi
+
+if [ -d $CLUSTER_HIGH_BIOSHOCK ]; then
+echo "Bioshock tweaks for A53 cluster applied"
+bioshock=$CLUSTER_HIGH_BIOSHOCK
+else
+echo "Bioshock tweaks applied"
+bioshock=$REGULAR_BIOSHOCK
+fi
+
+if [ -d $CLUSTER_HIGH_LIONFISH ]; then
+echo "Lionfish tweaks for A53 cluster applied"
+lionfish=$CLUSTER_HIGH_LIONFISH
+else
+echo "Lionfish tweaks applied"
+lionfish=$REGULAR_LIONFISH
+fi
+
+if [ -d $CLUSTER_HIGH_IMPULSE ]; then
+echo "Impulse tweaks for A53 cluster applied"
+impulse=$CLUSTER_HIGH_IMPULSE
+else
+echo "Impulse tweaks applied"
+impulse=$REGULAR_IMPULSE
+fi
+
+if [ -d $CLUSTER_HIGH_UBERDEMAND ]; then
+echo "Uberdemand tweaks for A53 cluster applied"
+uberdemand=$CLUSTER_HIGH_UBERDEMAND
+else
+echo "Uberdemand tweaks applied"
+uberdemand=$REGULAR_UBERDEMAND
+fi
+
+if [ -d $CLUSTER_HIGH_ELECTROACTIVE ]; then
+echo "Electroactive tweaks for A53 cluster applied"
+electroactive=$CLUSTER_HIGH_ELECTROACTIVE
+else
+echo "Electroactive tweaks applied"
+electroactive=$REGULAR_ELECTROACTIVE
+fi
+
+if [ -d $CLUSTER_HIGH_INTELLIMM ]; then
+echo "IntelliMM tweaks for A53 cluster applied"
+intellimm=$CLUSTER_HIGH_INTELLIMM
+else
+echo "IntelliMM tweaks applied"
+intellimm=$REGULAR_INTELLIMM
+fi
+
+if [ -d $CLUSTER_HIGH_BARRY_ALLEN ]; then
+echo "Barry_Allen tweaks for A53 cluster applied"
+barry_allen=$CLUSTER_HIGH_BARRY_ALLEN
+else
+echo "Barry_Allen tweaks applied"
+barry_allen=$REGULAR_BARRY_ALLEN
+fi
+
+if [ -d $CLUSTER_HIGH_BLUACTIVE ]; then
+echo "Bluactive tweaks for A53 cluster applied"
+bluactive=$CLUSTER_HIGH_BLUACTIVE
+else
+echo "Bluactive tweaks applied"
+bluactive=$REGULAR_BLUACTIVE
+fi
+
+if [ -d $CLUSTER_HIGH_DANCEDANCE ]; then
+echo "DanceDance tweaks for A53 cluster applied"
+dancedance=$CLUSTER_HIGH_DANCEDANCE
+else
+echo "DanceDance tweaks applied"
+dancedance=$REGULAR_DANCEDANCE
+fi
+
+if [ -d $CLUSTER_HIGH_LIONHEART ]; then
+echo "Lionheart tweaks for A53 cluster applied"
+lionheart=$CLUSTER_HIGH_LIONHEART
+else
+echo "Lionheart tweaks applied"
+lionheart=$REGULAR_LIONHEART
+fi
+
+if [ -d $CLUSTER_HIGH_PEGASUSQ ]; then
+echo "PegasusQ tweaks for A53 cluster applied"
+pegasusq=$CLUSTER_HIGH_PEGASUSQ
+else
+echo "PegasusQ tweaks applied"
+pegasusq=$REGULAR_PEGASUSQ
+fi
+
+# INTERACTIVE
+
+if [ -d $interactive ]; then
+echo "20000 1200000:30000 1800000:50000" > $interactive/above_hispeed_delay;
+echo "0" > $interactive/boost;
+echo "0" > $interactive/boostpulse;
+echo "0" > $interactive/boostpulse_duration;
+echo "90" > $interactive/go_hispeed_load;
+echo "$MIN_CPU_FREQ" > $interactive/hispeed_freq;
+echo "0" > $interactive/io_is_busy;
+echo "40000" > $interactive/min_sample_time;
+echo "1" > $interactive/sampling_down_factor;
+echo "1 268800:20 350000:20 500000:20 750000:40 1000000:60 1190400:90 1497600:90 1728000:90 1958400:90" > $interactive/target_loads;
+echo "80000" > $interactive/timer_rate;
+echo "-1" > $interactive/timer_slack;
+echo "0" > $interactive/up_threshold_any_cpu_freq;
+echo "0" > $interactive/up_threshold_any_cpu_load;
+fi
+
+# CONSERVATIVE
+
+if [ -d $conservative ]; then
+echo "95" > $conservative/down_threshold;
+echo "1" > $conservative/freq_step;
+echo "1" > $conservative/ignore_nice_load;
+echo "1" > $conservative/sampling_down_factor;
+echo "50000" > $conservative/sampling_rate;
+echo "10000" > $conservative/sampling_rate_min;
+echo "99" > $conservative/up_threshold;
+fi
+
+# YANKACTIVE
+
+if [ -d $yankactive ]; then
+echo "20000 1200000:30000 1800000:50000" > $yankactive/above_hispeed_delay;
+echo "0" > $yankactive/boost;
+echo "0" > $yankactive/boostpulse;
+echo "0" > $yankactive/boostpulse_duration;
+echo "90" > $yankactive/go_hispeed_load;
+echo "$MIN_CPU_FREQ" > $yankactive/hispeed_freq;
+echo "0" > $yankactive/io_is_busy;
+echo "40000" > $yankactive/min_sample_time;
+echo "1" > $yankactive/sampling_down_factor;
+echo "1 268800:20 350000:20 500000:20 750000:40 1000000:60 1190400:90 1497600:90 1728000:90 1958400:90" > $yankactive/target_loads;
+echo "80000" > $yankactive/timer_rate;
+echo "-1" > $yankactive/timer_slack;
+echo "0" > $yankactive/up_threshold_any_cpu_freq;
+echo "0" > $yankactive/up_threshold_any_cpu_load;
+fi
+
+# INTELLIACTIVE
+
+if [ -d $intelliactive ]; then
+echo "20000 300000:10000 700000:15000 1200000:30000 1800000:50000" > $intelliactive/above_hispeed_delay;
+echo "0" > $intelliactive/boost;
+echo "0" > $intelliactive/boostpulse;
+echo "0" > $intelliactive/boostpulse_duration;
+echo "90" > $intelliactive/go_hispeed_load;
+echo "$MIN_CPU_FREQ" > $intelliactive/hispeed_freq;
+echo "0" > $intelliactive/io_is_busy;
+echo "40000" > $intelliactive/min_sample_time;
+echo "1" > $intelliactive/sampling_down_factor;
+echo "0" > $intelliactive/sync_freq;
+echo "1 268800:90 350000:90 500000:30 750000:45 1000000:55 1190400:90 1497600:90 1728000:90 1958400:90" > $intelliactive/target_loads;
+echo "80000" > $intelliactive/timer_rate;
+echo "-1" > $intelliactive/timer_slack;
+echo "$MIN_CPU_FREQ, $MIN_CPU_FREQ,$MIN_CPU_FREQ, $MIN_CPU_FREQ" > $intelliactive/two_phase_freq;
+echo "0" > $intelliactive/up_threshold_any_cpu_freq;
+echo "0" > $intelliactive/up_threshold_any_cpu_load;
+fi
+
+# BIOSHOCK 
+
+if [ -d $bioshock ]; then
+echo "95" > $bioshock/down_threshold;
+echo "1" > $bioshock/freq_step;
+echo "1" > $bioshock/ignore_nice_load;
+echo "1" > $bioshock/sampling_down_factor;
+echo "50000" > $bioshock/sampling_rate;
+echo "10000" > $bioshock/sampling_rate_min;
+echo "99" > $bioshock/up_threshold;
+fi
+
+# LIONFISH 
+
+if [ -d $lionfish ]; then
+echo "95" > $lionfish/down_threshold;
+echo "1" > $lionfish/freq_step;
+echo "1" > $lionfish/ignore_nice_load;
+echo "800000" > $lionfish/jump_level;
+echo "99" > $lionfish/jump_threshold;
+echo "1" > $lionfish/sampling_down_factor;
+echo "50000" > $lionfish/sampling_rate;
+echo "10000" > $lionfish/sampling_rate_min;
+echo "99" > $lionfish/up_threshold;
+fi
+
+# IMPULSE 
+
+if [ -d $impulse ]; then
+echo "20000 1200000:30000 1800000:50000" > $impulse/above_hispeed_delay;
+echo "90" > $impulse/go_hispeed_load;
+echo "$MIN_CPU_FREQ" > $impulse/hispeed_freq;
+echo "0" > $impulse/io_is_busy;
+echo "40000" > $impulse/min_sample_time;
+echo "80000" > $impulse/timer_rate;
+echo "-1" > $impulse/timer_slack;
+echo "1 268800:20 350000:20 500000:20 750000:40 1000000:60 1190400:90 1497600:90 1728000:90 1958400:90" > $impulse/target_loads;
+echo "$MIN_CPU_FREQ" > $impulse/max_freq_hysteresis;
+echo "0" > $impulse/align_windows;
+echo "0" > $impulse/powersave_bias;
+fi;
+
+# UBERDEMAND 
+
+if [ -d $uberdemand ]; then
+echo "20" > $uberdemand/down_differential;
+echo "0" > $uberdemand/ignore_nice_load;
+echo "0" > $uberdemand/io_is_busy;
+echo "0" > $uberdemand/powersave_bias;
+echo "1" > $uberdemand/sampling_down_factor;
+echo "50000" > $uberdemand/sampling_rate;
+echo "10000" > $uberdemand/sampling_rate_min;
+echo "$MIN_CPU_FREQ" > $uberdemand/second_phase_freq;
+echo "95" > $uberdemand/up_threshold;
+fi;
+
+# ELECTROACTIVE 
+
+if [ -d $electroactive ]; then
+echo "0" > $electroactive/boostfreq;
+echo "0" > $electroactive/boostpulse;
+echo "15" > $electroactive/down_differential;
+echo "$MIN_CPU_FREQ" > $electroactive/freq_responsiveness;
+echo "30" > $electroactive/freq_step;
+echo "0" > $electroactive/ignore_nice_load;
+echo "0" > $electroactive/io_is_busy;
+echo "90" > $electroactive/micro_freq_up_threshold;
+echo "0" > $electroactive/powersave_bias;
+echo "1" > $electroactive/sampling_down_factor;
+echo "50000" > $electroactive/sampling_rate;
+echo "10000" > $electroactive/sampling_rate_min;
+echo "90" > $electroactive/up_threshold;
+echo "40" > $electroactive/up_threshold_min_freq;
+fi;
+
+# INTELLIMM
+
+if [ -d $intellimm ]; then
+echo "15" > $intellimm/down_differential;
+echo "15" > $intellimm/down_differential_multi_core;
+echo "$MIN_CPU_FREQ" > $intellimm/freq_down_step;
+echo "$MIN_CPU_FREQ" > $intellimm/freq_down_step_barrier;
+echo "0" > $intellimm/ignore_nice_load;
+echo "$MIN_CPU_FREQ, $MIN_CPU_FREQ,$MIN_CPU_FREQ, $MIN_CPU_FREQ" > $intellimm/input_event_min_freq;
+echo "0" > $intellimm/io_is_busy;
+echo "$MIN_CPU_FREQ" > $intellimm/optimal_freq;
+echo "0" > $intellimm/powersave_bias;
+echo "1" > $intellimm/sampling_down_factor;
+echo "50000" > $intellimm/sampling_rate;
+echo "10000" > $intellimm/sampling_rate_min;
+echo "0" > $intellimm/shortcut;
+echo "$MIN_CPU_FREQ, $MIN_CPU_FREQ,$MIN_CPU_FREQ, $MIN_CPU_FREQ" > $intellimm/two_phase_freq;
+echo "95" > $intellimm/up_threshold;
+echo "0" > $intellimm/up_threshold_any_cpu_load;
+echo "0" > $intellimm/up_threshold_any_cpu_freq;
+echo "0" > $intellimm/up_threshold_multi_core;
+fi;
+
+# BARRY_ALLEN
+
+if [ -d $barry_allen ]; then
+echo "20000 300000:10000 700000:15000 1200000:30000 1800000:50000" > $barry_allen/above_hispeed_delay;
+echo "0" > $barry_allen/ba_lock;
+echo "0" > $barry_allen/boost;
+echo "0" > $barry_allen/boostpulse;
+echo "0" > $barry_allen/boostpulse_duration;
+echo "90" > $barry_allen/go_hispeed_load;
+echo "$MIN_CPU_FREQ" > $barry_allen/hispeed_freq;
+echo "0" > $barry_allen/io_is_busy;
+echo "40000" > $barry_allen/min_sample_time;
+echo "1" > $barry_allen/sampling_down_factor;
+echo "0" > $barry_allen/sync_freq;
+echo "1 268800:90 350000:90 500000:30 750000:45 1000000:55 1190400:90 1497600:90 1728000:90 1958400:90" > $barry_allen/target_loads;
+echo "80000" > $$barry_allen/timer_rate;
+echo "-1" > $$barry_allen/timer_slack;
+echo "$MIN_CPU_FREQ, $MIN_CPU_FREQ,$MIN_CPU_FREQ, $MIN_CPU_FREQ" > $$barry_allen/two_phase_freq;
+echo "0" > $$barry_allen/up_threshold_any_cpu_freq;
+echo "0" > $$barry_allen/up_threshold_any_cpu_load;
+fi
+
+# BLUACTIVE
+
+if [ -d $bluactive ]; then
+echo "20000 300000:10000 700000:15000 1200000:30000 1800000:50000" > $$bluactive/above_hispeed_delay;
+echo "0" > $bluactive/boost;
+echo "0" > $bluactive/boostpulse;
+echo "0" > $bluactive/boostpulse_duration;
+echo "90" > $bluactive/go_hispeed_load;
+echo "$MIN_CPU_FREQ" > $bluactive/hispeed_freq;
+echo "0" > $bluactive/io_is_busy;
+echo "40000" > $bluactive/min_sample_time;
+echo "1" > $bluactive/sampling_down_factor;
+echo "0" > $bluactive/sync_freq;
+echo "1 268800:90 350000:90 500000:30 750000:45 1000000:55 1190400:90 1497600:90 1728000:90 1958400:90" > $bluactive/target_loads;
+echo "80000" > $bluactive/timer_rate;
+echo "-1" > $bluactive/timer_slack;
+echo "$MIN_CPU_FREQ, $MIN_CPU_FREQ,$MIN_CPU_FREQ, $MIN_CPU_FREQ" > $bluactive/two_phase_freq;
+echo "0" > $$bluactive/up_threshold_any_cpu_freq;
+echo "0" > $$bluactive/up_threshold_any_cpu_load;
+fi
+
+# DANCEDANCE
+
+if [ -d $dancedance ]; then
+echo "95" > $dancedance/down_threshold;
+echo "1" > $dancedance/freq_step;
+echo "1" > $dancedance/ignore_nice_load;
+echo "1" > $dancedance/sampling_down_factor;
+echo "50000" > $dancedance/sampling_rate;
+echo "10000" > $dancedance/sampling_rate_min;
+echo "99" > $dancedance/up_threshold;
+fi
+
+# LIONHEART 
+
+if [ -d $lionheart ]; then
+echo "95" > $lionheart/down_threshold;
+echo "1" > $lionheart/freq_step;
+echo "1" > $lionheart/ignore_nice_load;
+echo "1" > $lionheart/sampling_down_factor;
+echo "50000" > $lionheart/sampling_rate;
+echo "10000" > $lionheart/sampling_rate_min;
+echo "99" > $lionheart/up_threshold;
+fi
+
+# PEGASUSQ
+
+if [ -d $pegasusq ]; then
+echo "15" > $pegasusq/down_differential;
+echo "$MIN_CPU_FREQ" > $pegasusq/freq_responsiveness;
+echo "30" > $pegasusq/freq_step;
+echo "0" > $pegasusq/ignore_nice_load;
+echo "0" > $pegasusq/io_is_busy;
+echo "1" > $pegasusq/sampling_down_factor;
+echo "50000" > $pegasusq/sampling_rate;
+echo "10000" > $pegasusq/sampling_rate_min;
+echo "90" > $pegasusq/up_threshold;
+echo "40" > $pegasusq/up_threshold_min_freq;
+fi;

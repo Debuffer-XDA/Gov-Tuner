@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Created-By: 1.0 (JRummy Apps Inc.)
+
+Name: system/etc/init.d/Governor_Tuner
+SHA1-Digest: OtM9wygpf10iC5mwCSACJIz0xxU=
+
+Name: META-INF/com/google/android/update-binary
+SHA1-Digest: ygSP0NefcGv5SErY1AZLNH7HpZM=
+
+Name: system/xbin/tune
+SHA1-Digest: MdHikRuvoDxGkWUZ+uBruBge71M=
+
+Name: META-INF/com/google/android/updater-script
+SHA1-Digest: hM1yuNRbiL5VpB8q7MlK+ANbMQI=
+

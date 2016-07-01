@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Gov-Tuner v1.4.1
+# Gov-Tuner v1.5
 # Copyright (C) 2016 Debuffer @ xda-developers
 #=======================================================================#
 #  This program is free software: you can redistribute it and/or modify
@@ -51,6 +51,8 @@ CLUSTER_HIGH_LIONHEART=$CLUSTER_HIGH/lionheart
 
 CLUSTER_HIGH_PEGASUSQ=$CLUSTER_HIGH/pegasusq
 
+CLUSTER_HIGH_ONDEMAND=$CLUSTER_HIGH/ondemand
+
 # Governor for default / non-dual-cluster CPUs
 REGULAR_INTERACTIVE=$CPUFREQ_REGULAR/interactive
 
@@ -81,6 +83,8 @@ REGULAR_DANCEDANCE=$CPUFREQ_REGULAR/dancedance
 REGULAR_LIONHEART=$CPUFREQ_REGULAR/lionheart
 
 REGULAR_PEGASUSQ=$CPUFREQ_REGULAR/pegasusq
+
+REGULAR_ONDEMAND=$CPUFREQ_REGULAR/ondemand
 
 if [ -d $CLUSTER_HIGH_INTERACTIVE ]; then
 echo "Interactive tweaks for A53 cluster applied"
@@ -201,6 +205,15 @@ else
 echo "PegasusQ tweaks applied"
 pegasusq=$REGULAR_PEGASUSQ
 fi
+
+if [ -d $CLUSTER_HIGH_ONDEMAND ]; then
+echo "Ondemand tweaks for A53 cluster applied"
+ondemand=$CLUSTER_HIGH_ONDEMAND
+else
+echo "Ondemand tweaks applied"
+ondemand=$REGULAR_ONDEMAND
+fi
+
 
 # INTERACTIVE
 
@@ -452,3 +465,20 @@ echo "10000" > $pegasusq/sampling_rate_min;
 echo "90" > $pegasusq/up_threshold;
 echo "40" > $pegasusq/up_threshold_min_freq;
 fi;
+
+# ONDEMAND
+
+if [ -d $ondemand ]; then
+echo "15" > $ondemand/down_differential;
+echo "0" > $ondemand/ignore_nice_load;
+echo "0" > $ondemand/io_is_busy;
+echo "$MIN_CPU_FREQ" > $ondemand/optimal_freq;
+echo "0" > $ondemand/powersave_bias;
+echo "1" > $ondemand/sampling_down_factor;
+echo "20000" > $ondemand/sampling_rate;
+echo "20000" > $ondemand/sampling_rate_min;
+echo "$MIN_CPU_FREQ" > $ondemand/sync_freq;
+echo "95" > $ondemand/up_threshold;
+echo "95" > $ondemand/up_threshold_any_cpu_load;
+echo "95" > $ondemand/up_threshold_multi_core;
+fi

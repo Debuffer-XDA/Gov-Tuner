@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Gov-Tuner v1.5
+# Gov-Tuner v1.5.1
 # Copyright (C) 2016 Debuffer @ xda-developers
 #=======================================================================#
 #  This program is free software: you can redistribute it and/or modify
@@ -53,6 +53,8 @@ CLUSTER_HIGH_PEGASUSQ=$CLUSTER_HIGH/pegasusq
 
 CLUSTER_HIGH_ONDEMAND=$CLUSTER_HIGH/ondemand
 
+CLUSTER_HIGH_SMARTMAX=$CLUSTER_HIGH/smartmax
+
 # Governor for default / non-dual-cluster CPUs
 REGULAR_INTERACTIVE=$CPUFREQ_REGULAR/interactive
 
@@ -85,6 +87,9 @@ REGULAR_LIONHEART=$CPUFREQ_REGULAR/lionheart
 REGULAR_PEGASUSQ=$CPUFREQ_REGULAR/pegasusq
 
 REGULAR_ONDEMAND=$CPUFREQ_REGULAR/ondemand
+
+REGULAR_SMARTMAX=$CPUFREQ_REGULAR/smartmax
+
 
 if [ -d $CLUSTER_HIGH_INTERACTIVE ]; then
 echo "Interactive tweaks for A53 cluster applied"
@@ -214,6 +219,13 @@ echo "Ondemand tweaks applied"
 ondemand=$REGULAR_ONDEMAND
 fi
 
+if [ -d $CLUSTER_HIGH_SMARTMAX ]; then
+echo "Smartmax tweaks for A53 cluster applied"
+smartmax=$CLUSTER_HIGH_SMARTMAX
+else
+echo "Smartmax tweaks applied"
+smartmax=$REGULAR_SMARTMAX
+fi
 
 # INTERACTIVE
 
@@ -481,4 +493,25 @@ echo "$MIN_CPU_FREQ" > $ondemand/sync_freq;
 echo "95" > $ondemand/up_threshold;
 echo "95" > $ondemand/up_threshold_any_cpu_load;
 echo "95" > $ondemand/up_threshold_multi_core;
+fi
+
+if [ -d $smartmax ]; then
+echo "$MIN_CPU_FREQ" > $smartmax/awake_ideal_freq;
+echo "0" > $smartmax/boost_duration;
+echo "$MIN_CPU_FREQ" > $smartmax/boost_freq;
+echo "32" > $smartmax/debug_mask;
+echo "10000" > $smartmax/down_rate;
+echo "0" > $smartmax/ignore_nice;
+echo "0" > $smartmax/input_boost_duration;
+echo "0" > $smartmax/io_is_busy;
+echo "100" > $smartmax/max_cpu_load;
+echo "5" > $smartmax/min_cpu_load;
+echo "20000" > $smartmax/min_sampling_rate;
+echo "162000" > $smartmax/ramp_down_step;
+echo "0" > $smartmax/ramp_up_during_boost;
+echo "100000" > $smartmax/ramp_up_step;
+echo "20000" > $smartmax/sampling_rate;
+echo "$MIN_CPU_FREQ" > $smartmax/suspend_ideal_freq;
+echo "0" > $smartmax/touch_poke_freq;
+echo "0" > $smartmax/up_rate;
 fi

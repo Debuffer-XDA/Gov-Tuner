@@ -55,6 +55,8 @@ CLUSTER_HIGH_ONDEMAND=$CLUSTER_HIGH/ondemand
 
 CLUSTER_HIGH_SMARTMAX=$CLUSTER_HIGH/smartmax
 
+CLUSTER_HIGH_OPTIMAX=$CLUSTER_HIGH/optimax
+
 # Governor for default / non-dual-cluster CPUs
 REGULAR_INTERACTIVE=$CPUFREQ_REGULAR/interactive
 
@@ -89,6 +91,8 @@ REGULAR_PEGASUSQ=$CPUFREQ_REGULAR/pegasusq
 REGULAR_ONDEMAND=$CPUFREQ_REGULAR/ondemand
 
 REGULAR_SMARTMAX=$CPUFREQ_REGULAR/smartmax
+
+REGULAR_OPTIMAX=$CPUFREQ_REGULAR/optimax
 
 
 if [ -d $CLUSTER_HIGH_INTERACTIVE ]; then
@@ -225,6 +229,14 @@ smartmax=$CLUSTER_HIGH_SMARTMAX
 else
 echo "Smartmax tweaks applied"
 smartmax=$REGULAR_SMARTMAX
+fi
+
+if [ -d $CLUSTER_HIGH_OPTIMAX ]; then
+echo "Optimax tweaks for A53 cluster applied"
+optimax=$CLUSTER_HIGH_OPTIMAX
+else
+echo "Optimaxtweaks applied"
+optimax=$REGULAR_OPTIMAX
 fi
 
 # INTERACTIVE
@@ -518,3 +530,17 @@ echo "0" > $smartmax/touch_poke_freq;
 echo "0" > $smartmax/up_rate;
 fi
 
+# OPTIMAX
+
+if [ -d $optimax ]; then
+echo "$MIN_CPU_FREQ" > $optimax/optimal_freq;
+echo "0" > $optimax/optimal_max_freq;
+echo "0" > $optimax/powersave_bias;
+echo "1" > $optimax/sampling_down_factor;
+echo "20000" > $optimax/sampling_rate;
+echo "20000" > $optimax/sampling_rate_min;
+echo "$MIN_CPU_FREQ" > $optimax/sync_freq;
+echo "95" > $optimax/up_threshold;
+echo "95" > $optimax/up_threshold_any_cpu_load;
+echo "95" > $optimax/up_threshold_multi_core;
+fi

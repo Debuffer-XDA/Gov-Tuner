@@ -59,6 +59,8 @@ CLUSTER_HIGH_OPTIMAX=$CLUSTER_HIGH/optimax
 
 CLUSTER_HIGH_CONSERVATIVEX=$CLUSTER_HIGH/conservativex
 
+CLUSTER_HIGH_INTERACTIVE_PRO=$CLUSTER_HIGH/interactive_pro
+
 # Governor for default / non-dual-cluster CPUs
 
 REGULAR_INTERACTIVE=$CPUFREQ_REGULAR/interactive
@@ -98,6 +100,8 @@ REGULAR_SMARTMAX=$CPUFREQ_REGULAR/smartmax
 REGULAR_OPTIMAX=$CPUFREQ_REGULAR/optimax
 
 REGULAR_CONSERVATIVEX=$CPUFREQ_REGULAR/conservativex
+
+REGULAR_INTERACTIVE_PRO=$CPUFREQ_REGULAR/interactive_pro
 
 if [ -d $CLUSTER_HIGH_INTERACTIVE ]; then
 echo "Interactive tweaks for A53 cluster applied"
@@ -249,6 +253,14 @@ conservativex=$CLUSTER_HIGH_CONSERVATIVEX
 else
 echo "Conservativex tweaks applied"
 conservativex=$REGULAR_CONSERVATIVEX
+fi
+
+if [ -d $CLUSTER_HIGH_INTERACTIVE_PRO ]; then
+echo "Interactive_pro tweaks for A53 cluster applied"
+interactive_pro=$CLUSTER_HIGH_INTERACTIVE_PRO
+else
+echo "Interactive_pro tweaks applied"
+interactive_pro=$REGULAR_INTERACTIVE_PRO
 fi
 
 # INTERACTIVE
@@ -567,4 +579,24 @@ echo "1" > $conservativex/sampling_down_factor;
 echo "50000" > $conservativex/sampling_rate;
 echo "10000" > $conservativex/sampling_rate_min;
 echo "99" > $conservativex/up_threshold;
+fi
+
+# INTERACTIVE_PRO
+
+if [ -d $interactive_pro ]; then
+echo "20000 1200000:30000 1800000:50000" > $interactive_pro/above_hispeed_delay;
+echo "0" > $interactive_pro/boost;
+echo "0" > $interactive_pro/boostpulse_duration;
+echo "$MIN_CPU_FREQ" > $interactive_pro/freq_calc_thresh
+echo "90" > $interactive_pro/go_hispeed_load;
+echo "$MIN_CPU_FREQ" > $interactive_pro/hispeed_freq;
+echo "0" > $interactive_pro/io_is_busy;
+echo "40000" > $interactive_pro/min_sample_time;
+echo "1" > $interactive_pro/sampling_down_factor;
+echo "$MIN_CPU_FREQ" > $interactive_pro/sync_freq
+echo "1 268800:20 350000:20 500000:20 750000:40 1000000:60 1190400:90 1497600:90 1728000:90 1958400:90" > $interactive_pro/target_loads;
+echo "80000" > $interactive_pro/timer_rate;
+echo "-1" > $interactive_pro/timer_slack;
+echo "0" > $interactive_pro/up_threshold_any_cpu_freq;
+echo "0" > $interactive_pro/up_threshold_any_cpu_load;
 fi

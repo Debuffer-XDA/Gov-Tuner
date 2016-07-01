@@ -22,6 +22,7 @@ set_progress(0.400000);
 set_progress(0.500000);
 set_progress(0.700000);
 
+# Unmounting filesystems...
 run_program("/sbin/busybox", "umount", "/system");
 set_progress(0.900000);
 

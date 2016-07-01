@@ -12,6 +12,14 @@
 #  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #=======================================================================#
 
+# Upgrade tool, this removes Governor_profiles in case it exists
+# We need to remove it since it directly conflicts with the new version (since the name differs)
+if [ -f /system/etc/init.d/Governor_profiles ]; then
+mount -o remount, rw /system
+rm /system/etc/init.d/Governor_profiles
+mount -o remount, ro /system
+fi
+
 MIN_CPU_FREQ=$(cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq);
 
 # Low-power clusters

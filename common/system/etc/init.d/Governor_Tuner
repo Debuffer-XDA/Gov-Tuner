@@ -188,7 +188,7 @@ fi;
 
 # ELECTROACTIVE 
 
-if [ $CUR_GOVERNOR = "$GOVERNOR" ]; then
+if [ $CUR_GOVERNOR = "electroactive" ]; then
 echo "0" > $GOVERNOR/boostfreq;
 echo "0" > $GOVERNOR/boostpulse;
 echo "15" > $GOVERNOR/down_differential;

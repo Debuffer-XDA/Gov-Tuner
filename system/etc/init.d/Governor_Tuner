@@ -276,10 +276,10 @@ interactive_pro=$REGULAR_INTERACTIVE_PRO
 fi
 
 if [ -d $CLUSTER_HIGH_ZZMOOVE ]; then
-echo "zzmoove tweaks for A53 cluster applied"
+echo "Zzmoove tweaks for A53 cluster applied"
 zzmoove=$CLUSTER_HIGH_zzmoove
 else
-echo "zzmoove tweaks applied"
+echo "Zzmoove tweaks applied"
 zzmoove=$REGULAR_ZZMOOVE
 fi
 
@@ -701,7 +701,7 @@ echo "95" > $zzmoove/scaling_fastdown_down_threshold;
 echo "1800000" > $zzmoove/scaling_fastdown_freq;
 echo "99" > $zzmoove/scaling_fastdown_up_threshold;
 echo "1" > $zzmoove/scaling_proportional;
-echo "700000" > $zzmoove/scaling_resposiveness_freq;
+echo "700000" > $zzmoove/scaling_responsiveness_freq;
 echo "25" > $zzmoove/scaling_responsiveness_up_threshold;
 echo "0" > $zzmoove/scaling_up_block_cycles;
 echo "0" > $zzmoove/scaling_up_block_freq;

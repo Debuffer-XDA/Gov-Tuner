@@ -40,6 +40,8 @@ fi
 
 GOVERNOR=$CLUSTER/$CUR_GOVERNOR
 
+# GOVERNOR TWEAKS #
+
 # INTERACTIVE
 
 if [ $CUR_GOVERNOR = "interactive" ]; then
@@ -57,6 +59,7 @@ echo "80000" > $GOVERNOR/timer_rate;
 echo "-1" > $GOVERNOR/timer_slack;
 echo "0" > $GOVERNOR/up_threshold_any_cpu_freq;
 echo "0" > $GOVERNOR/up_threshold_any_cpu_load;
+echo "Interactive tweaks applied"
 exit
 fi
 
@@ -70,6 +73,7 @@ echo "1" > $GOVERNOR/sampling_down_factor;
 echo "50000" > $GOVERNOR/sampling_rate;
 echo "10000" > $GOVERNOR/sampling_rate_min;
 echo "99" > $GOVERNOR/up_threshold;
+echo "Conservative tweaks applied"
 exit
 fi
 
@@ -90,6 +94,7 @@ echo "80000" > $GOVERNOR/timer_rate;
 echo "-1" > $GOVERNOR/timer_slack;
 echo "0" > $GOVERNOR/up_threshold_any_cpu_freq;
 echo "0" > $GOVERNOR/up_threshold_any_cpu_load;
+echo "Yankactive tweaks applied"
 exit
 fi
 
@@ -113,6 +118,7 @@ echo "-1" > $GOVERNOR/timer_slack;
 echo "$MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ" > $GOVERNOR/two_phase_freq;
 echo "0" > $GOVERNOR/up_threshold_any_cpu_freq;
 echo "0" > $GOVERNOR/up_threshold_any_cpu_load;
+echo "Intelliactive tweaks applied"
 exit
 fi
 
@@ -126,6 +132,7 @@ echo "1" > $GOVERNOR/sampling_down_factor;
 echo "50000" > $GOVERNOR/sampling_rate;
 echo "10000" > $GOVERNOR/sampling_rate_min;
 echo "99" > $GOVERNOR/up_threshold;
+echo "Bioshock tweaks applied"
 exit
 fi
 
@@ -141,6 +148,7 @@ echo "1" > $GOVERNOR/sampling_down_factor;
 echo "50000" > $GOVERNOR/sampling_rate;
 echo "10000" > $GOVERNOR/sampling_rate_min;
 echo "99" > $GOVERNOR/up_threshold;
+echo "Lionfish tweaks applied"
 exit
 fi
 
@@ -158,6 +166,7 @@ echo "1 268800:20 350000:20 500000:20 750000:40 1000000:60 1190400:90 1497600:90
 echo "$MIN_CPU_FREQ" > $GOVERNOR/max_freq_hysteresis;
 echo "0" > $GOVERNOR/align_windows;
 echo "0" > $GOVERNOR/powersave_bias;
+echo "Impulse tweaks applied"
 exit
 fi;
 
@@ -173,6 +182,8 @@ echo "50000" > $GOVERNOR/sampling_rate;
 echo "10000" > $GOVERNOR/sampling_rate_min;
 echo "$MIN_CPU_FREQ" > $GOVERNOR/second_phase_freq;
 echo "95" > $GOVERNOR/up_threshold;
+echo "Uberdemand tweaks applied"
+exit
 fi;
 
 # ELECTROACTIVE 
@@ -192,6 +203,7 @@ echo "50000" > $GOVERNOR/sampling_rate;
 echo "10000" > $GOVERNOR/sampling_rate_min;
 echo "90" > $GOVERNOR/up_threshold;
 echo "40" > $GOVERNOR/up_threshold_min_freq;
+echo "Electroactive tweaks applied"
 exit
 fi;
 
@@ -216,6 +228,7 @@ echo "95" > $GOVERNOR/up_threshold;
 echo "0" > $GOVERNOR/up_threshold_any_cpu_load;
 echo "0" > $GOVERNOR/up_threshold_any_cpu_freq;
 echo "0" > $GOVERNOR/up_threshold_multi_core;
+echo "InteliMM tweaks applied"
 exit
 fi;
 
@@ -239,6 +252,7 @@ echo "-1" > $GOVERNOR/timer_slack;
 echo "$MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ" > $GOVERNOR/two_phase_freq;
 echo "0" > $GOVERNOR/up_threshold_any_cpu_freq;
 echo "0" > $GOVERNOR/up_threshold_any_cpu_load;
+echo "Barry_allen tweaks applied"
 exit
 fi
 
@@ -261,6 +275,7 @@ echo "-1" > $GOVERNOR/timer_slack;
 echo "$MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ" > $GOVERNOR/two_phase_freq;
 echo "0" > $GOVERNOR/up_threshold_any_cpu_freq;
 echo "0" > $GOVERNOR/up_threshold_any_cpu_load;
+echo "Bluactive tweaks applied"
 exit
 fi
 
@@ -274,6 +289,7 @@ echo "1" > $GOVERNOR/sampling_down_factor;
 echo "50000" > $GOVERNOR/sampling_rate;
 echo "10000" > $GOVERNOR/sampling_rate_min;
 echo "99" > $GOVERNOR/up_threshold;
+echo "Dancedance tweaks applied"
 exit
 fi
 
@@ -287,6 +303,7 @@ echo "1" > $GOVERNOR/sampling_down_factor;
 echo "50000" > $GOVERNOR/sampling_rate;
 echo "10000" > $GOVERNOR/sampling_rate_min;
 echo "99" > $GOVERNOR/up_threshold;
+echo "Lionheart tweaks applied"
 exit
 fi
 
@@ -303,6 +320,7 @@ echo "50000" > $GOVERNOR/sampling_rate;
 echo "10000" > $GOVERNOR/sampling_rate_min;
 echo "90" > $GOVERNOR/up_threshold;
 echo "40" > $GOVERNOR/up_threshold_min_freq;
+echo "PegasusQ tweaks applied"
 exit
 fi;
 
@@ -321,6 +339,7 @@ echo "$MIN_CPU_FREQ" > $GOVERNOR/sync_freq;
 echo "95" > $GOVERNOR/up_threshold;
 echo "95" > $GOVERNOR/up_threshold_any_cpu_load;
 echo "95" > $GOVERNOR/up_threshold_multi_core;
+echo "Ondemand tweaks applied"
 exit
 fi
 
@@ -345,6 +364,7 @@ echo "20000" > $GOVERNOR/sampling_rate;
 echo "$MIN_CPU_FREQ" > $GOVERNOR/suspend_ideal_freq;
 echo "0" > $GOVERNOR/touch_poke_freq;
 echo "0" > $GOVERNOR/up_rate;
+echo "Smartmax tweaks applied"
 exit
 fi
 
@@ -361,6 +381,7 @@ echo "$MIN_CPU_FREQ" > $GOVERNOR/sync_freq;
 echo "95" > $GOVERNOR/up_threshold;
 echo "95" > $GOVERNOR/up_threshold_any_cpu_load;
 echo "95" > $GOVERNOR/up_threshold_multi_core;
+echo "Optimax tweaks applied"
 exit
 fi
 
@@ -374,6 +395,7 @@ echo "1" > $GOVERNOR/sampling_down_factor;
 echo "50000" > $GOVERNOR/sampling_rate;
 echo "10000" > $GOVERNOR/sampling_rate_min;
 echo "99" > $GOVERNOR/up_threshold;
+echo "ConservativeX tweaks applied"
 exit
 fi
 
@@ -395,6 +417,7 @@ echo "80000" > $GOVERNOR/timer_rate;
 echo "-1" > $GOVERNOR/timer_slack;
 echo "0" > $GOVERNOR/up_threshold_any_cpu_freq;
 echo "0" > $GOVERNOR/up_threshold_any_cpu_load;
+echo "Interactive_pro tweaks applied"
 exit
 fi
 

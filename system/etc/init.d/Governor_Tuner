@@ -24,16 +24,18 @@ MIN_CPU_FREQ=$(cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq);
 
 CUR_GOVERNOR=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor);
 
+CLUSTER_DETECT=/sys/devices/system/cpu/cpufreq/$CUR_GOVERNOR
+
 # Low-power clusters
-CLUSTER_HIGH="/sys/devices/system/cpu/cpu0/cpufreq"
+CPUFREQ_CLUSTER="/sys/devices/system/cpu/cpu0/cpufreq"
 
 # Regular CPUFreq directory
 CPUFREQ_REGULAR="/sys/devices/system/cpu/cpufreq"
 
-if [ -d $CLUSTER_HIGH ]; then
-CLUSTER=$CLUSTER_HIGH
-else
+if [ -d $CLUSTER_DETECT ]; then
 CLUSTER=$CPUFREQ_REGULAR
+else
+CLUSTER=$CPUFREQ_CLUSTER
 fi
 
 GOVERNOR=$CLUSTER/$CUR_GOVERNOR

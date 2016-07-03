@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Gov-Tuner v1.5.3
+# Gov-Tuner v1.5.4
 # Copyright (C) 2016 Debuffer @ xda-developers
 #=======================================================================#
 #  This program is free software: you can redistribute it and/or modify
@@ -420,6 +420,92 @@ echo "0" > $GOVERNOR/up_threshold_any_cpu_load;
 echo "Interactive_pro tweaks applied"
 exit
 fi
+
+# WHEATLEY
+
+if [ $CUR_GOVERNOR = "wheatley" ]; then
+echo "5" > $GOVERNOR/allowed_misses;
+echo "0" > $GOVERNOR/ignore_nice_load;
+echo "0" > $GOVERNOR/io_is_busy;
+echo "0" > $GOVERNOR/powersave_bias;
+echo "1" > $GOVERNOR/sampling_down_factor;
+echo "20000" > $GOVERNOR/sampling_rate;
+echo "20000" > $GOVERNOR/sampling_rate_min;
+echo "10000" > $GOVERNOR/target_residency;
+echo "95" > $GOVERNOR/up_threshold;
+echo "Wheatley tweaks applied"
+exit
+fi
+
+# ONDEMAND PLUS
+
+if [ $CUR_GOVERNOR = "ondemandplus" ]; then
+echo "20" > $GOVERNOR/down_differential;
+echo "1500000" > $GOVERNOR/inter_hifreq;
+echo "$MIN_CPU_FREQ" > $GOVERNOR/inter_lofreq;
+echo "2" > $GOVERNOR/inter_staycycles;
+echo "0" > $GOVERNOR/io_is_busy;
+echo "$MIN_CPU_FREQ" > $GOVERNOR/staycycles_resetfreq;
+echo "80000" > $GOVERNOR/timer_rate;
+echo "95" > $GOVERNOR/up_threshold;
+echo "OndemandPlus tweaks applied"
+exit
+fi
+
+# SMARTMAX EPS
+
+if [ $CUR_GOVERNOR = "smartmax_eps" ]; then
+echo "0" > $GOVERNOR/io_is_busy;
+echo "100" > $GOVERNOR/max_cpu_load;
+echo "20" > $GOVERNOR/min_cpu_load;
+echo "20000" > $GOVERNOR/min_sampling_rate;
+echo "700000" > $GOVERNOR/ramp_down_step;
+echo "0" > $GOVERNOR/ramp_up_during_boost;
+echo "0" > $GOVERNOR/ramp_up_step;
+echo "600000" > $GOVERNOR/awake_ideal_freq;
+echo "0" > $GOVERNOR/boost_duration;
+echo "0" > $GOVERNOR/boost_freq;
+echo "0" > $GOVERNOR/debug_mask;
+echo "30000" > $GOVERNOR/down_rate;
+echo "0" > $GOVERNOR/ignore_nice;
+echo "0" > $GOVERNOR/input_boost_duration;
+echo "Smartmax_eps tweaks applied"
+exit
+fi
+
+# INTELLIDEMAND
+
+if [ $CUR_GOVERNOR = "intellidemand" ]; then
+echo "$MIN_CPU_FREQ" > $GOVERNOR/optimal_freq;
+echo "0" > $GOVERNOR/powersave_bias;
+echo "1" > $GOVERNOR/sampling_down_factor;
+echo "2" > $GOVERNOR/sampling_easy_factor;
+echo "3" > $GOVERNOR/sampling_interim_factor;
+echo "20000" > $GOVERNOR/sampling_rate;
+echo "20000" > $GOVERNOR/sampling_rate_min;
+echo "$MIN_CPU_FREQ" > $GOVERNOR/sync_freq;
+echo "$MIN_CPU_FREQ,$MIN_CPU_FREQ,$MIN_CPU_FREQ,$MIN_CPU_FREQ" > $GOVERNOR/two_phase_freq;
+echo "40000" > $GOVERNOR/ui_sampling_rate;
+echo "40" > $GOVERNOR/ui_timeout;
+echo "95" > $GOVERNOR/up_threshold;
+echo "0" > $GOVERNOR/up_threshold_any_cpu_load;
+echo "0" > $GOVERNOR/up_threshold_multi_core;
+echo "Intellidemand tweaks applied"
+exit
+fi
+
+# TRIPNDROID
+
+if [ $CUR_GOVERNOR = "tripndroid" ]; then
+echo "10000" > $GOVERNOR/down_sample_time;
+echo "90" > $GOVERNOR/go_hispeed_load;
+echo "$MIN_CPU_FREQ" > $GOVERNOR/hispeed_freq;
+echo "80000" > $GOVERNOR/timer_rate;
+echo "20000" > $GOVERNOR/up_sample_time;
+echo "Tripndroid tweaks applied"
+exit
+fi
+
 
 # No compatible governor is detected
 # Put other governor above this, don't let this be sandwiched by other governor

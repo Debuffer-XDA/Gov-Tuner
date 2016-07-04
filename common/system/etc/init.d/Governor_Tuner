@@ -170,7 +170,6 @@ if [ $CUR_GOVERNOR = "impulse" ]; then
 	echo "Impulse tweaks applied"
 	exit
 fi
-fi
 
 # UBERDEMAND 
 
@@ -324,7 +323,7 @@ if [ $CUR_GOVERNOR = "pegasusq" ]; then
 	echo "600000" > "$GOVERNOR/up_threshold_min_freq";
 	echo "PegasusQ tweaks applied"
 	exit
-fi;
+fi
 
 # ONDEMAND
 

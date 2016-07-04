@@ -59,7 +59,7 @@ echo "1 268800:90 350000:90 500000:30 750000:45 1000000:55 1190400:90 1497600:90
 echo "80000" > $GOVERNOR/timer_rate;
 echo "-1" > $GOVERNOR/timer_slack;
 echo "0" > $GOVERNOR/up_threshold_any_cpu_freq;
-echo "0" > $GOVERNOR/up_threshold_any_cpu_load;
+echo "150" > $GOVERNOR/up_threshold_any_cpu_load;
 echo "Interactive tweaks applied"
 exit
 fi
@@ -94,7 +94,7 @@ echo "1 268800:90 350000:90 500000:30 750000:45 1000000:55 1190400:90 1497600:90
 echo "80000" > $GOVERNOR/timer_rate;
 echo "-1" > $GOVERNOR/timer_slack;
 echo "0" > $GOVERNOR/up_threshold_any_cpu_freq;
-echo "0" > $GOVERNOR/up_threshold_any_cpu_load;
+echo "150" > $GOVERNOR/up_threshold_any_cpu_load;
 echo "Yankactive tweaks applied"
 exit
 fi
@@ -118,7 +118,7 @@ echo "80000" > $GOVERNOR/timer_rate;
 echo "-1" > $GOVERNOR/timer_slack;
 echo "$MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ" > $GOVERNOR/two_phase_freq;
 echo "0" > $GOVERNOR/up_threshold_any_cpu_freq;
-echo "0" > $GOVERNOR/up_threshold_any_cpu_load;
+echo "150" > $GOVERNOR/up_threshold_any_cpu_load;
 echo "Intelliactive tweaks applied"
 exit
 fi
@@ -203,7 +203,7 @@ echo "1" > $GOVERNOR/sampling_down_factor;
 echo "50000" > $GOVERNOR/sampling_rate;
 echo "10000" > $GOVERNOR/sampling_rate_min;
 echo "90" > $GOVERNOR/up_threshold;
-echo "40" > $GOVERNOR/up_threshold_min_freq;
+echo "600000" > $GOVERNOR/up_threshold_min_freq;
 echo "Electroactive tweaks applied"
 exit
 fi
@@ -226,7 +226,7 @@ echo "10000" > $GOVERNOR/sampling_rate_min;
 echo "0" > $GOVERNOR/shortcut;
 echo "$MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ" > $GOVERNOR/two_phase_freq;
 echo "95" > $GOVERNOR/up_threshold;
-echo "0" > $GOVERNOR/up_threshold_any_cpu_load;
+echo "150" > $GOVERNOR/up_threshold_any_cpu_load;
 echo "0" > $GOVERNOR/up_threshold_any_cpu_freq;
 echo "0" > $GOVERNOR/up_threshold_multi_core;
 echo "InteliMM tweaks applied"
@@ -252,7 +252,7 @@ echo "80000" > $GOVERNOR/timer_rate;
 echo "-1" > $GOVERNOR/timer_slack;
 echo "$MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ" > $GOVERNOR/two_phase_freq;
 echo "0" > $GOVERNOR/up_threshold_any_cpu_freq;
-echo "0" > $GOVERNOR/up_threshold_any_cpu_load;
+echo "150" > $GOVERNOR/up_threshold_any_cpu_load;
 echo "Barry_allen tweaks applied"
 exit
 fi
@@ -275,7 +275,7 @@ echo "80000" > $GOVERNOR/timer_rate;
 echo "-1" > $GOVERNOR/timer_slack;
 echo "$MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ" > $GOVERNOR/two_phase_freq;
 echo "0" > $GOVERNOR/up_threshold_any_cpu_freq;
-echo "0" > $GOVERNOR/up_threshold_any_cpu_load;
+echo "150" > $GOVERNOR/up_threshold_any_cpu_load;
 echo "Bluactive tweaks applied"
 exit
 fi
@@ -319,8 +319,8 @@ echo "0" > $GOVERNOR/io_is_busy;
 echo "1" > $GOVERNOR/sampling_down_factor;
 echo "50000" > $GOVERNOR/sampling_rate;
 echo "10000" > $GOVERNOR/sampling_rate_min;
-echo "90" > $GOVERNOR/up_threshold;
-echo "40" > $GOVERNOR/up_threshold_min_freq;
+echo "95" > $GOVERNOR/up_threshold;
+echo "600000" > $GOVERNOR/up_threshold_min_freq;
 echo "PegasusQ tweaks applied"
 exit
 fi;
@@ -338,8 +338,8 @@ echo "20000" > $GOVERNOR/sampling_rate;
 echo "20000" > $GOVERNOR/sampling_rate_min;
 echo "$MIN_CPU_FREQ" > $GOVERNOR/sync_freq;
 echo "95" > $GOVERNOR/up_threshold;
-echo "95" > $GOVERNOR/up_threshold_any_cpu_load;
-echo "95" > $GOVERNOR/up_threshold_multi_core;
+echo "150" > $GOVERNOR/up_threshold_any_cpu_load;
+echo "0" > $GOVERNOR/up_threshold_multi_core;
 echo "Ondemand tweaks applied"
 exit
 fi
@@ -380,8 +380,8 @@ echo "20000" > $GOVERNOR/sampling_rate;
 echo "20000" > $GOVERNOR/sampling_rate_min;
 echo "$MIN_CPU_FREQ" > $GOVERNOR/sync_freq;
 echo "95" > $GOVERNOR/up_threshold;
-echo "95" > $GOVERNOR/up_threshold_any_cpu_load;
-echo "95" > $GOVERNOR/up_threshold_multi_core;
+echo "150" > $GOVERNOR/up_threshold_any_cpu_load;
+echo "0" > $GOVERNOR/up_threshold_multi_core;
 echo "Optimax tweaks applied"
 exit
 fi
@@ -417,7 +417,7 @@ echo "1 268800:90 350000:90 500000:30 750000:45 1000000:55 1190400:90 1497600:90
 echo "80000" > $GOVERNOR/timer_rate;
 echo "-1" > $GOVERNOR/timer_slack;
 echo "0" > $GOVERNOR/up_threshold_any_cpu_freq;
-echo "0" > $GOVERNOR/up_threshold_any_cpu_load;
+echo "150" > $GOVERNOR/up_threshold_any_cpu_load;
 echo "Interactive_pro tweaks applied"
 exit
 fi
@@ -489,7 +489,7 @@ echo "$MIN_CPU_FREQ,$MIN_CPU_FREQ,$MIN_CPU_FREQ,$MIN_CPU_FREQ" > $GOVERNOR/two_p
 echo "40000" > $GOVERNOR/ui_sampling_rate;
 echo "40" > $GOVERNOR/ui_timeout;
 echo "95" > $GOVERNOR/up_threshold;
-echo "0" > $GOVERNOR/up_threshold_any_cpu_load;
+echo "150" > $GOVERNOR/up_threshold_any_cpu_load;
 echo "0" > $GOVERNOR/up_threshold_multi_core;
 echo "Intellidemand tweaks applied"
 exit

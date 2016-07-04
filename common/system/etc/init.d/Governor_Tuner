@@ -21,10 +21,13 @@ if [ -f /system/etc/init.d/Governor_profiles ]; then
 	mount -o remount, ro /system
 fi
 
+# Minimum CPU frequency
 MIN_CPU_FREQ=$(cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq);
 
+# Currently used governor
 CUR_GOVERNOR=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor);
 
+# Detects whether user uses a dual-cluster CPU (SD810, SD820, etc) or not
 CLUSTER_DETECT="/sys/devices/system/cpu/cpu0/cpufreq/$CUR_GOVERNOR"
 
 # Dual cluster, selects only first two or four cores
@@ -39,6 +42,7 @@ if [ -d "$CLUSTER_DETECT" ]; then
 	CLUSTER=$CPUFREQ_REGULAR
 fi
 
+# Set the finalized governor path
 GOVERNOR=$CLUSTER/$CUR_GOVERNOR
 
 # GOVERNOR TWEAKS #

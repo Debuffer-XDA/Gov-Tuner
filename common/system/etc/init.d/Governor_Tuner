@@ -509,4 +509,4 @@ fi
 
 # No compatible governor is detected
 # Put other governor above this, don't let this be sandwiched by other governor
-echo "$CUR_GOVERNOR governor is not support (yet). You can request this governor addition in the official XDA thread."
+echo "$CUR_GOVERNOR governor is not supported yet. You can request the support for this governor in the official XDA thread."

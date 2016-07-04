@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Gov-Tuner v1.5.4
+# Gov-Tuner STABLE
 # Copyright (C) 2016 Debuffer @ xda-developers
 #=======================================================================#
 #  This program is free software: you can redistribute it and/or modify
@@ -11,8 +11,10 @@
 #  GNU General Public License for more details.
 #  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #=======================================================================#
+
 # Upgrade tool, this removes Governor_profiles in case it exists
 # We need to remove it since it directly conflicts with the new version (since the name differs)
+
 if [ -f /system/etc/init.d/Governor_profiles ]; then
 mount -o remount, rw /system
 rm /system/etc/init.d/Governor_profiles
@@ -53,7 +55,7 @@ echo "$MIN_CPU_FREQ" > $GOVERNOR/hispeed_freq;
 echo "0" > $GOVERNOR/io_is_busy;
 echo "40000" > $GOVERNOR/min_sample_time;
 echo "1" > $GOVERNOR/sampling_down_factor;
-echo "1 268800:20 350000:20 500000:20 750000:40 1000000:60 1190400:90 1497600:90 1728000:90 1958400:90" > $GOVERNOR/target_loads;
+echo "1 268800:90 350000:90 500000:30 750000:45 1000000:55 1190400:90 1497600:90 1728000:90 1958400:90" > $GOVERNOR/target_loads;
 echo "80000" > $GOVERNOR/timer_rate;
 echo "-1" > $GOVERNOR/timer_slack;
 echo "0" > $GOVERNOR/up_threshold_any_cpu_freq;
@@ -88,7 +90,7 @@ echo "$MIN_CPU_FREQ" > $GOVERNOR/hispeed_freq;
 echo "0" > $GOVERNOR/io_is_busy;
 echo "40000" > $GOVERNOR/min_sample_time;
 echo "1" > $GOVERNOR/sampling_down_factor;
-echo "1 268800:20 350000:20 500000:20 750000:40 1000000:60 1190400:90 1497600:90 1728000:90 1958400:90" > $GOVERNOR/target_loads;
+echo "1 268800:90 350000:90 500000:30 750000:45 1000000:55 1190400:90 1497600:90 1728000:90 1958400:90" > $GOVERNOR/target_loads;
 echo "80000" > $GOVERNOR/timer_rate;
 echo "-1" > $GOVERNOR/timer_slack;
 echo "0" > $GOVERNOR/up_threshold_any_cpu_freq;
@@ -161,13 +163,13 @@ echo "0" > $GOVERNOR/io_is_busy;
 echo "40000" > $GOVERNOR/min_sample_time;
 echo "80000" > $GOVERNOR/timer_rate;
 echo "-1" > $GOVERNOR/timer_slack;
-echo "1 268800:20 350000:20 500000:20 750000:40 1000000:60 1190400:90 1497600:90 1728000:90 1958400:90" > $GOVERNOR/target_loads;
+echo "1 268800:90 350000:90 500000:30 750000:45 1000000:55 1190400:90 1497600:90 1728000:90 1958400:90" > $GOVERNOR/target_loads;
 echo "$MIN_CPU_FREQ" > $GOVERNOR/max_freq_hysteresis;
 echo "0" > $GOVERNOR/align_windows;
 echo "0" > $GOVERNOR/powersave_bias;
 echo "Impulse tweaks applied"
 exit
-fi;
+fi
 
 # UBERDEMAND 
 
@@ -183,7 +185,7 @@ echo "$MIN_CPU_FREQ" > $GOVERNOR/second_phase_freq;
 echo "95" > $GOVERNOR/up_threshold;
 echo "Uberdemand tweaks applied"
 exit
-fi;
+fi
 
 # ELECTROACTIVE 
 
@@ -204,7 +206,7 @@ echo "90" > $GOVERNOR/up_threshold;
 echo "40" > $GOVERNOR/up_threshold_min_freq;
 echo "Electroactive tweaks applied"
 exit
-fi;
+fi
 
 # INTELLIMM
 
@@ -229,7 +231,7 @@ echo "0" > $GOVERNOR/up_threshold_any_cpu_freq;
 echo "0" > $GOVERNOR/up_threshold_multi_core;
 echo "InteliMM tweaks applied"
 exit
-fi;
+fi
 
 # BARRY_ALLEN
 
@@ -411,7 +413,7 @@ echo "0" > $GOVERNOR/io_is_busy;
 echo "40000" > $GOVERNOR/min_sample_time;
 echo "1" > $GOVERNOR/sampling_down_factor;
 echo "$MIN_CPU_FREQ" > $GOVERNOR/sync_freq
-echo "1 268800:20 350000:20 500000:20 750000:40 1000000:60 1190400:90 1497600:90 1728000:90 1958400:90" > $GOVERNOR/target_loads;
+echo "1 268800:90 350000:90 500000:30 750000:45 1000000:55 1190400:90 1497600:90 1728000:90 1958400:90" > $GOVERNOR/target_loads;
 echo "80000" > $GOVERNOR/timer_rate;
 echo "-1" > $GOVERNOR/timer_slack;
 echo "0" > $GOVERNOR/up_threshold_any_cpu_freq;
@@ -508,4 +510,4 @@ fi
 
 # No compatible governor is detected
 # Put other governor above this, don't let this be sandwiched by other governor
-echo "No compatible governor is detected"
+echo "$CUR_GOVERNOR governor is not support (yet). You can request this governor addition in the official XDA thread."

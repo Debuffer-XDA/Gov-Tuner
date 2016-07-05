@@ -1,10 +1,9 @@
 #!/sbin/sh
 #
-# Copyright (c) 2015 - Debuffer
-# Gov-tuner universal installer
-# Thanks to @chainfire @Paget96
+# Copyright (c) 2016 - Debuffer
+# Gov-Tuner universal installer
+# Thanks to Chainfire and Paget96 @ XDA-Developers
 # 
-#
 
 OUTFD=$2
 ZIP=$3
@@ -130,7 +129,7 @@ cat /system/bin/toolbox > /system/toolbox
 chmod 0755 /system/toolbox
 ch_con /system/toolbox
 
-ui_print "- Extracting files"
+ui_print "Extracting files..."
 
   cd /tmp
   mkdir gov-tuner
@@ -143,10 +142,8 @@ ui_print "- Extracting files"
 ui_print "Removing old files..."
 rm -rf /system/etc/init.d/Governor_Tuner
 rm -rf /system/xbin/tune
-ui_print "Removing completed"
 
 ui_print "Installing Gov-Tuner..."
-
 cp -rf $COM/system/etc/init.d/Governor_Tuner /system/etc/init.d/Governor_Tuner
 chmod 755 /system/etc/init.d/Governor_Tuner
 chown  0.0 /system/etc/init.d/Governor_Tuner

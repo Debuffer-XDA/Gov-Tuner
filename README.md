@@ -1,6 +1,6 @@
 Gov-Tuner
 ------
-This mod will fine tune your CPU governor for perfect balance between battery life and performance.
+Fine tune your CPU governor for perfect balance between battery life and performance.
 
 Visit [the official thread in XDA](http://forum.xda-developers.com/android/software-hacking/mod-gov-tuner-project-29th-june-2016-t3407828) for support and governor requests!
 
@@ -30,3 +30,4 @@ Visit [the official thread in XDA](http://forum.xda-developers.com/android/softw
 - Smartmax_eps
 - Intellidemand
 - Tripndroid
+- ... And more to come !

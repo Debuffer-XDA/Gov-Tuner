@@ -543,6 +543,106 @@ if [ $CUR_GOVERNOR = "tripndroid" ]; then
 	exit
 fi
 
+# ZZMOOVE 
+
+if [ $CUR_GOVERNOR = "zzmoove" ]; then
+	echo "15" > $GOVERNOR/afs_threshold1;
+	echo "25" > $GOVERNOR/afs_threshold2;
+	echo "40" > $GOVERNOR/afs_threshold3;
+	echo "50" > $GOVERNOR/afs_threshold4;
+	echo "0" > $GOVERNOR/auto_adjust_freq_thresholds;
+	echo "1" > $GOVERNOR/block_down_multiplier_hotplug1;
+	echo "1" > $GOVERNOR/block_down_multiplier_hotplug2;
+	echo "1" > $GOVERNOR/block_down_multiplier_hotplug3;
+	echo "1" > $GOVERNOR/block_up_multiplier_hotplug1;
+	echo "1" > $GOVERNOR/block_up_multiplier_hotplug2;
+	echo "1" > $GOVERNOR/block_up_multiplier_hotplug3;
+	echo "1" > $GOVERNOR/disable_hotplug;
+	echo "1" > $GOVERNOR/disable_hotplug_sleep;
+	echo "50" > $GOVERNOR/down_threshold;
+	echo "20" > $GOVERNOR/down_threshold_hotplug1;
+	echo "40" > $GOVERNOR/down_threshold_hotplug2;
+	echo "70" > $GOVERNOR/down_threshold_hotplug3;
+	echo "0" > $GOVERNOR/down_threshold_hotplug1;
+	echo "0" > $GOVERNOR/down_threshold_hotplug2;
+	echo "0" > $GOVERNOR/down_threshold_hotplug3;
+	echo "60" > $GOVERNOR/down_threshold_sleep;
+	echo "0" > $GOVERNOR/early_demand;
+	echo "0" > $GOVERNOR/early_demand_sleep;
+	echo "4" > $GOVERNOR/fast_scaling_down;
+	echo "4" > $GOVERNOR/fast_scaling_sleep_down;
+	echo "0" > $GOVERNOR/fast_scaling_sleep_up;
+	echo "0" > $GOVERNOR/fast_scaling_up;
+	echo "0" > $GOVERNOR/freq_limit;
+	echo "0" > $GOVERNOR/freq_limit_sleep;
+	echo "50" > $GOVERNOR/grad_up_threshold;
+	echo "75" > $GOVERNOR/grad_up_threshold_sleep;
+	echo "2" > $GOVERNOR/hotplug_block_down_cycles;
+	echo "2" > $GOVERNOR/hotplug_block_up_cycles;
+	echo "$MIN_CPU_FREQ" > $GOVERNOR/hotplug_engage_freq;
+	echo "0" > $GOVERNOR/hotplug_idle_freq;
+	echo "0" > $GOVERNOR/hotplug_idle_threshold;
+	echo "0" > $GOVERNOR/hotplug_lock;
+	echo "0" > $GOVERNOR/hotplug_max_limit;
+	echo "0" > $GOVERNOR/hotplug_min_limit;
+	echo "0" > $GOVERNOR/hotplug_sleep;
+	echo "0" > $GOVERNOR/hotplug_stagger_down;
+	echo "0" > $GOVERNOR/hotplug_stagger_up;
+	echo "0" > $GOVERNOR/ignore_nice_load;
+	echo "0" > $GOVERNOR/inputboost_cycles;
+	echo "20" > $GOVERNOR/inputboost_punch_cycles;
+	echo "1500000" > $GOVERNOR/inputboost_punch_freq;
+	echo "0" > $GOVERNOR/inputboost_punch_on_epenmove;
+	echo "1" > $GOVERNOR/inputboost_punch_on_fingerdown;
+	echo "0" > $GOVERNOR/inputboost_punch_on_fingermove;
+	echo "0" > $GOVERNOR/inputboost_typingbooster_cores;
+	echo "100" > $GOVERNOR/inputboost_typingbooster_up_threshold;
+	echo "100" > $GOVERNOR/inputboost_up_threshold;
+	echo "700000" > $GOVERNOR/music_max_freq;
+	echo "0" > $GOVERNOR/music_min_cores;
+	echo "$MIN_CPU_FREQ" > $GOVERNOR/music_min_freq;
+	echo "1" > $GOVERNOR/music_state;
+	echo "Gov Tuner Profile" > $GOVERNOR/profile;
+	echo "0" > $GOVERNOR/profile_number;
+	echo "1" > $GOVERNOR/profile_stick_mode;
+	echo "1" > $GOVERNOR/sampling_down_factor;
+	echo "0" > $GOVERNOR/sampling_down_max_momentum;
+	echo "50" > $GOVERNOR/sampling_down_momentum_sensitivity;
+	echo "100000" > $GOVERNOR/sampling_rate;
+	echo "100000" > $GOVERNOR/sampling_rate_current;
+	echo "200000" > $GOVERNOR/sampling_rate_idle;
+	echo "5" > $GOVERNOR/sampling_rate_idle_delay;
+	echo "60" > $GOVERNOR/sampling_rate_idle_threshold;
+	echo "100000" > $GOVERNOR/sampling_rate_min;
+	echo "4" > $GOVERNOR/sampling_rate_sleep_multiplier;
+	echo "0" > $GOVERNOR/scaling_block_cycles;
+	echo "2" > $GOVERNOR/scaling_block_force_down;
+	echo "0" > $GOVERNOR/scaling_block_freq;
+	echo "0" > $GOVERNOR/scaling_block_threshold;
+	echo "95" > $GOVERNOR/scaling_fastdown_down_threshold;
+	echo "1800000" > $GOVERNOR/scaling_fastdown_freq;
+	echo "99" > $GOVERNOR/scaling_fastdown_up_threshold;
+	echo "1" > $GOVERNOR/scaling_proportional;
+	echo "700000" > $GOVERNOR/scaling_responsiveness_freq;
+	echo "25" > $GOVERNOR/scaling_responsiveness_up_threshold;
+	echo "0" > $GOVERNOR/scaling_up_block_cycles;
+	echo "0" > $GOVERNOR/scaling_up_block_freq;
+	echo "100" > $GOVERNOR/smooth_up;
+	echo "100" > $GOVERNOR/smooth_up_sleep;
+	echo "75" > $GOVERNOR/up_threshold
+	echo "75" > $GOVERNOR/up_threshold_hotplug1;
+	echo "60" > $GOVERNOR/up_threshold_hotplug2;
+	echo "90" > $GOVERNOR/up_threshold_hotplug3;
+	echo "0" > $GOVERNOR/up_threshold_hotplug_freq1;
+	echo "0" > $GOVERNOR/up_threshold_hotplug_freq2;
+	echo "0" > $GOVERNOR/up_threshold_hotplug_freq3;
+	echo "100" > $GOVERNOR/up_threshold_sleep;
+	echo "Zzmoove tweaks applied"
+	exit
+fi
+
+
+
 # No compatible governor is detected
 # Put other governor above this, don't let this be sandwiched by other governor
 echo "$CUR_GOVERNOR governor is not supported yet. You can request the support for this governor in the official XDA thread."

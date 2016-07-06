@@ -152,7 +152,7 @@ if [ $CUR_GOVERNOR = "intelliactive" ]; then
 	echo "1 268800:20 350000:20 500000:30 750000:45 1000000:55 1190400:80 1497600:90 1728000:90 1958400:90" > "$GOVERNOR/target_loads";
 	echo "40000" > "$GOVERNOR/timer_rate";
 	echo "-1" > "$GOVERNOR/timer_slack";
-	echo "$MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ" > "$GOVERNOR/two_phase_freq";
+	echo "1300000" > "$GOVERNOR/two_phase_freq";
 	echo "0" > "$GOVERNOR/up_threshold_any_cpu_freq";
 	echo "175" > "$GOVERNOR/up_threshold_any_cpu_load";
 	echo "Intelliactive tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
@@ -260,7 +260,7 @@ if [ $CUR_GOVERNOR = "intelimm" ]; then
 	echo "50000" > "$GOVERNOR/sampling_rate";
 	echo "10000" > "$GOVERNOR/sampling_rate_min";
 	echo "0" > "$GOVERNOR/shortcut";
-	echo "$MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ" > "$GOVERNOR/two_phase_freq";
+	echo "1300000" > "$GOVERNOR/two_phase_freq";
 	echo "95" > "$GOVERNOR/up_threshold";
 	echo "175" > "$GOVERNOR/up_threshold_any_cpu_load";
 	echo "0" > "$GOVERNOR/up_threshold_any_cpu_freq";
@@ -286,7 +286,7 @@ if [ $CUR_GOVERNOR = "barry_allen" ]; then
 	echo "1 268800:20 350000:20 500000:30 750000:45 1000000:55 1190400:80 1497600:90 1728000:90 1958400:90" > "$GOVERNOR/target_loads";
 	echo "40000" > "$GOVERNOR/timer_rate";
 	echo "'-1'" > "$GOVERNOR/timer_slack";
-	echo "$MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ" > "$GOVERNOR/two_phase_freq";
+	echo "1300000" > "$GOVERNOR/two_phase_freq";
 	echo "0" > "$GOVERNOR/up_threshold_any_cpu_freq";
 	echo "175" > "$GOVERNOR/up_threshold_any_cpu_load";
 	echo "Barry_allen tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
@@ -309,7 +309,7 @@ if [ $CUR_GOVERNOR = "bluactive" ]; then
 	echo "1 268800:20 350000:20 500000:30 750000:45 1000000:55 1190400:80 1497600:90 1728000:90 1958400:90" > "$GOVERNOR/target_loads";
 	echo "40000" > "$GOVERNOR/timer_rate";
 	echo "'-1'" > "$GOVERNOR/timer_slack";
-	echo "$MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ" > "$GOVERNOR/two_phase_freq";
+	echo "1300000" > "$GOVERNOR/two_phase_freq";
 	echo "0" > "$GOVERNOR/up_threshold_any_cpu_freq";
 	echo "175" > "$GOVERNOR/up_threshold_any_cpu_load";
 	echo "Bluactive tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
@@ -521,7 +521,7 @@ if [ $CUR_GOVERNOR = "intellidemand" ]; then
 	echo "20000" > "$GOVERNOR/sampling_rate";
 	echo "20000" > "$GOVERNOR/sampling_rate_min";
 	echo "$MIN_CPU_FREQ" > "$GOVERNOR/sync_freq";
-	echo "$MIN_CPU_FREQ,$MIN_CPU_FREQ,$MIN_CPU_FREQ,$MIN_CPU_FREQ" > "$GOVERNOR/two_phase_freq";
+	echo "1300000" > "$GOVERNOR/two_phase_freq";
 	echo "40000" > "$GOVERNOR/ui_sampling_rate";
 	echo "40" > "$GOVERNOR/ui_timeout";
 	echo "95" > "$GOVERNOR/up_threshold";

@@ -538,7 +538,7 @@ if [ $CUR_GOVERNOR = "tripndroid" ]; then
 	echo "90" > "$GOVERNOR/go_hispeed_load";
 	echo "$MIN_CPU_FREQ" > "$GOVERNOR/hispeed_freq";
 	echo "40000" > "$GOVERNOR/timer_rate";
-	echo "20000" > "$GOVERNOR/up_sample_time";
+	echo "50000" > "$GOVERNOR/up_sample_time";
 	echo "Tripndroid tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi

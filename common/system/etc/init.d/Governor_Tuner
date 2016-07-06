@@ -92,11 +92,11 @@ if [ $CUR_GOVERNOR = "interactive" ]; then
 	echo "40000" > "$GOVERNOR/min_sample_time";
 	echo "1" > "$GOVERNOR/sampling_down_facto"r;
 	echo "1 268800:90 350000:90 500000:30 750000:45 1000000:55 1190400:90 1497600:90 1728000:90 1958400:90" > "$GOVERNOR/target_loads";
-	echo "80000" > "$GOVERNOR/timer_rate";
+	echo "40000" > "$GOVERNOR/timer_rate";
 	echo "-1" > "$GOVERNOR/timer_slack";
 	echo "0" > "$GOVERNOR/up_threshold_any_cpu_freq";
 	echo "150" > "$GOVERNOR/up_threshold_any_cpu_load";
-	echo "Interactive tweaks applied"
+	echo "Interactive tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
@@ -110,7 +110,7 @@ if [ $CUR_GOVERNOR = "conservative" ]; then
 	echo "50000" > "$GOVERNOR/sampling_rate";
 	echo "10000" > "$GOVERNOR/sampling_rate_min";
 	echo "99" > "$GOVERNOR/up_threshold";
-	echo "Conservative tweaks applied"
+	echo "Conservative tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
@@ -127,11 +127,11 @@ if [ $CUR_GOVERNOR = "yankactive" ]; then
 	echo "40000" > "$GOVERNOR/min_sample_time";
 	echo "1" > "$GOVERNOR/sampling_down_factor";
 	echo "1 268800:90 350000:90 500000:30 750000:45 1000000:55 1190400:90 1497600:90 1728000:90 1958400:90" > $GOVERNOR/target_loads;
-	echo "80000" > "$GOVERNOR/timer_rate";
+	echo "40000" > "$GOVERNOR/timer_rate";
 	echo "-1" > "$GOVERNOR/timer_slack";
 	echo "0" > "$GOVERNOR/up_threshold_any_cpu_freq";
 	echo "150" > "$GOVERNOR/up_threshold_any_cpu_load";
-	echo "Yankactive tweaks applied"
+	echo "Yankactive tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
@@ -150,12 +150,12 @@ if [ $CUR_GOVERNOR = "intelliactive" ]; then
 	echo "1" > "$GOVERNOR/sampling_down_factor";
 	echo "0" > "$GOVERNOR/sync_freq";
 	echo "1 268800:90 350000:90 500000:30 750000:45 1000000:55 1190400:90 1497600:90 1728000:90 1958400:90" > "$GOVERNOR/target_loads";
-	echo "80000" > "$GOVERNOR/timer_rate";
+	echo "40000" > "$GOVERNOR/timer_rate";
 	echo "-1" > "$GOVERNOR/timer_slack";
 	echo "$MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ" > "$GOVERNOR/two_phase_freq";
 	echo "0" > "$GOVERNOR/up_threshold_any_cpu_freq";
 	echo "150" > "$GOVERNOR/up_threshold_any_cpu_load";
-	echo "Intelliactive tweaks applied"
+	echo "Intelliactive tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
@@ -169,7 +169,7 @@ if [ $CUR_GOVERNOR = "bioshock" ]; then
 	echo "50000" > "$GOVERNOR/sampling_rate";
 	echo "10000" > "$GOVERNOR/sampling_rate_min";
 	echo "99" > "$GOVERNOR/up_threshold";
-	echo "Bioshock tweaks applied"
+	echo "Bioshock tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
@@ -185,7 +185,7 @@ if [ $CUR_GOVERNOR = "lionfish" ]; then
 	echo "50000" > "$GOVERNOR/sampling_rate";
 	echo "10000" > "$GOVERNOR/sampling_rate_min";
 	echo "99" > "$GOVERNOR/up_threshold";
-	echo "Lionfish tweaks applied"
+	echo "Lionfish tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
@@ -197,13 +197,13 @@ if [ $CUR_GOVERNOR = "impulse" ]; then
 	echo "$MIN_CPU_FREQ" > "$GOVERNOR/hispeed_freq";
 	echo "0" > "$GOVERNOR/io_is_busy";
 	echo "40000" > "$GOVERNOR/min_sample_time";
-	echo "80000" > "$GOVERNOR/timer_rate";
+	echo "40000" > "$GOVERNOR/timer_rate";
 	echo "'-1'" > "$GOVERNOR/timer_slack";
 	echo "1 268800:90 350000:90 500000:30 750000:45 1000000:55 1190400:90 1497600:90 1728000:90 1958400:90" > "$GOVERNOR/target_loads";
 	echo "$MIN_CPU_FREQ" > "$GOVERNOR/max_freq_hysteresis";
 	echo "0" > "$GOVERNOR/align_windows";
 	echo "0" > "$GOVERNOR/powersave_bias";
-	echo "Impulse tweaks applied"
+	echo "Impulse tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
@@ -219,7 +219,7 @@ if [ $CUR_GOVERNOR = "uberdemand" ]; then
 	echo "10000" > "$GOVERNOR/sampling_rate_min";
 	echo "$MIN_CPU_FREQ" > "$GOVERNOR/second_phase_freq";
 	echo "95" > "$GOVERNOR/up_threshold";
-	echo "Uberdemand tweaks applied"
+	echo "Uberdemand tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
@@ -240,7 +240,7 @@ if [ $CUR_GOVERNOR = "electroactive" ]; then
 	echo "10000" > "$GOVERNOR/sampling_rate_min";
 	echo "90" > "$GOVERNOR/up_threshold";
 	echo "600000" > "$GOVERNOR/up_threshold_min_freq";
-	echo "Electroactive tweaks applied"
+	echo "Electroactive tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
@@ -265,7 +265,7 @@ if [ $CUR_GOVERNOR = "intelimm" ]; then
 	echo "150" > "$GOVERNOR/up_threshold_any_cpu_load";
 	echo "0" > "$GOVERNOR/up_threshold_any_cpu_freq";
 	echo "0" > "$GOVERNOR/up_threshold_multi_core";
-	echo "InteliMM tweaks applied"
+	echo "InteliMM tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
@@ -284,12 +284,12 @@ if [ $CUR_GOVERNOR = "barry_allen" ]; then
 	echo "1" > "$GOVERNOR/sampling_down_factor";
 	echo "0" > "$GOVERNOR/sync_freq";
 	echo "1 268800:90 350000:90 500000:30 750000:45 1000000:55 1190400:90 1497600:90 1728000:90 1958400:90" > "$GOVERNOR/target_loads";
-	echo "80000" > "$GOVERNOR/timer_rate";
+	echo "40000" > "$GOVERNOR/timer_rate";
 	echo "'-1'" > "$GOVERNOR/timer_slack";
 	echo "$MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ" > "$GOVERNOR/two_phase_freq";
 	echo "0" > "$GOVERNOR/up_threshold_any_cpu_freq";
 	echo "150" > "$GOVERNOR/up_threshold_any_cpu_load";
-	echo "Barry_allen tweaks applied"
+	echo "Barry_allen tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
@@ -307,12 +307,12 @@ if [ $CUR_GOVERNOR = "bluactive" ]; then
 	echo "1" > "$GOVERNOR/sampling_down_factor";
 	echo "0" > "$GOVERNOR/sync_freq";
 	echo "1 268800:90 350000:90 500000:30 750000:45 1000000:55 1190400:90 1497600:90 1728000:90 1958400:90" > "$GOVERNOR/target_loads";
-	echo "80000" > "$GOVERNOR/timer_rate";
+	echo "40000" > "$GOVERNOR/timer_rate";
 	echo "'-1'" > "$GOVERNOR/timer_slack";
 	echo "$MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ" > "$GOVERNOR/two_phase_freq";
 	echo "0" > "$GOVERNOR/up_threshold_any_cpu_freq";
 	echo "150" > "$GOVERNOR/up_threshold_any_cpu_load";
-	echo "Bluactive tweaks applied"
+	echo "Bluactive tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
@@ -326,7 +326,7 @@ if [ $CUR_GOVERNOR = "dancedance" ]; then
 	echo "50000" > "$GOVERNOR/sampling_rate";
 	echo "10000" > "$GOVERNOR/sampling_rate_min";
 	echo "99" > "$GOVERNOR/up_threshold";
-	echo "Dancedance tweaks applied"
+	echo "Dancedance tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
@@ -340,7 +340,7 @@ if [ $CUR_GOVERNOR = "lionheart" ]; then
 	echo "50000" > "$GOVERNOR/sampling_rate";
 	echo "10000" > "$GOVERNOR/sampling_rate_min";
 	echo "99" > "$GOVERNOR/up_threshold";
-	echo "Lionheart tweaks applied"
+	echo "Lionheart tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
@@ -357,7 +357,7 @@ if [ $CUR_GOVERNOR = "pegasusq" ]; then
 	echo "10000" > "$GOVERNOR/sampling_rate_min";
 	echo "95" > "$GOVERNOR/up_threshold";
 	echo "600000" > "$GOVERNOR/up_threshold_min_freq";
-	echo "PegasusQ tweaks applied"
+	echo "PegasusQ tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
@@ -376,7 +376,7 @@ if [ $CUR_GOVERNOR = "ondemand" ]; then
 	echo "95" > "$GOVERNOR/up_threshold";
 	echo "150" > "$GOVERNOR/up_threshold_any_cpu_load";
 	echo "0" > "$GOVERNOR/up_threshold_multi_core";
-	echo "Ondemand tweaks applied"
+	echo "Ondemand tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
@@ -401,7 +401,7 @@ if [ $CUR_GOVERNOR = "smartmax" ]; then
 	echo "$MIN_CPU_FREQ" > "$GOVERNOR/suspend_ideal_freq";
 	echo "0" > "$GOVERNOR/touch_poke_freq";
 	echo "0" > "$GOVERNOR/up_rate";
-	echo "Smartmax tweaks applied"
+	echo "Smartmax tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
@@ -418,7 +418,7 @@ if [ $CUR_GOVERNOR = "optimax" ]; then
 	echo "95" > "$GOVERNOR/up_threshold";
 	echo "150" > "$GOVERNOR/up_threshold_any_cpu_load";
 	echo "0" > "$GOVERNOR/up_threshold_multi_core";
-	echo "Optimax tweaks applied"
+	echo "Optimax tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
@@ -432,7 +432,7 @@ if [ $CUR_GOVERNOR = "conservativex" ]; then
 	echo "50000" > "$GOVERNOR/sampling_rate";
 	echo "10000" > "$GOVERNOR/sampling_rate_min";
 	echo "99" > "$GOVERNOR/up_threshold";
-	echo "ConservativeX tweaks applied"
+	echo "ConservativeX tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
@@ -450,11 +450,11 @@ if [ $CUR_GOVERNOR = "interactive_pro" ]; then
 	echo "1" > "$GOVERNOR/sampling_down_factor";
 	echo "$MIN_CPU_FREQ" > "$GOVERNOR/sync_freq";
 	echo "1 268800:90 350000:90 500000:30 750000:45 1000000:55 1190400:90 1497600:90 1728000:90 1958400:90" > "$GOVERNOR/target_loads";
-	echo "80000" > "$GOVERNOR/timer_rate";
+	echo "40000" > "$GOVERNOR/timer_rate";
 	echo "'-1'" > "$GOVERNOR/timer_slack";
 	echo "0" > "$GOVERNOR/up_threshold_any_cpu_freq";
 	echo "150" > "$GOVERNOR/up_threshold_any_cpu_load";
-	echo "Interactive_pro tweaks applied"
+	echo "Interactive_pro tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
@@ -470,7 +470,7 @@ if [ $CUR_GOVERNOR = "wheatley" ]; then
 	echo "20000" > "$GOVERNOR/sampling_rate_min";
 	echo "10000" > "$GOVERNOR/target_residency";
 	echo "95" > "$GOVERNOR/up_threshold";
-	echo "Wheatley tweaks applied"
+	echo "Wheatley tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
@@ -483,9 +483,9 @@ if [ $CUR_GOVERNOR = "ondemandplus" ]; then
 	echo "2" > "$GOVERNOR/inter_staycycles";
 	echo "0" > "$GOVERNOR/io_is_busy";
 	echo "$MIN_CPU_FREQ" > "$GOVERNOR/staycycles_resetfreq";
-	echo "80000" > "$GOVERNOR/timer_rate";
+	echo "40000" > "$GOVERNOR/timer_rate";
 	echo "95" > "$GOVERNOR/up_threshold";
-	echo "OndemandPlus tweaks applied"
+	echo "OndemandPlus tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
@@ -506,7 +506,7 @@ if [ $CUR_GOVERNOR = "smartmax_eps" ]; then
 	echo "30000" > "$GOVERNOR/down_rate";
 	echo "0" > "$GOVERNOR/ignore_nice";
 	echo "0" > "$GOVERNOR/input_boost_duration";
-	echo "Smartmax_eps tweaks applied"
+	echo "Smartmax_eps tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
@@ -527,7 +527,7 @@ if [ $CUR_GOVERNOR = "intellidemand" ]; then
 	echo "95" > "$GOVERNOR/up_threshold";
 	echo "150" > "$GOVERNOR/up_threshold_any_cpu_load";
 	echo "0" > "$GOVERNOR/up_threshold_multi_core";
-	echo "Intellidemand tweaks applied"
+	echo "Intellidemand tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
@@ -537,9 +537,9 @@ if [ $CUR_GOVERNOR = "tripndroid" ]; then
 	echo "10000" > "$GOVERNOR/down_sample_time";
 	echo "90" > "$GOVERNOR/go_hispeed_load";
 	echo "$MIN_CPU_FREQ" > "$GOVERNOR/hispeed_freq";
-	echo "80000" > "$GOVERNOR/timer_rate";
+	echo "40000" > "$GOVERNOR/timer_rate";
 	echo "20000" > "$GOVERNOR/up_sample_time";
-	echo "Tripndroid tweaks applied"
+	echo "Tripndroid tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 

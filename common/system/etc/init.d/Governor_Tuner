@@ -82,7 +82,7 @@ GOVERNOR=$CLUSTER/$CLUSTER2/$CLUSTER3/$CLUSTER4/$CLUSTER5/$CUR_GOVERNOR
 # INTERACTIVE
 
 if [ $CUR_GOVERNOR = "interactive" ]; then
-	echo "20000 1200000:30000 1800000:50000" > "$GOVERNOR/above_hispeed_delay";
+	echo "15000 1200000:40000 1800000:60000" > "$GOVERNOR/above_hispeed_delay";
 	echo "0" > "$GOVERNOR/boost";
 	echo "0" > "$GOVERNOR/boostpulse";
 	echo "0" > "$GOVERNOR/boostpulse_duration";
@@ -117,7 +117,7 @@ fi
 # YANKACTIVE
 
 if [ $CUR_GOVERNOR = "yankactive" ]; then
-	echo "20000 1200000:30000 1800000:50000" > "$GOVERNOR/above_hispeed_delay";
+	echo "15000 1200000:40000 1800000:60000" > "$GOVERNOR/above_hispeed_delay";
 	echo "0" > "$GOVERNOR/boost";
 	echo "0" > "$GOVERNOR/boostpulse";
 	echo "0" > "$GOVERNOR/boostpulse_duration";
@@ -139,7 +139,7 @@ fi
 # INTELLIACTIVE
 
 if [ $CUR_GOVERNOR = "intelliactive" ]; then
-	echo "20000 300000:10000 700000:15000 1200000:30000 1800000:50000" > "$GOVERNOR/above_hispeed_delay";
+	echo "15000 1200000:40000 1800000:60000" > "$GOVERNOR/above_hispeed_delay";
 	echo "0" > "$GOVERNOR/boost";
 	echo "0" > "$GOVERNOR/boostpulse";
 	echo "0" > "$GOVERNOR/boostpulse_duration";
@@ -192,7 +192,7 @@ fi
 # IMPULSE 
 
 if [ $CUR_GOVERNOR = "impulse" ]; then
-	echo "20000 1200000:30000 1800000:50000" > "$GOVERNOR/above_hispeed_delay";
+	echo "15000 1200000:40000 1800000:60000" > "$GOVERNOR/above_hispeed_delay";
 	echo "90" > "$GOVERNOR/go_hispeed_load";
 	echo "$MIN_CPU_FREQ" > "$GOVERNOR/hispeed_freq";
 	echo "0" > "$GOVERNOR/io_is_busy";
@@ -272,7 +272,7 @@ fi
 # BARRY_ALLEN
 
 if [ $CUR_GOVERNOR = "barry_allen" ]; then
-	echo "20000 300000:10000 700000:15000 1200000:30000 1800000:50000" > "$GOVERNOR/above_hispeed_delay";
+	echo "15000 1200000:40000 1800000:60000" > "$GOVERNOR/above_hispeed_delay";
 	echo "0" > "$GOVERNOR/ba_lock";
 	echo "0" > "$GOVERNOR/boost";
 	echo "0" > "$GOVERNOR/boostpulse";
@@ -296,7 +296,7 @@ fi
 # BLUACTIVE
 
 if [ $CUR_GOVERNOR = "bluactive" ]; then
-	echo "20000 300000:10000 700000:15000 1200000:30000 1800000:50000" > "$GOVERNOR/above_hispeed_delay";
+	echo "15000 1200000:40000 1800000:60000" > "$GOVERNOR/above_hispeed_delay";
 	echo "0" > "$GOVERNOR/boost";
 	echo "0" > "$GOVERNOR/boostpulse";
 	echo "0" > "$GOVERNOR/boostpulse_duration";
@@ -439,7 +439,8 @@ fi
 # INTERACTIVE_PRO
 
 if [ $CUR_GOVERNOR = "interactive_pro" ]; then
-	echo "20000 1200000:30000 1800000:50000" > "$GOVERNOR/above_hispeed_delay";
+	echo "15000 1200000:40000 1800000:60000" > "$GOVERNOR/above_hispeed_delay";
+";
 	echo "0" > "$GOVERNOR/boost";
 	echo "0" > "$GOVERNOR/boostpulse_duration";
 	echo "$MIN_CPU_FREQ" > "$GOVERNOR/freq_calc_thresh";

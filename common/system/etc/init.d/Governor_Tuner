@@ -91,7 +91,7 @@ if [ $CUR_GOVERNOR = "interactive" ]; then
 	echo "0" > "$GOVERNOR/io_is_busy";
 	echo "40000" > "$GOVERNOR/min_sample_time";
 	echo "1" > "$GOVERNOR/sampling_down_facto"r;
-	echo "1 268800:20 350000:20 500000:30 750000:45 1000000:55 1190400:90 1497600:90 1728000:90 1958400:90" > "$GOVERNOR/target_loads";
+	echo "1 268800:20 350000:20 500000:30 750000:45 1000000:55 1190400:80 1497600:90 1728000:90 1958400:90" > "$GOVERNOR/target_loads";
 	echo "40000" > "$GOVERNOR/timer_rate";
 	echo "-1" > "$GOVERNOR/timer_slack";
 	echo "0" > "$GOVERNOR/up_threshold_any_cpu_freq";
@@ -126,7 +126,7 @@ if [ $CUR_GOVERNOR = "yankactive" ]; then
 	echo "0" > "$GOVERNOR/io_is_busy";
 	echo "40000" > "$GOVERNOR/min_sample_time";
 	echo "1" > "$GOVERNOR/sampling_down_factor";
-	echo "1 268800:20 350000:20 500000:30 750000:45 1000000:55 1190400:90 1497600:90 1728000:90 1958400:90" > "$GOVERNOR/target_loads";
+	echo "1 268800:20 350000:20 500000:30 750000:45 1000000:55 1190400:80 1497600:90 1728000:90 1958400:90" > "$GOVERNOR/target_loads";
 	echo "40000" > "$GOVERNOR/timer_rate";
 	echo "-1" > "$GOVERNOR/timer_slack";
 	echo "0" > "$GOVERNOR/up_threshold_any_cpu_freq";
@@ -149,7 +149,7 @@ if [ $CUR_GOVERNOR = "intelliactive" ]; then
 	echo "40000" > "$GOVERNOR/min_sample_time";
 	echo "1" > "$GOVERNOR/sampling_down_factor";
 	echo "0" > "$GOVERNOR/sync_freq";
-	echo "1 268800:20 350000:20 500000:30 750000:45 1000000:55 1190400:90 1497600:90 1728000:90 1958400:90" > "$GOVERNOR/target_loads";
+	echo "1 268800:20 350000:20 500000:30 750000:45 1000000:55 1190400:80 1497600:90 1728000:90 1958400:90" > "$GOVERNOR/target_loads";
 	echo "40000" > "$GOVERNOR/timer_rate";
 	echo "-1" > "$GOVERNOR/timer_slack";
 	echo "$MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ" > "$GOVERNOR/two_phase_freq";
@@ -199,7 +199,7 @@ if [ $CUR_GOVERNOR = "impulse" ]; then
 	echo "40000" > "$GOVERNOR/min_sample_time";
 	echo "40000" > "$GOVERNOR/timer_rate";
 	echo "'-1'" > "$GOVERNOR/timer_slack";
-	echo "1 268800:20 350000:20 500000:30 750000:45 1000000:55 1190400:90 1497600:90 1728000:90 1958400:90" > "$GOVERNOR/target_loads";
+	echo "1 268800:20 350000:20 500000:30 750000:45 1000000:55 1190400:80 1497600:90 1728000:90 1958400:90" > "$GOVERNOR/target_loads";
 	echo "$MIN_CPU_FREQ" > "$GOVERNOR/max_freq_hysteresis";
 	echo "0" > "$GOVERNOR/align_windows";
 	echo "0" > "$GOVERNOR/powersave_bias";
@@ -283,7 +283,7 @@ if [ $CUR_GOVERNOR = "barry_allen" ]; then
 	echo "40000" > "$GOVERNOR/min_sample_time";
 	echo "1" > "$GOVERNOR/sampling_down_factor";
 	echo "0" > "$GOVERNOR/sync_freq";
-	echo "1 268800:20 350000:20 500000:30 750000:45 1000000:55 1190400:90 1497600:90 1728000:90 1958400:90" > "$GOVERNOR/target_loads";
+	echo "1 268800:20 350000:20 500000:30 750000:45 1000000:55 1190400:80 1497600:90 1728000:90 1958400:90" > "$GOVERNOR/target_loads";
 	echo "40000" > "$GOVERNOR/timer_rate";
 	echo "'-1'" > "$GOVERNOR/timer_slack";
 	echo "$MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ" > "$GOVERNOR/two_phase_freq";
@@ -306,7 +306,7 @@ if [ $CUR_GOVERNOR = "bluactive" ]; then
 	echo "40000" > "$GOVERNOR/min_sample_time";
 	echo "1" > "$GOVERNOR/sampling_down_factor";
 	echo "0" > "$GOVERNOR/sync_freq";
-	echo "1 268800:20 350000:20 500000:30 750000:45 1000000:55 1190400:90 1497600:90 1728000:90 1958400:90" > "$GOVERNOR/target_loads";
+	echo "1 268800:20 350000:20 500000:30 750000:45 1000000:55 1190400:80 1497600:90 1728000:90 1958400:90" > "$GOVERNOR/target_loads";
 	echo "40000" > "$GOVERNOR/timer_rate";
 	echo "'-1'" > "$GOVERNOR/timer_slack";
 	echo "$MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ" > "$GOVERNOR/two_phase_freq";
@@ -449,7 +449,7 @@ if [ $CUR_GOVERNOR = "interactive_pro" ]; then
 	echo "40000" > "$GOVERNOR/min_sample_time";
 	echo "1" > "$GOVERNOR/sampling_down_factor";
 	echo "$MIN_CPU_FREQ" > "$GOVERNOR/sync_freq";
-	echo "1 268800:20 350000:20 500000:30 750000:45 1000000:55 1190400:90 1497600:90 1728000:90 1958400:90" > "$GOVERNOR/target_loads";
+	echo "1 268800:20 350000:20 500000:30 750000:45 1000000:55 1190400:80 1497600:90 1728000:90 1958400:90" > "$GOVERNOR/target_loads";
 	echo "40000" > "$GOVERNOR/timer_rate";
 	echo "'-1'" > "$GOVERNOR/timer_slack";
 	echo "0" > "$GOVERNOR/up_threshold_any_cpu_freq";

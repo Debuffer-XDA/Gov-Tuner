@@ -90,7 +90,7 @@ if [ $CUR_GOVERNOR = "interactive" ]; then
 	echo "$MIN_CPU_FREQ" > "$GOVERNOR/hispeed_freq";
 	echo "0" > "$GOVERNOR/io_is_busy";
 	echo "10000" > "$GOVERNOR/min_sample_time";
-	echo "1" > "$GOVERNOR/sampling_down_facto"r;
+	echo "1" > "$GOVERNOR/sampling_down_factor";
 	echo "1 $MIN_CPU_FREQ:90 500000:30 750000:45 1000000:55 1190400:75 1497600:90 1728000:99 1958400:99" > $GOVERNOR/target_loads;
 	echo "40000" > "$GOVERNOR/timer_rate";
 	echo "-1" > "$GOVERNOR/timer_slack";

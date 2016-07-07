@@ -32,50 +32,12 @@ CUR_GOVERNOR=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor);
 
 # Detects whether user uses a dual-cluster CPU (SD810, SD820, etc) or not
 CLUSTER_DETECT="/sys/devices/system/cpu/cpu0/cpufreq/$CUR_GOVERNOR"
-CLUSTER2_DETECT="/sys/devices/system/cpu/cpu4/cpufreq/$CUR_GOVERNOR"
-CLUSTER3_DETECT="/sys/devices/system/cpu/cpu5/cpufreq/$CUR_GOVERNOR"
-CLUSTER4_DETECT="/sys/devices/system/cpu/cpu6/cpufreq/$CUR_GOVERNOR"
-CLUSTER5_DETECT="/sys/devices/system/cpu/cpu7/cpufreq/$CUR_GOVERNOR"
 
 # Dual cluster, selects only first two or four cores
 CPUFREQ_CLUSTER="/sys/devices/system/cpu/cpu0/cpufreq"
-CPUFREQ_CLUSTER2="/sys/devices/system/cpu/cpu4/cpufreq"
-CPUFREQ_CLUSTER3="/sys/devices/system/cpu/cpu5/cpufreq"
-CPUFREQ_CLUSTER4="/sys/devices/system/cpu/cpu6/cpufreq"
-CPUFREQ_CLUSTER5="/sys/devices/system/cpu/cpu7/cpufreq"
 
 # Regular CPUFreq directory
 CPUFREQ_REGULAR="/sys/devices/system/cpu/cpufreq"
-
-if [ -d "$CLUSTER_DETECT" ]; then
-	CLUSTER=$CPUFREQ_CLUSTER
-	else
-	CLUSTER=$CPUFREQ_REGULAR
-fi
-
-if [ -d "$CLUSTER2_DETECT" ]; then
-	CLUSTER2=$CPUFREQ_CLUSTER2
-	else
-	CLUSTER2=$CPUFREQ_REGULAR
-fi
-
-if [ -d "$CLUSTER3_DETECT" ]; then
-	CLUSTER3=$CPUFREQ_CLUSTER3
-	else
-	CLUSTER3=$CPUFREQ_REGULAR
-fi
-
-if [ -d "$CLUSTER4_DETECT" ]; then
-	CLUSTER4=$CPUFREQ_CLUSTER4
-	else
-	CLUSTER4=$CPUFREQ_REGULAR
-fi
-
-if [ -d "$CLUSTER5_DETECT" ]; then
-	CLUSTER5=$CPUFREQ_CLUSTER5
-	else
-	CLUSTER5=$CPUFREQ_REGULAR
-fi
 
 # Set the finalized governor path
 #GOVERNOR=$CLUSTER/$CLUSTER2/$CLUSTER3/$CLUSTER4/$CLUSTER5/$CUR_GOVERNOR"

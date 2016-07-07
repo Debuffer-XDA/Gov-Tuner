@@ -100,7 +100,6 @@ if [ $CUR_GOVERNOR = "interactive" ];
 	echo "1200000" > "$GOVERNOR/up_threshold_any_cpu_freq";
 	echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
 	echo "Interactive tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
-	
 	exit
 fi
 

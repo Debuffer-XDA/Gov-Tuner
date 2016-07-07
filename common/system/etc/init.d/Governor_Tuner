@@ -24,6 +24,9 @@ fi
 # Minimum CPU frequency
 MIN_CPU_FREQ=$(cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq);
 
+# Maximum CPU frequency
+MIN_CPU_FREQ=$(cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq);
+
 # Currently used governor
 CUR_GOVERNOR=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor);
 
@@ -82,20 +85,20 @@ GOVERNOR=$CLUSTER/$CLUSTER2/$CLUSTER3/$CLUSTER4/$CLUSTER5/$CUR_GOVERNOR
 # INTERACTIVE
 
 if [ $CUR_GOVERNOR = "interactive" ]; then
-	echo "15000 1200000:40000 1800000:60000" > "$GOVERNOR/above_hispeed_delay";
+	echo "30000" > "$GOVERNOR/above_hispeed_delay";
 	echo "0" > "$GOVERNOR/boost";
 	echo "0" > "$GOVERNOR/boostpulse";
 	echo "0" > "$GOVERNOR/boostpulse_duration";
 	echo "90" > "$GOVERNOR/go_hispeed_load";
-	echo "$MIN_CPU_FREQ" > "$GOVERNOR/hispeed_freq";
+	echo "1200000" > "$GOVERNOR/hispeed_freq";
 	echo "0" > "$GOVERNOR/io_is_busy";
-	echo "10000" > "$GOVERNOR/min_sample_time";
+	echo "80000" > "$GOVERNOR/min_sample_time";
 	echo "1" > "$GOVERNOR/sampling_down_factor";
-	echo "1 $MIN_CPU_FREQ:90 500000:30 750000:45 1000000:55 1190400:75 1497600:90 1728000:99 1958400:99" > $GOVERNOR/target_loads;
-	echo "40000" > "$GOVERNOR/timer_rate";
-	echo "-1" > "$GOVERNOR/timer_slack";
-	echo "0" > "$GOVERNOR/up_threshold_any_cpu_freq";
-	echo "175" > "$GOVERNOR/up_threshold_any_cpu_load";
+	echo "90" > $GOVERNOR/target_loads;
+	echo "30000" > "$GOVERNOR/timer_rate";
+	echo "120000" > "$GOVERNOR/timer_slack";
+	echo "1200000" > "$GOVERNOR/up_threshold_any_cpu_freq";
+	echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
 	echo "Interactive tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
@@ -117,20 +120,20 @@ fi
 # YANKACTIVE
 
 if [ $CUR_GOVERNOR = "yankactive" ]; then
-	echo "15000 1200000:40000 1800000:60000" > "$GOVERNOR/above_hispeed_delay";
+	echo "30000" > "$GOVERNOR/above_hispeed_delay";
 	echo "0" > "$GOVERNOR/boost";
 	echo "0" > "$GOVERNOR/boostpulse";
 	echo "0" > "$GOVERNOR/boostpulse_duration";
 	echo "90" > "$GOVERNOR/go_hispeed_load";
-	echo "$MIN_CPU_FREQ" > "$GOVERNOR/hispeed_freq";
+	echo "1200000" > "$GOVERNOR/hispeed_freq";
 	echo "0" > "$GOVERNOR/io_is_busy";
-	echo "10000" > "$GOVERNOR/min_sample_time";
+	echo "80000" > "$GOVERNOR/min_sample_time";
 	echo "1" > "$GOVERNOR/sampling_down_factor";
-	echo "1 $MIN_CPU_FREQ:90 500000:30 750000:45 1000000:55 1190400:75 1497600:90 1728000:99 1958400:99" > $GOVERNOR/target_loads;
-	echo "40000" > "$GOVERNOR/timer_rate";
-	echo "-1" > "$GOVERNOR/timer_slack";
-	echo "0" > "$GOVERNOR/up_threshold_any_cpu_freq";
-	echo "175" > "$GOVERNOR/up_threshold_any_cpu_load";
+	echo "90" > $GOVERNOR/target_loads;
+	echo "30000" > "$GOVERNOR/timer_rate";
+	echo "120000" > "$GOVERNOR/timer_slack";
+	echo "1200000" > "$GOVERNOR/up_threshold_any_cpu_freq";
+	echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
 	echo "Yankactive tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
@@ -139,22 +142,22 @@ fi
 # INTELLIACTIVE
 
 if [ $CUR_GOVERNOR = "intelliactive" ]; then
-	echo "15000 1200000:40000 1800000:60000" > "$GOVERNOR/above_hispeed_delay";
+	echo "30000" > "$GOVERNOR/above_hispeed_delay";
 	echo "0" > "$GOVERNOR/boost";
 	echo "0" > "$GOVERNOR/boostpulse";
 	echo "0" > "$GOVERNOR/boostpulse_duration";
 	echo "90" > "$GOVERNOR/go_hispeed_load";
-	echo "$MIN_CPU_FREQ" > "$GOVERNOR/hispeed_freq";
+	echo "1200000" > "$GOVERNOR/hispeed_freq";
 	echo "0" > "$GOVERNOR/io_is_busy";
-	echo "10000" > "$GOVERNOR/min_sample_time";
+	echo "80000" > "$GOVERNOR/min_sample_time";
 	echo "1" > "$GOVERNOR/sampling_down_factor";
-	echo "0" > "$GOVERNOR/sync_freq";
-	echo "1 $MIN_CPU_FREQ:90 500000:30 750000:45 1000000:55 1190400:75 1497600:90 1728000:99 1958400:99" > $GOVERNOR/target_loads;
-	echo "40000" > "$GOVERNOR/timer_rate";
-	echo "-1" > "$GOVERNOR/timer_slack";
-	echo "1300000" > "$GOVERNOR/two_phase_freq";
-	echo "0" > "$GOVERNOR/up_threshold_any_cpu_freq";
-	echo "175" > "$GOVERNOR/up_threshold_any_cpu_load";
+	echo "1100000" > "$GOVERNOR/sync_freq";
+	echo "90" > $GOVERNOR/target_loads;
+	echo "30000" > "$GOVERNOR/timer_rate";
+	echo "120000" > "$GOVERNOR/timer_slack";
+	echo "1800000,1800000,1800000,1800000" > "$GOVERNOR/two_phase_freq";
+	echo "1200000" > "$GOVERNOR/up_threshold_any_cpu_freq";
+	echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
 	echo "Intelliactive tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
@@ -192,14 +195,14 @@ fi
 # IMPULSE 
 
 if [ $CUR_GOVERNOR = "impulse" ]; then
-	echo "15000 1200000:40000 1800000:60000" > "$GOVERNOR/above_hispeed_delay";
+	echo "30000" > "$GOVERNOR/above_hispeed_delay";
 	echo "90" > "$GOVERNOR/go_hispeed_load";
-	echo "$MIN_CPU_FREQ" > "$GOVERNOR/hispeed_freq";
+	echo "1200000" > "$GOVERNOR/hispeed_freq";
 	echo "0" > "$GOVERNOR/io_is_busy";
-	echo "10000" > "$GOVERNOR/min_sample_time";
-	echo "40000" > "$GOVERNOR/timer_rate";
-	echo "'-1'" > "$GOVERNOR/timer_slack";
-	echo "1 $MIN_CPU_FREQ:90 500000:30 750000:45 1000000:55 1190400:75 1497600:90 1728000:99 1958400:99" > $GOVERNOR/target_loads;
+	echo "80000" > "$GOVERNOR/min_sample_time";
+	echo "30000" > "$GOVERNOR/timer_rate";
+	echo "120000" > "$GOVERNOR/timer_slack";
+	echo "90" > $GOVERNOR/target_loads;
 	echo "$MIN_CPU_FREQ" > "$GOVERNOR/max_freq_hysteresis";
 	echo "0" > "$GOVERNOR/align_windows";
 	echo "0" > "$GOVERNOR/powersave_bias";
@@ -229,7 +232,7 @@ if [ $CUR_GOVERNOR = "electroactive" ]; then
 	echo "0" > "$GOVERNOR/boostfreq";
 	echo "0" > "$GOVERNOR/boostpulse";
 	echo "15" > "$GOVERNOR/down_differential";
-	echo "$MIN_CPU_FREQ" > "$GOVERNOR/freq_responsiveness";
+	echo "1200000" > "$GOVERNOR/freq_responsiveness";
 	echo "30" > "$GOVERNOR/freq_step";
 	echo "0" > "$GOVERNOR/ignore_nice_load";
 	echo "0" > "$GOVERNOR/io_is_busy";
@@ -260,10 +263,10 @@ if [ $CUR_GOVERNOR = "intelimm" ]; then
 	echo "50000" > "$GOVERNOR/sampling_rate";
 	echo "10000" > "$GOVERNOR/sampling_rate_min";
 	echo "0" > "$GOVERNOR/shortcut";
-	echo "1300000" > "$GOVERNOR/two_phase_freq";
+	echo "1800000,1800000,1800000,1800000" > "$GOVERNOR/two_phase_freq";
 	echo "95" > "$GOVERNOR/up_threshold";
-	echo "175" > "$GOVERNOR/up_threshold_any_cpu_load";
-	echo "0" > "$GOVERNOR/up_threshold_any_cpu_freq";
+	echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
+	echo "1200000" > "$GOVERNOR/up_threshold_any_cpu_freq";
 	echo "0" > "$GOVERNOR/up_threshold_multi_core";
 	echo "InteliMM tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
@@ -272,23 +275,23 @@ fi
 # BARRY_ALLEN
 
 if [ $CUR_GOVERNOR = "barry_allen" ]; then
-	echo "15000 1200000:40000 1800000:60000" > "$GOVERNOR/above_hispeed_delay";
+	echo "30000" > "$GOVERNOR/above_hispeed_delay";
 	echo "0" > "$GOVERNOR/ba_lock";
 	echo "0" > "$GOVERNOR/boost";
 	echo "0" > "$GOVERNOR/boostpulse";
 	echo "0" > "$GOVERNOR/boostpulse_duration";
 	echo "90" > "$GOVERNOR/go_hispeed_load";
-	echo "$MIN_CPU_FREQ" > "$GOVERNOR/hispeed_freq";
+	echo "1200000" > "$GOVERNOR/hispeed_freq";
 	echo "0" > "$GOVERNOR/io_is_busy";
-	echo "10000" > "$GOVERNOR/min_sample_time";
+	echo "80000" > "$GOVERNOR/min_sample_time";
 	echo "1" > "$GOVERNOR/sampling_down_factor";
-	echo "0" > "$GOVERNOR/sync_freq";
-	echo "1 $MIN_CPU_FREQ:90 500000:30 750000:45 1000000:55 1190400:75 1497600:90 1728000:99 1958400:99" > $GOVERNOR/target_loads;
-	echo "40000" > "$GOVERNOR/timer_rate";
-	echo "'-1'" > "$GOVERNOR/timer_slack";
-	echo "1300000" > "$GOVERNOR/two_phase_freq";
-	echo "0" > "$GOVERNOR/up_threshold_any_cpu_freq";
-	echo "175" > "$GOVERNOR/up_threshold_any_cpu_load";
+	echo "1100000" > "$GOVERNOR/sync_freq";
+	echo "90" > $GOVERNOR/target_loads;
+	echo "30000" > "$GOVERNOR/timer_rate";
+	echo "120000" > "$GOVERNOR/timer_slack";
+	echo "1800000,1800000,1800000,1800000" > "$GOVERNOR/two_phase_freq";
+	echo "1200000" > "$GOVERNOR/up_threshold_any_cpu_freq";
+	echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
 	echo "Barry_allen tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
@@ -296,22 +299,22 @@ fi
 # BLUACTIVE
 
 if [ $CUR_GOVERNOR = "bluactive" ]; then
-	echo "15000 1200000:40000 1800000:60000" > "$GOVERNOR/above_hispeed_delay";
+	echo "30000" > "$GOVERNOR/above_hispeed_delay";
 	echo "0" > "$GOVERNOR/boost";
 	echo "0" > "$GOVERNOR/boostpulse";
 	echo "0" > "$GOVERNOR/boostpulse_duration";
 	echo "90" > "$GOVERNOR/go_hispeed_load";
-	echo "$MIN_CPU_FREQ" > "$GOVERNOR/hispeed_freq";
+	echo "1200000" > "$GOVERNOR/hispeed_freq";
 	echo "0" > "$GOVERNOR/io_is_busy";
-	echo "10000" > "$GOVERNOR/min_sample_time";
+	echo "80000" > "$GOVERNOR/min_sample_time";
 	echo "1" > "$GOVERNOR/sampling_down_factor";
-	echo "0" > "$GOVERNOR/sync_freq";
-	echo "1 $MIN_CPU_FREQ:90 500000:30 750000:45 1000000:55 1190400:75 1497600:90 1728000:99 1958400:99" > $GOVERNOR/target_loads;
-	echo "40000" > "$GOVERNOR/timer_rate";
-	echo "'-1'" > "$GOVERNOR/timer_slack";
-	echo "1300000" > "$GOVERNOR/two_phase_freq";
-	echo "0" > "$GOVERNOR/up_threshold_any_cpu_freq";
-	echo "175" > "$GOVERNOR/up_threshold_any_cpu_load";
+	echo "1100000" > "$GOVERNOR/sync_freq";
+	echo "90" > $GOVERNOR/target_loads;
+	echo "30000" > "$GOVERNOR/timer_rate";
+	echo "120000" > "$GOVERNOR/timer_slack";
+	echo "1800000,1800000,1800000,1800000" > "$GOVERNOR/two_phase_freq";
+	echo "1200000" > "$GOVERNOR/up_threshold_any_cpu_freq";
+	echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
 	echo "Bluactive tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
@@ -372,9 +375,9 @@ if [ $CUR_GOVERNOR = "ondemand" ]; then
 	echo "1" > "$GOVERNOR/sampling_down_factor";
 	echo "20000" > "$GOVERNOR/sampling_rate";
 	echo "20000" > "$GOVERNOR/sampling_rate_min";
-	echo "$MIN_CPU_FREQ" > "$GOVERNOR/sync_freq";
+	echo "1100000" > "$GOVERNOR/sync_freq";
 	echo "95" > "$GOVERNOR/up_threshold";
-	echo "175" > "$GOVERNOR/up_threshold_any_cpu_load";
+	echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
 	echo "0" > "$GOVERNOR/up_threshold_multi_core";
 	echo "Ondemand tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
@@ -414,9 +417,9 @@ if [ $CUR_GOVERNOR = "optimax" ]; then
 	echo "1" > "$GOVERNOR/sampling_down_factor";
 	echo "20000" > "$GOVERNOR/sampling_rate";
 	echo "20000" > "$GOVERNOR/sampling_rate_min";
-	echo "$MIN_CPU_FREQ" > "$GOVERNOR/sync_freq";
+	echo "1100000" > "$GOVERNOR/sync_freq";
 	echo "95" > "$GOVERNOR/up_threshold";
-	echo "175" > "$GOVERNOR/up_threshold_any_cpu_load";
+	echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
 	echo "0" > "$GOVERNOR/up_threshold_multi_core";
 	echo "Optimax tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
@@ -439,22 +442,21 @@ fi
 # INTERACTIVE_PRO
 
 if [ $CUR_GOVERNOR = "interactive_pro" ]; then
-	echo "15000 1200000:40000 1800000:60000" > "$GOVERNOR/above_hispeed_delay";
-";
+	echo "30000" > "$GOVERNOR/above_hispeed_delay";
 	echo "0" > "$GOVERNOR/boost";
 	echo "0" > "$GOVERNOR/boostpulse_duration";
 	echo "$MIN_CPU_FREQ" > "$GOVERNOR/freq_calc_thresh";
 	echo "90" > "$GOVERNOR/go_hispeed_load";
-	echo "$MIN_CPU_FREQ" > "$GOVERNOR/hispeed_freq";
+	echo "1200000" > "$GOVERNOR/hispeed_freq";
 	echo "0" > "$GOVERNOR/io_is_busy";
-	echo "10000" > "$GOVERNOR/min_sample_time";
+	echo "80000" > "$GOVERNOR/min_sample_time";
 	echo "1" > "$GOVERNOR/sampling_down_factor";
-	echo "$MIN_CPU_FREQ" > "$GOVERNOR/sync_freq";
-	echo "1 $MIN_CPU_FREQ:90 500000:30 750000:45 1000000:55 1190400:75 1497600:90 1728000:99 1958400:99" > $GOVERNOR/target_loads;
-	echo "40000" > "$GOVERNOR/timer_rate";
-	echo "'-1'" > "$GOVERNOR/timer_slack";
-	echo "0" > "$GOVERNOR/up_threshold_any_cpu_freq";
-	echo "175" > "$GOVERNOR/up_threshold_any_cpu_load";
+	echo "1100000" > "$GOVERNOR/sync_freq";
+	echo "90" > "$GOVERNOR/target_loads";
+	echo "30000" > "$GOVERNOR/timer_rate";
+	echo "120000" > "$GOVERNOR/timer_slack";
+	echo "1200000" > "$GOVERNOR/up_threshold_any_cpu_freq";
+	echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
 	echo "Interactive_pro tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
@@ -484,7 +486,7 @@ if [ $CUR_GOVERNOR = "ondemandplus" ]; then
 	echo "2" > "$GOVERNOR/inter_staycycles";
 	echo "0" > "$GOVERNOR/io_is_busy";
 	echo "$MIN_CPU_FREQ" > "$GOVERNOR/staycycles_resetfreq";
-	echo "40000" > "$GOVERNOR/timer_rate";
+	echo "30000" > "$GOVERNOR/timer_rate";
 	echo "95" > "$GOVERNOR/up_threshold";
 	echo "OndemandPlus tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
@@ -521,12 +523,12 @@ if [ $CUR_GOVERNOR = "intellidemand" ]; then
 	echo "3" > "$GOVERNOR/sampling_interim_factor";
 	echo "20000" > "$GOVERNOR/sampling_rate";
 	echo "20000" > "$GOVERNOR/sampling_rate_min";
-	echo "$MIN_CPU_FREQ" > "$GOVERNOR/sync_freq";
-	echo "1300000" > "$GOVERNOR/two_phase_freq";
+	echo "1100000" > "$GOVERNOR/sync_freq";
+	echo "1800000,1800000,1800000,1800000" > "$GOVERNOR/two_phase_freq";
 	echo "40000" > "$GOVERNOR/ui_sampling_rate";
 	echo "40" > "$GOVERNOR/ui_timeout";
 	echo "95" > "$GOVERNOR/up_threshold";
-	echo "175" > "$GOVERNOR/up_threshold_any_cpu_load";
+	echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
 	echo "0" > "$GOVERNOR/up_threshold_multi_core";
 	echo "Intellidemand tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
@@ -537,8 +539,8 @@ fi
 if [ $CUR_GOVERNOR = "tripndroid" ]; then
 	echo "10000" > "$GOVERNOR/down_sample_time";
 	echo "90" > "$GOVERNOR/go_hispeed_load";
-	echo "$MIN_CPU_FREQ" > "$GOVERNOR/hispeed_freq";
-	echo "40000" > "$GOVERNOR/timer_rate";
+	echo "1200000" > "$GOVERNOR/hispeed_freq";
+	echo "30000" > "$GOVERNOR/timer_rate";
 	echo "50000" > "$GOVERNOR/up_sample_time";
 	echo "Tripndroid tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit

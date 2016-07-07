@@ -56,25 +56,25 @@ fi
 if [ -d "$CLUSTER2_DETECT" ]; then
 	CLUSTER2=$CPUFREQ_CLUSTER2
 	else
-	CLUSTER=$CPUFREQ_REGULAR
+	CLUSTER2=$CPUFREQ_REGULAR
 fi
 
 if [ -d "$CLUSTER3_DETECT" ]; then
 	CLUSTER3=$CPUFREQ_CLUSTER3
 	else
-	CLUSTER=$CPUFREQ_REGULAR
+	CLUSTER3=$CPUFREQ_REGULAR
 fi
 
 if [ -d "$CLUSTER4_DETECT" ]; then
 	CLUSTER4=$CPUFREQ_CLUSTER4
 	else
-	CLUSTER=$CPUFREQ_REGULAR
+	CLUSTER4=$CPUFREQ_REGULAR
 fi
 
 if [ -d "$CLUSTER5_DETECT" ]; then
 	CLUSTER5=$CPUFREQ_CLUSTER5
 	else
-	CLUSTER=$CPUFREQ_REGULAR
+	CLUSTER5=$CPUFREQ_REGULAR
 fi
 
 # Set the finalized governor path
@@ -84,7 +84,8 @@ GOVERNOR=$CLUSTER/$CLUSTER2/$CLUSTER3/$CLUSTER4/$CLUSTER5/$CUR_GOVERNOR
 
 # INTERACTIVE
 
-if [ $CUR_GOVERNOR = "interactive" ]; then
+if [ $CUR_GOVERNOR = "interactive" ];
+else [ $CPU_MAX_FREQ < "1400000" ]; then
 	echo "30000" > "$GOVERNOR/above_hispeed_delay";
 	echo "0" > "$GOVERNOR/boost";
 	echo "0" > "$GOVERNOR/boostpulse";
@@ -94,12 +95,13 @@ if [ $CUR_GOVERNOR = "interactive" ]; then
 	echo "0" > "$GOVERNOR/io_is_busy";
 	echo "80000" > "$GOVERNOR/min_sample_time";
 	echo "1" > "$GOVERNOR/sampling_down_factor";
-	echo "90" > $GOVERNOR/target_loads;
+	echo "90" > "$GOVERNOR/target_loads";
 	echo "30000" > "$GOVERNOR/timer_rate";
 	echo "120000" > "$GOVERNOR/timer_slack";
 	echo "1200000" > "$GOVERNOR/up_threshold_any_cpu_freq";
 	echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
 	echo "Interactive tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
+	
 	exit
 fi
 
@@ -129,7 +131,7 @@ if [ $CUR_GOVERNOR = "yankactive" ]; then
 	echo "0" > "$GOVERNOR/io_is_busy";
 	echo "80000" > "$GOVERNOR/min_sample_time";
 	echo "1" > "$GOVERNOR/sampling_down_factor";
-	echo "90" > $GOVERNOR/target_loads;
+	echo "90" > "$GOVERNOR/target_loads";
 	echo "30000" > "$GOVERNOR/timer_rate";
 	echo "120000" > "$GOVERNOR/timer_slack";
 	echo "1200000" > "$GOVERNOR/up_threshold_any_cpu_freq";
@@ -152,7 +154,7 @@ if [ $CUR_GOVERNOR = "intelliactive" ]; then
 	echo "80000" > "$GOVERNOR/min_sample_time";
 	echo "1" > "$GOVERNOR/sampling_down_factor";
 	echo "1100000" > "$GOVERNOR/sync_freq";
-	echo "90" > $GOVERNOR/target_loads;
+	echo "90" > "$GOVERNOR/target_loads";
 	echo "30000" > "$GOVERNOR/timer_rate";
 	echo "120000" > "$GOVERNOR/timer_slack";
 	echo "1800000,1800000,1800000,1800000" > "$GOVERNOR/two_phase_freq";
@@ -286,7 +288,7 @@ if [ $CUR_GOVERNOR = "barry_allen" ]; then
 	echo "80000" > "$GOVERNOR/min_sample_time";
 	echo "1" > "$GOVERNOR/sampling_down_factor";
 	echo "1100000" > "$GOVERNOR/sync_freq";
-	echo "90" > $GOVERNOR/target_loads;
+	echo "90" > "$GOVERNOR/target_loads";
 	echo "30000" > "$GOVERNOR/timer_rate";
 	echo "120000" > "$GOVERNOR/timer_slack";
 	echo "1800000,1800000,1800000,1800000" > "$GOVERNOR/two_phase_freq";
@@ -309,7 +311,7 @@ if [ $CUR_GOVERNOR = "bluactive" ]; then
 	echo "80000" > "$GOVERNOR/min_sample_time";
 	echo "1" > "$GOVERNOR/sampling_down_factor";
 	echo "1100000" > "$GOVERNOR/sync_freq";
-	echo "90" > $GOVERNOR/target_loads;
+	echo "90" > "$GOVERNOR/target_loads";
 	echo "30000" > "$GOVERNOR/timer_rate";
 	echo "120000" > "$GOVERNOR/timer_slack";
 	echo "1800000,1800000,1800000,1800000" > "$GOVERNOR/two_phase_freq";

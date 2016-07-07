@@ -131,7 +131,7 @@ if [ "$CUR_GOVERNOR" = "interactive" ]; then
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_load" ]; then
 		busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
 	fi
-	busybox echo "Interactive tweaks applied."
+	busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
 fi
 

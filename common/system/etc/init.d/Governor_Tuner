@@ -12,7 +12,7 @@
 #  GNU General Public License for more details.
 #  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #=======================================================================#
-# Will this commit and push?
+
 # Upgrade tool, this removes Governor_profiles in case it exists
 # We need to remove it since it directly conflicts with the new version (since the name differs)
 

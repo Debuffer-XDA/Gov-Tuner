@@ -17,17 +17,24 @@ ver="2.0.4.3"
 # We need to remove it since it directly conflicts with the new version (since the name differs)
 
 echo ""
-echo "You are running $ver version."
+echo "You are running version $ver"
 
 id="$(id)"; id="${id#*=}"; id="${id%%\(*}"; id="${id%% *}"
-echo ""
+clear
 sleep 1
-echo ""
-echo "Checking root..."
-sleep 0.5
-su
-sleep 1
-
+echo "Checking root"; sleep 0.2; echo "Checking root."; 
+sleep 0.2; 
+echo "Checking root.."; 
+sleep 0.2 ;
+echo "Checking root..."; 
+sleep 0.2; 
+echo "Checking root"; 
+sleep 0.2; 
+echo "Checking root."; 
+sleep 0.2; 
+echo "Checking root.."; 
+sleep 0.2; 
+echo "Checking root..."; 
 if [ "$id" != "0" ] && [ "$id" != "root" ]; then
 	sleep 1
 	echo ""
@@ -39,6 +46,13 @@ if [ "$id" != "0" ] && [ "$id" != "root" ]; then
 	echo ""
 	sleep 1
 	exit
+	else
+		clear
+		sleep 0.5
+		echo "Your root is OK."
+		sleep 1
+		echo ""
+		echo "Executing script"
 fi
 
 if [ -f /system/etc/init.d/Governor_profiles ]; then

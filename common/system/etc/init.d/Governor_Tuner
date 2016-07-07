@@ -262,8 +262,8 @@ if [ $CUR_GOVERNOR = "intelimm" ]; then
 	echo "$MIN_CPU_FREQ" > "$GOVERNOR/optimal_freq";
 	echo "0" > "$GOVERNOR/powersave_bias";
 	echo "1" > "$GOVERNOR/sampling_down_factor";
-	echo "50000" > "$GOVERNOR/sampling_rate";
-	echo "10000" > "$GOVERNOR/sampling_rate_min";
+	echo "80000" > "$GOVERNOR/sampling_rate";
+	echo "80000" > "$GOVERNOR/sampling_rate_min";
 	echo "0" > "$GOVERNOR/shortcut";
 	echo "1800000,1800000,1800000,1800000" > "$GOVERNOR/two_phase_freq";
 	echo "95" > "$GOVERNOR/up_threshold";

@@ -75,6 +75,12 @@ CPUFREQ_CLUSTER="/sys/devices/system/cpu/cpu0/cpufreq"
 # Regular CPUFreq directory
 CPUFREQ_REGULAR="/sys/devices/system/cpu/cpufreq"
 
+if [ -d "$CLUSTER_DETECT" ]; then
+	CLUSTER=$CPUFREQ_CLUSTER
+ 	else
+	CLUSTER=$CPUFREQ_REGULAR
+fi
+
 # Set the finalized governor path
 GOVERNOR=$CLUSTER/$CUR_GOVERNOR
 
@@ -82,23 +88,50 @@ GOVERNOR=$CLUSTER/$CUR_GOVERNOR
 
 # INTERACTIVE
 
-if [ $CUR_GOVERNOR = "interactive" ]; then
-	busybox echo "30000" > "$GOVERNOR/above_hispeed_delay";
-	busybox echo "0" > "$GOVERNOR/boost";
-	busybox echo "0" > "$GOVERNOR/boostpulse";
-	busybox echo "0" > "$GOVERNOR/boostpulse_duration";
-	busybox echo "90" > "$GOVERNOR/go_hispeed_load";
-	busybox echo "1200000" > "$GOVERNOR/hispeed_freq";
-	busybox echo "0" > "$GOVERNOR/io_is_busy";
-	busybox echo "80000" > "$GOVERNOR/min_sample_time";
-	busybox echo "1" > "$GOVERNOR/sampling_down_factor";
-	busybox echo "90" > "$GOVERNOR/target_loads";
-	busybox echo "30000" > "$GOVERNOR/timer_rate";
-	busybox echo "120000" > "$GOVERNOR/timer_slack";
-	busybox echo "1200000" > "$GOVERNOR/up_threshold_any_cpu_freq";
-	busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
+if [ "$CUR_GOVERNOR" = "interactive" ]; then
+	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
+		busybox echo "30000" > "$GOVERNOR/above_hispeed_delay";
+	fi
+	if [ -e "$GOVERNOR/boost" ]; then
+		busybox echo "0" > "$GOVERNOR/boost";
+	fi
+	if [ -e "$GOVERNOR/boostpulse" ]; then
+		busybox echo "0" > "$GOVERNOR/boostpulse";
+	fi
+	if [ -e "$GOVERNOR/boostpulse_duration" ]; then	
+		busybox echo "0" > "$GOVERNOR/boostpulse_duration";
+	fi
+	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
+		busybox echo "90" > "$GOVERNOR/go_hispeed_load";
+	fi
+	if [ -e "$GOVERNOR/hispeed_freq" ]; then
+		busybox echo "1200000" > "$GOVERNOR/hispeed_freq";
+	fi
+	if [ -e "$GOVERNOR/io_is_busy" ]; then
+		busybox echo "0" > "$GOVERNOR/io_is_busy";
+	fi
+	if [ -e "$GOVERNOR/min_sample_time" ]; then
+		busybox echo "80000" > "$GOVERNOR/min_sample_time";
+	fi
+	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
+		busybox echo "1" > "$GOVERNOR/sampling_down_factor";
+	fi
+	if [ -e "$GOVERNOR/target_loads" ]; then
+		busybox echo "90" > "$GOVERNOR/target_loads";
+	fi
+	if [ -e "$GOVERNOR/timer_rate" ]; then
+		busybox echo "30000" > "$GOVERNOR/timer_rate";
+	fi
+	if [ -e "$GOVERNOR/timer_slack" ]; then
+		busybox echo "120000" > "$GOVERNOR/timer_slack";
+	fi
+	if [ -e "$GOVERNOR/up_threshold_any_cpu_freq" ]; then
+		busybox echo "1200000" > "$GOVERNOR/up_threshold_any_cpu_freq";
+	fi
+	if [ -e "$GOVERNOR/up_threshold_any_cpu_load" ]; then
+		busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
+	fi
 	busybox echo "Interactive tweaks applied."
-	busybox echo "Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 

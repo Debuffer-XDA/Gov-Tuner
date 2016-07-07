@@ -1,7 +1,7 @@
 #!/system/bin/sh
-# Gov-Tuner 2.0.4
-# Copyright (C) 2016 Debuffer @ XDA-Developers
-# With help from Paget96 and F4uzan from XDA-Developers
+ver="2.0.4.3"
+# Copyright (C) 2016 Debuffer @ xda-developers
+# Thanks to @Paget96 @F4uzan
 #=======================================================================#
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -15,6 +15,30 @@
 
 # Upgrade tool, this removes Governor_profiles in case it exists
 # We need to remove it since it directly conflicts with the new version (since the name differs)
+
+echo "You are running $ver version.
+
+id="$(id)"; id="${id#*=}"; id="${id%%\(*}"; id="${id%% *}"
+echo ""
+sleep 1
+echo ""
+echo "Checking root..."
+sleep 0.5
+su
+sleep 0.5
+
+if [ "$id" != "0" ] && [ "$id" != "root" ]; then
+	sleep 1
+	echo ""
+	echo ""
+	echo "    You don't have ROOT or there is an issue with it..."
+	echo "    Please type su first (terminal emulator)"
+	echo "    Then type tune"
+	echo "    Enable run as ROOT (script manager)"
+	echo ""
+	sleep 1
+	exit
+fi
 
 if [ -f /system/etc/init.d/Governor_profiles ]; then
 	mount -o remount, rw /system

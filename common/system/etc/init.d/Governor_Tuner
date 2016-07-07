@@ -39,7 +39,7 @@ if [ "$id" != "0" ] && [ "$id" != "root" ]; then
 	else
 		clear
 		sleep 0.5
-		echo "Your root is OK."
+		echo "Root sucessfully acquired."
 		sleep 1
 		echo ""
 		echo "Executing script"

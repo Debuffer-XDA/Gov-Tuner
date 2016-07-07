@@ -85,7 +85,6 @@ GOVERNOR=$CLUSTER/$CLUSTER2/$CLUSTER3/$CLUSTER4/$CLUSTER5/$CUR_GOVERNOR
 # INTERACTIVE
 
 if [ $CUR_GOVERNOR = "interactive" ];
-else [ $CPU_MAX_FREQ < "1400000" ]; then
 	echo "30000" > "$GOVERNOR/above_hispeed_delay";
 	echo "0" > "$GOVERNOR/boost";
 	echo "0" > "$GOVERNOR/boostpulse";

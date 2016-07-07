@@ -184,7 +184,7 @@ if [ $CUR_GOVERNOR = "lionfish" ]; then
 	echo "95" > "$GOVERNOR/down_threshold";
 	echo "1" > "$GOVERNOR/freq_step";
 	echo "1" > "$GOVERNOR/ignore_nice_load";
-	echo "800000" > "$GOVERNOR/jump_level";
+	echo "1000000" > "$GOVERNOR/jump_level";
 	echo "99" > "$GOVERNOR/jump_threshold";
 	echo "1" > "$GOVERNOR/sampling_down_factor";
 	echo "50000" > "$GOVERNOR/sampling_rate";
@@ -204,7 +204,7 @@ if [ $CUR_GOVERNOR = "impulse" ]; then
 	echo "80000" > "$GOVERNOR/min_sample_time";
 	echo "30000" > "$GOVERNOR/timer_rate";
 	echo "120000" > "$GOVERNOR/timer_slack";
-	echo "90" > $GOVERNOR/target_loads;
+	echo "90" > "$GOVERNOR/target_loads";
 	echo "$MIN_CPU_FREQ" > "$GOVERNOR/max_freq_hysteresis";
 	echo "0" > "$GOVERNOR/align_windows";
 	echo "0" > "$GOVERNOR/powersave_bias";

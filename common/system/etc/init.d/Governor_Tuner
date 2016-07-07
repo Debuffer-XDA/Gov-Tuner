@@ -16,6 +16,7 @@ ver="2.0.4.3"
 # Upgrade tool, this removes Governor_profiles in case it exists
 # We need to remove it since it directly conflicts with the new version (since the name differs)
 
+echo ""
 echo "You are running $ver version."
 
 id="$(id)"; id="${id#*=}"; id="${id%%\(*}"; id="${id%% *}"

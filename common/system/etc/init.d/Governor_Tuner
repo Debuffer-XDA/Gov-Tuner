@@ -16,16 +16,20 @@ ver="2.0.4.3"
 # Upgrade tool, this removes Governor_profiles in case it exists
 # We need to remove it since it directly conflicts with the new version (since the name differs)
 
-echo ""
-echo "You are running version $ver"
+busybox echo "You are running version $ver"
 
 id="$(id)"; id="${id#*=}"; id="${id%%\(*}"; id="${id%% *}"
-clear
-sleep 1
-echo "You are running version $ver"
-echo ""
-echo "Checking root"; sleep 0.2; echo "Checking root."; sleep 0.2; echo "Checking root.."; sleep 0.2 ;echo "Checking root..."; sleep 0.2; 
-echo "Checking root..."; sleep 0.2; echo "Checking root.."; sleep 0.2; echo "Checking root."; sleep 0.2; echo "Checking root."; 
+busybox sleep 1
+busybox clear
+busybox sleep 1
+busybox echo "Checking root"; busybox sleep 0.2; busybox clear;
+busybox echo "Checking root."; busybox sleep 0.2; busybox clear;
+busybox echo "Checking root.."; busybox sleep 0.2; busybox clear;
+busybox echo "Checking root..."; busybox sleep 0.2; busybox clear;
+busybox echo "Checking root"; busybox sleep 0.2; busybox clear;
+busybox echo "Checking root."; busybox sleep 0.2; busybox clear;
+busybox echo "Checking root.."; busybox sleep 0.2; 
+busybox clear; busybox echo "Checking root..."; 
 
 if [ "$id" != "0" ] && [ "$id" != "root" ]; then
 	sleep 1

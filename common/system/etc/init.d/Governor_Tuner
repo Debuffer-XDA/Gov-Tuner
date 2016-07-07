@@ -78,7 +78,8 @@ if [ -d "$CLUSTER5_DETECT" ]; then
 fi
 
 # Set the finalized governor path
-GOVERNOR=$CLUSTER/$CLUSTER2/$CLUSTER3/$CLUSTER4/$CLUSTER5/$CUR_GOVERNOR
+#GOVERNOR=$CLUSTER/$CLUSTER2/$CLUSTER3/$CLUSTER4/$CLUSTER5/$CUR_GOVERNOR"
+GOVERNOR=$CLUSTER/$CUR_GOVERNOR
 
 # GOVERNOR TWEAKS #
 
@@ -545,7 +546,6 @@ if [ $CUR_GOVERNOR = "tripndroid" ]; then
 	echo "Tripndroid tweaks applied. Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
-
 
 # No compatible governor is detected
 # Put other governor above this, don't let this be sandwiched by other governor

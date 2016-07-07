@@ -22,8 +22,10 @@ echo "You are running version $ver"
 id="$(id)"; id="${id#*=}"; id="${id%%\(*}"; id="${id%% *}"
 clear
 sleep 1
+echo "You are running version $ver"
+echo ""
 echo "Checking root"; sleep 0.2; echo "Checking root."; sleep 0.2; echo "Checking root.."; sleep 0.2 ;echo "Checking root..."; sleep 0.2; 
-echo "Checking root"; sleep 0.2; echo "Checking root."; sleep 0.2; echo "Checking root.."; sleep 0.2; echo "Checking root..."; 
+echo "Checking root..."; sleep 0.2; echo "Checking root.."; sleep 0.2; echo "Checking root."; sleep 0.2; echo "Checking root."; 
 
 if [ "$id" != "0" ] && [ "$id" != "root" ]; then
 	sleep 1

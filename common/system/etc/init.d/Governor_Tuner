@@ -53,7 +53,6 @@ if [ "$id" != "0" ] && [ "$id" != "root" ]; then
 		busybox echo "Checking for compatible governor..."
 		busybox sleep 1
 		busybox echo ""
-		busybox echo ""
 		busybox sleep 1
 fi
 

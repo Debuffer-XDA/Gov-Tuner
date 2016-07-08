@@ -26,10 +26,10 @@ busybox echo "Checking root"; busybox sleep 0.3; busybox clear;
 busybox echo "Checking root."; busybox sleep 0.3; busybox clear;
 busybox echo "Checking root.."; busybox sleep 0.3; busybox clear;
 busybox echo "Checking root..."; busybox sleep 0.3; busybox clear;
-busybox echo "Checking root"; busybox sleep 0.3; busybox clear;
-busybox echo "Checking root."; busybox sleep 0.3; busybox clear;
-busybox echo "Checking root.."; busybox sleep 0.3; 
-busybox clear; busybox echo "Checking root..."; 
+busybox echo "Checking root..."; busybox sleep 0.3; busybox clear;
+busybox echo "Checking root.."; busybox sleep 0.3; busybox clear;
+busybox echo "Checking root."; busybox sleep 0.3; busybox clear; 
+busybox echo "Checking root"; busybox sleep 0.7
 
 if [ "$id" != "0" ] && [ "$id" != "root" ]; then
 	busybox sleep 1
@@ -48,7 +48,10 @@ if [ "$id" != "0" ] && [ "$id" != "root" ]; then
 		busybox echo "Root sucessfully acquired."
 		busybox sleep 1
 		busybox echo ""
-		busybox echo "Executing script"
+		busybox echo "Checking current governor..."
+		busybox sleep 1
+		busybox echo ""
+		busybox echo "Applying $CUR_GOVERNOR tweaks..."
 fi
 
 if [ -f /system/etc/init.d/Governor_profiles ]; then

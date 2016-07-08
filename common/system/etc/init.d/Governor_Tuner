@@ -292,6 +292,7 @@ if [ $CUR_GOVERNOR = "bioshock" ]; then
 	fi
 	if [ -e "$GOVERNOR/up_threshold" ]; then
 		busybox echo "99" > "$GOVERNOR/up_threshold";
+	fi
 	busybox echo "Bioshock tweaks applied."
 	exit
 fi
@@ -325,6 +326,7 @@ if [ $CUR_GOVERNOR = "lionfish" ]; then
 	fi
 	if [ -e "$GOVERNOR/up_threshold" ]; then
 		busybox echo "99" > "$GOVERNOR/up_threshold";
+	fi
 	busybox echo "Lionfish tweaks applied."
 	exit
 fi
@@ -364,6 +366,7 @@ if [ $CUR_GOVERNOR = "impulse" ]; then
 	fi
 	if [ -e "$GOVERNOR/powersave_bias" ]; then
 		busybox echo "0" > "$GOVERNOR/powersave_bias";
+	fi
 	busybox echo "Impulse tweaks applied."
 	exit
 fi
@@ -397,7 +400,8 @@ if [ $CUR_GOVERNOR = "uberdemand" ]; then
 	fi
 	if [ -e "$GOVERNOR/up_threshold" ]; then
 		busybox echo "95" > "$GOVERNOR/up_threshold";
-		busybox echo "Uberdemand tweaks applied."
+	fi
+	busybox echo "Uberdemand tweaks applied."
 	exit
 fi
 
@@ -445,6 +449,7 @@ if [ $CUR_GOVERNOR = "electroactive" ]; then
 	fi
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_freq" ]; then
 		busybox echo "600000" > "$GOVERNOR/up_threshold_min_freq";
+	fi
 	busybox echo "Electroactive tweaks applied."
 	exit
 fi
@@ -452,23 +457,277 @@ fi
 # INTELLIMM
 
 if [ $CUR_GOVERNOR = "intelimm" ]; then
+	if [ -e "$GOVERNOR/down_differential" ]; then
+		busybox echo "15" > "$GOVERNOR/down_differential";
+	fi
+	if [ -e "$GOVERNOR/down_differential_multi_core" ]; then
+		busybox echo "15" > "$GOVERNOR/down_differential_multi_core";
+	fi
+	if [ -e "$GOVERNOR/freq_down_step" ]; then
+		busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/freq_down_step";
+	fi
+	if [ -e "$GOVERNOR/freq_down_step_barrier" ]; then
+		busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/freq_down_step_barrier";
+	fi
+	if [ -e "$GOVERNOR/ignore_nice_load" ]; then
+		busybox echo "0" > "$GOVERNOR/ignore_nice_load";
+	fi
+	if [ -e "$GOVERNOR/input_event_min_freq" ]; then
+		busybox echo "$MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ" > "$GOVERNOR/input_event_min_freq";
+	fi
+	if [ -e "$GOVERNOR/io_is_busy" ]; then
+		busybox echo "0" > "$GOVERNOR/io_is_busy";
+	fi
+	if [ -e "$GOVERNOR/optimal_freq" ]; then
+		busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/optimal_freq";
+	fi
+	if [ -e "$GOVERNOR/powersave_bias" ]; then
+		busybox echo "0" > "$GOVERNOR/powersave_bias";
+	fi
+	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
+		busybox echo "1" > "$GOVERNOR/sampling_down_factor";
+	fi
+	if [ -e "$GOVERNOR/sampling_rate" ]; then
+		busybox echo "80000" > "$GOVERNOR/sampling_rate";
+	fi
+	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
+		busybox echo "80000" > "$GOVERNOR/sampling_rate_min";
+	fi
+	if [ -e "$GOVERNOR/shortcut" ]; then
+		busybox echo "0" > "$GOVERNOR/shortcut";
+	fi
+	if [ -e "$GOVERNOR/two_phase_freq" ]; then
+		busybox echo "1800000,1800000,1800000,1800000" > "$GOVERNOR/two_phase_freq";
+	fi
+	if [ -e "$GOVERNOR/up_threshold" ]; then
+		busybox echo "95" > "$GOVERNOR/up_threshold";
+	fi
+	if [ -e "$GOVERNOR/up_threshold_any_cpu_load" ]; then
+		busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
+	fi
+	if [ -e "$GOVERNOR/up_threshold_any_cpu_freq" ]; then
+		busybox echo "1200000" > "$GOVERNOR/up_threshold_any_cpu_freq";
+	fi
+	if [ -e "$GOVERNOR/up_threshold_multi_core" ]; then
+		busybox echo "0" > "$GOVERNOR/up_threshold_multi_core";
+	fi
+	busybox echo "InteliMM tweaks applied."
+	exit
+fi
+
+# BARRY_ALLEN
+
+if [ $CUR_GOVERNOR = "barry_allen" ]; then
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "30000" > "$GOVERNOR/above_hispeed_delay";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/ba_lock";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/boost";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/boostpulse";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/boostpulse_duration";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "90" > "$GOVERNOR/go_hispeed_load";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "1200000" > "$GOVERNOR/hispeed_freq";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/io_is_busy";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "80000" > "$GOVERNOR/min_sample_time";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "1" > "$GOVERNOR/sampling_down_factor";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "1100000" > "$GOVERNOR/sync_freq";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "90" > "$GOVERNOR/target_loads";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "30000" > "$GOVERNOR/timer_rate";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "120000" > "$GOVERNOR/timer_slack";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "1800000,1800000,1800000,1800000" > "$GOVERNOR/two_phase_freq";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "1200000" > "$GOVERNOR/up_threshold_any_cpu_freq";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
+	fi
+	busybox echo "Barry_allen tweaks applied."
+	exit
+fi
+
+# BLUACTIVE
+
+if [ $CUR_GOVERNOR = "bluactive" ]; then
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "30000" > "$GOVERNOR/above_hispeed_delay";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/boost";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/boostpulse";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/boostpulse_duration";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "90" > "$GOVERNOR/go_hispeed_load";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "1200000" > "$GOVERNOR/hispeed_freq";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/io_is_busy";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "80000" > "$GOVERNOR/min_sample_time";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "1" > "$GOVERNOR/sampling_down_factor";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "1100000" > "$GOVERNOR/sync_freq";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "90" > "$GOVERNOR/target_loads";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "30000" > "$GOVERNOR/timer_rate";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "120000" > "$GOVERNOR/timer_slack";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "1800000,1800000,1800000,1800000" > "$GOVERNOR/two_phase_freq";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "1200000" > "$GOVERNOR/up_threshold_any_cpu_freq";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
+	fi
+	busybox echo "Bluactive tweaks applied."
+	exit
+fi
+
+# DANCEDANCE
+
+if [ $CUR_GOVERNOR = "dancedance" ]; then
+	if [ -e "$GOVERNOR/" ]; then
+			busybox echo "95" > "$GOVERNOR/down_threshold";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+			busybox echo "1" > "$GOVERNOR/freq_step";
+	fi
+			busybox echo "1" > "$GOVERNOR/ignore_nice_load";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+			busybox echo "1" > "$GOVERNOR/sampling_down_factor";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+			busybox echo "50000" > "$GOVERNOR/sampling_rate";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+			busybox echo "10000" > "$GOVERNOR/sampling_rate_min";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+			busybox echo "99" > "$GOVERNOR/up_threshold";
+	fi
+		busybox echo "Dancedance tweaks applied."
+	exit
+fi
+
+# LIONHEART 
+
+if [ $CUR_GOVERNOR = "lionheart" ]; then
+	if [ -e "$GOVERNOR/" ]; then
+			busybox echo "95" > "$GOVERNOR/down_threshold";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+			busybox echo "1" > "$GOVERNOR/freq_step";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+			busybox echo "1" > "$GOVERNOR/ignore_nice_load";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+			busybox echo "1" > "$GOVERNOR/sampling_down_factor";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+			busybox echo "50000" > "$GOVERNOR/sampling_rate";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+			busybox echo "10000" > "$GOVERNOR/sampling_rate_min";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+			busybox echo "99" > "$GOVERNOR/up_threshold";
+	fi
+	busybox echo "Lionheart tweaks applied."
+	exit
+fi
+
+# PEGASUSQ
+
+if [ $CUR_GOVERNOR = "pegasusq" ]; then
 	if [ -e "$GOVERNOR/" ]; then
 		busybox echo "15" > "$GOVERNOR/down_differential";
 	fi
 	if [ -e "$GOVERNOR/" ]; then
-		busybox echo "15" > "$GOVERNOR/down_differential_multi_core";
+		busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/freq_responsiveness";
 	fi
 	if [ -e "$GOVERNOR/" ]; then
-		busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/freq_down_step";
-	fi
-	if [ -e "$GOVERNOR/" ]; then
-		busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/freq_down_step_barrier";
+		busybox echo "30" > "$GOVERNOR/freq_step";
 	fi
 	if [ -e "$GOVERNOR/" ]; then
 		busybox echo "0" > "$GOVERNOR/ignore_nice_load";
 	fi
 	if [ -e "$GOVERNOR/" ]; then
-		busybox echo "$MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ" > "$GOVERNOR/input_event_min_freq";
+		busybox echo "0" > "$GOVERNOR/io_is_busy";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "1" > "$GOVERNOR/sampling_down_factor";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "50000" > "$GOVERNOR/sampling_rate";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "10000" > "$GOVERNOR/sampling_rate_min";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "95" > "$GOVERNOR/up_threshold";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "600000" > "$GOVERNOR/up_threshold_min_freq";
+	fi
+	busybox echo "PegasusQ tweaks applied."
+	exit
+fi
+
+# ONDEMAND
+
+if [ $CUR_GOVERNOR = "ondemand" ]; then
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "15" > "$GOVERNOR/down_differential";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/ignore_nice_load";
 	fi
 	if [ -e "$GOVERNOR/" ]; then
 		busybox echo "0" > "$GOVERNOR/io_is_busy";
@@ -483,305 +742,387 @@ if [ $CUR_GOVERNOR = "intelimm" ]; then
 		busybox echo "1" > "$GOVERNOR/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/" ]; then
-		busybox echo "80000" > "$GOVERNOR/sampling_rate";
-		busybox echo "80000" > "$GOVERNOR/sampling_rate_min";
-		busybox echo "0" > "$GOVERNOR/shortcut";
-		busybox echo "1800000,1800000,1800000,1800000" > "$GOVERNOR/two_phase_freq";
+		busybox echo "20000" > "$GOVERNOR/sampling_rate";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "20000" > "$GOVERNOR/sampling_rate_min";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "1100000" > "$GOVERNOR/sync_freq";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
 		busybox echo "95" > "$GOVERNOR/up_threshold";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
 		busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
-		busybox echo "1200000" > "$GOVERNOR/up_threshold_any_cpu_freq";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
 		busybox echo "0" > "$GOVERNOR/up_threshold_multi_core";
-		busybox echo "InteliMM tweaks applied."
-		busybox echo "Please ignore any "No such files or directory" errors, if you encounter one!"
-	exit
-fi
-
-# BARRY_ALLEN
-
-if [ $CUR_GOVERNOR = "barry_allen" ]; then
-	busybox echo "30000" > "$GOVERNOR/above_hispeed_delay";
-	busybox echo "0" > "$GOVERNOR/ba_lock";
-	busybox echo "0" > "$GOVERNOR/boost";
-	busybox echo "0" > "$GOVERNOR/boostpulse";
-	busybox echo "0" > "$GOVERNOR/boostpulse_duration";
-	busybox echo "90" > "$GOVERNOR/go_hispeed_load";
-	busybox echo "1200000" > "$GOVERNOR/hispeed_freq";
-	busybox echo "0" > "$GOVERNOR/io_is_busy";
-	busybox echo "80000" > "$GOVERNOR/min_sample_time";
-	busybox echo "1" > "$GOVERNOR/sampling_down_factor";
-	busybox echo "1100000" > "$GOVERNOR/sync_freq";
-	busybox echo "90" > "$GOVERNOR/target_loads";
-	busybox echo "30000" > "$GOVERNOR/timer_rate";
-	busybox echo "120000" > "$GOVERNOR/timer_slack";
-	busybox echo "1800000,1800000,1800000,1800000" > "$GOVERNOR/two_phase_freq";
-	busybox echo "1200000" > "$GOVERNOR/up_threshold_any_cpu_freq";
-	busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
-	busybox echo "Barry_allen tweaks applied."
-	busybox echo "Please ignore any "No such files or directory" errors, if you encounter one!"
-	exit
-fi
-
-# BLUACTIVE
-
-if [ $CUR_GOVERNOR = "bluactive" ]; then
-	busybox echo "30000" > "$GOVERNOR/above_hispeed_delay";
-	busybox echo "0" > "$GOVERNOR/boost";
-	busybox echo "0" > "$GOVERNOR/boostpulse";
-	busybox echo "0" > "$GOVERNOR/boostpulse_duration";
-	busybox echo "90" > "$GOVERNOR/go_hispeed_load";
-	busybox echo "1200000" > "$GOVERNOR/hispeed_freq";
-	busybox echo "0" > "$GOVERNOR/io_is_busy";
-	busybox echo "80000" > "$GOVERNOR/min_sample_time";
-	busybox echo "1" > "$GOVERNOR/sampling_down_factor";
-	busybox echo "1100000" > "$GOVERNOR/sync_freq";
-	busybox echo "90" > "$GOVERNOR/target_loads";
-	busybox echo "30000" > "$GOVERNOR/timer_rate";
-	busybox echo "120000" > "$GOVERNOR/timer_slack";
-	busybox echo "1800000,1800000,1800000,1800000" > "$GOVERNOR/two_phase_freq";
-	busybox echo "1200000" > "$GOVERNOR/up_threshold_any_cpu_freq";
-	busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
-	busybox echo "Bluactive tweaks applied."
-	busybox echo "Please ignore any "No such files or directory" errors, if you encounter one!"
-	exit
-fi
-
-# DANCEDANCE
-
-if [ $CUR_GOVERNOR = "dancedance" ]; then
-	busybox echo "95" > "$GOVERNOR/down_threshold";
-	busybox echo "1" > "$GOVERNOR/freq_step";
-	busybox echo "1" > "$GOVERNOR/ignore_nice_load";
-	busybox echo "1" > "$GOVERNOR/sampling_down_factor";
-	busybox echo "50000" > "$GOVERNOR/sampling_rate";
-	busybox echo "10000" > "$GOVERNOR/sampling_rate_min";
-	busybox echo "99" > "$GOVERNOR/up_threshold";
-	busybox echo "Dancedance tweaks applied."
-	busybox echo "Please ignore any "No such files or directory" errors, if you encounter one!"
-	exit
-fi
-
-# LIONHEART 
-
-if [ $CUR_GOVERNOR = "lionheart" ]; then
-	busybox echo "95" > "$GOVERNOR/down_threshold";
-	busybox echo "1" > "$GOVERNOR/freq_step";
-	busybox echo "1" > "$GOVERNOR/ignore_nice_load";
-	busybox echo "1" > "$GOVERNOR/sampling_down_factor";
-	busybox echo "50000" > "$GOVERNOR/sampling_rate";
-	busybox echo "10000" > "$GOVERNOR/sampling_rate_min";
-	busybox echo "99" > "$GOVERNOR/up_threshold";
-	busybox echo "Lionheart tweaks applied."
-	busybox echo "Please ignore any "No such files or directory" errors, if you encounter one!"
-	exit
-fi
-
-# PEGASUSQ
-
-if [ $CUR_GOVERNOR = "pegasusq" ]; then
-	busybox echo "15" > "$GOVERNOR/down_differential";
-	busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/freq_responsiveness";
-	busybox echo "30" > "$GOVERNOR/freq_step";
-	busybox echo "0" > "$GOVERNOR/ignore_nice_load";
-	busybox echo "0" > "$GOVERNOR/io_is_busy";
-	busybox echo "1" > "$GOVERNOR/sampling_down_factor";
-	busybox echo "50000" > "$GOVERNOR/sampling_rate";
-	busybox echo "10000" > "$GOVERNOR/sampling_rate_min";
-	busybox echo "95" > "$GOVERNOR/up_threshold";
-	busybox echo "600000" > "$GOVERNOR/up_threshold_min_freq";
-	busybox echo "PegasusQ tweaks applied."
-	busybox echo "Please ignore any "No such files or directory" errors, if you encounter one!"
-	exit
-fi
-
-# ONDEMAND
-
-if [ $CUR_GOVERNOR = "ondemand" ]; then
-	busybox echo "15" > "$GOVERNOR/down_differential";
-	busybox echo "0" > "$GOVERNOR/ignore_nice_load";
-	busybox echo "0" > "$GOVERNOR/io_is_busy";
-	busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/optimal_freq";
-	busybox echo "0" > "$GOVERNOR/powersave_bias";
-	busybox echo "1" > "$GOVERNOR/sampling_down_factor";
-	busybox echo "20000" > "$GOVERNOR/sampling_rate";
-	busybox echo "20000" > "$GOVERNOR/sampling_rate_min";
-	busybox echo "1100000" > "$GOVERNOR/sync_freq";
-	busybox echo "95" > "$GOVERNOR/up_threshold";
-	busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
-	busybox echo "0" > "$GOVERNOR/up_threshold_multi_core";
+	fi
 	busybox echo "Ondemand tweaks applied."
-	busybox echo "Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
 # SMARTMAX 
 
 if [ $CUR_GOVERNOR = "smartmax" ]; then
-	busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/awake_ideal_freq";
-	busybox echo "0" > "$GOVERNOR/boost_duration";
-	busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/boost_freq";
-	busybox echo "32" > "$GOVERNOR/debug_mask";
-	busybox echo "10000" > "$GOVERNOR/down_rate";
-	busybox echo "0" > "$GOVERNOR/ignore_nice";
-	busybox echo "0" > "$GOVERNOR/input_boost_duration";
-	busybox echo "0" > "$GOVERNOR/io_is_busy";
-	busybox echo "100" > "$GOVERNOR/max_cpu_load";
-	busybox echo "5" > "$GOVERNOR/min_cpu_load";
-	busybox echo "20000" > "$GOVERNOR/min_sampling_rate";
-	busybox echo "162000" > "$GOVERNOR/ramp_down_step";
-	busybox echo "0" > "$GOVERNOR/ramp_up_during_boost";
-	busybox echo "100000" > "$GOVERNOR/ramp_up_step";
-	busybox echo "20000" > "$GOVERNOR/sampling_rate";
-	busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/suspend_ideal_freq";
-	busybox echo "0" > "$GOVERNOR/touch_poke_freq";
-	busybox echo "0" > "$GOVERNOR/up_rate";
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/awake_ideal_freq";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/boost_duration";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/boost_freq";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "32" > "$GOVERNOR/debug_mask";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "10000" > "$GOVERNOR/down_rate";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/ignore_nice";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/input_boost_duration";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/io_is_busy";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "100" > "$GOVERNOR/max_cpu_load";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "5" > "$GOVERNOR/min_cpu_load";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "20000" > "$GOVERNOR/min_sampling_rate";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "162000" > "$GOVERNOR/ramp_down_step";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/ramp_up_during_boost";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "100000" > "$GOVERNOR/ramp_up_step";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "20000" > "$GOVERNOR/sampling_rate";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/suspend_ideal_freq";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/touch_poke_freq";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/up_rate";
+	fi
 	busybox echo "Smartmax tweaks applied."
-	busybox echo "Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
 # OPTIMAX
 
 if [ $CUR_GOVERNOR = "optimax" ]; then
-	busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/optimal_freq";
-	busybox echo "0" > "$GOVERNOR/optimal_max_freq";
-	busybox echo "0" > "$GOVERNOR/powersave_bias";
-	busybox echo "1" > "$GOVERNOR/sampling_down_factor";
-	busybox echo "20000" > "$GOVERNOR/sampling_rate";
-	busybox echo "20000" > "$GOVERNOR/sampling_rate_min";
-	busybox echo "1100000" > "$GOVERNOR/sync_freq";
-	busybox echo "95" > "$GOVERNOR/up_threshold";
-	busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
-	busybox echo "0" > "$GOVERNOR/up_threshold_multi_core";
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/optimal_freq";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/optimal_max_freq";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/powersave_bias";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "1" > "$GOVERNOR/sampling_down_factor";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "20000" > "$GOVERNOR/sampling_rate";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "20000" > "$GOVERNOR/sampling_rate_min";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "1100000" > "$GOVERNOR/sync_freq";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "95" > "$GOVERNOR/up_threshold";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/up_threshold_multi_core";
+	fi
 	busybox echo "Optimax tweaks applied."
-	busybox echo "Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
 # CONSERVATIVEX
 
 if [ $CUR_GOVERNOR = "conservativex" ]; then
-	busybox echo "95" > "$GOVERNOR/down_threshold";
-	busybox echo "1" > "$GOVERNOR/freq_step";
-	busybox echo "1" > "$GOVERNOR/ignore_nice_load";
-	busybox echo "1" > "$GOVERNOR/sampling_down_factor";
-	busybox echo "50000" > "$GOVERNOR/sampling_rate";
-	busybox echo "10000" > "$GOVERNOR/sampling_rate_min";
-	busybox echo "99" > "$GOVERNOR/up_threshold";
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "95" > "$GOVERNOR/down_threshold";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "1" > "$GOVERNOR/freq_step";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "1" > "$GOVERNOR/ignore_nice_load";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "1" > "$GOVERNOR/sampling_down_factor";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "50000" > "$GOVERNOR/sampling_rate";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "10000" > "$GOVERNOR/sampling_rate_min";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "99" > "$GOVERNOR/up_threshold";
+	fi
 	busybox echo "ConservativeX tweaks applied."
-	busybox echo "Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
 # INTERACTIVE_PRO
 
 if [ $CUR_GOVERNOR = "interactive_pro" ]; then
-	busybox echo "30000" > "$GOVERNOR/above_hispeed_delay";
-	busybox echo "0" > "$GOVERNOR/boost";
-	busybox echo "0" > "$GOVERNOR/boostpulse_duration";
-	busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/freq_calc_thresh";
-	busybox echo "90" > "$GOVERNOR/go_hispeed_load";
-	busybox echo "1200000" > "$GOVERNOR/hispeed_freq";
-	busybox echo "0" > "$GOVERNOR/io_is_busy";
-	busybox echo "80000" > "$GOVERNOR/min_sample_time";
-	busybox echo "1" > "$GOVERNOR/sampling_down_factor";
-	busybox echo "1100000" > "$GOVERNOR/sync_freq";
-	busybox echo "90" > "$GOVERNOR/target_loads";
-	busybox echo "30000" > "$GOVERNOR/timer_rate";
-	busybox echo "120000" > "$GOVERNOR/timer_slack";
-	busybox echo "1200000" > "$GOVERNOR/up_threshold_any_cpu_freq";
-	busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "30000" > "$GOVERNOR/above_hispeed_delay";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/boost";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/boostpulse_duration";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/freq_calc_thresh";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "90" > "$GOVERNOR/go_hispeed_load";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "1200000" > "$GOVERNOR/hispeed_freq";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/io_is_busy";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "80000" > "$GOVERNOR/min_sample_time";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "1" > "$GOVERNOR/sampling_down_factor";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "1100000" > "$GOVERNOR/sync_freq";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "90" > "$GOVERNOR/target_loads";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "30000" > "$GOVERNOR/timer_rate";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "120000" > "$GOVERNOR/timer_slack";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "1200000" > "$GOVERNOR/up_threshold_any_cpu_freq";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
+	fi
 	busybox echo "Interactive_pro tweaks applied."
-	busybox echo "Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
 # WHEATLEY
 
 if [ $CUR_GOVERNOR = "wheatley" ]; then
-	busybox echo "5" > "$GOVERNOR/allowed_misses";
-	busybox echo "0" > "$GOVERNOR/ignore_nice_load";
-	busybox echo "0" > "$GOVERNOR/io_is_busy";
-	busybox echo "0" > "$GOVERNOR/powersave_bias";
-	busybox echo "1" > "$GOVERNOR/sampling_down_factor";
-	busybox echo "20000" > "$GOVERNOR/sampling_rate";
-	busybox echo "20000" > "$GOVERNOR/sampling_rate_min";
-	busybox echo "10000" > "$GOVERNOR/target_residency";
-	busybox echo "95" > "$GOVERNOR/up_threshold";
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "5" > "$GOVERNOR/allowed_misses";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/ignore_nice_load";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/io_is_busy";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/powersave_bias";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "1" > "$GOVERNOR/sampling_down_factor";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "20000" > "$GOVERNOR/sampling_rate";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "20000" > "$GOVERNOR/sampling_rate_min";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "10000" > "$GOVERNOR/target_residency";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "95" > "$GOVERNOR/up_threshold";
+	fi
 	busybox echo "Wheatley tweaks applied."
-	busybox echo "Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
 # ONDEMAND PLUS
 
 if [ $CUR_GOVERNOR = "ondemandplus" ]; then
-	busybox echo "20" > "$GOVERNOR/down_differential";
-	busybox echo "1500000" > "$GOVERNOR/inter_hifreq";
-	busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/inter_lofreq";
-	busybox echo "2" > "$GOVERNOR/inter_staycycles";
-	busybox echo "0" > "$GOVERNOR/io_is_busy";
-	busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/staycycles_resetfreq";
-	busybox echo "30000" > "$GOVERNOR/timer_rate";
-	busybox echo "95" > "$GOVERNOR/up_threshold";
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "20" > "$GOVERNOR/down_differential";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "1500000" > "$GOVERNOR/inter_hifreq";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/inter_lofreq";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "2" > "$GOVERNOR/inter_staycycles";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/io_is_busy";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/staycycles_resetfreq";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "30000" > "$GOVERNOR/timer_rate";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "95" > "$GOVERNOR/up_threshold";
+	fi
 	busybox echo "OndemandPlus tweaks applied."
-	busybox echo "Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
 # SMARTMAX EPS
 
 if [ $CUR_GOVERNOR = "smartmax_eps" ]; then
-	busybox echo "0" > "$GOVERNOR/io_is_busy";
-	busybox echo "100" > "$GOVERNOR/max_cpu_load";
-	busybox echo "20" > "$GOVERNOR/min_cpu_load";
-	busybox echo "20000" > "$GOVERNOR/min_sampling_rate";
-	busybox echo "700000" > "$GOVERNOR/ramp_down_step";
-	busybox echo "0" > "$GOVERNOR/ramp_up_during_boost";
-	busybox echo "0" > "$GOVERNOR/ramp_up_step";
-	busybox echo "600000" > "$GOVERNOR/awake_ideal_freq";
-	busybox echo "0" > "$GOVERNOR/boost_duration";
-	busybox echo "0" > "$GOVERNOR/boost_freq";
-	busybox echo "0" > "$GOVERNOR/debug_mask";
-	busybox echo "30000" > "$GOVERNOR/down_rate";
-	busybox echo "0" > "$GOVERNOR/ignore_nice";
-	busybox echo "0" > "$GOVERNOR/input_boost_duration";
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/io_is_busy";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "100" > "$GOVERNOR/max_cpu_load";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "20" > "$GOVERNOR/min_cpu_load";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "20000" > "$GOVERNOR/min_sampling_rate";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "700000" > "$GOVERNOR/ramp_down_step";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/ramp_up_during_boost";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/ramp_up_step";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "600000" > "$GOVERNOR/awake_ideal_freq";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/boost_duration";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/boost_freq";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/debug_mask";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "30000" > "$GOVERNOR/down_rate";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/ignore_nice";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/input_boost_duration";
+	fi
 	busybox echo "Smartmax_eps tweaks applied."
-	busybox echo "Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
 # INTELLIDEMAND
 
 if [ $CUR_GOVERNOR = "intellidemand" ]; then
-	busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/optimal_freq";
-	busybox echo "0" > "$GOVERNOR/powersave_bias";
-	busybox echo "1" > "$GOVERNOR/sampling_down_factor";
-	busybox echo "2" > "$GOVERNOR/sampling_easy_factor";
-	busybox echo "3" > "$GOVERNOR/sampling_interim_factor";
-	busybox echo "20000" > "$GOVERNOR/sampling_rate";
-	busybox echo "20000" > "$GOVERNOR/sampling_rate_min";
-	busybox echo "1100000" > "$GOVERNOR/sync_freq";
-	busybox echo "1800000,1800000,1800000,1800000" > "$GOVERNOR/two_phase_freq";
-	busybox echo "40000" > "$GOVERNOR/ui_sampling_rate";
-	busybox echo "40" > "$GOVERNOR/ui_timeout";
-	busybox echo "95" > "$GOVERNOR/up_threshold";
-	busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
-	busybox echo "0" > "$GOVERNOR/up_threshold_multi_core";
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/optimal_freq";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "0" > "$GOVERNOR/powersave_bias";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "1" > "$GOVERNOR/sampling_down_factor";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "2" > "$GOVERNOR/sampling_easy_factor";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "3" > "$GOVERNOR/sampling_interim_factor";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "20000" > "$GOVERNOR/sampling_rate";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "20000" > "$GOVERNOR/sampling_rate_min";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "1100000" > "$GOVERNOR/sync_freq";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "1800000,1800000,1800000,1800000" > "$GOVERNOR/two_phase_freq";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "40000" > "$GOVERNOR/ui_sampling_rate";
+	fi
+	if [ -e "$GOVERNOR/" ]; then
+		busybox echo "40" > "$GOVERNOR/ui_timeout";
+	fi
+	if [ -e "$GOVERNOR/up_threshold" ]; then
+		busybox echo "95" > "$GOVERNOR/up_threshold";
+	fi
+	if [ -e "$GOVERNOR/up_threshold_any_cpu_load" ]; then
+		busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
+	fi
+	if [ -e "$GOVERNOR/up_threshold_multi_core" ]; then
+		busybox echo "0" > "$GOVERNOR/up_threshold_multi_core";
+	fi
 	busybox echo "Intellidemand tweaks applied."
-	busybox echo "Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 
 # TRIPNDROID
 
 if [ $CUR_GOVERNOR = "tripndroid" ]; then
-	busybox echo "10000" > "$GOVERNOR/down_sample_time";
-	busybox echo "90" > "$GOVERNOR/go_hispeed_load";
-	busybox echo "1200000" > "$GOVERNOR/hispeed_freq";
-	busybox echo "30000" > "$GOVERNOR/timer_rate";
-	busybox echo "50000" > "$GOVERNOR/up_sample_time";
+	if [ -e "$GOVERNOR/down_sample_time" ]; then
+		busybox echo "10000" > "$GOVERNOR/down_sample_time";
+	fi
+	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
+		busybox echo "90" > "$GOVERNOR/go_hispeed_load";
+	fi
+	if [ -e "$GOVERNOR/hispeed_freq" ]; then
+		busybox echo "1200000" > "$GOVERNOR/hispeed_freq";
+	fi
+	if [ -e "$GOVERNOR/timer_rate" ]; then
+		busybox echo "30000" > "$GOVERNOR/timer_rate";
+	fi
+	if [ -e "$GOVERNOR/up_sample_time" ]; then
+		busybox echo "50000" > "$GOVERNOR/up_sample_time";
+	fi
 	busybox echo "Tripndroid tweaks applied."
-	busybox echo "Please ignore any "No such files or directory" errors, if you encounter one!"
 	exit
 fi
 

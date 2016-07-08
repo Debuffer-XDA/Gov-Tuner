@@ -1,7 +1,7 @@
 #!/system/bin/sh
-ver="2.0.4.3"
-# Copyright (C) 2016 Debuffer @ xda-developers
-# Thanks to @Paget96 @F4uzan
+# Gov-Tuner, version 2.0.4.3
+# Copyright (C) 2016 Debuffer @ XDA Developers
+# With help from Paget96 and F4uzan
 #=======================================================================#
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -13,49 +13,52 @@ ver="2.0.4.3"
 #  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #=======================================================================#
 
-# Upgrade tool, this removes Governor_profiles in case it exists
-# We need to remove it since it directly conflicts with the new version (since the name differs)
-
+# Do some checkup first
+ver="2.0.4.3"
 id="$(id)"; id="${id#*=}"; id="${id%%\(*}"; id="${id%% *}"
 busybox sleep 1
 busybox clear
 busybox sleep 1
-busybox echo "You are running version $ver"
-busybox sleep 3
-busybox clear
+busybox echo "You are using Gov-Tuner version $ver"
 busybox sleep 1
-busybox echo "Checking root"; busybox sleep 0.5; busybox clear;
-busybox echo "Checking root."; busybox sleep 0.5; busybox clear;
-busybox echo "Checking root.."; busybox sleep 0.5; busybox clear;
-busybox echo "Checking root..."; busybox sleep 0.5; busybox clear;
-busybox echo "Checking root..."; busybox sleep 0.5; busybox clear;
-busybox echo "Checking root.."; busybox sleep 0.5; busybox clear;
-busybox echo "Checking root."; busybox sleep 0.5; busybox clear; 
-busybox echo "Checking root"; busybox sleep 1.5; busybox clear;
+busybox echo "Checking root"; busybox sleep 0.3; busybox clear;
+busybox echo "Checking root."; busybox sleep 0.3; busybox clear;
+busybox echo "Checking root.."; busybox sleep 0.3; busybox clear;
+busybox echo "Checking root..."; busybox sleep 0.3; busybox clear;
+busybox echo "Checking root"; busybox sleep 0.3; busybox clear;
+busybox echo "Checking root."; busybox sleep 0.3; busybox clear;
+busybox echo "Checking root.."; busybox sleep 0.3; 
+busybox clear; busybox echo "Checking root..."; 
 
 if [ "$id" != "0" ] && [ "$id" != "root" ]; then
 	busybox sleep 1
 	busybox echo ""
 	busybox echo ""
-	busybox echo "    You don't have ROOT or there is an issue with it..."
-	busybox echo "    Please type su first (terminal emulator)"
+	busybox echo "    Unable to gain root access"
+	busybox echo "    You might forgot to use su, or there's a problem with root"
+	busybox echo "    Please type su first"
 	busybox echo "    Then type tune"
-	busybox echo "    Enable run as ROOT (script manager)"
+	busybox echo ""
 	busybox echo ""
 	busybox sleep 1
 	exit
 	else
 		busybox clear
 		busybox sleep 0.5
-		busybox echo "Root sucessfully acquired."
+		busybox echo "Root access succesfully acquired"
 		busybox sleep 1
 		busybox echo ""
+<<<<<<< HEAD
 		busybox echo "Checking for compatible governor..."
 		busybox sleep 1
 		busybox echo ""
 		busybox sleep 1
+=======
+>>>>>>> origin/master
 fi
 
+# Upgrade tool, this removes Governor_profiles in case it exists
+# We need to remove it since it directly conflicts with the new version (since the name differs)
 if [ -f /system/etc/init.d/Governor_profiles ]; then
 	busybox mount -o remount, rw /system
 	busybox rm -rf /system/etc/init.d/Governor_profiles
@@ -80,6 +83,7 @@ CPUFREQ_CLUSTER="/sys/devices/system/cpu/cpu0/cpufreq"
 # Regular CPUFreq directory
 CPUFREQ_REGULAR="/sys/devices/system/cpu/cpufreq"
 
+# Finalize the detection of dual-cluster here
 if [ -d "$CLUSTER_DETECT" ]; then
 	CLUSTER=$CPUFREQ_CLUSTER
  	else

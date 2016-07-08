@@ -15,7 +15,7 @@
 
 # Do some checkup first
 ver="2.0.5.1"
-busybox="/system/etc/GovTuner"
+busybox="/system/etc/GovTuner/busybox"
 id="$(id)"; id="${id#*=}"; id="${id%%\(*}"; id="${id%% *}"
 $busybox sleep 1
 $busybox clear

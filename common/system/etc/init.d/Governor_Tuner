@@ -159,7 +159,7 @@ if [ $CUR_GOVERNOR = "conservative" ]; then
 	if [ -e "$GOVERNOR/up_threshold" ]; then
 	busybox echo "99" > "$GOVERNOR/up_threshold";
 	fi
-	busybox echo "Conservative tweaks applied."
+	busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -208,7 +208,7 @@ if [ $CUR_GOVERNOR = "yankactive" ]; then
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_load" ]; then
 		busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
 	fi
-	busybox echo "Yankactive tweaks applied."
+	busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -264,7 +264,7 @@ if [ $CUR_GOVERNOR = "intelliactive" ]; then
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_load" ]; then
 		busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
 	fi
-	busybox echo "Intelliactive tweaks applied."
+	busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -293,7 +293,7 @@ if [ $CUR_GOVERNOR = "bioshock" ]; then
 	if [ -e "$GOVERNOR/up_threshold" ]; then
 		busybox echo "99" > "$GOVERNOR/up_threshold";
 	fi
-	busybox echo "Bioshock tweaks applied."
+	busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -327,7 +327,7 @@ if [ $CUR_GOVERNOR = "lionfish" ]; then
 	if [ -e "$GOVERNOR/up_threshold" ]; then
 		busybox echo "99" > "$GOVERNOR/up_threshold";
 	fi
-	busybox echo "Lionfish tweaks applied."
+	busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -367,7 +367,7 @@ if [ $CUR_GOVERNOR = "impulse" ]; then
 	if [ -e "$GOVERNOR/powersave_bias" ]; then
 		busybox echo "0" > "$GOVERNOR/powersave_bias";
 	fi
-	busybox echo "Impulse tweaks applied."
+	busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -401,7 +401,7 @@ if [ $CUR_GOVERNOR = "uberdemand" ]; then
 	if [ -e "$GOVERNOR/up_threshold" ]; then
 		busybox echo "95" > "$GOVERNOR/up_threshold";
 	fi
-	busybox echo "Uberdemand tweaks applied."
+	busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -450,7 +450,7 @@ if [ $CUR_GOVERNOR = "electroactive" ]; then
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_freq" ]; then
 		busybox echo "600000" > "$GOVERNOR/up_threshold_min_freq";
 	fi
-	busybox echo "Electroactive tweaks applied."
+	busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -511,7 +511,7 @@ if [ $CUR_GOVERNOR = "intelimm" ]; then
 	if [ -e "$GOVERNOR/up_threshold_multi_core" ]; then
 		busybox echo "0" > "$GOVERNOR/up_threshold_multi_core";
 	fi
-	busybox echo "InteliMM tweaks applied."
+	busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -569,7 +569,7 @@ if [ $CUR_GOVERNOR = "barry_allen" ]; then
 	if [ -e "$GOVERNOR/" ]; then
 		busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
 	fi
-	busybox echo "Barry_allen tweaks applied."
+	busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -624,7 +624,7 @@ if [ $CUR_GOVERNOR = "bluactive" ]; then
 	if [ -e "$GOVERNOR/" ]; then
 		busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
 	fi
-	busybox echo "Bluactive tweaks applied."
+	busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -651,7 +651,7 @@ if [ $CUR_GOVERNOR = "dancedance" ]; then
 	if [ -e "$GOVERNOR/" ]; then
 			busybox echo "99" > "$GOVERNOR/up_threshold";
 	fi
-		busybox echo "Dancedance tweaks applied."
+	busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -679,7 +679,7 @@ if [ $CUR_GOVERNOR = "lionheart" ]; then
 	if [ -e "$GOVERNOR/" ]; then
 			busybox echo "99" > "$GOVERNOR/up_threshold";
 	fi
-	busybox echo "Lionheart tweaks applied."
+	busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -716,7 +716,7 @@ if [ $CUR_GOVERNOR = "pegasusq" ]; then
 	if [ -e "$GOVERNOR/" ]; then
 		busybox echo "600000" > "$GOVERNOR/up_threshold_min_freq";
 	fi
-	busybox echo "PegasusQ tweaks applied."
+	busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -759,7 +759,7 @@ if [ $CUR_GOVERNOR = "ondemand" ]; then
 	if [ -e "$GOVERNOR/" ]; then
 		busybox echo "0" > "$GOVERNOR/up_threshold_multi_core";
 	fi
-	busybox echo "Ondemand tweaks applied."
+	busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -820,7 +820,7 @@ if [ $CUR_GOVERNOR = "smartmax" ]; then
 	if [ -e "$GOVERNOR/" ]; then
 		busybox echo "0" > "$GOVERNOR/up_rate";
 	fi
-	busybox echo "Smartmax tweaks applied."
+	busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -857,7 +857,7 @@ if [ $CUR_GOVERNOR = "optimax" ]; then
 	if [ -e "$GOVERNOR/" ]; then
 		busybox echo "0" > "$GOVERNOR/up_threshold_multi_core";
 	fi
-	busybox echo "Optimax tweaks applied."
+	busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -885,7 +885,7 @@ if [ $CUR_GOVERNOR = "conservativex" ]; then
 	if [ -e "$GOVERNOR/" ]; then
 		busybox echo "99" > "$GOVERNOR/up_threshold";
 	fi
-	busybox echo "ConservativeX tweaks applied."
+	busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -937,7 +937,7 @@ if [ $CUR_GOVERNOR = "interactive_pro" ]; then
 	if [ -e "$GOVERNOR/" ]; then
 		busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
 	fi
-	busybox echo "Interactive_pro tweaks applied."
+	busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -971,7 +971,7 @@ if [ $CUR_GOVERNOR = "wheatley" ]; then
 	if [ -e "$GOVERNOR/" ]; then
 		busybox echo "95" > "$GOVERNOR/up_threshold";
 	fi
-	busybox echo "Wheatley tweaks applied."
+	busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -1002,7 +1002,7 @@ if [ $CUR_GOVERNOR = "ondemandplus" ]; then
 	if [ -e "$GOVERNOR/" ]; then
 		busybox echo "95" > "$GOVERNOR/up_threshold";
 	fi
-	busybox echo "OndemandPlus tweaks applied."
+	busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -1051,7 +1051,7 @@ if [ $CUR_GOVERNOR = "smartmax_eps" ]; then
 	if [ -e "$GOVERNOR/" ]; then
 		busybox echo "0" > "$GOVERNOR/input_boost_duration";
 	fi
-	busybox echo "Smartmax_eps tweaks applied."
+	busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -1100,7 +1100,7 @@ if [ $CUR_GOVERNOR = "intellidemand" ]; then
 	if [ -e "$GOVERNOR/up_threshold_multi_core" ]; then
 		busybox echo "0" > "$GOVERNOR/up_threshold_multi_core";
 	fi
-	busybox echo "Intellidemand tweaks applied."
+	busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -1122,7 +1122,7 @@ if [ $CUR_GOVERNOR = "tripndroid" ]; then
 	if [ -e "$GOVERNOR/up_sample_time" ]; then
 		busybox echo "50000" > "$GOVERNOR/up_sample_time";
 	fi
-	busybox echo "Tripndroid tweaks applied."
+	busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
 fi
 

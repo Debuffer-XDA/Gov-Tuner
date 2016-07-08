@@ -1136,4 +1136,5 @@ fi
 # No compatible governor is detected
 # Put other governor above this, don't let this be sandwiched by other governor
 busybox echo "$CUR_GOVERNOR governor is not supported yet."
-busybox echo  "You can request the support for this governor in the official XDA thread."
+busybox echo  "You can request the support for this governor"
+busybox echo "        in the official XDA thread."

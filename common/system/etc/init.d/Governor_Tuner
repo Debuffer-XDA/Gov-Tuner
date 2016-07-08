@@ -20,15 +20,16 @@ busybox sleep 1
 busybox clear
 busybox sleep 1
 busybox echo "You are using Gov-Tuner version $ver"
-busybox sleep 1
+busybox sleep 2.5
+busybox clear
 busybox echo "Checking root"; busybox sleep 0.3; busybox clear;
 busybox echo "Checking root."; busybox sleep 0.3; busybox clear;
 busybox echo "Checking root.."; busybox sleep 0.3; busybox clear;
 busybox echo "Checking root..."; busybox sleep 0.3; busybox clear;
-busybox echo "Checking root"; busybox sleep 0.3; busybox clear;
+busybox echo "Checking root..."; busybox sleep 0.3; busybox clear;
+busybox echo "Checking root.."; busybox sleep 0.3; busybox clear;
 busybox echo "Checking root."; busybox sleep 0.3; busybox clear;
-busybox echo "Checking root.."; busybox sleep 0.3; 
-busybox clear; busybox echo "Checking root..."; 
+busybox echo "Checking root"; 
 
 if [ "$id" != "0" ] && [ "$id" != "root" ]; then
 	busybox sleep 1
@@ -48,13 +49,10 @@ if [ "$id" != "0" ] && [ "$id" != "root" ]; then
 		busybox echo "Root access succesfully acquired"
 		busybox sleep 1
 		busybox echo ""
-<<<<<<< HEAD
 		busybox echo "Checking for compatible governor..."
 		busybox sleep 1
 		busybox echo ""
 		busybox sleep 1
-=======
->>>>>>> origin/master
 fi
 
 # Upgrade tool, this removes Governor_profiles in case it exists

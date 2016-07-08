@@ -21,15 +21,17 @@ busybox sleep 1
 busybox clear
 busybox sleep 1
 busybox echo "You are running version $ver"
+busybox sleep 3
+busybox clear
 busybox sleep 1
-busybox echo "Checking root"; busybox sleep 0.3; busybox clear;
-busybox echo "Checking root."; busybox sleep 0.3; busybox clear;
-busybox echo "Checking root.."; busybox sleep 0.3; busybox clear;
-busybox echo "Checking root..."; busybox sleep 0.3; busybox clear;
-busybox echo "Checking root..."; busybox sleep 0.3; busybox clear;
-busybox echo "Checking root.."; busybox sleep 0.3; busybox clear;
-busybox echo "Checking root."; busybox sleep 0.3; busybox clear; 
-busybox echo "Checking root"; busybox sleep 0.7
+busybox echo "Checking root"; busybox sleep 0.5; busybox clear;
+busybox echo "Checking root."; busybox sleep 0.5; busybox clear;
+busybox echo "Checking root.."; busybox sleep 0.5; busybox clear;
+busybox echo "Checking root..."; busybox sleep 0.5; busybox clear;
+busybox echo "Checking root..."; busybox sleep 0.5; busybox clear;
+busybox echo "Checking root.."; busybox sleep 0.5; busybox clear;
+busybox echo "Checking root."; busybox sleep 0.5; busybox clear; 
+busybox echo "Checking root"; busybox sleep 1.5; busybox clear;
 
 if [ "$id" != "0" ] && [ "$id" != "root" ]; then
 	busybox sleep 1
@@ -48,10 +50,11 @@ if [ "$id" != "0" ] && [ "$id" != "root" ]; then
 		busybox echo "Root sucessfully acquired."
 		busybox sleep 1
 		busybox echo ""
-		busybox echo "Checking current governor..."
+		busybox echo "Checking for compatible governor..."
 		busybox sleep 1
 		busybox echo ""
-		busybox echo "Applying $CUR_GOVERNOR tweaks..."
+		busybox echo ""
+		busybox sleep 1
 fi
 
 if [ -f /system/etc/init.d/Governor_profiles ]; then

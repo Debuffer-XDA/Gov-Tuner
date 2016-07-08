@@ -1009,46 +1009,46 @@ fi
 # SMARTMAX EPS
 
 if [ $CUR_GOVERNOR = "smartmax_eps" ]; then
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/io_is_busy" ]; then
 		busybox echo "0" > "$GOVERNOR/io_is_busy";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/max_cpu_load" ]; then
 		busybox echo "100" > "$GOVERNOR/max_cpu_load";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/min_cpu_load" ]; then
 		busybox echo "20" > "$GOVERNOR/min_cpu_load";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/min_sampling_rate" ]; then
 		busybox echo "20000" > "$GOVERNOR/min_sampling_rate";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/ramp_down_step" ]; then
 		busybox echo "700000" > "$GOVERNOR/ramp_down_step";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/ramp_up_during_boost" ]; then
 		busybox echo "0" > "$GOVERNOR/ramp_up_during_boost";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/ramp_up_step" ]; then
 		busybox echo "0" > "$GOVERNOR/ramp_up_step";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/awake_ideal_freq" ]; then
 		busybox echo "600000" > "$GOVERNOR/awake_ideal_freq";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/boost_duration" ]; then
 		busybox echo "0" > "$GOVERNOR/boost_duration";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/boost_freq" ]; then
 		busybox echo "0" > "$GOVERNOR/boost_freq";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/debug_mask" ]; then
 		busybox echo "0" > "$GOVERNOR/debug_mask";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/down_rate" ]; then
 		busybox echo "30000" > "$GOVERNOR/down_rate";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/ignore_nice" ]; then
 		busybox echo "0" > "$GOVERNOR/ignore_nice";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/"input_boost_duration ]; then
 		busybox echo "0" > "$GOVERNOR/input_boost_duration";
 	fi
 	busybox echo "$CUR_GOVERNOR tweaks applied."
@@ -1058,37 +1058,37 @@ fi
 # INTELLIDEMAND
 
 if [ $CUR_GOVERNOR = "intellidemand" ]; then
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/optimal_freq" ]; then
 		busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/optimal_freq";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/powersave_bias" ]; then
 		busybox echo "0" > "$GOVERNOR/powersave_bias";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
 		busybox echo "1" > "$GOVERNOR/sampling_down_factor";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/sampling_easy_factor" ]; then
 		busybox echo "2" > "$GOVERNOR/sampling_easy_factor";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/sampling_interim_factor" ]; then
 		busybox echo "3" > "$GOVERNOR/sampling_interim_factor";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/sampling_rate" ]; then
 		busybox echo "20000" > "$GOVERNOR/sampling_rate";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
 		busybox echo "20000" > "$GOVERNOR/sampling_rate_min";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/sync_freq" ]; then
 		busybox echo "1100000" > "$GOVERNOR/sync_freq";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/two_phase_freq" ]; then
 		busybox echo "1800000,1800000,1800000,1800000" > "$GOVERNOR/two_phase_freq";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/ui_sampling_rate" ]; then
 		busybox echo "40000" > "$GOVERNOR/ui_sampling_rate";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/ui_timeout" ]; then
 		busybox echo "40" > "$GOVERNOR/ui_timeout";
 	fi
 	if [ -e "$GOVERNOR/up_threshold" ]; then

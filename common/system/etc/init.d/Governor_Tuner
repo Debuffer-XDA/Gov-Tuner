@@ -464,7 +464,7 @@ fi
 
 # INTELLIMM
 
-if [ $CUR_GOVERNOR = "intelimm" ]; then
+if [ $CUR_GOVERNOR = "intellimm" ]; then
 	if [ -e "$GOVERNOR/down_differential" ]; then
 		$busybox echo "15" > "$GOVERNOR/down_differential";
 	fi

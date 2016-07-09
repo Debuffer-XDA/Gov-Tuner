@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Gov-Tuner, version 2.0.5.1
+# Gov-Tuner, version 2.0.5.2
 # Copyright (C) 2016 Debuffer @ XDA Developers
 # With help from Paget96 and F4uzan
 #=======================================================================#
@@ -14,7 +14,7 @@
 #=======================================================================#
 
 # Do some checkup first
-ver="2.0.5.1"
+ver="2.0.5.2"
 busybox="/system/etc/GovTuner/busybox"
 id="$(id)"; id="${id#*=}"; id="${id%%\(*}"; id="${id%% *}"
 $busybox sleep 1

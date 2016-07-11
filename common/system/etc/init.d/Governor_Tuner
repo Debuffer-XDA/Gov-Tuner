@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Gov-Tuner, version 2.0.5.2
+# Gov-Tuner, version 2.0.6
 # Copyright (C) 2016 Debuffer @ XDA Developers
 # With help from Paget96 and F4uzan
 #=======================================================================#
@@ -14,7 +14,7 @@
 #=======================================================================#
 
 # Do some checkup first
-ver="2.0.5.2"
+ver="2.0.6"
 busybox="/system/etc/GovTuner/busybox"
 id="$(id)"; id="${id#*=}"; id="${id%%\(*}"; id="${id%% *}"
 $busybox sleep 1
@@ -98,7 +98,7 @@ GOVERNOR=$CLUSTER/$CUR_GOVERNOR
 
 if [ "$CUR_GOVERNOR" = "interactive" ]; then
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "30000" > "$GOVERNOR/above_hispeed_delay";
+		$busybox echo "15000" > "$GOVERNOR/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$GOVERNOR/boost";
@@ -175,7 +175,7 @@ fi
 
 if [ $CUR_GOVERNOR = "yankactive" ]; then
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "30000" > "$GOVERNOR/above_hispeed_delay";
+		$busybox echo "15000" > "$GOVERNOR/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$GOVERNOR/boost";
@@ -225,7 +225,7 @@ fi
 
 if [ $CUR_GOVERNOR = "intelliactive" ]; then
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "30000" > "$GOVERNOR/above_hispeed_delay";
+		$busybox echo "15000" > "$GOVERNOR/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$GOVERNOR/boost";
@@ -343,7 +343,7 @@ fi
 
 if [ $CUR_GOVERNOR = "impulse" ]; then
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "30000" > "$GOVERNOR/above_hispeed_delay";
+		$busybox echo "15000" > "$GOVERNOR/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
 		$busybox echo "90" > "$GOVERNOR/go_hispeed_load";
@@ -526,55 +526,55 @@ fi
 # BARRY_ALLEN
 
 if [ $CUR_GOVERNOR = "barry_allen" ]; then
-	if [ -e "$GOVERNOR/" ]; then
-		$busybox echo "30000" > "$GOVERNOR/above_hispeed_delay";
+	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
+		$busybox echo "15000" > "$GOVERNOR/above_hispeed_delay";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/ba_lock" ]; then
 		$busybox echo "0" > "$GOVERNOR/ba_lock";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$GOVERNOR/boost";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/boostpulse" ]; then
 		$busybox echo "0" > "$GOVERNOR/boostpulse";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/boostpulse_duration" ]; then
 		$busybox echo "0" > "$GOVERNOR/boostpulse_duration";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
 		$busybox echo "90" > "$GOVERNOR/go_hispeed_load";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/hispeed_freq" ]; then
 		$busybox echo "1200000" > "$GOVERNOR/hispeed_freq";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/io_is_busy" ]; then
 		$busybox echo "0" > "$GOVERNOR/io_is_busy";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/min_sample_time" ]; then
 		$busybox echo "80000" > "$GOVERNOR/min_sample_time";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/sync_freq" ]; then
 		$busybox echo "1100000" > "$GOVERNOR/sync_freq";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/target_loads" ]; then
 		$busybox echo "90" > "$GOVERNOR/target_loads";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "30000" > "$GOVERNOR/timer_rate";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/timer_slack" ]; then
 		$busybox echo "120000" > "$GOVERNOR/timer_slack";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/two_phase_freq" ]; then
 		$busybox echo "1800000,1800000,1800000,1800000" > "$GOVERNOR/two_phase_freq";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/up_threshold_any_cpu_freq" ]; then
 		$busybox echo "1200000" > "$GOVERNOR/up_threshold_any_cpu_freq";
 	fi
-	if [ -e "$GOVERNOR/" ]; then
+	if [ -e "$GOVERNOR/up_threshold_any_cpu_load" ]; then
 		$busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
 	fi
 	$busybox echo "$CUR_GOVERNOR tweaks applied."
@@ -585,7 +585,7 @@ fi
 
 if [ $CUR_GOVERNOR = "bluactive" ]; then
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "30000" > "$GOVERNOR/above_hispeed_delay";
+		$busybox echo "15000" > "$GOVERNOR/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$GOVERNOR/boost";
@@ -902,7 +902,7 @@ fi
 
 if [ $CUR_GOVERNOR = "interactive_pro" ]; then
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "30000" > "$GOVERNOR/above_hispeed_delay";
+		$busybox echo "15000" > "$GOVERNOR/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$GOVERNOR/boost";

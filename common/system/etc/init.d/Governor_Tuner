@@ -162,7 +162,7 @@ if [ $CUR_GOVERNOR = "conservative" ]; then
 		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
-		$busybox echo "10000" > "$GOVERNOR/sampling_rate_min";
+		$busybox echo "30000" > "$GOVERNOR/sampling_rate_min";
 	fi
 	if [ -e "$GOVERNOR/up_threshold" ]; then
 		$busybox echo "99" > "$GOVERNOR/up_threshold";
@@ -296,7 +296,7 @@ if [ $CUR_GOVERNOR = "bioshock" ]; then
 		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
-		$busybox echo "10000" > "$GOVERNOR/sampling_rate_min";
+		$busybox echo "30000" > "$GOVERNOR/sampling_rate_min";
 	fi
 	if [ -e "$GOVERNOR/up_threshold" ]; then
 		$busybox echo "99" > "$GOVERNOR/up_threshold";
@@ -330,7 +330,7 @@ if [ $CUR_GOVERNOR = "lionfish" ]; then
 		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
-		$busybox echo "10000" > "$GOVERNOR/sampling_rate_min";
+		$busybox echo "30000" > "$GOVERNOR/sampling_rate_min";
 	fi
 	if [ -e "$GOVERNOR/up_threshold" ]; then
 		$busybox echo "99" > "$GOVERNOR/up_threshold";
@@ -401,7 +401,7 @@ if [ $CUR_GOVERNOR = "uberdemand" ]; then
 		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
-		$busybox echo "10000" > "$GOVERNOR/sampling_rate_min";
+		$busybox echo "30000" > "$GOVERNOR/sampling_rate_min";
 	fi
 	if [ -e "$GOVERNOR/second_phase_freq" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/second_phase_freq";
@@ -450,7 +450,7 @@ if [ $CUR_GOVERNOR = "electroactive" ]; then
 		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
-		$busybox echo "10000" > "$GOVERNOR/sampling_rate_min";
+		$busybox echo "30000" > "$GOVERNOR/sampling_rate_min";
 	fi
 	if [ -e "$GOVERNOR/up_threshold" ]; then
 		$busybox echo "90" > "$GOVERNOR/up_threshold";
@@ -499,7 +499,7 @@ if [ $CUR_GOVERNOR = "intellimm" ]; then
 		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
-		$busybox echo "80000" > "$GOVERNOR/sampling_rate_min";
+		$busybox echo "30000" > "$GOVERNOR/sampling_rate_min";
 	fi
 	if [ -e "$GOVERNOR/shortcut" ]; then
 		$busybox echo "0" > "$GOVERNOR/shortcut";
@@ -655,7 +655,7 @@ if [ $CUR_GOVERNOR = "dancedance" ]; then
 		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
-		$busybox echo "10000" > "$GOVERNOR/sampling_rate_min";
+		$busybox echo "30000" > "$GOVERNOR/sampling_rate_min";
 	fi
 	if [ -e "$GOVERNOR/up_threshold" ]; then
 		$busybox echo "99" > "$GOVERNOR/up_threshold";
@@ -683,7 +683,7 @@ if [ $CUR_GOVERNOR = "lionheart" ]; then
 		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
-		$busybox echo "10000" > "$GOVERNOR/sampling_rate_min";
+		$busybox echo "30000" > "$GOVERNOR/sampling_rate_min";
 	fi
 	if [ -e "$GOVERNOR/up_threshold" ]; then
 		$busybox echo "99" > "$GOVERNOR/up_threshold";
@@ -717,7 +717,7 @@ if [ $CUR_GOVERNOR = "pegasusq" ]; then
 		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
-		$busybox echo "10000" > "$GOVERNOR/sampling_rate_min";
+		$busybox echo "30000" > "$GOVERNOR/sampling_rate_min";
 	fi
 	if [ -e "$GOVERNOR/up_threshold" ]; then
 		$busybox echo "95" > "$GOVERNOR/up_threshold";
@@ -754,7 +754,7 @@ if [ $CUR_GOVERNOR = "ondemand" ]; then
 		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
-		$busybox echo "20000" > "$GOVERNOR/sampling_rate_min";
+		$busybox echo "30000" > "$GOVERNOR/sampling_rate_min";
 	fi
 	if [ -e "$GOVERNOR/sync_freq" ]; then
 		$busybox echo "1100000" > "$GOVERNOR/sync_freq";
@@ -852,7 +852,7 @@ if [ $CUR_GOVERNOR = "optimax" ]; then
 		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
-		$busybox echo "20000" > "$GOVERNOR/sampling_rate_min";
+		$busybox echo "30000" > "$GOVERNOR/sampling_rate_min";
 	fi
 	if [ -e "$GOVERNOR/sync_freq" ]; then
 		$busybox echo "1100000" > "$GOVERNOR/sync_freq";
@@ -889,7 +889,7 @@ if [ $CUR_GOVERNOR = "conservativex" ]; then
 		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
-		$busybox echo "10000" > "$GOVERNOR/sampling_rate_min";
+		$busybox echo "30000" > "$GOVERNOR/sampling_rate_min";
 	fi
 	if [ -e "$GOVERNOR/up_threshold" ]; then
 		$busybox echo "99" > "$GOVERNOR/up_threshold";
@@ -972,7 +972,7 @@ if [ $CUR_GOVERNOR = "wheatley" ]; then
 		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
-		$busybox echo "20000" > "$GOVERNOR/sampling_rate_min";
+		$busybox echo "30000" > "$GOVERNOR/sampling_rate_min";
 	fi
 	if [ -e "$GOVERNOR/target_residency" ]; then
 		$busybox echo "10000" > "$GOVERNOR/target_residency";
@@ -1086,7 +1086,7 @@ if [ $CUR_GOVERNOR = "intellidemand" ]; then
 		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
-		$busybox echo "20000" > "$GOVERNOR/sampling_rate_min";
+		$busybox echo "30000" > "$GOVERNOR/sampling_rate_min";
 	fi
 	if [ -e "$GOVERNOR/sync_freq" ]; then
 		$busybox echo "1100000" > "$GOVERNOR/sync_freq";

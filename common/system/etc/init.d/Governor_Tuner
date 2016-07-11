@@ -147,27 +147,27 @@ fi
 
 if [ $CUR_GOVERNOR = "conservative" ]; then
 	if [ -e "$GOVERNOR/down_threshold" ]; then
-	$busybox echo "95" > "$GOVERNOR/down_threshold";
+		$busybox echo "95" > "$GOVERNOR/down_threshold";
 	fi
 	if [ -e "$GOVERNOR/freq_step" ]; then
-	$busybox echo "1" > "$GOVERNOR/freq_step";
+		$busybox echo "1" > "$GOVERNOR/freq_step";
 	fi
 	if [ -e "$GOVERNOR/ignore_nice_load" ]; then
-	$busybox echo "1" > "$GOVERNOR/ignore_nice_load";
+		$busybox echo "1" > "$GOVERNOR/ignore_nice_load";
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
-	$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
+		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate" ]; then
-	$busybox echo "50000" > "$GOVERNOR/sampling_rate";
+		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
-	$busybox echo "10000" > "$GOVERNOR/sampling_rate_min";
+		$busybox echo "10000" > "$GOVERNOR/sampling_rate_min";
 	fi
 	if [ -e "$GOVERNOR/up_threshold" ]; then
-	$busybox echo "99" > "$GOVERNOR/up_threshold";
+		$busybox echo "99" > "$GOVERNOR/up_threshold";
 	fi
-	$busybox echo "$CUR_GOVERNOR tweaks applied."
+		$busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -293,7 +293,7 @@ if [ $CUR_GOVERNOR = "bioshock" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate" ]; then
-		$busybox echo "50000" > "$GOVERNOR/sampling_rate";
+		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
 		$busybox echo "10000" > "$GOVERNOR/sampling_rate_min";
@@ -327,7 +327,7 @@ if [ $CUR_GOVERNOR = "lionfish" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate" ]; then
-		$busybox echo "50000" > "$GOVERNOR/sampling_rate";
+		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
 		$busybox echo "10000" > "$GOVERNOR/sampling_rate_min";
@@ -398,7 +398,7 @@ if [ $CUR_GOVERNOR = "uberdemand" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate" ]; then
-		$busybox echo "50000" > "$GOVERNOR/sampling_rate";
+		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
 		$busybox echo "10000" > "$GOVERNOR/sampling_rate_min";
@@ -447,7 +447,7 @@ if [ $CUR_GOVERNOR = "electroactive" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate" ]; then
-		$busybox echo "50000" > "$GOVERNOR/sampling_rate";
+		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
 		$busybox echo "10000" > "$GOVERNOR/sampling_rate_min";
@@ -496,7 +496,7 @@ if [ $CUR_GOVERNOR = "intellimm" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate" ]; then
-		$busybox echo "80000" > "$GOVERNOR/sampling_rate";
+		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
 		$busybox echo "80000" > "$GOVERNOR/sampling_rate_min";
@@ -640,25 +640,25 @@ fi
 
 if [ $CUR_GOVERNOR = "dancedance" ]; then
 	if [ -e "$GOVERNOR/down_threshold" ]; then
-			$busybox echo "95" > "$GOVERNOR/down_threshold";
+		$busybox echo "95" > "$GOVERNOR/down_threshold";
 	fi
 	if [ -e "$GOVERNOR/freq_step" ]; then
-			$busybox echo "1" > "$GOVERNOR/freq_step";
+		$busybox echo "1" > "$GOVERNOR/freq_step";
 	fi
 	if [ -e "$GOVERNOR/ignore_nice_load" ]; then
-			$busybox echo "1" > "$GOVERNOR/ignore_nice_load";
+		$busybox echo "1" > "$GOVERNOR/ignore_nice_load";
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
-			$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
+		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate" ]; then
-			$busybox echo "50000" > "$GOVERNOR/sampling_rate";
+		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
-			$busybox echo "10000" > "$GOVERNOR/sampling_rate_min";
+		$busybox echo "10000" > "$GOVERNOR/sampling_rate_min";
 	fi
 	if [ -e "$GOVERNOR/up_threshold" ]; then
-			$busybox echo "99" > "$GOVERNOR/up_threshold";
+		$busybox echo "99" > "$GOVERNOR/up_threshold";
 	fi
 	$busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
@@ -668,25 +668,25 @@ fi
 
 if [ $CUR_GOVERNOR = "lionheart" ]; then
 	if [ -e "$GOVERNOR/down_threshold" ]; then
-			$busybox echo "95" > "$GOVERNOR/down_threshold";
+		$busybox echo "95" > "$GOVERNOR/down_threshold";
 	fi
 	if [ -e "$GOVERNOR/freq_step" ]; then
-			$busybox echo "1" > "$GOVERNOR/freq_step";
+		$busybox echo "1" > "$GOVERNOR/freq_step";
 	fi
 	if [ -e "$GOVERNOR/ignore_nice_load" ]; then
-			$busybox echo "1" > "$GOVERNOR/ignore_nice_load";
+		$busybox echo "1" > "$GOVERNOR/ignore_nice_load";
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
-			$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
+		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate" ]; then
-			$busybox echo "50000" > "$GOVERNOR/sampling_rate";
+		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
-			$busybox echo "10000" > "$GOVERNOR/sampling_rate_min";
+		$busybox echo "10000" > "$GOVERNOR/sampling_rate_min";
 	fi
 	if [ -e "$GOVERNOR/up_threshold" ]; then
-			$busybox echo "99" > "$GOVERNOR/up_threshold";
+		$busybox echo "99" > "$GOVERNOR/up_threshold";
 	fi
 	$busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
@@ -714,7 +714,7 @@ if [ $CUR_GOVERNOR = "pegasusq" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate" ]; then
-		$busybox echo "50000" > "$GOVERNOR/sampling_rate";
+		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
 		$busybox echo "10000" > "$GOVERNOR/sampling_rate_min";
@@ -751,7 +751,7 @@ if [ $CUR_GOVERNOR = "ondemand" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate" ]; then
-		$busybox echo "20000" > "$GOVERNOR/sampling_rate";
+		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
 		$busybox echo "20000" > "$GOVERNOR/sampling_rate_min";
@@ -818,7 +818,7 @@ if [ $CUR_GOVERNOR = "smartmax" ]; then
 		$busybox echo "100000" > "$GOVERNOR/ramp_up_step";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate" ]; then
-		$busybox echo "20000" > "$GOVERNOR/sampling_rate";
+		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/suspend_ideal_freq" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/suspend_ideal_freq";
@@ -849,7 +849,7 @@ if [ $CUR_GOVERNOR = "optimax" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate" ]; then
-		$busybox echo "20000" > "$GOVERNOR/sampling_rate";
+		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
 		$busybox echo "20000" > "$GOVERNOR/sampling_rate_min";
@@ -886,7 +886,7 @@ if [ $CUR_GOVERNOR = "conservativex" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate" ]; then
-		$busybox echo "50000" > "$GOVERNOR/sampling_rate";
+		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
 		$busybox echo "10000" > "$GOVERNOR/sampling_rate_min";
@@ -969,7 +969,7 @@ if [ $CUR_GOVERNOR = "wheatley" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate" ]; then
-		$busybox echo "20000" > "$GOVERNOR/sampling_rate";
+		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
 		$busybox echo "20000" > "$GOVERNOR/sampling_rate_min";
@@ -1083,7 +1083,7 @@ if [ $CUR_GOVERNOR = "intellidemand" ]; then
 		$busybox echo "3" > "$GOVERNOR/sampling_interim_factor";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate" ]; then
-		$busybox echo "20000" > "$GOVERNOR/sampling_rate";
+		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
 		$busybox echo "20000" > "$GOVERNOR/sampling_rate_min";

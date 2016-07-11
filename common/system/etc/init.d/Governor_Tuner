@@ -137,7 +137,7 @@ if [ "$CUR_GOVERNOR" = "interactive" ]; then
 		$busybox echo "1500000" > "$GOVERNOR/up_threshold_any_cpu_freq";
 	fi
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_load" ]; then
-		$busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
+		$busybox echo "75" > "$GOVERNOR/up_threshold_any_cpu_load";
 	fi
 	$busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
@@ -214,7 +214,7 @@ if [ $CUR_GOVERNOR = "yankactive" ]; then
 		$busybox echo "1500000" > "$GOVERNOR/up_threshold_any_cpu_freq";
 	fi
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_load" ]; then
-		$busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
+		$busybox echo "75" > "$GOVERNOR/up_threshold_any_cpu_load";
 	fi
 	$busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
@@ -270,7 +270,7 @@ if [ $CUR_GOVERNOR = "intelliactive" ]; then
 		$busybox echo "1500000" > "$GOVERNOR/up_threshold_any_cpu_freq";
 	fi
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_load" ]; then
-		$busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
+		$busybox echo "75" > "$GOVERNOR/up_threshold_any_cpu_load";
 	fi
 	$busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
@@ -511,7 +511,7 @@ if [ $CUR_GOVERNOR = "intellimm" ]; then
 		$busybox echo "95" > "$GOVERNOR/up_threshold";
 	fi
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_load" ]; then
-		$busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
+		$busybox echo "75" > "$GOVERNOR/up_threshold_any_cpu_load";
 	fi
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_freq" ]; then
 		$busybox echo "1500000" > "$GOVERNOR/up_threshold_any_cpu_freq";
@@ -575,7 +575,7 @@ if [ $CUR_GOVERNOR = "barry_allen" ]; then
 		$busybox echo "1500000" > "$GOVERNOR/up_threshold_any_cpu_freq";
 	fi
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_load" ]; then
-		$busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
+		$busybox echo "75" > "$GOVERNOR/up_threshold_any_cpu_load";
 	fi
 	$busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
@@ -630,7 +630,7 @@ if [ $CUR_GOVERNOR = "bluactive" ]; then
 		$busybox echo "1500000" > "$GOVERNOR/up_threshold_any_cpu_freq";
 	fi
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_load" ]; then
-		$busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
+		$busybox echo "75" > "$GOVERNOR/up_threshold_any_cpu_load";
 	fi
 	$busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
@@ -763,7 +763,7 @@ if [ $CUR_GOVERNOR = "ondemand" ]; then
 		$busybox echo "95" > "$GOVERNOR/up_threshold";
 	fi
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_load" ]; then
-		$busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
+		$busybox echo "75" > "$GOVERNOR/up_threshold_any_cpu_load";
 	fi
 	if [ -e "$GOVERNOR/up_threshold_multi_core" ]; then
 		$busybox echo "0" > "$GOVERNOR/up_threshold_multi_core";
@@ -861,7 +861,7 @@ if [ $CUR_GOVERNOR = "optimax" ]; then
 		$busybox echo "95" > "$GOVERNOR/up_threshold";
 	fi
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_load" ]; then
-		$busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
+		$busybox echo "75" > "$GOVERNOR/up_threshold_any_cpu_load";
 	fi
 	if [ -e "$GOVERNOR/up_threshold_multi_core" ]; then
 		$busybox echo "0" > "$GOVERNOR/up_threshold_multi_core";
@@ -944,7 +944,7 @@ if [ $CUR_GOVERNOR = "interactive_pro" ]; then
 		$busybox echo "1500000" > "$GOVERNOR/up_threshold_any_cpu_freq";
 	fi
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_load" ]; then
-		$busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
+		$busybox echo "75" > "$GOVERNOR/up_threshold_any_cpu_load";
 	fi
 	$busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
@@ -1104,7 +1104,7 @@ if [ $CUR_GOVERNOR = "intellidemand" ]; then
 		$busybox echo "95" > "$GOVERNOR/up_threshold";
 	fi
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_load" ]; then
-		$busybox echo "65" > "$GOVERNOR/up_threshold_any_cpu_load";
+		$busybox echo "75" > "$GOVERNOR/up_threshold_any_cpu_load";
 	fi
 	if [ -e "$GOVERNOR/up_threshold_multi_core" ]; then
 		$busybox echo "0" > "$GOVERNOR/up_threshold_multi_core";

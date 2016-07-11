@@ -119,7 +119,7 @@ if [ "$CUR_GOVERNOR" = "interactive" ]; then
 		$busybox echo "1" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-		$busybox echo "80000" > "$GOVERNOR/min_sample_time";
+		$busybox echo "40000" > "$GOVERNOR/min_sample_time";
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
@@ -196,7 +196,7 @@ if [ $CUR_GOVERNOR = "yankactive" ]; then
 		$busybox echo "1" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-		$busybox echo "80000" > "$GOVERNOR/min_sample_time";
+		$busybox echo "40000" > "$GOVERNOR/min_sample_time";
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
@@ -246,7 +246,7 @@ if [ $CUR_GOVERNOR = "intelliactive" ]; then
 		$busybox echo "1" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-		$busybox echo "80000" > "$GOVERNOR/min_sample_time";
+		$busybox echo "40000" > "$GOVERNOR/min_sample_time";
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
@@ -355,7 +355,7 @@ if [ $CUR_GOVERNOR = "impulse" ]; then
 		$busybox echo "1" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-		$busybox echo "80000" > "$GOVERNOR/min_sample_time";
+		$busybox echo "40000" > "$GOVERNOR/min_sample_time";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "30000" > "$GOVERNOR/timer_rate";
@@ -551,7 +551,7 @@ if [ $CUR_GOVERNOR = "barry_allen" ]; then
 		$busybox echo "1" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-		$busybox echo "80000" > "$GOVERNOR/min_sample_time";
+		$busybox echo "40000" > "$GOVERNOR/min_sample_time";
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
@@ -606,7 +606,7 @@ if [ $CUR_GOVERNOR = "bluactive" ]; then
 		$busybox echo "1" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-		$busybox echo "80000" > "$GOVERNOR/min_sample_time";
+		$busybox echo "40000" > "$GOVERNOR/min_sample_time";
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
@@ -923,7 +923,7 @@ if [ $CUR_GOVERNOR = "interactive_pro" ]; then
 		$busybox echo "1" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-		$busybox echo "80000" > "$GOVERNOR/min_sample_time";
+		$busybox echo "40000" > "$GOVERNOR/min_sample_time";
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";

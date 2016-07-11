@@ -116,7 +116,7 @@ if [ "$CUR_GOVERNOR" = "interactive" ]; then
 		$busybox echo "1200000" > "$GOVERNOR/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "0" > "$GOVERNOR/io_is_busy";
+		$busybox echo "1" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
 		$busybox echo "80000" > "$GOVERNOR/min_sample_time";
@@ -193,7 +193,7 @@ if [ $CUR_GOVERNOR = "yankactive" ]; then
 		$busybox echo "1200000" > "$GOVERNOR/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "0" > "$GOVERNOR/io_is_busy";
+		$busybox echo "1" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
 		$busybox echo "80000" > "$GOVERNOR/min_sample_time";
@@ -243,7 +243,7 @@ if [ $CUR_GOVERNOR = "intelliactive" ]; then
 		$busybox echo "1200000" > "$GOVERNOR/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "0" > "$GOVERNOR/io_is_busy";
+		$busybox echo "1" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
 		$busybox echo "80000" > "$GOVERNOR/min_sample_time";
@@ -352,7 +352,7 @@ if [ $CUR_GOVERNOR = "impulse" ]; then
 		$busybox echo "1200000" > "$GOVERNOR/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "0" > "$GOVERNOR/io_is_busy";
+		$busybox echo "1" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
 		$busybox echo "80000" > "$GOVERNOR/min_sample_time";
@@ -389,7 +389,7 @@ if [ $CUR_GOVERNOR = "uberdemand" ]; then
 		$busybox echo "0" > "$GOVERNOR/ignore_nice_load";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "0" > "$GOVERNOR/io_is_busy";
+		$busybox echo "1" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/powersave_bias" ]; then
 		$busybox echo "0" > "$GOVERNOR/powersave_bias";
@@ -435,7 +435,7 @@ if [ $CUR_GOVERNOR = "electroactive" ]; then
 		$busybox echo "0" > "$GOVERNOR/ignore_nice_load";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "0" > "$GOVERNOR/io_is_busy";
+		$busybox echo "1" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/micro_freq_up_threshold" ]; then
 		$busybox echo "90" > "$GOVERNOR/micro_freq_up_threshold";
@@ -484,7 +484,7 @@ if [ $CUR_GOVERNOR = "intellimm" ]; then
 		$busybox echo "$MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ" > "$GOVERNOR/input_event_min_freq";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "0" > "$GOVERNOR/io_is_busy";
+		$busybox echo "1" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/optimal_freq" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/optimal_freq";
@@ -548,7 +548,7 @@ if [ $CUR_GOVERNOR = "barry_allen" ]; then
 		$busybox echo "1200000" > "$GOVERNOR/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "0" > "$GOVERNOR/io_is_busy";
+		$busybox echo "1" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
 		$busybox echo "80000" > "$GOVERNOR/min_sample_time";
@@ -603,7 +603,7 @@ if [ $CUR_GOVERNOR = "bluactive" ]; then
 		$busybox echo "1200000" > "$GOVERNOR/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "0" > "$GOVERNOR/io_is_busy";
+		$busybox echo "1" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
 		$busybox echo "80000" > "$GOVERNOR/min_sample_time";
@@ -708,7 +708,7 @@ if [ $CUR_GOVERNOR = "pegasusq" ]; then
 		$busybox echo "0" > "$GOVERNOR/ignore_nice_load";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "0" > "$GOVERNOR/io_is_busy";
+		$busybox echo "1" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
@@ -739,7 +739,7 @@ if [ $CUR_GOVERNOR = "ondemand" ]; then
 		$busybox echo "0" > "$GOVERNOR/ignore_nice_load";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "0" > "$GOVERNOR/io_is_busy";
+		$busybox echo "1" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/optimal_freq" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/optimal_freq";
@@ -797,7 +797,7 @@ if [ $CUR_GOVERNOR = "smartmax" ]; then
 		$busybox echo "0" > "$GOVERNOR/input_boost_duration";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "0" > "$GOVERNOR/io_is_busy";
+		$busybox echo "1" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/max_cpu_load" ]; then
 		$busybox echo "100" > "$GOVERNOR/max_cpu_load";
@@ -920,7 +920,7 @@ if [ $CUR_GOVERNOR = "interactive_pro" ]; then
 		$busybox echo "1200000" > "$GOVERNOR/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "0" > "$GOVERNOR/io_is_busy";
+		$busybox echo "1" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
 		$busybox echo "80000" > "$GOVERNOR/min_sample_time";
@@ -960,7 +960,7 @@ if [ $CUR_GOVERNOR = "wheatley" ]; then
 		$busybox echo "0" > "$GOVERNOR/ignore_nice_load";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "0" > "$GOVERNOR/io_is_busy";
+		$busybox echo "1" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/powersave_bias" ]; then
 		$busybox echo "0" > "$GOVERNOR/powersave_bias";
@@ -1000,7 +1000,7 @@ if [ $CUR_GOVERNOR = "ondemandplus" ]; then
 		$busybox echo "2" > "$GOVERNOR/inter_staycycles";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "0" > "$GOVERNOR/io_is_busy";
+		$busybox echo "1" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/staycycles_resetfreq" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/staycycles_resetfreq";
@@ -1019,7 +1019,7 @@ fi
 
 if [ $CUR_GOVERNOR = "smartmax_eps" ]; then
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "0" > "$GOVERNOR/io_is_busy";
+		$busybox echo "1" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/max_cpu_load" ]; then
 		$busybox echo "100" > "$GOVERNOR/max_cpu_load";

@@ -21,15 +21,15 @@ $busybox sleep 1
 $busybox clear
 $busybox sleep 1
 $busybox echo "You are using Gov-Tuner version $ver"
-$busybox sleep 2.5
+$busybox sleep 3
 $busybox clear
-$busybox echo "Checking root"; $busybox sleep 0.3; $busybox clear;
-$busybox echo "Checking root."; $busybox sleep 0.3; $busybox clear;
-$busybox echo "Checking root.."; $busybox sleep 0.3; $busybox clear;
-$busybox echo "Checking root..."; $busybox sleep 0.3; $busybox clear;
-$busybox echo "Checking root..."; $busybox sleep 0.3; $busybox clear;
-$busybox echo "Checking root.."; $busybox sleep 0.3; $busybox clear;
-$busybox echo "Checking root."; $busybox sleep 0.3; $busybox clear;
+$busybox echo "Checking root"; $busybox sleep 0.5; $busybox clear;
+$busybox echo "Checking root."; $busybox sleep 0.5; $busybox clear;
+$busybox echo "Checking root.."; $busybox sleep 0.5; $busybox clear;
+$busybox echo "Checking root..."; $busybox sleep 0.5; $busybox clear;
+$busybox echo "Checking root..."; $busybox sleep 0.5; $busybox clear;
+$busybox echo "Checking root.."; $busybox sleep 0.5; $busybox clear;
+$busybox echo "Checking root."; $busybox sleep 0.5; $busybox clear;
 $busybox echo "Checking root"; 
 
 if [ "$id" != "0" ] && [ "$id" != "root" ]; then

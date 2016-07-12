@@ -56,6 +56,7 @@ if [ "$id" != "0" ] && [ "$id" != "root" ]; then
 		$busybox sleep 1
 		$busybox echo ""
 		$busybox sleep 1
+		$busybox clear
 fi
 
 

@@ -74,10 +74,10 @@ fi
 $busybox echo -e "Profile: $profile"
 $busybox echo $divider
 $busybox echo ""
-$busybox echo "Please chose a profile:"
-$busybox echo -e "Battery"
-$busybox echo -e "Balanced"
-$busybox echo -e "Performance"
+$busybox echo "Please choose a profile:"
+$busybox echo -e "1 - Battery"
+$busybox echo -e "2 - Balanced"
+$busybox echo -e "3 - Performance"
 $busybox echo ""
 $busybox echo "e. Exit"
 
@@ -123,8 +123,8 @@ $busybox clear
 $busybox mount -o remount, rw /system
 $busybox rm -rf $init/GovTuner_battery
 $busybox rm -rf $init/GovTuner_balanced
-$busybox cp -f $core/profiles/GovTuner_performances $init/GovTuner_performances
-$busybox chmod 755 $init/GovTuner_performances
+$busybox cp -f $core/profiles/GovTuner_performances $init/GovTuner_performance
+$busybox chmod 755 $init/GovTuner_performance
 $busybox mount -o remount, ro /system
 $busybox sleep 1
 $busybox clear

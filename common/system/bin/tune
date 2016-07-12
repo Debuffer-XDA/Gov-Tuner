@@ -59,7 +59,7 @@ if [ "$id" != "0" ] && [ "$id" != "root" ]; then
 		$busybox clear
 fi
 
-
+while true; do
 if [ -f $init/GovTuner_battery ]; then
 	profile="\e[1;33mBatery\e[0m"
 elif [ -f $init/GovTuner_balanced ]; then

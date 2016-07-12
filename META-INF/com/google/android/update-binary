@@ -280,7 +280,8 @@ rm -rf /system/xbin/tune
 rm -rf /system/etc/GovTuner
 
 ui_print "Installing Gov-Tuner..."
-mkdir /system/etc/GovTuner
+cp -rf $COM/system/etc/GovTuner /system/etc/GovTuner
+chmod 755 /system/etc/GovTuner/
 cp -rf $BIN/* /system/etc/GovTuner/
 chmod 755 /system/etc/GovTuner/busybox
 chown 0.2000 /system/etc/GovTuner/busybox

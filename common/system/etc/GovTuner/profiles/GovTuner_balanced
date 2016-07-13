@@ -317,7 +317,7 @@ if [ $CUR_GOVERNOR = "impulse" ]; then
 		$busybox echo "1" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-		$busybox echo "40000" > "$GOVERNOR/min_sample_time";
+		$busybox echo "30000" > "$GOVERNOR/min_sample_time";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "50000" > "$GOVERNOR/timer_rate";

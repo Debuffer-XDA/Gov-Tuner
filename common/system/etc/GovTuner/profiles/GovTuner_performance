@@ -428,10 +428,10 @@ fi
 
 if [ $CUR_GOVERNOR = "intellimm" ]; then
 	if [ -e "$GOVERNOR/down_differential" ]; then
-		$busybox echo "15" > "$GOVERNOR/down_differential";
+		$busybox echo "10" > "$GOVERNOR/down_differential";
 	fi
 	if [ -e "$GOVERNOR/down_differential_multi_core" ]; then
-		$busybox echo "15" > "$GOVERNOR/down_differential_multi_core";
+		$busybox echo "10" > "$GOVERNOR/down_differential_multi_core";
 	fi
 	if [ -e "$GOVERNOR/freq_down_step" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/freq_down_step";
@@ -440,16 +440,16 @@ if [ $CUR_GOVERNOR = "intellimm" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/freq_down_step_barrier";
 	fi
 	if [ -e "$GOVERNOR/ignore_nice_load" ]; then
-		$busybox echo "0" > "$GOVERNOR/ignore_nice_load";
+		$busybox echo "1" > "$GOVERNOR/ignore_nice_load";
 	fi
 	if [ -e "$GOVERNOR/input_event_min_freq" ]; then
-		$busybox echo "$MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ, $MIN_CPU_FREQ" > "$GOVERNOR/input_event_min_freq";
+		$busybox echo "1400,1400,1400,1400" > "$GOVERNOR/input_event_min_freq";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "1" > "$GOVERNOR/io_is_busy";
+		$busybox echo "0" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/optimal_freq" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/optimal_freq";
+		$busybox echo "1200" > "$GOVERNOR/optimal_freq";
 	fi
 	if [ -e "$GOVERNOR/powersave_bias" ]; then
 		$busybox echo "0" > "$GOVERNOR/powersave_bias";
@@ -458,7 +458,7 @@ if [ $CUR_GOVERNOR = "intellimm" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate" ]; then
-		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
+		$busybox echo "45000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
 		$busybox echo "30000" > "$GOVERNOR/sampling_rate_min";
@@ -467,16 +467,16 @@ if [ $CUR_GOVERNOR = "intellimm" ]; then
 		$busybox echo "0" > "$GOVERNOR/shortcut";
 	fi
 	if [ -e "$GOVERNOR/two_phase_freq" ]; then
-		$busybox echo "1500000,1500000,1500000,1500000" > "$GOVERNOR/two_phase_freq";
+		$busybox echo "1700000,1700000,1700000,1700000" > "$GOVERNOR/two_phase_freq";
 	fi
 	if [ -e "$GOVERNOR/up_threshold" ]; then
-		$busybox echo "95" > "$GOVERNOR/up_threshold";
+		$busybox echo "65" > "$GOVERNOR/up_threshold";
 	fi
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_load" ]; then
-		$busybox echo "75" > "$GOVERNOR/up_threshold_any_cpu_load";
+		$busybox echo "60" > "$GOVERNOR/up_threshold_any_cpu_load";
 	fi
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_freq" ]; then
-		$busybox echo "1500000" > "$GOVERNOR/up_threshold_any_cpu_freq";
+		$busybox echo "800000" > "$GOVERNOR/up_threshold_any_cpu_freq";
 	fi
 	if [ -e "$GOVERNOR/up_threshold_multi_core" ]; then
 		$busybox echo "0" > "$GOVERNOR/up_threshold_multi_core";

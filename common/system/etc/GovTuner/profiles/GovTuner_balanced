@@ -109,7 +109,7 @@ fi
 
 if [ $CUR_GOVERNOR = "conservative" ]; then
 	if [ -e "$GOVERNOR/down_threshold" ]; then
-		$busybox echo "75" > "$GOVERNOR/down_threshold";
+		$busybox echo "70" > "$GOVERNOR/down_threshold";
 	fi
 	if [ -e "$GOVERNOR/freq_step" ]; then
 		$busybox echo "10" > "$GOVERNOR/freq_step";
@@ -127,7 +127,7 @@ if [ $CUR_GOVERNOR = "conservative" ]; then
 		$busybox echo "30000" > "$GOVERNOR/sampling_rate_min";
 	fi
 	if [ -e "$GOVERNOR/up_threshold" ]; then
-		$busybox echo "90" > "$GOVERNOR/up_threshold";
+		$busybox echo "85" > "$GOVERNOR/up_threshold";
 	fi
 		$busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit
@@ -155,10 +155,10 @@ if [ $CUR_GOVERNOR = "yankactive" ]; then
 		$busybox echo "1200000" > "$GOVERNOR/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "1" > "$GOVERNOR/io_is_busy";
+		$busybox echo "0" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-		$busybox echo "40000" > "$GOVERNOR/min_sample_time";
+		$busybox echo "30000" > "$GOVERNOR/min_sample_time";
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";

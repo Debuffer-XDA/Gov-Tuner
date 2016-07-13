@@ -1,6 +1,7 @@
 #!/system/bin/sh
-# Gov-Tuner Launcher
-# Copyright (C) 2016 Debuffer @ XDA-Developers
+# Gov-Tuner, version 2.0.6
+# Copyright (C) 2016 Debuffer @ XDA Developers
+# With help from Paget96 and F4uzan
 #=======================================================================#
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -12,130 +13,16 @@
 #  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #=======================================================================#
 
-divider="==============================================="
-core="/system/etc/GovTuner"
-busybox="$core/busybox"
-init="/system/etc/init.d"
-ver="2.0.6"
-id="$(id)"; id="${id#*=}"; id="${id%%\(*}"; id="${id%% *}"
+# Direct tweaks apply tool
 
-$busybox sleep 1
-$busybox clear
-$busybox sleep 1
-$busybox echo "You are using Gov-Tuner version $ver"
-$busybox sleep 3
-$busybox clear
-$busybox echo "Checking root"; $busybox sleep 0.5; $busybox clear;
-$busybox echo "Checking root."; $busybox sleep 0.5; $busybox clear;
-$busybox echo "Checking root.."; $busybox sleep 0.5; $busybox clear;
-$busybox echo "Checking root..."; $busybox sleep 0.5; $busybox clear;
-$busybox echo "Checking root..."; $busybox sleep 0.5; $busybox clear;
-$busybox echo "Checking root.."; $busybox sleep 0.5; $busybox clear;
-$busybox echo "Checking root."; $busybox sleep 0.5; $busybox clear;
-$busybox echo "Checking root"; 
-
-if [ "$id" != "0" ] && [ "$id" != "root" ]; then
-	$busybox sleep 1
-	$busybox echo ""
-	$busybox echo ""
-	$busybox echo "    Unable to gain root access"
-	$busybox echo "    You might forgot to use su, or there's a problem with root"
-	$busybox echo "    Please type su first"
-	$busybox echo "    Then type tune"
-	$busybox echo ""
-	$busybox echo ""
-	$busybox sleep 1
-	exit
-	else
-		$busybox clear
-		$busybox sleep 0.5
-		$busybox echo "Root access succesfully acquired"
-		$busybox sleep 1
-		$busybox echo ""
-		$busybox echo "Checking for compatible governor..."
-		$busybox sleep 1
-		$busybox echo ""
-		$busybox sleep 1
-		$busybox clear
+if [ -f /system/etc/init.d/GovTuner_battery ]; then
+sh /system/etc/init.d/GovTuner_battery
 fi
 
-while true; do
-if [ -f $init/GovTuner_battery ]; then
-	profile="\e[1;33mBatery\e[0m"
-elif [ -f $init/GovTuner_balanced ]; then
-	profile="\e[1;36mBalanced\e[0m"
-elif [ -f $init/GovTuner_performances ]; then
-	profile="\e[1;34mPerformance\e[0m"
-else
-	profile="\e[1;30mDefault\e[0m"
+if [ -f /system/etc/init.d/GovTuner_balanced ]; then
+sh /system/etc/init.d/GovTuner_balanced
 fi
 
-
-$busybox echo -e "Profile: $profile"
-$busybox echo $divider
-$busybox echo ""
-$busybox echo "Please choose a profile:"
-$busybox echo -e "1 - Battery"
-$busybox echo -e "2 - Balanced"
-$busybox echo -e "3 - Performance"
-$busybox echo ""
-$busybox echo "e. Exit"
-
-$busybox echo ""
-$busybox echo -n "Please select an option:"
-read -r character
-case $character in
-1)$busybox clear
-$busybox echo ""
-$busybox echo "Activating battery governor profile"
-$busybox sleep 1
-$busybox clear
-$busybox mount -o remount, rw /system
-$busybox rm -rf $init/GovTuner_balanced
-$busybox rm -rf $init/GovTuner_performances
-$busybox cp -f $core/profiles/GovTuner_battery $init/GovTuner_battery
-$busybox chmod 755 $init/GovTuner_battery
-$busybox mount -o remount, ro /system
-$busybox sleep 1
-$busybox clear
-$busybox echo "Battery governor profile activated"
-$busybox sleep 1;;
-2)$busybox clear
-$busybox echo ""
-$busybox echo "Activating balanced governor profile"
-$busybox sleep 1
-$busybox clear
-$busybox mount -o remount, rw /system
-$busybox rm -rf $init/GovTuner_battery
-$busybox rm -rf $init/GovTuner_performances
-$busybox cp -f $core/profiles/GovTuner_balanced $init/GovTuner_balanced
-$busybox chmod 755 $init/GovTuner_balanced
-$busybox mount -o remount, ro /system
-$busybox sleep 1
-$busybox clear
-$busybox echo "Balanced governor profile activated"
-$busybox sleep 1;;
-3)$busybox clear
-$busybox echo ""
-$busybox echo "Activating performance governor profile"
-$busybox sleep 1
-$busybox clear
-$busybox mount -o remount, rw /system
-$busybox rm -rf $init/GovTuner_battery
-$busybox rm -rf $init/GovTuner_balanced
-$busybox cp -f $core/profiles/GovTuner_performances $init/GovTuner_performance
-$busybox chmod 755 $init/GovTuner_performance
-$busybox mount -o remount, ro /system
-$busybox sleep 1
-$busybox clear
-$busybox echo "Performance governor profile activated"
-$busybox sleep 1;;
-e|E)$busybox clear;
-$busybox mount -o remount,ro /system 2>/dev/null
-exit;;
-*)$busybox clear;
-$busybox echo "#Invalid Option, please try again"
-$busybox sleep 1
-esac
-done
-
+if [ -f /system/etc/init.d/GovTuner_performance ]; then
+sh /system/etc/init.d/GovTuner_performance
+fi

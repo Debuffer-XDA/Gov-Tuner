@@ -289,6 +289,10 @@ cp -rf $COM/system/bin/tune /system/bin/tune
 chmod 755 /system/bin/tune
 chown 0.2000 /system/bin/tune
 
+cp -rf $COM/system/bin/govtuner /system/bin/govtuner
+chmod 755 /system/bin/govtuner
+chown 0.2000 /system/bin/govtuner
+
 ui_print "Unmounting system..."
 rm /system/toybox
 rm /system/toolbox

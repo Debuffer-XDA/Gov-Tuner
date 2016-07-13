@@ -104,7 +104,6 @@ $busybox sleep 1
 $busybox clear
 $busybox echo "Battery tweaks profile activated"
 $busybox sleep 2;;
-$busybox clear
 2)$busybox clear
 $busybox echo ""
 $busybox echo "Activating balanced GovTuner profile"
@@ -120,7 +119,6 @@ $busybox sleep 1
 $busybox clear
 $busybox echo "Balanced tweaks profile activated"
 $busybox sleep 2;;
-$busybox clear
 3)$busybox clear
 $busybox echo ""
 $busybox echo "Activating performance GovTuner profile"
@@ -136,7 +134,6 @@ $busybox sleep 1
 $busybox clear
 $busybox echo "Performance tweaks profile activated"
 $busybox sleep 2;;
-$busybox clear
 e|E)$busybox clear;
 $busybox mount -o remount,ro /system 2>/dev/null
 exit;;

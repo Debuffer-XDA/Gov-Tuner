@@ -20,6 +20,11 @@ if [ -f /system/etc/init.d/Governor_profiles ]; then
 	$busybox rm -rf /system/etc/init.d/Governor_profiles
 	$busybox mount -o remount, ro /system
 fi
+if [ -f /system/etc/init.d/Governor_Tuner ]; then
+	$busybox mount -o remount, rw /system
+	$busybox rm -rf /system/etc/init.d/Governor_Tuner
+	$busybox mount -o remount, ro /system
+fi
 
 # Minimum CPU frequency
 MIN_CPU_FREQ=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq);

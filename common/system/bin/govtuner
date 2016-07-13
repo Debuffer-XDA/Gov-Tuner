@@ -18,6 +18,9 @@ busybox="$core/busybox"
 init="/system/etc/init.d"
 ver="2.0.7"
 id="$(id)"; id="${id#*=}"; id="${id%%\(*}"; id="${id%% *}"
+CUR_GOVERNOR=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor);
+GOVERNOR=$CUR_GOVERNOR
+
 
 $busybox sleep 1
 $busybox clear
@@ -71,6 +74,7 @@ else
 fi
 
 
+$busybox echo -e "Governor: $GOVERNOR"
 $busybox echo -e "Profile: $profile"
 $busybox echo $divider
 $busybox echo ""

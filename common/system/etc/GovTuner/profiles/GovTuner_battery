@@ -121,7 +121,7 @@ if [ $CUR_GOVERNOR = "conservative" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate" ]; then
-		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
+		$busybox echo "100000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
 		$busybox echo "30000" > "$GOVERNOR/sampling_rate_min";

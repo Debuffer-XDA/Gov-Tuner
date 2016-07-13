@@ -1,6 +1,7 @@
 #!/system/bin/sh
 # Gov-Tuner Launcher
 # Copyright (C) 2016 Debuffer @ XDA-Developers
+#      With help from Paget96 and F4uzan
 #=======================================================================#
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -16,10 +17,11 @@ divider="==============================================="
 core="/system/etc/GovTuner"
 busybox="$core/busybox"
 init="/system/etc/init.d"
-ver="2.0.7"
+ver="2.1.0"
 id="$(id)"; id="${id#*=}"; id="${id%%\(*}"; id="${id%% *}"
 CUR_GOVERNOR=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor);
 GOVERNOR=$CUR_GOVERNOR
+
 
 $busybox sleep 1
 $busybox clear
@@ -72,8 +74,9 @@ else
 	profile="\e[1;30mDefault\e[0m"
 fi
 
+
+$busybox echo -e "Profile: $profile"
 $busybox echo -e "Governor: $GOVERNOR"
-$busybox echo -e "Profile : $profile"
 $busybox echo $divider
 $busybox echo ""
 $busybox echo "Please choose a profile:"
@@ -82,55 +85,84 @@ $busybox echo -e "2 - Balanced"
 $busybox echo -e "3 - Performance"
 $busybox echo ""
 $busybox echo "e. Exit"
-
 $busybox echo ""
-$busybox echo -n "Please select an option:"
+$busybox echo -n "Please select a profile:"
 read -r character
 case $character in
 1)$busybox clear
 $busybox echo ""
-$busybox echo "Activating battery optimized profile"
+$busybox echo "Activating battery profile"
+$busybox sleep 1.5
+$busybox echo ""
 $busybox sleep 1
-$busybox clear
+$busybox echo "Copying battery profile to init.d"
+$busybox sleep 1.5
+$busybox echo ""
 $busybox mount -o remount, rw /system
 $busybox rm -rf $init/GovTuner_balanced
 $busybox rm -rf $init/GovTuner_performances
 $busybox cp -f $core/profiles/GovTuner_battery $init/GovTuner_battery
 $busybox chmod 755 $init/GovTuner_battery
 $busybox mount -o remount, ro /system
+$busybox echo "Applying battery tweaks"
+sh /system/etc/init.d/GovTuner_battery
+$busybox sleep 1.5
+$busybox echo ""
 $busybox sleep 1
 $busybox clear
-$busybox echo "Battery optimized profile activated"
+$busybox echo "GovTuner battery profile activated"
+$busybox echo ""
+$busybox echo ""
 $busybox sleep 2;;
 2)$busybox clear
 $busybox echo ""
 $busybox echo "Activating balanced profile"
+$busybox sleep 1.5
+$busybox echo ""
 $busybox sleep 1
-$busybox clear
+$busybox echo "Copying balanced profile to init.d"
+$busybox sleep 1.5
+$busybox echo ""
 $busybox mount -o remount, rw /system
 $busybox rm -rf $init/GovTuner_battery
 $busybox rm -rf $init/GovTuner_performances
 $busybox cp -f $core/profiles/GovTuner_balanced $init/GovTuner_balanced
 $busybox chmod 755 $init/GovTuner_balanced
 $busybox mount -o remount, ro /system
+$busybox echo "Applying balanced tweaks"
+sh /system/etc/init.d/GovTuner_balanced
+$busybox sleep 1.5
+$busybox echo ""
 $busybox sleep 1
 $busybox clear
-$busybox echo "Balanced profile activated"
+$busybox echo "GovTuner balanced profile activated"
+$busybox echo ""
+$busybox echo ""
 $busybox sleep 2;;
 3)$busybox clear
 $busybox echo ""
-$busybox echo "Activating performance focused profile"
+$busybox echo "Activating performance profile"
+$busybox sleep 1.5
+$busybox echo ""
 $busybox sleep 1
-$busybox clear
+$busybox echo "Copying performance profile to init.d"
+$busybox sleep 1.5
+$busybox echo ""
 $busybox mount -o remount, rw /system
 $busybox rm -rf $init/GovTuner_battery
 $busybox rm -rf $init/GovTuner_balanced
-$busybox cp -f $core/profiles/GovTuner_performances $init/GovTuner_performance
+$busybox cp -f $core/profiles/GovTuner_performance $init/GovTuner_performance
 $busybox chmod 755 $init/GovTuner_performance
 $busybox mount -o remount, ro /system
+$busybox echo "Applying performance tweaks"
+sh /system/etc/init.d/GovTuner_performance
+$busybox sleep 1.5
+$busybox echo ""
 $busybox sleep 1
 $busybox clear
-$busybox echo "Performance profile activated"
+$busybox echo "GovTuner performance profile activated"
+$busybox echo ""
+$busybox echo ""
 $busybox sleep 2;;
 e|E)$busybox clear;
 $busybox mount -o remount,ro /system 2>/dev/null

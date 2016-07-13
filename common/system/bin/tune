@@ -26,6 +26,3 @@ fi
 if [ -f /system/etc/init.d/GovTuner_performance ]; then
 sh /system/etc/init.d/GovTuner_performance
 fi
-
-# No profile selected
-echo "No profile selected. Please, type govtuner in Terminal Emulator to choose a profile."

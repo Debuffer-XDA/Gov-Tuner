@@ -75,6 +75,7 @@ else
 fi
 
 
+$busybox clear
 $busybox echo -e "Profile: $profile"
 $busybox echo -e "Governor: $GOVERNOR"
 $busybox echo $divider

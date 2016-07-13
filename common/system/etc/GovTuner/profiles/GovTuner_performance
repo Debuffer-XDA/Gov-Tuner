@@ -60,7 +60,7 @@ GOVERNOR=$CLUSTER/$CUR_GOVERNOR
 
 if [ "$CUR_GOVERNOR" = "interactive" ]; then
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "50000" > "$GOVERNOR/above_hispeed_delay";
+		$busybox echo "30000" > "$GOVERNOR/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$GOVERNOR/boost";
@@ -75,31 +75,31 @@ if [ "$CUR_GOVERNOR" = "interactive" ]; then
 		$busybox echo "90" > "$GOVERNOR/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR/hispeed_freq" ]; then
-		$busybox echo "1200000" > "$GOVERNOR/hispeed_freq";
+		$busybox echo "1500000" > "$GOVERNOR/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "1" > "$GOVERNOR/io_is_busy";
+		$busybox echo "0" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-		$busybox echo "40000" > "$GOVERNOR/min_sample_time";
+		$busybox echo "120000" > "$GOVERNOR/min_sample_time";
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "1 $MIN_CPU_FREQ:35 1100000:90 1750000:90" > "$GOVERNOR/target_loads";
+		$busybox echo "1 $MIN_CPU_FREQ:25 1100000:70 1750000:90" > "$GOVERNOR/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
-		$busybox echo "50000" > "$GOVERNOR/timer_rate";
+		$busybox echo "15000" > "$GOVERNOR/timer_rate";
 	fi
 	if [ -e "$GOVERNOR/timer_slack" ]; then
-		$busybox echo "200000" > "$GOVERNOR/timer_slack";
+		$busybox echo "45000" > "$GOVERNOR/timer_slack";
 	fi
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_freq" ]; then
-		$busybox echo "1500000" > "$GOVERNOR/up_threshold_any_cpu_freq";
+		$busybox echo "1400000" > "$GOVERNOR/up_threshold_any_cpu_freq";
 	fi
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_load" ]; then
-		$busybox echo "75" > "$GOVERNOR/up_threshold_any_cpu_load";
+		$busybox echo "60" > "$GOVERNOR/up_threshold_any_cpu_load";
 	fi
 	$busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit

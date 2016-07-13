@@ -78,10 +78,10 @@ if [ "$CUR_GOVERNOR" = "interactive" ]; then
 		$busybox echo "1200000" > "$GOVERNOR/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "1" > "$GOVERNOR/io_is_busy";
+		$busybox echo "0" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-		$busybox echo "40000" > "$GOVERNOR/min_sample_time";
+		$busybox echo "30000" > "$GOVERNOR/min_sample_time";
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";

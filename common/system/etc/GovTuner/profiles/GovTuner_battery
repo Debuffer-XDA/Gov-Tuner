@@ -953,7 +953,7 @@ if [ $CUR_GOVERNOR = "ondemandplus" ]; then
 		$busybox echo "35" > "$GOVERNOR/down_differential";
 	fi
 	if [ -e "$GOVERNOR/inter_hifreq" ]; then
-		$busybox echo "1500000" > "$GOVERNOR/inter_hifreq";
+		$busybox echo "1100000" > "$GOVERNOR/inter_hifreq";
 	fi
 	if [ -e "$GOVERNOR/inter_lofreq" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/inter_lofreq";

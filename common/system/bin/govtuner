@@ -87,7 +87,7 @@ read -r character
 case $character in
 1)$busybox clear
 $busybox echo ""
-$busybox echo "Activating battery governor profile"
+$busybox echo "Activating battery GovTuner profile"
 $busybox sleep 1
 $busybox clear
 $busybox mount -o remount, rw /system
@@ -98,11 +98,12 @@ $busybox chmod 755 $init/GovTuner_battery
 $busybox mount -o remount, ro /system
 $busybox sleep 1
 $busybox clear
-$busybox echo "Battery governor profile activated"
-$busybox sleep 1;;
+$busybox echo "Battery tweaks profile activated"
+$busybox sleep 2;;
+$busybox clear
 2)$busybox clear
 $busybox echo ""
-$busybox echo "Activating balanced governor profile"
+$busybox echo "Activating balanced GovTuner profile"
 $busybox sleep 1
 $busybox clear
 $busybox mount -o remount, rw /system
@@ -113,11 +114,12 @@ $busybox chmod 755 $init/GovTuner_balanced
 $busybox mount -o remount, ro /system
 $busybox sleep 1
 $busybox clear
-$busybox echo "Balanced governor profile activated"
-$busybox sleep 1;;
+$busybox echo "Balanced tweaks profile activated"
+$busybox sleep 2;;
+$busybox clear
 3)$busybox clear
 $busybox echo ""
-$busybox echo "Activating performance governor profile"
+$busybox echo "Activating performance GovTuner profile"
 $busybox sleep 1
 $busybox clear
 $busybox mount -o remount, rw /system
@@ -128,8 +130,9 @@ $busybox chmod 755 $init/GovTuner_performance
 $busybox mount -o remount, ro /system
 $busybox sleep 1
 $busybox clear
-$busybox echo "Performance governor profile activated"
-$busybox sleep 1;;
+$busybox echo "Performance tweaks profile activated"
+$busybox sleep 2;;
+$busybox clear
 e|E)$busybox clear;
 $busybox mount -o remount,ro /system 2>/dev/null
 exit;;

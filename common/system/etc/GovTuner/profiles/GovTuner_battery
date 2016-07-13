@@ -345,13 +345,13 @@ fi
 
 if [ $CUR_GOVERNOR = "uberdemand" ]; then
 	if [ -e "$GOVERNOR/down_differential" ]; then
-		$busybox echo "20" > "$GOVERNOR/down_differential";
+		$busybox echo "35" > "$GOVERNOR/down_differential";
 	fi
 	if [ -e "$GOVERNOR/ignore_nice_load" ]; then
-		$busybox echo "0" > "$GOVERNOR/ignore_nice_load";
+		$busybox echo "1" > "$GOVERNOR/ignore_nice_load";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "1" > "$GOVERNOR/io_is_busy";
+		$busybox echo "0" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/powersave_bias" ]; then
 		$busybox echo "0" > "$GOVERNOR/powersave_bias";
@@ -360,7 +360,7 @@ if [ $CUR_GOVERNOR = "uberdemand" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate" ]; then
-		$busybox echo "60000" > "$GOVERNOR/sampling_rate";
+		$busybox echo "100000" > "$GOVERNOR/sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
 		$busybox echo "30000" > "$GOVERNOR/sampling_rate_min";
@@ -369,7 +369,7 @@ if [ $CUR_GOVERNOR = "uberdemand" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/second_phase_freq";
 	fi
 	if [ -e "$GOVERNOR/up_threshold" ]; then
-		$busybox echo "95" > "$GOVERNOR/up_threshold";
+		$busybox echo "99" > "$GOVERNOR/up_threshold";
 	fi
 	$busybox echo "$CUR_GOVERNOR tweaks applied."
 	exit

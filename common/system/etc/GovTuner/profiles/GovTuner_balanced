@@ -205,10 +205,10 @@ if [ $CUR_GOVERNOR = "intelliactive" ]; then
 		$busybox echo "1200000" > "$GOVERNOR/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "1" > "$GOVERNOR/io_is_busy";
+		$busybox echo "0" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-		$busybox echo "40000" > "$GOVERNOR/min_sample_time";
+		$busybox echo "30000" > "$GOVERNOR/min_sample_time";
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
@@ -217,7 +217,7 @@ if [ $CUR_GOVERNOR = "intelliactive" ]; then
 		$busybox echo "1100000" > "$GOVERNOR/sync_freq";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "1 $MIN_CPU_FREQ:35 1100000:90 1750000:90" > "$GOVERNOR/target_loads";
+		$busybox echo "1 $MIN_CPU_FREQ:35 1100000:90 1750000:99" > "$GOVERNOR/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "50000" > "$GOVERNOR/timer_rate";

@@ -275,6 +275,9 @@ fi
 
 ui_print "Removing old files..."
 rm -rf /system/etc/init.d/Governor_Tuner
+rm -rf /system/etc/init.d/GovTuner_balanced
+rm -rf /system/etc/init.d/GovTuner_battery
+rm -rf /system/etc/init.d/GovTuner_performance
 rm -rf /system/bin/tune
 rm -rf /system/etc/GovTuner
 

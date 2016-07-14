@@ -68,7 +68,7 @@ if [ -f $init/GovTuner_battery ]; then
 	profile="\e[1;33mBattery\e[0m"
 elif [ -f $init/GovTuner_balanced ]; then
 	profile="\e[1;36mBalanced\e[0m"
-elif [ -f $init/GovTuner_performances ]; then
+elif [ -f $init/GovTuner_performance ]; then
 	profile="\e[1;34mPerformance\e[0m"
 else
 	profile="\e[1;30mDefault\e[0m"

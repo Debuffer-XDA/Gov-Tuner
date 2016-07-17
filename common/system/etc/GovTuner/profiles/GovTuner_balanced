@@ -593,6 +593,9 @@ if [ $CUR_GOVERNOR = "bluactive" ]; then
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_load" ]; then
 		$busybox echo "0" > "$GOVERNOR/up_threshold_any_cpu_load";
 	fi
+		$busybox echo "$CUR_GOVERNOR tweaks applied."
+	exit
+fi
 
 # DANCEDANCE
 

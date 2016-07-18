@@ -226,7 +226,7 @@ if [ $CUR_GOVERNOR = "intelliactive" ]; then
 		$busybox echo "45000" > "$GOVERNOR/timer_slack";
 	fi
 	if [ -e "$GOVERNOR/two_phase_freq" ]; then
-		$busybox echo "1700000,1700000,1700000,1700000" > "$GOVERNOR/two_phase_freq";
+		$busybox echo "1400000,1400000,1400000,1400000" > "$GOVERNOR/two_phase_freq";
 	fi
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_freq" ]; then
 		$busybox echo "1400000" > "$GOVERNOR/up_threshold_any_cpu_freq";
@@ -467,7 +467,7 @@ if [ $CUR_GOVERNOR = "intellimm" ]; then
 		$busybox echo "0" > "$GOVERNOR/shortcut";
 	fi
 	if [ -e "$GOVERNOR/two_phase_freq" ]; then
-		$busybox echo "1700000,1700000,1700000,1700000" > "$GOVERNOR/two_phase_freq";
+		$busybox echo "1400000,1400000,1400000,1400000" > "$GOVERNOR/two_phase_freq";
 	fi
 	if [ -e "$GOVERNOR/up_threshold" ]; then
 		$busybox echo "65" > "$GOVERNOR/up_threshold";
@@ -531,7 +531,7 @@ if [ $CUR_GOVERNOR = "barry_allen" ]; then
 		$busybox echo "45000" > "$GOVERNOR/timer_slack";
 	fi
 	if [ -e "$GOVERNOR/two_phase_freq" ]; then
-		$busybox echo "1700000,1700000,1700000,1700000" > "$GOVERNOR/two_phase_freq";
+		$busybox echo "1400000,1400000,1400000,1400000" > "$GOVERNOR/two_phase_freq";
 	fi
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_freq" ]; then
 		$busybox echo "800000" > "$GOVERNOR/up_threshold_any_cpu_freq";
@@ -586,7 +586,7 @@ if [ $CUR_GOVERNOR = "bluactive" ]; then
 		$busybox echo "45000" > "$GOVERNOR/timer_slack";
 	fi
 	if [ -e "$GOVERNOR/two_phase_freq" ]; then
-		$busybox echo "1700000,1700000,1700000,1700000" > "$GOVERNOR/two_phase_freq";
+		$busybox echo "1400000,1400000,1400000,1400000" > "$GOVERNOR/two_phase_freq";
 	fi
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_freq" ]; then
 		$busybox echo "800000" > "$GOVERNOR/up_threshold_any_cpu_freq";
@@ -1054,7 +1054,7 @@ if [ $CUR_GOVERNOR = "intellidemand" ]; then
 		$busybox echo "1100000" > "$GOVERNOR/sync_freq";
 	fi
 	if [ -e "$GOVERNOR/two_phase_freq" ]; then
-		$busybox echo "1500000,1500000,1500000,1500000" > "$GOVERNOR/two_phase_freq";
+		$busybox echo "1400000,1400000,1400000,1400000" > "$GOVERNOR/two_phase_freq";
 	fi
 	if [ -e "$GOVERNOR/ui_sampling_rate" ]; then
 		$busybox echo "40000" > "$GOVERNOR/ui_sampling_rate";

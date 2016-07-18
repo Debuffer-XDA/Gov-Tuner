@@ -60,7 +60,7 @@ GOVERNOR=$CLUSTER/$CUR_GOVERNOR
 
 if [ "$CUR_GOVERNOR" = "interactive" ]; then
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "30000" > "$GOVERNOR/above_hispeed_delay";
+		$busybox echo "10000 1400000:20000 1700000:25000 1900000:40000" > "$GOVERNOR/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$GOVERNOR/boost";
@@ -72,7 +72,7 @@ if [ "$CUR_GOVERNOR" = "interactive" ]; then
 		$busybox echo "0" > "$GOVERNOR/boostpulse_duration";
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
-		$busybox echo "90" > "$GOVERNOR/go_hispeed_load";
+		$busybox echo "75" > "$GOVERNOR/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR/hispeed_freq" ]; then
 		$busybox echo "1400000" > "$GOVERNOR/hispeed_freq";
@@ -101,7 +101,7 @@ if [ "$CUR_GOVERNOR" = "interactive" ]; then
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_load" ]; then
 		$busybox echo "60" > "$GOVERNOR/up_threshold_any_cpu_load";
 	fi
-	$busybox echo "$CUR_GOVERNOR tweaks applied."
+	$busybox echo "Performance $CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -129,7 +129,7 @@ if [ $CUR_GOVERNOR = "conservative" ]; then
 	if [ -e "$GOVERNOR/up_threshold" ]; then
 		$busybox echo "60" > "$GOVERNOR/up_threshold";
 	fi
-		$busybox echo "$CUR_GOVERNOR tweaks applied."
+	$busybox echo "Performance $CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -137,7 +137,7 @@ fi
 
 if [ $CUR_GOVERNOR = "yankactive" ]; then
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "30000" > "$GOVERNOR/above_hispeed_delay";
+		$busybox echo "10000 1400000:20000 1700000:25000 1900000:40000" > "$GOVERNOR/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$GOVERNOR/boost";
@@ -149,7 +149,7 @@ if [ $CUR_GOVERNOR = "yankactive" ]; then
 		$busybox echo "0" > "$GOVERNOR/boostpulse_duration";
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
-		$busybox echo "90" > "$GOVERNOR/go_hispeed_load";
+		$busybox echo "75" > "$GOVERNOR/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR/hispeed_freq" ]; then
 		$busybox echo "1400000" > "$GOVERNOR/hispeed_freq";
@@ -178,7 +178,7 @@ if [ $CUR_GOVERNOR = "yankactive" ]; then
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_load" ]; then
 		$busybox echo "60" > "$GOVERNOR/up_threshold_any_cpu_load";
 	fi
-	$busybox echo "$CUR_GOVERNOR tweaks applied."
+	$busybox echo "Performance $CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -187,7 +187,7 @@ fi
 
 if [ $CUR_GOVERNOR = "intelliactive" ]; then
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "30000" > "$GOVERNOR/above_hispeed_delay";
+		$busybox echo "10000 1400000:20000 1700000:25000 1900000:40000" > "$GOVERNOR/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$GOVERNOR/boost";
@@ -199,7 +199,7 @@ if [ $CUR_GOVERNOR = "intelliactive" ]; then
 		$busybox echo "0" > "$GOVERNOR/boostpulse_duration";
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
-		$busybox echo "90" > "$GOVERNOR/go_hispeed_load";
+		$busybox echo "75" > "$GOVERNOR/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR/hispeed_freq" ]; then
 		$busybox echo "1400000" > "$GOVERNOR/hispeed_freq";
@@ -234,7 +234,7 @@ if [ $CUR_GOVERNOR = "intelliactive" ]; then
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_load" ]; then
 		$busybox echo "60" > "$GOVERNOR/up_threshold_any_cpu_load";
 	fi
-	$busybox echo "$CUR_GOVERNOR tweaks applied."
+	$busybox echo "Performance $CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -263,7 +263,7 @@ if [ $CUR_GOVERNOR = "bioshock" ]; then
 	if [ -e "$GOVERNOR/up_threshold" ]; then
 		$busybox echo "60" > "$GOVERNOR/up_threshold";
 	fi
-		$busybox echo "$CUR_GOVERNOR tweaks applied."
+	$busybox echo "Performance $CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -297,7 +297,7 @@ if [ $CUR_GOVERNOR = "lionfish" ]; then
 	if [ -e "$GOVERNOR/up_threshold" ]; then
 		$busybox echo "60" > "$GOVERNOR/up_threshold";
 	fi
-	$busybox echo "$CUR_GOVERNOR tweaks applied."
+	$busybox echo "Performance $CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -305,10 +305,10 @@ fi
 
 if [ $CUR_GOVERNOR = "impulse" ]; then
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "30000" > "$GOVERNOR/above_hispeed_delay";
+		$busybox echo "10000 1400000:20000 1700000:25000 1900000:40000" > "$GOVERNOR/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
-		$busybox echo "90" > "$GOVERNOR/go_hispeed_load";
+		$busybox echo "75" > "$GOVERNOR/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR/hispeed_freq" ]; then
 		$busybox echo "1400000" > "$GOVERNOR/hispeed_freq";
@@ -337,7 +337,7 @@ if [ $CUR_GOVERNOR = "impulse" ]; then
 	if [ -e "$GOVERNOR/powersave_bias" ]; then
 		$busybox echo "0" > "$GOVERNOR/powersave_bias";
 	fi
-	$busybox echo "$CUR_GOVERNOR tweaks applied."
+	$busybox echo "Performance $CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -371,7 +371,7 @@ if [ $CUR_GOVERNOR = "uberdemand" ]; then
 	if [ -e "$GOVERNOR/up_threshold" ]; then
 		$busybox echo "60" > "$GOVERNOR/up_threshold";
 	fi
-	$busybox echo "$CUR_GOVERNOR tweaks applied."
+	$busybox echo "Performance $CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -420,7 +420,7 @@ if [ $CUR_GOVERNOR = "electroactive" ]; then
 	if [ -e "$GOVERNOR/up_threshold_min_freq" ]; then
 		$busybox echo "600000" > "$GOVERNOR/up_threshold_min_freq";
 	fi
-	$busybox echo "$CUR_GOVERNOR tweaks applied."
+	$busybox echo "Performance $CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -481,7 +481,7 @@ if [ $CUR_GOVERNOR = "intellimm" ]; then
 	if [ -e "$GOVERNOR/up_threshold_multi_core" ]; then
 		$busybox echo "0" > "$GOVERNOR/up_threshold_multi_core";
 	fi
-	$busybox echo "$CUR_GOVERNOR tweaks applied."
+	$busybox echo "Performance $CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -489,7 +489,7 @@ fi
 
 if [ $CUR_GOVERNOR = "barry_allen" ]; then
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "30000" > "$GOVERNOR/above_hispeed_delay";
+		$busybox echo "10000 1400000:20000 1700000:25000 1900000:40000" > "$GOVERNOR/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/ba_lock" ]; then
 		$busybox echo "0" > "$GOVERNOR/ba_lock";
@@ -504,7 +504,7 @@ if [ $CUR_GOVERNOR = "barry_allen" ]; then
 		$busybox echo "0" > "$GOVERNOR/boostpulse_duration";
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
-		$busybox echo "90" > "$GOVERNOR/go_hispeed_load";
+		$busybox echo "75" > "$GOVERNOR/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR/hispeed_freq" ]; then
 		$busybox echo "1400000" > "$GOVERNOR/hispeed_freq";
@@ -539,7 +539,7 @@ if [ $CUR_GOVERNOR = "barry_allen" ]; then
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_load" ]; then
 		$busybox echo "60" > "$GOVERNOR/up_threshold_any_cpu_load";
 	fi
-	$busybox echo "$CUR_GOVERNOR tweaks applied."
+	$busybox echo "Performance $CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -547,7 +547,7 @@ fi
 
 if [ $CUR_GOVERNOR = "bluactive" ]; then
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "30000" > "$GOVERNOR/above_hispeed_delay";
+		$busybox echo "10000 1400000:20000 1700000:25000 1900000:40000" > "$GOVERNOR/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$GOVERNOR/boost";
@@ -559,7 +559,7 @@ if [ $CUR_GOVERNOR = "bluactive" ]; then
 		$busybox echo "0" > "$GOVERNOR/boostpulse_duration";
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
-		$busybox echo "90" > "$GOVERNOR/go_hispeed_load";
+		$busybox echo "75" > "$GOVERNOR/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR/hispeed_freq" ]; then
 		$busybox echo "1400000" > "$GOVERNOR/hispeed_freq";
@@ -594,7 +594,7 @@ if [ $CUR_GOVERNOR = "bluactive" ]; then
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_load" ]; then
 		$busybox echo "60" > "$GOVERNOR/up_threshold_any_cpu_load";
 	fi
-	$busybox echo "$CUR_GOVERNOR tweaks applied."
+	$busybox echo "Performance $CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -622,7 +622,7 @@ if [ $CUR_GOVERNOR = "dancedance" ]; then
 	if [ -e "$GOVERNOR/up_threshold" ]; then
 		$busybox echo "60" > "$GOVERNOR/up_threshold";
 	fi
-		$busybox echo "$CUR_GOVERNOR tweaks applied."
+	$busybox echo "Performance $CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -650,7 +650,7 @@ if [ $CUR_GOVERNOR = "lionheart" ]; then
 	if [ -e "$GOVERNOR/up_threshold" ]; then
 		$busybox echo "60" > "$GOVERNOR/up_threshold";
 	fi
-		$busybox echo "$CUR_GOVERNOR tweaks applied."
+	$busybox echo "Performance $CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -687,7 +687,7 @@ if [ $CUR_GOVERNOR = "pegasusq" ]; then
 	if [ -e "$GOVERNOR/up_threshold_min_freq" ]; then
 		$busybox echo "600000" > "$GOVERNOR/up_threshold_min_freq";
 	fi
-	$busybox echo "$CUR_GOVERNOR tweaks applied."
+	$busybox echo "Performance $CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -730,7 +730,7 @@ if [ $CUR_GOVERNOR = "ondemand" ]; then
 	if [ -e "$GOVERNOR/up_threshold_multi_core" ]; then
 		$busybox echo "0" > "$GOVERNOR/up_threshold_multi_core";
 	fi
-	$busybox echo "$CUR_GOVERNOR tweaks applied."
+	$busybox echo "Performance $CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -791,7 +791,7 @@ if [ $CUR_GOVERNOR = "smartmax" ]; then
 	if [ -e "$GOVERNOR/up_rate" ]; then
 		$busybox echo "0" > "$GOVERNOR/up_rate";
 	fi
-	$busybox echo "$CUR_GOVERNOR tweaks applied."
+	$busybox echo "Performance $CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -828,7 +828,7 @@ if [ $CUR_GOVERNOR = "optimax" ]; then
 	if [ -e "$GOVERNOR/up_threshold_multi_core" ]; then
 		$busybox echo "0" > "$GOVERNOR/up_threshold_multi_core";
 	fi
-	$busybox echo "$CUR_GOVERNOR tweaks applied."
+	$busybox echo "Performance $CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -856,7 +856,7 @@ if [ $CUR_GOVERNOR = "conservativex" ]; then
 	if [ -e "$GOVERNOR/up_threshold" ]; then
 		$busybox echo "60" > "$GOVERNOR/up_threshold";
 	fi
-		$busybox echo "$CUR_GOVERNOR tweaks applied."
+	$busybox echo "Performance $CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -864,7 +864,7 @@ fi
 
 if [ $CUR_GOVERNOR = "interactive_pro" ]; then
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "30000" > "$GOVERNOR/above_hispeed_delay";
+		$busybox echo "10000 1400000:20000 1700000:25000 1900000:40000" > "$GOVERNOR/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$GOVERNOR/boost";
@@ -876,7 +876,7 @@ if [ $CUR_GOVERNOR = "interactive_pro" ]; then
 		$busybox echo "$1100000" > "$GOVERNOR/freq_calc_thresh";
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
-		$busybox echo "90" > "$GOVERNOR/go_hispeed_load";
+		$busybox echo "75" > "$GOVERNOR/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR/hispeed_freq" ]; then
 		$busybox echo "1400000" > "$GOVERNOR/hispeed_freq";
@@ -908,7 +908,7 @@ if [ $CUR_GOVERNOR = "interactive_pro" ]; then
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_load" ]; then
 		$busybox echo "60" > "$GOVERNOR/up_threshold_any_cpu_load";
 	fi
-	$busybox echo "$CUR_GOVERNOR tweaks applied."
+	$busybox echo "Performance $CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -942,7 +942,7 @@ if [ $CUR_GOVERNOR = "wheatley" ]; then
 	if [ -e "$GOVERNOR/up_threshold" ]; then
 		$busybox echo "60" > "$GOVERNOR/up_threshold";
 	fi
-	$busybox echo "$CUR_GOVERNOR tweaks applied."
+	$busybox echo "Performance $CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -973,7 +973,7 @@ if [ $CUR_GOVERNOR = "ondemandplus" ]; then
 	if [ -e "$GOVERNOR/up_threshold" ]; then
 		$busybox echo "60" > "$GOVERNOR/up_threshold";
 	fi
-	$busybox echo "$CUR_GOVERNOR tweaks applied."
+	$busybox echo "Performance $CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -1022,7 +1022,7 @@ if [ $CUR_GOVERNOR = "smartmax_eps" ]; then
 	if [ -e "$GOVERNOR/"input_boost_duration ]; then
 		$busybox echo "0" > "$GOVERNOR/input_boost_duration";
 	fi
-	$busybox echo "$CUR_GOVERNOR tweaks applied."
+	$busybox echo "Performance $CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -1071,7 +1071,7 @@ if [ $CUR_GOVERNOR = "intellidemand" ]; then
 	if [ -e "$GOVERNOR/up_threshold_multi_core" ]; then
 		$busybox echo "0" > "$GOVERNOR/up_threshold_multi_core";
 	fi
-	$busybox echo "$CUR_GOVERNOR tweaks applied."
+	$busybox echo "Performance $CUR_GOVERNOR tweaks applied."
 	exit
 fi
 
@@ -1082,7 +1082,7 @@ if [ $CUR_GOVERNOR = "tripndroid" ]; then
 		$busybox echo "10000" > "$GOVERNOR/down_sample_time";
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
-		$busybox echo "90" > "$GOVERNOR/go_hispeed_load";
+		$busybox echo "75" > "$GOVERNOR/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR/hispeed_freq" ]; then
 		$busybox echo "1400000" > "$GOVERNOR/hispeed_freq";
@@ -1093,7 +1093,7 @@ if [ $CUR_GOVERNOR = "tripndroid" ]; then
 	if [ -e "$GOVERNOR/up_sample_time" ]; then
 		$busybox echo "50000" > "$GOVERNOR/up_sample_time";
 	fi
-	$busybox echo "$CUR_GOVERNOR tweaks applied."
+	$busybox echo "Performance $CUR_GOVERNOR tweaks applied."
 	exit
 fi
 

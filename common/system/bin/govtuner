@@ -128,7 +128,7 @@ $busybox sleep 1.5
 $busybox echo ""
 $busybox mount -o remount, rw /system
 $busybox rm -rf $init/GovTuner_battery
-$busybox rm -rf $init/GovTuner_performances
+$busybox rm -rf $init/GovTuner_performance
 $busybox cp -f $core/profiles/GovTuner_balanced $init/GovTuner_balanced
 $busybox chmod 755 $init/GovTuner_balanced
 $busybox mount -o remount, ro /system

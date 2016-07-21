@@ -60,7 +60,7 @@ GOVERNOR=$CLUSTER/$CUR_GOVERNOR
 
 if [ "$CUR_GOVERNOR" = "interactive" ]; then
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "20000 800000:10000 1100000:50000 1400000:75000 1700000:50000 1900000:30000" > "$GOVERNOR/above_hispeed_delay";
+		$busybox echo "20000 800000:30000 1100000:50000 1400000:75000 1700000:50000 1900000:30000" > "$GOVERNOR/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$GOVERNOR/boost";
@@ -81,13 +81,13 @@ if [ "$CUR_GOVERNOR" = "interactive" ]; then
 		$busybox echo "0" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-		$busybox echo "25000" > "$GOVERNOR/min_sample_time";
+		$busybox echo "20000" > "$GOVERNOR/min_sample_time";
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "50 450000:40 800000:60 1100000:90 1400000:90 1800000:95 2000000:99" > "$GOVERNOR/target_loads";
+		$busybox echo "50 450000:40 800000:70 1100000:90 1400000:90 1800000:95 2000000:99" > "$GOVERNOR/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "15000" > "$GOVERNOR/timer_rate";
@@ -137,7 +137,7 @@ fi
 
 if [ $CUR_GOVERNOR = "yankactive" ]; then
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "20000 800000:10000 1100000:50000 1400000:75000 1700000:50000 1900000:30000" > "$GOVERNOR/above_hispeed_delay";
+		$busybox echo "20000 800000:30000 1100000:50000 1400000:75000 1700000:50000 1900000:30000" > "$GOVERNOR/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$GOVERNOR/boost";
@@ -158,13 +158,13 @@ if [ $CUR_GOVERNOR = "yankactive" ]; then
 		$busybox echo "0" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-		$busybox echo "25000" > "$GOVERNOR/min_sample_time";
+		$busybox echo "20000" > "$GOVERNOR/min_sample_time";
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "50 450000:40 800000:60 1100000:90 1400000:90 1800000:95 2000000:99" > "$GOVERNOR/target_loads";
+		$busybox echo "50 450000:40 800000:70 1100000:90 1400000:90 1800000:95 2000000:99" > "$GOVERNOR/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "15000" > "$GOVERNOR/timer_rate";
@@ -186,7 +186,7 @@ fi
 
 if [ $CUR_GOVERNOR = "intelliactive" ]; then
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "20000 800000:10000 1100000:50000 1400000:75000 1700000:50000 1900000:30000" > "$GOVERNOR/above_hispeed_delay";
+		$busybox echo "20000 800000:30000 1100000:50000 1400000:75000 1700000:50000 1900000:30000" > "$GOVERNOR/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$GOVERNOR/boost";
@@ -207,7 +207,7 @@ if [ $CUR_GOVERNOR = "intelliactive" ]; then
 		$busybox echo "0" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-		$busybox echo "25000" > "$GOVERNOR/min_sample_time";
+		$busybox echo "20000" > "$GOVERNOR/min_sample_time";
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
@@ -216,7 +216,7 @@ if [ $CUR_GOVERNOR = "intelliactive" ]; then
 		$busybox echo "0" > "$GOVERNOR/sync_freq";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "50 450000:40 800000:60 1100000:90 1400000:90 1800000:95 2000000:99" > "$GOVERNOR/target_loads";
+		$busybox echo "50 450000:40 800000:70 1100000:90 1400000:90 1800000:95 2000000:99" > "$GOVERNOR/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "15000" > "$GOVERNOR/timer_rate";
@@ -304,7 +304,7 @@ fi
 
 if [ $CUR_GOVERNOR = "impulse" ]; then
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "20000 800000:10000 1100000:50000 1400000:75000 1700000:50000 1900000:30000" > "$GOVERNOR/above_hispeed_delay";
+		$busybox echo "20000 800000:30000 1100000:50000 1400000:75000 1700000:50000 1900000:30000" > "$GOVERNOR/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
 		$busybox echo "90" > "$GOVERNOR/go_hispeed_load";
@@ -316,7 +316,7 @@ if [ $CUR_GOVERNOR = "impulse" ]; then
 		$busybox echo "0" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-		$busybox echo "25000" > "$GOVERNOR/min_sample_time";
+		$busybox echo "20000" > "$GOVERNOR/min_sample_time";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "15000" > "$GOVERNOR/timer_rate";
@@ -325,7 +325,7 @@ if [ $CUR_GOVERNOR = "impulse" ]; then
 		$busybox echo "80000" > "$GOVERNOR/timer_slack";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "50 450000:40 800000:60 1100000:90 1400000:90 1800000:95 2000000:99" > "$GOVERNOR/target_loads";
+		$busybox echo "50 450000:40 800000:70 1100000:90 1400000:90 1800000:95 2000000:99" > "$GOVERNOR/target_loads";
 	fi
 	if [ -e "$GOVERNOR/max_freq_hysteresis" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/max_freq_hysteresis";
@@ -488,7 +488,7 @@ fi
 
 if [ $CUR_GOVERNOR = "barry_allen" ]; then
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "20000 800000:10000 1100000:50000 1400000:75000 1700000:50000 1900000:30000" > "$GOVERNOR/above_hispeed_delay";
+		$busybox echo "20000 800000:30000 1100000:50000 1400000:75000 1700000:50000 1900000:30000" > "$GOVERNOR/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/ba_lock" ]; then
 		$busybox echo "0" > "$GOVERNOR/ba_lock";
@@ -512,7 +512,7 @@ if [ $CUR_GOVERNOR = "barry_allen" ]; then
 		$busybox echo "0" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-		$busybox echo "25000" > "$GOVERNOR/min_sample_time";
+		$busybox echo "20000" > "$GOVERNOR/min_sample_time";
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
@@ -521,7 +521,7 @@ if [ $CUR_GOVERNOR = "barry_allen" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/sync_freq";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "50 450000:40 800000:60 1100000:90 1400000:90 1800000:95 2000000:99" > "$GOVERNOR/target_loads";
+		$busybox echo "50 450000:40 800000:70 1100000:90 1400000:90 1800000:95 2000000:99" > "$GOVERNOR/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "15000" > "$GOVERNOR/timer_rate";
@@ -546,7 +546,7 @@ fi
 
 if [ $CUR_GOVERNOR = "bluactive" ]; then
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "20000 800000:10000 1100000:50000 1400000:75000 1700000:50000 1900000:30000" > "$GOVERNOR/above_hispeed_delay";
+		$busybox echo "20000 800000:30000 1100000:50000 1400000:75000 1700000:50000 1900000:30000" > "$GOVERNOR/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$GOVERNOR/boost";
@@ -567,7 +567,7 @@ if [ $CUR_GOVERNOR = "bluactive" ]; then
 		$busybox echo "0" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-		$busybox echo "25000" > "$GOVERNOR/min_sample_time";
+		$busybox echo "20000" > "$GOVERNOR/min_sample_time";
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
@@ -576,7 +576,7 @@ if [ $CUR_GOVERNOR = "bluactive" ]; then
 		$busybox echo "0" > "$GOVERNOR/sync_freq";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "50 450000:40 800000:60 1100000:90 1400000:90 1800000:95 2000000:99" > "$GOVERNOR/target_loads";
+		$busybox echo "50 450000:40 800000:70 1100000:90 1400000:90 1800000:95 2000000:99" > "$GOVERNOR/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "15000" > "$GOVERNOR/timer_rate";
@@ -863,7 +863,7 @@ fi
 
 if [ $CUR_GOVERNOR = "interactive_pro" ]; then
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "20000 800000:10000 1100000:50000 1400000:75000 1700000:50000 1900000:30000" > "$GOVERNOR/above_hispeed_delay";
+		$busybox echo "20000 800000:30000 1100000:50000 1400000:75000 1700000:50000 1900000:30000" > "$GOVERNOR/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$GOVERNOR/boost";
@@ -884,7 +884,7 @@ if [ $CUR_GOVERNOR = "interactive_pro" ]; then
 		$busybox echo "0" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-		$busybox echo "25000" > "$GOVERNOR/min_sample_time";
+		$busybox echo "20000" > "$GOVERNOR/min_sample_time";
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
@@ -893,7 +893,7 @@ if [ $CUR_GOVERNOR = "interactive_pro" ]; then
 		$busybox echo "0" > "$GOVERNOR/sync_freq";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "50 450000:40 800000:60 1100000:90 1400000:90 1800000:95 2000000:99" > "$GOVERNOR/target_loads";
+		$busybox echo "50 450000:40 800000:70 1100000:90 1400000:90 1800000:95 2000000:99" > "$GOVERNOR/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "15000" > "$GOVERNOR/timer_rate";

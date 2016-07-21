@@ -112,7 +112,7 @@ if [ $CUR_GOVERNOR = "conservative" ]; then
 		$busybox echo "70" > "$GOVERNOR/down_threshold";
 	fi
 	if [ -e "$GOVERNOR/freq_step" ]; then
-		$busybox echo "10" > "$GOVERNOR/freq_step";
+		$busybox echo "15" > "$GOVERNOR/freq_step";
 	fi
 	if [ -e "$GOVERNOR/ignore_nice_load" ]; then
 		$busybox echo "1" > "$GOVERNOR/ignore_nice_load";
@@ -245,7 +245,7 @@ if [ $CUR_GOVERNOR = "bioshock" ]; then
 		$busybox echo "95" > "$GOVERNOR/down_threshold";
 	fi
 	if [ -e "$GOVERNOR/freq_step" ]; then
-		$busybox echo "1" > "$GOVERNOR/freq_step";
+		$busybox echo "15" > "$GOVERNOR/freq_step";
 	fi
 	if [ -e "$GOVERNOR/ignore_nice_load" ]; then
 		$busybox echo "1" > "$GOVERNOR/ignore_nice_load";
@@ -273,7 +273,7 @@ if [ $CUR_GOVERNOR = "lionfish" ]; then
 		$busybox echo "70" > "$GOVERNOR/down_threshold";
 	fi
 	if [ -e "$GOVERNOR/freq_step" ]; then
-		$busybox echo "1" > "$GOVERNOR/freq_step";
+		$busybox echo "15" > "$GOVERNOR/freq_step";
 	fi
 	if [ -e "$GOVERNOR/ignore_nice_load" ]; then
 		$busybox echo "1" > "$GOVERNOR/ignore_nice_load";
@@ -390,7 +390,7 @@ if [ $CUR_GOVERNOR = "electroactive" ]; then
 		$busybox echo "1100000" > "$GOVERNOR/freq_responsiveness";
 	fi
 	if [ -e "$GOVERNOR/freq_step" ]; then
-		$busybox echo "20" > "$GOVERNOR/freq_step";
+		$busybox echo "15" > "$GOVERNOR/freq_step";
 	fi
 	if [ -e "$GOVERNOR/ignore_nice_load" ]; then
 		$busybox echo "1" > "$GOVERNOR/ignore_nice_load";
@@ -604,7 +604,7 @@ if [ $CUR_GOVERNOR = "dancedance" ]; then
 		$busybox echo "70" > "$GOVERNOR/down_threshold";
 	fi
 	if [ -e "$GOVERNOR/freq_step" ]; then
-		$busybox echo "10" > "$GOVERNOR/freq_step";
+		$busybox echo "15" > "$GOVERNOR/freq_step";
 	fi
 	if [ -e "$GOVERNOR/ignore_nice_load" ]; then
 		$busybox echo "1" > "$GOVERNOR/ignore_nice_load";
@@ -632,7 +632,7 @@ if [ $CUR_GOVERNOR = "lionheart" ]; then
 		$busybox echo "70" > "$GOVERNOR/down_threshold";
 	fi
 	if [ -e "$GOVERNOR/freq_step" ]; then
-		$busybox echo "10" > "$GOVERNOR/freq_step";
+		$busybox echo "15" > "$GOVERNOR/freq_step";
 	fi
 	if [ -e "$GOVERNOR/ignore_nice_load" ]; then
 		$busybox echo "1" > "$GOVERNOR/ignore_nice_load";
@@ -663,7 +663,7 @@ if [ $CUR_GOVERNOR = "pegasusq" ]; then
 		$busybox echo "$700000" > "$GOVERNOR/freq_responsiveness";
 	fi
 	if [ -e "$GOVERNOR/freq_step" ]; then
-		$busybox echo "20" > "$GOVERNOR/freq_step";
+		$busybox echo "15" > "$GOVERNOR/freq_step";
 	fi
 	if [ -e "$GOVERNOR/ignore_nice_load" ]; then
 		$busybox echo "1" > "$GOVERNOR/ignore_nice_load";
@@ -838,7 +838,7 @@ if [ $CUR_GOVERNOR = "conservativex" ]; then
 		$busybox echo "70" > "$GOVERNOR/down_threshold";
 	fi
 	if [ -e "$GOVERNOR/freq_step" ]; then
-		$busybox echo "10" > "$GOVERNOR/freq_step";
+		$busybox echo "15" > "$GOVERNOR/freq_step";
 	fi
 	if [ -e "$GOVERNOR/ignore_nice_load" ]; then
 		$busybox echo "1" > "$GOVERNOR/ignore_nice_load";

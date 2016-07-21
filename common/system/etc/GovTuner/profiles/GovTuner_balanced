@@ -87,7 +87,7 @@ if [ "$CUR_GOVERNOR" = "interactive" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "50 450000:40 800000:70 1100000:90 1400000:90 1800000:95 2000000:99" > "$GOVERNOR/target_loads";
+		$busybox echo "80 450000:40 800000:70 1100000:90 1400000:90 1800000:95 2000000:99" > "$GOVERNOR/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "15000" > "$GOVERNOR/timer_rate";
@@ -164,7 +164,7 @@ if [ $CUR_GOVERNOR = "yankactive" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "50 450000:40 800000:70 1100000:90 1400000:90 1800000:95 2000000:99" > "$GOVERNOR/target_loads";
+		$busybox echo "80 450000:40 800000:70 1100000:90 1400000:90 1800000:95 2000000:99" > "$GOVERNOR/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "15000" > "$GOVERNOR/timer_rate";
@@ -216,7 +216,7 @@ if [ $CUR_GOVERNOR = "intelliactive" ]; then
 		$busybox echo "0" > "$GOVERNOR/sync_freq";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "50 450000:40 800000:70 1100000:90 1400000:90 1800000:95 2000000:99" > "$GOVERNOR/target_loads";
+		$busybox echo "80 450000:40 800000:70 1100000:90 1400000:90 1800000:95 2000000:99" > "$GOVERNOR/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "15000" > "$GOVERNOR/timer_rate";
@@ -325,7 +325,7 @@ if [ $CUR_GOVERNOR = "impulse" ]; then
 		$busybox echo "80000" > "$GOVERNOR/timer_slack";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "50 450000:40 800000:70 1100000:90 1400000:90 1800000:95 2000000:99" > "$GOVERNOR/target_loads";
+		$busybox echo "80 450000:40 800000:70 1100000:90 1400000:90 1800000:95 2000000:99" > "$GOVERNOR/target_loads";
 	fi
 	if [ -e "$GOVERNOR/max_freq_hysteresis" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/max_freq_hysteresis";
@@ -521,7 +521,7 @@ if [ $CUR_GOVERNOR = "barry_allen" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/sync_freq";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "50 450000:40 800000:70 1100000:90 1400000:90 1800000:95 2000000:99" > "$GOVERNOR/target_loads";
+		$busybox echo "80 450000:40 800000:70 1100000:90 1400000:90 1800000:95 2000000:99" > "$GOVERNOR/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "15000" > "$GOVERNOR/timer_rate";
@@ -576,7 +576,7 @@ if [ $CUR_GOVERNOR = "bluactive" ]; then
 		$busybox echo "0" > "$GOVERNOR/sync_freq";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "50 450000:40 800000:70 1100000:90 1400000:90 1800000:95 2000000:99" > "$GOVERNOR/target_loads";
+		$busybox echo "80 450000:40 800000:70 1100000:90 1400000:90 1800000:95 2000000:99" > "$GOVERNOR/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "15000" > "$GOVERNOR/timer_rate";
@@ -893,7 +893,7 @@ if [ $CUR_GOVERNOR = "interactive_pro" ]; then
 		$busybox echo "0" > "$GOVERNOR/sync_freq";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "50 450000:40 800000:70 1100000:90 1400000:90 1800000:95 2000000:99" > "$GOVERNOR/target_loads";
+		$busybox echo "80 450000:40 800000:70 1100000:90 1400000:90 1800000:95 2000000:99" > "$GOVERNOR/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "15000" > "$GOVERNOR/timer_rate";

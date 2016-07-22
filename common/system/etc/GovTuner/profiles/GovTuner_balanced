@@ -1096,6 +1096,35 @@ if [ $CUR_GOVERNOR = "tripndroid" ]; then
 	exit
 fi
 
+# ELEMENTALX
+
+if [ $CUR_GOVERNOR = "elementalx" ]; then
+	if [ -e "$GOVERNOR/active_floor_freq" ]; then
+		$busybox echo "600000" > "$GOVERNOR/active_floor_freq";
+	fi
+	if [ -e "$GOVERNOR/down_differential" ]; then
+		$busybox echo "35" > "$GOVERNOR/down_differential";
+	fi
+	if [ -e "$GOVERNOR/powersave" ]; then
+		$busybox echo "1" > "$GOVERNOR/powersave";
+	fi
+	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
+		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
+	fi
+	if [ -e "$GOVERNOR/sampling_rate" ]; then
+		$busybox echo "75000" > "$GOVERNOR/sampling_rate";
+	fi
+	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
+		$busybox echo "30000" > "$GOVERNOR/sampling_rate_min";
+	fi
+	if [ -e "$GOVERNOR/up_threshold" ]; then
+		$busybox echo "95" > "$GOVERNOR/up_threshold";
+	fi
+	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
+	exit
+fi
+	
+
 # No compatible governor is detected
 # Put other governor above this, don't let this be sandwiched by other governor
 $busybox echo "$CUR_GOVERNOR governor is not supported yet."

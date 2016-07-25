@@ -15,9 +15,13 @@
 
 core="/system/etc/GovTuner"
 busybox="$core/busybox"
+divider="==============================================="
 
 $busybox echo "Added changelogs"
 
+$busybox echo ""
+$busybox echo $divider
+$busybox echo ""
 $busybox echo -n "b. Back to menu: "
 read -r character
 case $character in

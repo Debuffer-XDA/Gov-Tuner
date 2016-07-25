@@ -16,8 +16,5 @@
 core="/system/etc/GovTuner"
 busybox="$core/busybox"
 
-$busybox echo "Test line"
-$busybox echo "Test line"
-$busybox echo "Test line"
-$busybox echo "Test line"
-$busybox echo "Test line"
+$busybox echo "Added changelogs"
+

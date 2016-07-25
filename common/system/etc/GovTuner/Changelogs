@@ -18,3 +18,7 @@ busybox="$core/busybox"
 
 $busybox echo "Added changelogs"
 
+$busybox echo -n "b. Back to menu: "
+read -r character
+case $character in
+b|B)$busybox clear;

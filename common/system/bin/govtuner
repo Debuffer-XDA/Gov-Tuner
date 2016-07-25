@@ -78,6 +78,8 @@ fi
 $busybox clear
 $busybox echo -e "Profile: $profile"
 $busybox echo -e "Governor: $GOVERNOR"
+$busybox echo -e "Current version: $ver"
+$busybox echo ""
 $busybox echo $divider
 $busybox echo ""
 $busybox echo "Please choose a profile:"
@@ -85,7 +87,7 @@ $busybox echo -e "1 - Battery"
 $busybox echo -e "2 - Balanced"
 $busybox echo -e "3 - Performance"
 $busybox echo ""
-$busybox echo "c. Changelog"
+$busybox echo "c. $ver Changelog"
 $busybox echo "e. Exit"
 $busybox echo ""
 $busybox echo -n "Please select a profile:"

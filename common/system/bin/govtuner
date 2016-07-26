@@ -26,14 +26,12 @@ GOVERNOR=$CUR_GOVERNOR
 $busybox sleep 1
 $busybox clear
 $busybox sleep 1
-$busybox echo "You are using Gov-Tuner version $ver"
-$busybox sleep 3
 $busybox clear
 $busybox echo "Checking root"; $busybox sleep 0.2; $busybox clear;
 $busybox echo "Checking root."; $busybox sleep 0.2; $busybox clear;
 $busybox echo "Checking root.."; $busybox sleep 0.2; $busybox clear;
 $busybox echo "Checking root..."; $busybox sleep 0.2; $busybox clear;
-$busybox echo "Checking root..."; $busybox sleep 0.2; $busybox clear;
+$busybox echo "Checking root..."; $busybox sleep 0.5; $busybox clear;
 $busybox echo "Checking root.."; $busybox sleep 0.2; $busybox clear;
 $busybox echo "Checking root."; $busybox sleep 0.2; $busybox clear;
 $busybox echo "Checking root"; $busybox sleep 0.5; $busybox clear;
@@ -52,14 +50,14 @@ if [ "$id" != "0" ] && [ "$id" != "root" ]; then
 	exit
 	else
 		$busybox clear
-		$busybox sleep 0.5
+		$busybox sleep 0.3
 		$busybox echo "Root access succesfully acquired"
-		$busybox sleep 1
+		$busybox sleep 0.3
 		$busybox echo ""
-		$busybox echo "Checking for compatible governor..."
-		$busybox sleep 1
+		$busybox echo "Loading GovTuner configurations..."
+		$busybox sleep 0.3
 		$busybox echo ""
-		$busybox sleep 1
+		$busybox sleep 
 		$busybox clear
 fi
 
@@ -96,11 +94,11 @@ case $character in
 1)$busybox clear
 $busybox echo ""
 $busybox echo "Activating battery profile"
-$busybox sleep 1
+$busybox sleep 0.3
 $busybox echo ""
-$busybox sleep 1
+$busybox sleep 0.2
 $busybox echo "Copying battery profile to init.d"
-$busybox sleep 1
+$busybox sleep 0.3
 $busybox echo ""
 $busybox mount -o remount, rw /system
 $busybox rm -rf $init/GovTuner_balanced
@@ -109,25 +107,25 @@ $busybox cp -f $core/profiles/GovTuner_battery $init/GovTuner_battery
 $busybox chmod 755 $init/GovTuner_battery
 $busybox mount -o remount, ro /system
 $busybox echo "Applying battery tweaks"
-$busybox sleep 1
+$busybox sleep 0.4
 $busybox echo ""
 sh /system/etc/init.d/GovTuner_battery
-$busybox sleep 1
+$busybox sleep 0.3
 $busybox echo ""
-$busybox sleep 1
+$busybox sleep 0.3
 $busybox clear
 $busybox echo "GovTuner battery profile activated"
 $busybox echo ""
 $busybox echo ""
-$busybox sleep 2;;
+$busybox sleep 1;;
 2)$busybox clear
 $busybox echo ""
 $busybox echo "Activating balanced profile"
-$busybox sleep 1
+$busybox sleep 0.3
 $busybox echo ""
-$busybox sleep 1
+$busybox sleep 0.2
 $busybox echo "Copying balanced profile to init.d"
-$busybox sleep 1
+$busybox sleep 0.3
 $busybox echo ""
 $busybox mount -o remount, rw /system
 $busybox rm -rf $init/GovTuner_battery
@@ -136,25 +134,25 @@ $busybox cp -f $core/profiles/GovTuner_balanced $init/GovTuner_balanced
 $busybox chmod 755 $init/GovTuner_balanced
 $busybox mount -o remount, ro /system
 $busybox echo "Applying balanced tweaks"
-$busybox sleep 1
+$busybox sleep 0.4
 $busybox echo ""
 sh /system/etc/init.d/GovTuner_balanced
-$busybox sleep 1
+$busybox sleep 0.3
 $busybox echo ""
-$busybox sleep 1
+$busybox sleep 0.3
 $busybox clear
 $busybox echo "GovTuner balanced profile activated"
 $busybox echo ""
 $busybox echo ""
-$busybox sleep 2;;
+$busybox sleep 1;;
 3)$busybox clear
 $busybox echo ""
 $busybox echo "Activating performance profile"
-$busybox sleep 1
+$busybox sleep 0.3
 $busybox echo ""
-$busybox sleep 1
+$busybox sleep 0.2
 $busybox echo "Copying performance profile to init.d"
-$busybox sleep 1
+$busybox sleep 0.3
 $busybox echo ""
 $busybox mount -o remount, rw /system
 $busybox rm -rf $init/GovTuner_battery
@@ -163,17 +161,17 @@ $busybox cp -f $core/profiles/GovTuner_performance $init/GovTuner_performance
 $busybox chmod 755 $init/GovTuner_performance
 $busybox mount -o remount, ro /system
 $busybox echo "Applying performance tweaks"
-$busybox sleep 1
+$busybox sleep 0.4
 $busybox echo ""
 sh /system/etc/init.d/GovTuner_performance
-$busybox sleep 1
+$busybox sleep 0.3
 $busybox echo ""
-$busybox sleep 1
+$busybox sleep 0.3
 $busybox clear
 $busybox echo "GovTuner performance profile activated"
 $busybox echo ""
 $busybox echo ""
-$busybox sleep 2;;
+$busybox sleep 1;;
 c|C)$busybox clear;
 sh $core/Changelogs;;
 e|E)$busybox clear;

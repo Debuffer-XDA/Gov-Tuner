@@ -15,10 +15,12 @@
 
 core="/system/etc/GovTuner"
 busybox="$core/busybox"
+ver="2.4.0"
 divider="==============================================="
 
+$busybox echo "CHANGELOG FOR $ver"
+$busybox echo ""
 $busybox echo "Added changelogs"
-
 $busybox echo ""
 $busybox echo $divider
 $busybox echo ""

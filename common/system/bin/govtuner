@@ -17,7 +17,7 @@ divider="==============================================="
 core="/system/etc/GovTuner"
 busybox="$core/busybox"
 init="/system/etc/init.d"
-ver="2.4.0"
+ver="2.4.2"
 id="$(id)"; id="${id#*=}"; id="${id%%\(*}"; id="${id%% *}"
 CUR_GOVERNOR=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor);
 GOVERNOR=$CUR_GOVERNOR
@@ -43,7 +43,7 @@ if [ "$id" != "0" ] && [ "$id" != "root" ]; then
 	$busybox echo "    Unable to gain root access"
 	$busybox echo "    You might forgot to use su, or there's a problem with root"
 	$busybox echo "    Please type su first"
-	$busybox echo "    Then type tune"
+	$busybox echo "    Then type govtuner"
 	$busybox echo ""
 	$busybox echo ""
 	$busybox sleep 1

@@ -101,8 +101,12 @@ $busybox echo "Copying battery profile to init.d"
 $busybox sleep 0.3
 $busybox echo ""
 $busybox mount -o remount, rw /system
-$busybox rm -rf $init/GovTuner_balanced
-$busybox rm -rf $init/GovTuner_performances
+if [ -e $init/GovTuner_balanced ]; then
+	$busybox rm -rf $init/GovTuner_balanced
+fi
+if [ -e $init/GovTuner_performance ]; then
+	$busybox rm -rf $init/GovTuner_performances
+fi
 $busybox cp -f $core/profiles/GovTuner_battery $init/GovTuner_battery
 $busybox chmod 755 $init/GovTuner_battery
 $busybox mount -o remount, ro /system
@@ -128,8 +132,12 @@ $busybox echo "Copying balanced profile to init.d"
 $busybox sleep 0.3
 $busybox echo ""
 $busybox mount -o remount, rw /system
-$busybox rm -rf $init/GovTuner_battery
-$busybox rm -rf $init/GovTuner_performance
+if [ -e $init/GovTuner_battery ]; then
+	$busybox rm -rf $init/GovTuner_battery
+fi
+if [ -e $init/GovTuner_performance ]; then
+	$busybox rm -rf $init/GovTuner_performance
+fi
 $busybox cp -f $core/profiles/GovTuner_balanced $init/GovTuner_balanced
 $busybox chmod 755 $init/GovTuner_balanced
 $busybox mount -o remount, ro /system
@@ -155,8 +163,12 @@ $busybox echo "Copying performance profile to init.d"
 $busybox sleep 0.3
 $busybox echo ""
 $busybox mount -o remount, rw /system
-$busybox rm -rf $init/GovTuner_battery
-$busybox rm -rf $init/GovTuner_balanced
+if [ -e $init/GovTuner_battery ]; then
+	$busybox rm -rf $init/GovTuner_battery
+fi
+if [ -e $init/GovTuner_balanced ]; then
+	$busybox rm -rf $init/GovTuner_balanced
+fi
 $busybox cp -f $core/profiles/GovTuner_performance $init/GovTuner_performance
 $busybox chmod 755 $init/GovTuner_performance
 $busybox mount -o remount, ro /system

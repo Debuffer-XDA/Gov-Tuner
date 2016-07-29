@@ -13,11 +13,12 @@
 #  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #=======================================================================#
 
-# Upgrade tool, this removes Governor_profiles in case it exists
-# We need to remove it since it directly conflicts with the new version (since the name differs)
+# Initialize variables
 core="/system/etc/GovTuner"
 busybox="$core/busybox"
 
+# Upgrade tool, this removes Governor_profiles in case it exists
+# We need to remove it since it directly conflicts with the new version (since the name differs)
 if [ -f /system/etc/init.d/Governor_profiles ]; then
 	$busybox mount -o remount, rw /system
 	$busybox rm -rf /system/etc/init.d/Governor_profiles
@@ -50,7 +51,7 @@ CPUFREQ_REGULAR="/sys/devices/system/cpu/cpufreq"
 # Finalize the detection of dual-cluster here
 if [ -d "$CLUSTER_DETECT" ]; then
 	CLUSTER=$CPUFREQ_CLUSTER
- 	else
+else
 	CLUSTER=$CPUFREQ_REGULAR
 fi
 

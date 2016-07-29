@@ -14,15 +14,14 @@
 #=======================================================================#
 
 # Direct tweaks apply tool
+init="/system/etc/init.d"
 
-if [ -f /system/etc/init.d/GovTuner_battery ]; then
-sh /system/etc/init.d/GovTuner_battery
-fi
-
-if [ -f /system/etc/init.d/GovTuner_balanced ]; then
-sh /system/etc/init.d/GovTuner_balanced
-fi
-
-if [ -f /system/etc/init.d/GovTuner_performance ]; then
-sh /system/etc/init.d/GovTuner_performance
+if [ -f $init/GovTuner_battery ]; then
+	sh $init/GovTuner_battery
+elif [ -f $init/GovTuner_balanced ]; then
+	sh $init/GovTuner_balanced
+elif [ -f $init/GovTuner_performance ]; then
+	sh $init/GovTuner_performance
+else
+	echo "No profile found"
 fi

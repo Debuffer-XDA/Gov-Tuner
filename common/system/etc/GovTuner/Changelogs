@@ -18,7 +18,7 @@ ver="2.4.2"
 divider="==============================================="
 
 $busybox echo "CHANGELOG FOR $ver"
-$busybox echo "------------------"
+$busybox echo "-------------------"
 $busybox echo ""
 $busybox echo "Govtuner command error fixed"
 $busybox echo "Tune command error fixed"

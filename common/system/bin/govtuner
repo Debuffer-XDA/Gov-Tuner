@@ -22,7 +22,6 @@ id="$(id)"; id="${id#*=}"; id="${id%%\(*}"; id="${id%% *}"
 CUR_GOVERNOR=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor);
 GOVERNOR=$CUR_GOVERNOR
 
-
 $busybox sleep 1
 $busybox clear
 $busybox sleep 1
@@ -71,7 +70,6 @@ elif [ -f $init/GovTuner_performance ]; then
 else
 	profile="\e[1;30mDefault\e[0m"
 fi
-
 
 $busybox clear
 $busybox echo -e "Profile: $profile"

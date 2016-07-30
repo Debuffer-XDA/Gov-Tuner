@@ -24,8 +24,6 @@ GOVERNOR=$CUR_GOVERNOR
 
 $busybox sleep 1
 $busybox clear
-$busybox sleep 1
-$busybox clear
 $busybox echo "Checking root"; $busybox sleep 0.2; $busybox clear;
 $busybox echo "Checking root."; $busybox sleep 0.2; $busybox clear;
 $busybox echo "Checking root.."; $busybox sleep 0.2; $busybox clear;

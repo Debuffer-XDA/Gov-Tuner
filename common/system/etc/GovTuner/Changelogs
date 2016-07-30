@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Gov-Tuner Launcher
+# Gov-Tuner Changelogs
 # Copyright (C) 2016 Debuffer @ XDA-Developers
 # With help from Paget96 and F4uzan
 #=======================================================================#
@@ -13,8 +13,7 @@
 #  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #=======================================================================#
 
-core="/system/etc/GovTuner"
-busybox="$core/busybox"
+busybox="/system/etc/GovTuner/busybox"
 ver="2.4.2"
 divider="==============================================="
 

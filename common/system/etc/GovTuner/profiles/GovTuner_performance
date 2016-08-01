@@ -14,8 +14,7 @@
 #=======================================================================#
 
 # Initialize variables
-core="/system/etc/GovTuner"
-busybox="$core/busybox"
+busybox="/system/etc/GovTuner/busybox"
 
 # Upgrade tool, this removes Governor_profiles in case it exists
 # We need to remove it since it directly conflicts with the new version (since the name differs)

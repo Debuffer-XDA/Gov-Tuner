@@ -1129,6 +1129,64 @@ if [ $CUR_GOVERNOR = "elementalx" ]; then
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
 	exit
 fi
+
+# BLU_ACTIVE
+
+if [ $CUR_GOVERNOR = "bluactive" ]; then
+	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
+		$busybox echo "1 $MIN_CPU_FREQ:25000 400000:25000 700000:30000 900000:33000 1100000:40000 1400000:60000 1700000:75000 1900000:100000 2100000:150000" > "$GOVERNOR/above_hispeed_delay";
+	fi
+	if [ -e "$GOVERNOR/boostpulse_duration" ]; then	
+		$busybox echo "0" > "$GOVERNOR/boostpulse_duration";
+	fi
+	if [ -e "$GOVERNOR/fastlane" ]; then
+		$busybox echo "0" > "$GOVERNOR/fastlane";
+	fi
+	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
+		$busybox echo "90" > "$GOVERNOR/go_hispeed_load";
+	fi
+	if [ -e "$GOVERNOR/hispeed_freq" ]; then
+		$busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/hispeed_freq";
+	fi
+	if [ -e "$GOVERNOR/input_boost_freq" ]; then
+		$busybox echo "600000" > "$GOVERNOR/hispeed_freq";
+	fi
+	if [ -e "$GOVERNOR/io_is_busy" ]; then
+		$busybox echo "0" > "$GOVERNOR/io_is_busy";
+	fi
+	if [ -e "$GOVERNOR/low_load_down_threshold" ]; then
+		$busybox echo "25" > "$GOVERNOR/low_load_down_threshold";
+	fi
+	if [ -e "$GOVERNOR/max_freq_hysteresis" ]; then
+		$busybox echo "800000" > "$GOVERNOR/max_freq_hysteresis";
+	fi
+	if [ -e "$GOVERNOR/min_sample_time" ]; then
+		$busybox echo "10000" > "$GOVERNOR/min_sample_time";
+	fi
+	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
+		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
+	fi
+	if [ -e "$GOVERNOR/target_loads" ]; then
+		$busybox echo "1 $MIN_CPU_FREQ:55 400000:20 70000:35 900000:50 1100000:70 1400000:90 1700000:95 1900000:99 2100000:99" > "$GOVERNOR/target_loads";
+	fi
+	if [ -e "$GOVERNOR/timer_rate" ]; then
+		$busybox echo "15000" > "$GOVERNOR/timer_rate";
+	fi
+	if [ -e "$GOVERNOR/timer_slack" ]; then
+		$busybox echo "80000" > "$GOVERNOR/timer_slack";
+	fi
+	if [ -e "$GOVERNOR/two_phase_freq" ]; then
+		$busybox echo "1100000,1100000,1100000,1100000" > "$GOVERNOR/two_phase_freq";
+	fi
+	if [ -e "$GOVERNOR/up_threshold_any_cpu_freq" ]; then
+		$busybox echo "0" > "$GOVERNOR/up_threshold_any_cpu_freq";
+	fi
+	if [ -e "$GOVERNOR/up_threshold_any_cpu_load" ]; then
+		$busybox echo "0" > "$GOVERNOR/up_threshold_any_cpu_load";
+	fi
+	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
+	exit
+fi
 	
 
 # No compatible governor is detected

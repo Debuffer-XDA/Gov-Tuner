@@ -109,7 +109,7 @@ $busybox mount -o remount, ro /system
 $busybox echo "Applying battery tweaks"
 $busybox sleep 0.4
 $busybox echo ""
-sh /system/etc/init.d/GovTuner_battery
+sh $init/GovTuner_battery
 $busybox sleep 0.3
 $busybox echo ""
 $busybox sleep 0.3
@@ -140,7 +140,7 @@ $busybox mount -o remount, ro /system
 $busybox echo "Applying balanced tweaks"
 $busybox sleep 0.4
 $busybox echo ""
-sh /system/etc/init.d/GovTuner_balanced
+sh $init/GovTuner_balanced
 $busybox sleep 0.3
 $busybox echo ""
 $busybox sleep 0.3
@@ -171,7 +171,7 @@ $busybox mount -o remount, ro /system
 $busybox echo "Applying performance tweaks"
 $busybox sleep 0.4
 $busybox echo ""
-sh /system/etc/init.d/GovTuner_performance
+sh $init/GovTuner_performance
 $busybox sleep 0.3
 $busybox echo ""
 $busybox sleep 0.3

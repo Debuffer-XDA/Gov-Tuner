@@ -17,10 +17,11 @@ divider="==============================================="
 core="/system/etc/GovTuner"
 busybox="$core/busybox"
 init="/system/etc/init.d"
-ver="2.5"
+ver="2.5.1"
 id="$(id)"; id="${id#*=}"; id="${id%%\(*}"; id="${id%% *}"
 CUR_GOVERNOR=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor);
 GOVERNOR=$CUR_GOVERNOR
+
 
 $busybox sleep 1
 $busybox clear
@@ -68,6 +69,7 @@ elif [ -f $init/GovTuner_performance ]; then
 else
 	profile="\e[1;30mDefault\e[0m"
 fi
+
 
 $busybox clear
 $busybox echo -e "Profile: $profile"

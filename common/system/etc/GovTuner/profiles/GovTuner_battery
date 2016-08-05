@@ -1136,7 +1136,7 @@ fi
 
 # BLU_ACTIVE
 
-if [ $CUR_GOVERNOR = "bluactive" ]; then
+if [ $CUR_GOVERNOR = "blu_active" ]; then
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
 		$busybox echo "20000 $MIN_CPU_FREQ:23000 600000:39000 800000:41000 1100000:47000 1400000:59000 1700000:78000 1900000:94000" > "$GOVERNOR/above_hispeed_delay";
 	fi

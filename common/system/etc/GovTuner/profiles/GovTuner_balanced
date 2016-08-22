@@ -40,22 +40,52 @@ CUR_GOVERNOR=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governo
 
 # Detects whether user uses a dual-cluster CPU (SD810, SD820, etc) or not
 CLUSTER_DETECT="/sys/devices/system/cpu/cpu0/cpufreq/$CUR_GOVERNOR"
+CLUSTER_DETECT2="/sys/devices/system/cpu/cpu2/cpufreq/$CUR_GOVERNOR"
+CLUSTER_DETECT4="/sys/devices/system/cpu/cpu4/cpufreq/$CUR_GOVERNOR"
 
-# Dual cluster, selects only first two or four cores
-CPUFREQ_CLUSTER="/sys/devices/system/cpu/cpu0/cpufreq"
+# Cluster directory
+if [ -d "$CLUSTER_DETECT" ]; then
+	CPUFREQ_CLUSTER="/sys/devices/system/cpu/cpu0/cpufreq"
+fi
+if [ -d "$CLUSTER_DETECT2" ]; then
+	CPUFREQ_CLUSTER2="/sys/devices/system/cpu/cpu2/cpufreq"
+fi
+if [ -d "$CLUSTER_DETECT4" ]; then
+	CPUFREQ_CLUSTER4="/sys/devices/system/cpu/cpu4/cpufreq"
+fi
 
 # Regular CPUFreq directory
 CPUFREQ_REGULAR="/sys/devices/system/cpu/cpufreq"
 
 # Finalize the detection of dual-cluster here
-if [ -d "$CLUSTER_DETECT" ]; then
+if [ -d "$CLUSTER_DETECT2" ]; then
 	CLUSTER=$CPUFREQ_CLUSTER
+	CLUSTER2=$CPUFREQ_CLUSTER2
 else
 	CLUSTER=$CPUFREQ_REGULAR
 fi
 
-# Set the finalized governor path
-GOVERNOR=$CLUSTER/$CUR_GOVERNOR
+if [ -d "$CLUSTER_DETECT4" ]; then
+	CLUSTER=$CPUFREQ_CLUSTER
+	CLUSTER4=$CPUFREQ_CLUSTER4
+else
+	CLUSTER=$CPUFREQ_REGULAR
+fi
+
+# Set the finalized governor path for Cluster 2 // No cluster
+if [ -d "$CLUSTER_DETECT2" ]; then
+	GOVERNOR=$CLUSTER/$CUR_GOVERNOR && $CLUSTER2/$CUR_GOVERNOR
+else
+	GOVERNOR=$CLUSTER/$CUR_GOVERNOR
+fi
+
+# Set the finalized governor path for Cluster 4 // No cluster
+
+if [ -d "$CLUSTER_DETECT4" ]; then
+	GOVERNOR=$CLUSTER/$CUR_GOVERNOR && $CLUSTER4/$CUR_GOVERNOR
+else
+	GOVERNOR=$CLUSTER/$CUR_GOVERNOR
+fi
 
 # GOVERNOR TWEAKS #
 
@@ -63,7 +93,7 @@ GOVERNOR=$CLUSTER/$CUR_GOVERNOR
 
 if [ "$CUR_GOVERNOR" = "interactive" ]; then
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "20000 600000:30000 1100000:40000 1700000:50000" > "$GOVERNOR/above_hispeed_delay";
+		$busybox echo "0" > "$GOVERNOR/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$GOVERNOR/boost";
@@ -75,7 +105,7 @@ if [ "$CUR_GOVERNOR" = "interactive" ]; then
 		$busybox echo "0" > "$GOVERNOR/boostpulse_duration";
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
-		$busybox echo "200" > "$GOVERNOR/go_hispeed_load";
+		$busybox echo "250" > "$GOVERNOR/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR/hispeed_freq" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$GOVERNOR/hispeed_freq";
@@ -90,16 +120,16 @@ if [ "$CUR_GOVERNOR" = "interactive" ]; then
 		$busybox echo "0" > "$GOVERNOR/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-		$busybox echo "65000" > "$GOVERNOR/min_sample_time";
+		$busybox echo "90000" > "$GOVERNOR/min_sample_time";
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
 		$busybox echo "1" > "$GOVERNOR/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "80 400000:36 600000:45 800000:59 1100000:77 1400000:93 1700000:97 1900000:99" > "$GOVERNOR/target_loads";
+		$busybox echo "82 268800:63 600000:78 700000:57 800000:85 900000:89 1100000:93 1200000:91 1300000:86 1400000:72 1500000:67 1700000:91 1800000:68 1900000:79" > "$GOVERNOR/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
-		$busybox echo "35000" > "$GOVERNOR/timer_rate";
+		$busybox echo "55000" > "$GOVERNOR/timer_rate";
 	fi
 	if [ -e "$GOVERNOR/timer_slack" ]; then
 		$busybox echo "-1" > "$GOVERNOR/timer_slack";

@@ -24,7 +24,7 @@ $busybox echo "CLUSTER TUNABLES ARE NOW FIXED! GOVTUNER NOW TWEAKS BIG AND LITTL
 $busybox echo ""
 $busybox echo "$divider"
 $busybox echo ""
-$busybox echo "All the profiles were completely reworked with a new scaling intelligence."
+$busybox echo "All the profiles were completely reworked with a brand new intelligent scaling method."
 $busybox echo "This new "intelligence" gives the mod a smarter scaling proccess."
 $busybox echo "Also, this new method of scaling is more efficient for battery and performance in both sides."
 $busybox echo ""

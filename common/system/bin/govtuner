@@ -17,13 +17,12 @@ divider="==============================================="
 core="/system/etc/GovTuner"
 busybox="$core/busybox"
 init="/system/etc/init.d"
-ver="2.8"
+ver="2.9"
 id="$(id)"; id="${id#*=}"; id="${id%%\(*}"; id="${id%% *}"
 CUR_GOVERNOR=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor);
 GOVERNOR=$CUR_GOVERNOR
 CLUSTER_DETECT="/sys/devices/system/cpu/cpu0/cpufreq/$CUR_GOVERNOR"
-
-
+OUTPUT_ID=$($busybox cat /data/system/test)
 $busybox sleep 1
 $busybox clear
 $busybox echo "Checking root"; $busybox sleep 0.2; $busybox clear;
@@ -59,8 +58,15 @@ if [ "$id" != "0" ] && [ "$id" != "root" ]; then
 		$busybox sleep 
 		$busybox clear
 fi
+echo "After applying a profile.."
+echo sleep 1
+echo "...Wait for 10 seconds before closing the window"
 
 while true; do
+mount -o remount,rw /system
+mount -o remount,rw /data
+$busybox mount -o remount,rw /system
+$busybox mount -o remount,rw /data
 if [ -f $init/GovTuner_battery ]; then
 	profile="\e[1;33mBattery\e[0m"
 elif [ -f $init/GovTuner_battery_cluster ]; then
@@ -80,7 +86,7 @@ fi
 
 $busybox clear
 $busybox echo -e "Current version: $ver"
-$busybox echo -e "Governor: $i"
+$busybox echo -e "Governor: $CUR_GOVERNOR"
 $busybox echo -e "Profile: $profile"
 if [ -d "$CLUSTER_DETECT" ]; then
 $busybox echo -e "Cluster device: Yes"
@@ -94,6 +100,8 @@ $busybox echo "Please choose a profile:"
 $busybox echo -e "1 - Battery"
 $busybox echo -e "2 - Balanced"
 $busybox echo -e "3 - Performance"
+$busybox echo ""
+$busybox echo -e "u - Disable GovTuner"
 $busybox echo ""
 $busybox echo "c. $ver Changelog"
 $busybox echo "e. Exit"
@@ -123,7 +131,7 @@ $busybox mount -o remount, ro /system
 $busybox echo "Applying battery tweaks"
 $busybox sleep 0.4
 $busybox echo ""
-sh $init/GovTuner_battery
+$busybox setsid $init/GovTuner_battery&
 $busybox sleep 0.3
 $busybox echo ""
 $busybox sleep 0.3
@@ -156,7 +164,7 @@ $busybox mount -o remount, ro /system
 $busybox echo "Applying balanced tweaks"
 $busybox sleep 0.4
 $busybox echo ""
-sh $init/GovTuner_balanced
+$busybox setsid $init/GovTuner_balanced&
 $busybox sleep 0.3
 $busybox echo ""
 $busybox sleep 0.3
@@ -189,7 +197,7 @@ $busybox mount -o remount, ro /system
 $busybox echo "Applying performance tweaks"
 $busybox sleep 0.4
 $busybox echo ""
-sh $init/GovTuner_performance
+$busybox setsid $init/GovTuner_performance&
 $busybox sleep 0.3
 $busybox echo ""
 $busybox sleep 0.3
@@ -200,10 +208,32 @@ $busybox echo ""
 $busybox sleep 1
 $busybox clear ;;
 
+u|U)$busybox clear
+kill -9 $OUTPUT_ID
+echo "Removing files"
+$busybox sleep 0.5
+echo "Killing process"
+$busybox sleep 0.5
+$busybox mount -o remount, rw /system
+if [ -e $init/GovTuner_battery ]; then
+	$busybox rm -rf $init/GovTuner_battery
+fi
+if [ -e $init/GovTuner_balanced ]; then
+	$busybox rm -rf $init/GovTuner_balanced
+fi
+if [ -e $init/GovTuner_performance ]; then
+	$busybox rm -rf $init/GovTuner_performance
+fi
+$busybox echo "Governor_Tuner Disabled"
+$busybox sleep 0.5
+$busybox clear;;
+
+
 c|C)$busybox clear;
 sh $core/Changelogs;;
 e|E)$busybox clear;
 $busybox mount -o remount,ro /system 2>/dev/null
+mount -o remount,ro /system 2>/dev/null
 exit;;
 *)$busybox clear;
 $busybox echo "Invalid option, please try again"

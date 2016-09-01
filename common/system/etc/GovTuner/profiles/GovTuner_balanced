@@ -19,6 +19,8 @@ DIR="/sys/devices/system/cpu/cpufreq"
 GOVERNOR="$DIR/$CUR_GOVERNOR"
 DIR1="/sys/devices/system/cpu/cpu0/cpufreq"
 GOVERNOR1="$DIR1/$CUR_GOVERNOR"
+OUTPUT="/data/system/test"
+OUTPUT_ID=$($busybox cat /data/system/test)
 
 # Minimum CPU frequency
 MIN_CPU_FREQ=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq);
@@ -26,10 +28,15 @@ MIN_CPU_FREQ=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_fre
 # Maximum CPU frequency
 MAX_CPU_FREQ=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq);
 
+echo "Resetting GovTuner"
+echo "Applying new profile"
+kill -9 $OUTPUT_ID
+
 # GOVERNOR TUNABLES FOR NON-CLUSTER DEVICES
 
 # INTERACTIVE
 while [ 5 == 5 ]; do
+ echo $$ > $OUTPUT
  if [ -d "/sys/devices/system/cpu/cpufreq/$CUR_GOVERNOR" ]; then
  if [ "$CUR_GOVERNOR" = "interactive" ]; then
  for i in /sys/devices/system/cpu/cpufreq/interactive; do
@@ -46,10 +53,10 @@ while [ 5 == 5 ]; do
 		$busybox echo "0" > "$i/boostpulse_duration";
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
-		$busybox echo "250" > "$i/go_hispeed_load";
+		$busybox echo "89" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR/hispeed_freq" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
+		$busybox echo "800000" > "$i/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR/max_freq_hysteresis" ]; then
 		$busybox echo "0" > "$i/max_freq_hysteresis";
@@ -61,16 +68,16 @@ while [ 5 == 5 ]; do
 		$busybox echo "0" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-		$busybox echo "68000" > "$i/min_sample_time";
+		$busybox echo "50000" > "$i/min_sample_time";
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
 		$busybox echo "1" > "$i/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "86 $MIN_CPU_FREQ:67 600000:64 700000:67 800000:88 900000:90 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
+		$busybox echo "91 400000:34 600000:61 700000:95" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
-		$busybox echo "45000" > "$i/timer_rate";
+		$busybox echo "40000" > "$i/timer_rate";
 	fi
 	if [ -e "$GOVERNOR/timer_slack" ]; then
 		$busybox echo "-1" > "$i/timer_slack";
@@ -83,8 +90,8 @@ while [ 5 == 5 ]; do
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # CONSERVATIVE
@@ -113,8 +120,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # YANKACTIVE
@@ -134,25 +141,25 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 		$busybox echo "0" > "$i/boostpulse_duration";
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
-		$busybox echo "250" > "$i/go_hispeed_load";
+		$busybox echo "89" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR/hispeed_freq" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
+		$busybox echo "800000" > "$i/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
 		$busybox echo "0" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-		$busybox echo "68000" > "$i/min_sample_time";
+		$busybox echo "50000" > "$i/min_sample_time";
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
 		$busybox echo "1" > "$i/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "86 $MIN_CPU_FREQ:67 600000:64 700000:67 800000:88 900000:90 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
+		$busybox echo "86 $MIN_CPU_FREQ:77 600000:68 700000:74 800000:87 900000:89 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
-		$busybox echo "45000" > "$i/timer_rate";
+		$busybox echo "40000" > "$i/timer_rate";
 	fi
 	if [ -e "$GOVERNOR/timer_slack" ]; then
 		$busybox echo "-1" > "$i/timer_slack";
@@ -165,8 +172,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # INTELLIACTIVE
@@ -186,16 +193,16 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 		$busybox echo "0" > "$i/boostpulse_duration";
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
-		$busybox echo "250" > "$i/go_hispeed_load";
+		$busybox echo "89" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR/hispeed_freq" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
+		$busybox echo "800000" > "$i/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
 		$busybox echo "0" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-		$busybox echo "68000" > "$i/min_sample_time";
+		$busybox echo "50000" > "$i/min_sample_time";
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
 		$busybox echo "1" > "$i/sampling_down_factor";
@@ -204,10 +211,10 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 		$busybox echo "$MIN_CPU_FREQ" > "$i/sync_freq";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "86 $MIN_CPU_FREQ:67 600000:64 700000:67 800000:88 900000:90 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
+		$busybox echo "86 $MIN_CPU_FREQ:77 600000:68 700000:74 800000:87 900000:89 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
-		$busybox echo "45000" > "$i/timer_rate";
+		$busybox echo "40000" > "$i/timer_rate";
 	fi
 	if [ -e "$GOVERNOR/timer_slack" ]; then
 		$busybox echo "-1" > "$i/timer_slack";
@@ -223,8 +230,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 
@@ -255,8 +262,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 # LIONFISH 
 
@@ -288,8 +295,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # IMPULSE 
@@ -300,25 +307,25 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 		$busybox echo "0" > "$i/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
-		$busybox echo "250" > "$i/go_hispeed_load";
+		$busybox echo "89" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR/hispeed_freq" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
+		$busybox echo "800000" > "$i/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
 		$busybox echo "0" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-		$busybox echo "68000" > "$i/min_sample_time";
+		$busybox echo "50000" > "$i/min_sample_time";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
-		$busybox echo "45000" > "$i/timer_rate";
+		$busybox echo "40000" > "$i/timer_rate";
 	fi
 	if [ -e "$GOVERNOR/timer_slack" ]; then
 		$busybox echo "-1" > "$i/timer_slack";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "86 $MIN_CPU_FREQ:67 600000:64 700000:67 800000:88 900000:90 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
+		$busybox echo "86 $MIN_CPU_FREQ:77 600000:68 700000:74 800000:87 900000:89 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR/max_freq_hysteresis" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$i/max_freq_hysteresis";
@@ -331,8 +338,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # UBERDEMAND 
@@ -368,8 +375,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # ELECTROACTIVE 
@@ -420,8 +427,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # BARRY_ALLEN
@@ -444,16 +451,16 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 		$busybox echo "0" > "$i/boostpulse_duration";
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
-		$busybox echo "250" > "$i/go_hispeed_load";
+		$busybox echo "89" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR/hispeed_freq" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
+		$busybox echo "800000" > "$i/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
 		$busybox echo "0" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-		$busybox echo "68000" > "$i/min_sample_time";
+		$busybox echo "50000" > "$i/min_sample_time";
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
 		$busybox echo "1" > "$i/sampling_down_factor";
@@ -462,10 +469,10 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 		$busybox echo "$MIN_CPU_FREQ" > "$i/sync_freq";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "86 $MIN_CPU_FREQ:67 600000:64 700000:67 800000:88 900000:90 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
+		$busybox echo "86 $MIN_CPU_FREQ:77 600000:68 700000:74 800000:87 900000:89 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
-		$busybox echo "45000" > "$i/timer_rate";
+		$busybox echo "40000" > "$i/timer_rate";
 	fi
 	if [ -e "$GOVERNOR/timer_slack" ]; then
 		$busybox echo "-1" > "$i/timer_slack";
@@ -481,8 +488,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # BLUACTIVE
@@ -502,16 +509,16 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 		$busybox echo "0" > "$i/boostpulse_duration";
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
-		$busybox echo "250" > "$i/go_hispeed_load";
+		$busybox echo "89" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR/hispeed_freq" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
+		$busybox echo "800000" > "$i/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
 		$busybox echo "0" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-		$busybox echo "68000" > "$i/min_sample_time";
+		$busybox echo "50000" > "$i/min_sample_time";
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
 		$busybox echo "1" > "$i/sampling_down_factor";
@@ -520,10 +527,10 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 		$busybox echo "$MIN_CPU_FREQ" > "$i/sync_freq";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "86 $MIN_CPU_FREQ:67 600000:64 700000:67 800000:88 900000:90 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
+		$busybox echo "86 $MIN_CPU_FREQ:77 600000:68 700000:74 800000:87 900000:89 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
-		$busybox echo "45000" > "$i/timer_rate";
+		$busybox echo "40000" > "$i/timer_rate";
 	fi
 	if [ -e "$GOVERNOR/timer_slack" ]; then
 		$busybox echo "-1" > "$i/timer_slack";
@@ -539,8 +546,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # DANCEDANCE
@@ -570,8 +577,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # LIONHEART 
@@ -601,8 +608,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # PEGASUSQ
@@ -641,8 +648,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # ONDEMAND
@@ -687,8 +694,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # SMARTMAX 
@@ -751,8 +758,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # OPTIMAX
@@ -791,8 +798,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # CONSERVATIVEX
@@ -822,8 +829,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # INTERACTIVE_PRO
@@ -843,16 +850,16 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 		$busybox echo "$MIN_CPU_FREQ" > "$i/freq_calc_thresh";
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
-		$busybox echo "250" > "$i/go_hispeed_load";
+		$busybox echo "89" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR/hispeed_freq" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
+		$busybox echo "800000" > "$i/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
 		$busybox echo "0" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-		$busybox echo "68000" > "$i/min_sample_time";
+		$busybox echo "50000" > "$i/min_sample_time";
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
 		$busybox echo "1" > "$i/sampling_down_factor";
@@ -861,10 +868,10 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 		$busybox echo "$MIN_CPU_FREQ" > "$i/sync_freq";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "86 $MIN_CPU_FREQ:67 600000:64 700000:67 800000:88 900000:90 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
+		$busybox echo "86 $MIN_CPU_FREQ:77 600000:68 700000:74 800000:87 900000:89 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
-		$busybox echo "45000" > "$i/timer_rate";
+		$busybox echo "40000" > "$i/timer_rate";
 	fi
 	if [ -e "$GOVERNOR/timer_slack" ]; then
 		$busybox echo "-1" > "$i/timer_slack";
@@ -877,8 +884,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # WHEATLEY
@@ -914,8 +921,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # ONDEMAND PLUS
@@ -941,15 +948,15 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 		$busybox echo "$MIN_CPU_FREQ" > "$i/staycycles_resetfreq";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
-		$busybox echo "45000" > "$i/timer_rate";
+		$busybox echo "40000" > "$i/timer_rate";
 	fi
 	if [ -e "$GOVERNOR/up_threshold" ]; then
 		$busybox echo "90" > "$i/up_threshold";
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # SMARTMAX EPS
@@ -1000,8 +1007,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # INTELLIDEMAND
@@ -1052,8 +1059,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # TRIPNDROID
@@ -1064,21 +1071,21 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 		$busybox echo "10000" > "$i/down_sample_time";
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
-		$busybox echo "250" > "$i/go_hispeed_load";
+		$busybox echo "89" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR/hispeed_freq" ]; then
 		$busybox echo "1200000" > "$i/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
-		$busybox echo "45000" > "$i/timer_rate";
+		$busybox echo "40000" > "$i/timer_rate";
 	fi
 	if [ -e "$GOVERNOR/up_sample_time" ]; then
 		$busybox echo "50000" > "$i/up_sample_time";
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # ELEMENTALX
@@ -1108,8 +1115,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # BLU_ACTIVE
@@ -1126,10 +1133,10 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 		$busybox echo "0" > "$i/fastlane";
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
-		$busybox echo "250" > "$i/go_hispeed_load";
+		$busybox echo "89" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR/hispeed_freq" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
+		$busybox echo "800000" > "$i/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR/input_boost_freq" ]; then
 		$busybox echo "600000" > "$i/hispeed_freq";
@@ -1144,16 +1151,16 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 		$busybox echo "800000" > "$i/max_freq_hysteresis";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-		$busybox echo "68000" > "$i/min_sample_time";
+		$busybox echo "50000" > "$i/min_sample_time";
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
 		$busybox echo "1" > "$i/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "86 $MIN_CPU_FREQ:67 600000:64 700000:67 800000:88 900000:90 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
+		$busybox echo "86 $MIN_CPU_FREQ:77 600000:68 700000:74 800000:87 900000:89 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
-		$busybox echo "45000" > "$i/timer_rate";
+		$busybox echo "40000" > "$i/timer_rate";
 	fi
 	if [ -e "$GOVERNOR/timer_slack" ]; then
 		$busybox echo "-1" > "$i/timer_slack";
@@ -1169,8 +1176,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
  else 
  echo "Kernel is incompatible"
@@ -1196,10 +1203,10 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 		$busybox echo "0" > "$i/boostpulse_duration";
 	fi
 	if [ -e "$i/go_hispeed_load" ]; then
-		$busybox echo "250" > "$i/go_hispeed_load";
+		$busybox echo "89" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$i/hispeed_freq" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
+		$busybox echo "800000" > "$i/hispeed_freq";
 	fi
 	if [ -e "$i/max_freq_hysteresis" ]; then
 		$busybox echo "0" > "$i/max_freq_hysteresis";
@@ -1211,16 +1218,16 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 		$busybox echo "0" > "$i/io_is_busy";
 	fi
 	if [ -e "$i/min_sample_time" ]; then
-		$busybox echo "68000" > "$i/min_sample_time";
+		$busybox echo "50000" > "$i/min_sample_time";
 	fi
 	if [ -e "$i/sampling_down_factor" ]; then
 		$busybox echo "1" > "$i/sampling_down_factor";
 	fi
 	if [ -e "$i/target_loads" ]; then
-		$busybox echo "86 $MIN_CPU_FREQ:67 600000:64 700000:67 800000:88 900000:90 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
+		$busybox echo "86 $MIN_CPU_FREQ:77 600000:68 700000:74 800000:87 900000:89 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
 	fi
 	if [ -e "$i/timer_rate" ]; then
-		$busybox echo "45000" > "$i/timer_rate";
+		$busybox echo "40000" > "$i/timer_rate";
 	fi
 	if [ -e "$i/timer_slack" ]; then
 		$busybox echo "-1" > "$i/timer_slack";
@@ -1233,8 +1240,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # CONSERVATIVE
@@ -1263,8 +1270,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # YANKACTIVE
@@ -1284,25 +1291,25 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 		$busybox echo "0" > "$i/boostpulse_duration";
 	fi
 	if [ -e "$i/go_hispeed_load" ]; then
-		$busybox echo "250" > "$i/go_hispeed_load";
+		$busybox echo "89" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$i/hispeed_freq" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
+		$busybox echo "800000" > "$i/hispeed_freq";
 	fi
 	if [ -e "$i/io_is_busy" ]; then
 		$busybox echo "0" > "$i/io_is_busy";
 	fi
 	if [ -e "$i/min_sample_time" ]; then
-		$busybox echo "68000" > "$i/min_sample_time";
+		$busybox echo "50000" > "$i/min_sample_time";
 	fi
 	if [ -e "$i/sampling_down_factor" ]; then
 		$busybox echo "1" > "$i/sampling_down_factor";
 	fi
 	if [ -e "$i/target_loads" ]; then
-		$busybox echo "86 $MIN_CPU_FREQ:67 600000:64 700000:67 800000:88 900000:90 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
+		$busybox echo "86 $MIN_CPU_FREQ:77 600000:68 700000:74 800000:87 900000:89 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
 	fi
 	if [ -e "$i/timer_rate" ]; then
-		$busybox echo "45000" > "$i/timer_rate";
+		$busybox echo "40000" > "$i/timer_rate";
 	fi
 	if [ -e "$i/timer_slack" ]; then
 		$busybox echo "-1" > "$i/timer_slack";
@@ -1315,8 +1322,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # INTELLIACTIVE
@@ -1336,16 +1343,16 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 		$busybox echo "0" > "$i/boostpulse_duration";
 	fi
 	if [ -e "$i/go_hispeed_load" ]; then
-		$busybox echo "250" > "$i/go_hispeed_load";
+		$busybox echo "89" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$i/hispeed_freq" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
+		$busybox echo "800000" > "$i/hispeed_freq";
 	fi
 	if [ -e "$i/io_is_busy" ]; then
 		$busybox echo "0" > "$i/io_is_busy";
 	fi
 	if [ -e "$i/min_sample_time" ]; then
-		$busybox echo "68000" > "$i/min_sample_time";
+		$busybox echo "50000" > "$i/min_sample_time";
 	fi
 	if [ -e "$i/sampling_down_factor" ]; then
 		$busybox echo "1" > "$i/sampling_down_factor";
@@ -1354,10 +1361,10 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 		$busybox echo "$MIN_CPU_FREQ" > "$i/sync_freq";
 	fi
 	if [ -e "$i/target_loads" ]; then
-		$busybox echo "86 $MIN_CPU_FREQ:67 600000:64 700000:67 800000:88 900000:90 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
+		$busybox echo "86 $MIN_CPU_FREQ:77 600000:68 700000:74 800000:87 900000:89 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
 	fi
 	if [ -e "$i/timer_rate" ]; then
-		$busybox echo "45000" > "$i/timer_rate";
+		$busybox echo "40000" > "$i/timer_rate";
 	fi
 	if [ -e "$i/timer_slack" ]; then
 		$busybox echo "-1" > "$i/timer_slack";
@@ -1373,8 +1380,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 
@@ -1405,8 +1412,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 # LIONFISH 
 
@@ -1438,8 +1445,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # IMPULSE 
@@ -1450,25 +1457,25 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 		$busybox echo "0" > "$i/above_hispeed_delay";
 	fi
 	if [ -e "$i/go_hispeed_load" ]; then
-		$busybox echo "250" > "$i/go_hispeed_load";
+		$busybox echo "89" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$i/hispeed_freq" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
+		$busybox echo "800000" > "$i/hispeed_freq";
 	fi
 	if [ -e "$i/io_is_busy" ]; then
 		$busybox echo "0" > "$i/io_is_busy";
 	fi
 	if [ -e "$i/min_sample_time" ]; then
-		$busybox echo "68000" > "$i/min_sample_time";
+		$busybox echo "50000" > "$i/min_sample_time";
 	fi
 	if [ -e "$i/timer_rate" ]; then
-		$busybox echo "45000" > "$i/timer_rate";
+		$busybox echo "40000" > "$i/timer_rate";
 	fi
 	if [ -e "$i/timer_slack" ]; then
 		$busybox echo "-1" > "$i/timer_slack";
 	fi
 	if [ -e "$i/target_loads" ]; then
-		$busybox echo "86 $MIN_CPU_FREQ:67 600000:64 700000:67 800000:88 900000:90 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
+		$busybox echo "86 $MIN_CPU_FREQ:77 600000:68 700000:74 800000:87 900000:89 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
 	fi
 	if [ -e "$i/max_freq_hysteresis" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$i/max_freq_hysteresis";
@@ -1481,8 +1488,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # UBERDEMAND 
@@ -1518,8 +1525,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # ELECTROACTIVE 
@@ -1570,8 +1577,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # BARRY_ALLEN
@@ -1594,16 +1601,16 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 		$busybox echo "0" > "$i/boostpulse_duration";
 	fi
 	if [ -e "$i/go_hispeed_load" ]; then
-		$busybox echo "250" > "$i/go_hispeed_load";
+		$busybox echo "89" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$i/hispeed_freq" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
+		$busybox echo "800000" > "$i/hispeed_freq";
 	fi
 	if [ -e "$i/io_is_busy" ]; then
 		$busybox echo "0" > "$i/io_is_busy";
 	fi
 	if [ -e "$i/min_sample_time" ]; then
-		$busybox echo "68000" > "$i/min_sample_time";
+		$busybox echo "50000" > "$i/min_sample_time";
 	fi
 	if [ -e "$i/sampling_down_factor" ]; then
 		$busybox echo "1" > "$i/sampling_down_factor";
@@ -1612,10 +1619,10 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 		$busybox echo "$MIN_CPU_FREQ" > "$i/sync_freq";
 	fi
 	if [ -e "$i/target_loads" ]; then
-		$busybox echo "86 $MIN_CPU_FREQ:67 600000:64 700000:67 800000:88 900000:90 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
+		$busybox echo "86 $MIN_CPU_FREQ:77 600000:68 700000:74 800000:87 900000:89 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
 	fi
 	if [ -e "$i/timer_rate" ]; then
-		$busybox echo "45000" > "$i/timer_rate";
+		$busybox echo "40000" > "$i/timer_rate";
 	fi
 	if [ -e "$i/timer_slack" ]; then
 		$busybox echo "-1" > "$i/timer_slack";
@@ -1631,8 +1638,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # BLUACTIVE
@@ -1652,16 +1659,16 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 		$busybox echo "0" > "$i/boostpulse_duration";
 	fi
 	if [ -e "$i/go_hispeed_load" ]; then
-		$busybox echo "250" > "$i/go_hispeed_load";
+		$busybox echo "89" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$i/hispeed_freq" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
+		$busybox echo "800000" > "$i/hispeed_freq";
 	fi
 	if [ -e "$i/io_is_busy" ]; then
 		$busybox echo "0" > "$i/io_is_busy";
 	fi
 	if [ -e "$i/min_sample_time" ]; then
-		$busybox echo "68000" > "$i/min_sample_time";
+		$busybox echo "50000" > "$i/min_sample_time";
 	fi
 	if [ -e "$i/sampling_down_factor" ]; then
 		$busybox echo "1" > "$i/sampling_down_factor";
@@ -1670,10 +1677,10 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 		$busybox echo "$MIN_CPU_FREQ" > "$i/sync_freq";
 	fi
 	if [ -e "$i/target_loads" ]; then
-		$busybox echo "86 $MIN_CPU_FREQ:67 600000:64 700000:67 800000:88 900000:90 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
+		$busybox echo "86 $MIN_CPU_FREQ:77 600000:68 700000:74 800000:87 900000:89 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
 	fi
 	if [ -e "$i/timer_rate" ]; then
-		$busybox echo "45000" > "$i/timer_rate";
+		$busybox echo "40000" > "$i/timer_rate";
 	fi
 	if [ -e "$i/timer_slack" ]; then
 		$busybox echo "-1" > "$i/timer_slack";
@@ -1689,8 +1696,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # DANCEDANCE
@@ -1720,8 +1727,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # LIONHEART 
@@ -1751,8 +1758,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # PEGASUSQ
@@ -1791,8 +1798,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # ONDEMAND
@@ -1837,8 +1844,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # SMARTMAX 
@@ -1901,8 +1908,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # OPTIMAX
@@ -1941,8 +1948,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # CONSERVATIVEX
@@ -1972,8 +1979,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # INTERACTIVE_PRO
@@ -1993,16 +2000,16 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 		$busybox echo "$MIN_CPU_FREQ" > "$i/freq_calc_thresh";
 	fi
 	if [ -e "$i/go_hispeed_load" ]; then
-		$busybox echo "250" > "$i/go_hispeed_load";
+		$busybox echo "89" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$i/hispeed_freq" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
+		$busybox echo "800000" > "$i/hispeed_freq";
 	fi
 	if [ -e "$i/io_is_busy" ]; then
 		$busybox echo "0" > "$i/io_is_busy";
 	fi
 	if [ -e "$i/min_sample_time" ]; then
-		$busybox echo "68000" > "$i/min_sample_time";
+		$busybox echo "50000" > "$i/min_sample_time";
 	fi
 	if [ -e "$i/sampling_down_factor" ]; then
 		$busybox echo "1" > "$i/sampling_down_factor";
@@ -2011,10 +2018,10 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 		$busybox echo "$MIN_CPU_FREQ" > "$i/sync_freq";
 	fi
 	if [ -e "$i/target_loads" ]; then
-		$busybox echo "86 $MIN_CPU_FREQ:67 600000:64 700000:67 800000:88 900000:90 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
+		$busybox echo "86 $MIN_CPU_FREQ:77 600000:68 700000:74 800000:87 900000:89 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
 	fi
 	if [ -e "$i/timer_rate" ]; then
-		$busybox echo "45000" > "$i/timer_rate";
+		$busybox echo "40000" > "$i/timer_rate";
 	fi
 	if [ -e "$i/timer_slack" ]; then
 		$busybox echo "-1" > "$i/timer_slack";
@@ -2027,8 +2034,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # WHEATLEY
@@ -2064,8 +2071,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # ONDEMAND PLUS
@@ -2091,15 +2098,15 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 		$busybox echo "$MIN_CPU_FREQ" > "$i/staycycles_resetfreq";
 	fi
 	if [ -e "$i/timer_rate" ]; then
-		$busybox echo "45000" > "$i/timer_rate";
+		$busybox echo "40000" > "$i/timer_rate";
 	fi
 	if [ -e "$i/up_threshold" ]; then
 		$busybox echo "90" > "$i/up_threshold";
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # SMARTMAX EPS
@@ -2150,8 +2157,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # INTELLIDEMAND
@@ -2202,8 +2209,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # TRIPNDROID
@@ -2214,21 +2221,21 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 		$busybox echo "10000" > "$i/down_sample_time";
 	fi
 	if [ -e "$i/go_hispeed_load" ]; then
-		$busybox echo "250" > "$i/go_hispeed_load";
+		$busybox echo "89" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$i/hispeed_freq" ]; then
 		$busybox echo "1200000" > "$i/hispeed_freq";
 	fi
 	if [ -e "$i/timer_rate" ]; then
-		$busybox echo "45000" > "$i/timer_rate";
+		$busybox echo "40000" > "$i/timer_rate";
 	fi
 	if [ -e "$i/up_sample_time" ]; then
 		$busybox echo "50000" > "$i/up_sample_time";
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # ELEMENTALX
@@ -2258,8 +2265,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
 
 # BLU_ACTIVE
@@ -2276,10 +2283,10 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 		$busybox echo "0" > "$i/fastlane";
 	fi
 	if [ -e "$i/go_hispeed_load" ]; then
-		$busybox echo "250" > "$i/go_hispeed_load";
+		$busybox echo "89" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$i/hispeed_freq" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
+		$busybox echo "800000" > "$i/hispeed_freq";
 	fi
 	if [ -e "$i/input_boost_freq" ]; then
 		$busybox echo "600000" > "$i/hispeed_freq";
@@ -2294,16 +2301,16 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 		$busybox echo "800000" > "$i/max_freq_hysteresis";
 	fi
 	if [ -e "$i/min_sample_time" ]; then
-		$busybox echo "68000" > "$i/min_sample_time";
+		$busybox echo "50000" > "$i/min_sample_time";
 	fi
 	if [ -e "$i/sampling_down_factor" ]; then
 		$busybox echo "1" > "$i/sampling_down_factor";
 	fi
 	if [ -e "$i/target_loads" ]; then
-		$busybox echo "86 $MIN_CPU_FREQ:67 600000:64 700000:67 800000:88 900000:90 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
+		$busybox echo "86 $MIN_CPU_FREQ:77 600000:68 700000:74 800000:87 900000:89 1100000:94 1200000:94 1300000:95 1400000:89 1500000:89 1700000:93 1800000:84 1900000:84" > "$i/target_loads";
 	fi
 	if [ -e "$i/timer_rate" ]; then
-		$busybox echo "45000" > "$i/timer_rate";
+		$busybox echo "40000" > "$i/timer_rate";
 	fi
 	if [ -e "$i/timer_slack" ]; then
 		$busybox echo "-1" > "$i/timer_slack";
@@ -2319,8 +2326,8 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
-$busybox echo "CLOSE THIS TERMINAL WINDOW."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
  else 
  echo "$CUR_GOVERNOR governor is not compatible. Please, change it to a compatible governor."
@@ -2328,6 +2335,7 @@ $busybox echo "CLOSE THIS TERMINAL WINDOW."
  echo ""
  fi
  else
- echo None
+ $busybox sleep 3
+ sh "/system/etc/GovTuner/profiles/GovTuner_balanced"
  fi
 done

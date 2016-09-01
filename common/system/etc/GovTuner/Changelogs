@@ -14,18 +14,16 @@
 #=======================================================================#
 
 busybox="/system/etc/GovTuner/busybox"
-ver="2.8"
+ver="2.9"
 divider="==============================================="
 
 $busybox echo "CHANGELOG FOR $ver"
 $busybox echo "-------------------"
 $busybox echo ""
-$busybox echo "CLUSTER DEFINETELY FIXED"
-$busybox echo "Reformulated all the scripts"
-$busybox echo "Code optimization"
-$busybox echo "Bug fixes"
-$busybox echo "Reworked for all interactive based governors"
-$busybox echo "Recoded all profiles"
+$busybox echo "Made the profiles be dynamic (description below)"
+$busybox echo "Now the profiles periodically check if the governor was changed and automatically apply the tunables for the new governor"
+$busybox echo "Updated interactive based governor for balanced profile since it showed to have a huge battery drain"
+$busybox echo "Fixed governor not showing in terminal emulator"
 $busybox echo ""
 $busybox echo -n "b. Back to menu: "
 read -r character

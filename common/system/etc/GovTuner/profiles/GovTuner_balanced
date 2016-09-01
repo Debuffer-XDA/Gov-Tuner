@@ -56,7 +56,7 @@ while [ 5 == 5 ]; do
 		$busybox echo "89" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR/hispeed_freq" ]; then
-		$busybox echo "800000" > "$i/hispeed_freq";
+		$busybox echo "900000" > "$i/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR/max_freq_hysteresis" ]; then
 		$busybox echo "0" > "$i/max_freq_hysteresis";

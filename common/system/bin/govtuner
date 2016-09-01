@@ -17,7 +17,7 @@ divider="==============================================="
 core="/system/etc/GovTuner"
 busybox="$core/busybox"
 init="/system/etc/init.d"
-ver="2.7"
+ver="2.8"
 id="$(id)"; id="${id#*=}"; id="${id%%\(*}"; id="${id%% *}"
 CUR_GOVERNOR=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor);
 GOVERNOR=$CUR_GOVERNOR
@@ -63,9 +63,15 @@ fi
 while true; do
 if [ -f $init/GovTuner_battery ]; then
 	profile="\e[1;33mBattery\e[0m"
+elif [ -f $init/GovTuner_battery_cluster ]; then
+	profile="\e[1;33mBattery\e[0m"
 elif [ -f $init/GovTuner_balanced ]; then
 	profile="\e[1;36mBalanced\e[0m"
+	elif [ -f $init/GovTuner_balanced_cluster ]; then
+	profile="\e[1;36mBalanced\e[0m"
 elif [ -f $init/GovTuner_performance ]; then
+	profile="\e[1;34mPerformance\e[0m"
+elif [ -f $init/GovTuner_performance_cluster ]; then
 	profile="\e[1;34mPerformance\e[0m"
 else
 	profile="\e[1;30mDefault\e[0m"
@@ -74,7 +80,7 @@ fi
 
 $busybox clear
 $busybox echo -e "Current version: $ver"
-$busybox echo -e "Governor: $GOVERNOR"
+$busybox echo -e "Governor: $i"
 $busybox echo -e "Profile: $profile"
 if [ -d "$CLUSTER_DETECT" ]; then
 $busybox echo -e "Cluster device: Yes"
@@ -112,7 +118,7 @@ if [ -e $init/GovTuner_performance ]; then
 	$busybox rm -rf $init/GovTuner_performance
 fi
 $busybox cp -f $core/profiles/GovTuner_battery $init/GovTuner_battery
-$busybox chmod 777 $init/GovTuner_battery
+$busybox chmod 755 $init/GovTuner_battery
 $busybox mount -o remount, ro /system
 $busybox echo "Applying battery tweaks"
 $busybox sleep 0.4
@@ -125,7 +131,9 @@ $busybox clear
 $busybox echo "GovTuner battery profile activated"
 $busybox echo ""
 $busybox echo ""
-$busybox sleep 1;;
+$busybox sleep 1
+$busybox clear ;;
+
 2)$busybox clear
 $busybox echo ""
 $busybox echo "Activating balanced profile"
@@ -143,7 +151,7 @@ if [ -e $init/GovTuner_performance ]; then
 	$busybox rm -rf $init/GovTuner_performance
 fi
 $busybox cp -f $core/profiles/GovTuner_balanced $init/GovTuner_balanced
-$busybox chmod 777 $init/GovTuner_balanced
+$busybox chmod 755 $init/GovTuner_balanced
 $busybox mount -o remount, ro /system
 $busybox echo "Applying balanced tweaks"
 $busybox sleep 0.4
@@ -156,7 +164,9 @@ $busybox clear
 $busybox echo "GovTuner balanced profile activated"
 $busybox echo ""
 $busybox echo ""
-$busybox sleep 1;;
+$busybox sleep 1
+$busybox clear ;;
+
 3)$busybox clear
 $busybox echo ""
 $busybox echo "Activating performance profile"
@@ -174,7 +184,7 @@ if [ -e $init/GovTuner_balanced ]; then
 	$busybox rm -rf $init/GovTuner_balanced
 fi
 $busybox cp -f $core/profiles/GovTuner_performance $init/GovTuner_performance
-$busybox chmod 777 $init/GovTuner_performance
+$busybox chmod 755 $init/GovTuner_performance
 $busybox mount -o remount, ro /system
 $busybox echo "Applying performance tweaks"
 $busybox sleep 0.4
@@ -187,7 +197,9 @@ $busybox clear
 $busybox echo "GovTuner performance profile activated"
 $busybox echo ""
 $busybox echo ""
-$busybox sleep 1;;
+$busybox sleep 1
+$busybox clear ;;
+
 c|C)$busybox clear;
 sh $core/Changelogs;;
 e|E)$busybox clear;
@@ -196,5 +208,6 @@ exit;;
 *)$busybox clear;
 $busybox echo "Invalid option, please try again"
 $busybox sleep 1
+exit
 esac
 done

@@ -18,10 +18,13 @@ init="/system/etc/init.d"
 
 if [ -f $init/GovTuner_battery ]; then
 	sh $init/GovTuner_battery
+	sh /data/GovTuner_battery
 elif [ -f $init/GovTuner_balanced ]; then
 	sh $init/GovTuner_balanced
+	sh /data/GovTuner_balanced
 elif [ -f $init/GovTuner_performance ]; then
 	sh $init/GovTuner_performance
+	sh /data/GovTuner_performance
 else
 	echo "No profile found"
 fi

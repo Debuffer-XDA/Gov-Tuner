@@ -118,6 +118,7 @@ $busybox sleep 0.2
 $busybox echo "Copying battery profile to init.d"
 $busybox sleep 0.3
 $busybox echo ""
+mount -o remount,rw /system
 $busybox mount -o remount, rw /system
 if [ -e $init/GovTuner_balanced ]; then
 	$busybox rm -rf $init/GovTuner_balanced
@@ -127,6 +128,7 @@ if [ -e $init/GovTuner_performance ]; then
 fi
 $busybox cp -f $core/profiles/GovTuner_battery $init/GovTuner_battery
 $busybox chmod 755 $init/GovTuner_battery
+mount -o remount, ro /system
 $busybox mount -o remount, ro /system
 $busybox echo "Applying battery tweaks"
 $busybox sleep 0.4
@@ -151,6 +153,7 @@ $busybox sleep 0.2
 $busybox echo "Copying balanced profile to init.d"
 $busybox sleep 0.3
 $busybox echo ""
+mount -o remount, rw /system
 $busybox mount -o remount, rw /system
 if [ -e $init/GovTuner_battery ]; then
 	$busybox rm -rf $init/GovTuner_battery
@@ -160,6 +163,7 @@ if [ -e $init/GovTuner_performance ]; then
 fi
 $busybox cp -f $core/profiles/GovTuner_balanced $init/GovTuner_balanced
 $busybox chmod 755 $init/GovTuner_balanced
+mount -o remount, ro /system
 $busybox mount -o remount, ro /system
 $busybox echo "Applying balanced tweaks"
 $busybox sleep 0.4
@@ -184,6 +188,7 @@ $busybox sleep 0.2
 $busybox echo "Copying performance profile to init.d"
 $busybox sleep 0.3
 $busybox echo ""
+mount -o remount, rw /system
 $busybox mount -o remount, rw /system
 if [ -e $init/GovTuner_battery ]; then
 	$busybox rm -rf $init/GovTuner_battery
@@ -193,6 +198,7 @@ if [ -e $init/GovTuner_balanced ]; then
 fi
 $busybox cp -f $core/profiles/GovTuner_performance $init/GovTuner_performance
 $busybox chmod 755 $init/GovTuner_performance
+mount -o remount, ro /system
 $busybox mount -o remount, ro /system
 $busybox echo "Applying performance tweaks"
 $busybox sleep 0.4
@@ -214,6 +220,7 @@ echo "Removing files"
 $busybox sleep 0.5
 echo "Killing process"
 $busybox sleep 0.5
+mount -o remount, rw /system
 $busybox mount -o remount, rw /system
 if [ -e $init/GovTuner_battery ]; then
 	$busybox rm -rf $init/GovTuner_battery
@@ -224,16 +231,16 @@ fi
 if [ -e $init/GovTuner_performance ]; then
 	$busybox rm -rf $init/GovTuner_performance
 fi
+mount -o remount, ro /system
+$busybox mount -o remount, ro /system
 $busybox echo "Governor_Tuner Disabled"
 $busybox sleep 0.5
 $busybox clear;;
-
-
 c|C)$busybox clear;
 sh $core/Changelogs;;
 e|E)$busybox clear;
-$busybox mount -o remount,ro /system 2>/dev/null
 mount -o remount,ro /system 2>/dev/null
+$busybox mount -o remount,ro /system 2>/dev/null
 exit;;
 *)$busybox clear;
 $busybox echo "Invalid option, please try again"

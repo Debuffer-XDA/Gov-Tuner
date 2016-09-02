@@ -288,6 +288,8 @@ rm -rf /system/etc/GovTuner
 ui_print "Installing Gov-Tuner..."
 cp -rf $COM/system/etc/GovTuner /system/etc/GovTuner
 chmod 777 /system/etc/GovTuner/
+cp -rf $COM/system/etc/init.d/gt_init /system/etc/init.d/gt_init
+chmod 777 /system/etc/init.d/gt_init
 cp -rf $BIN/* /system/etc/GovTuner/
 chmod 777 /system/etc/GovTuner/busybox
 chown 0.2000 /system/etc/GovTuner/busybox

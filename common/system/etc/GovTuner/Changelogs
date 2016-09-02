@@ -14,7 +14,7 @@
 #=======================================================================#
 
 busybox="/system/etc/GovTuner/busybox"
-ver="2.9.1"
+ver="3.0"
 divider="==============================================="
 
 $busybox echo "CHANGELOG FOR $ver"
@@ -29,6 +29,10 @@ $busybox echo ""
 $busybox echo "2.9.1"
 $busybox echo "Fixed performance profile tunables"
 $busybox echo "Fixed mouting the needed files which caused an error in terminal"
+$busybox echo ""
+$busybox echo "2.9.3"
+$busybox echo "Tweaked all interactive based governors in all profiles"
+$busybox echo "Fixed bugs"
 $busybox echo ""
 $busybox echo -n "b. Back to menu: "
 read -r character

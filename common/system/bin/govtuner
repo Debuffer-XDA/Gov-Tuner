@@ -17,12 +17,14 @@ divider="==============================================="
 core="/system/etc/GovTuner"
 busybox="$core/busybox"
 init="/system/etc/init.d"
-ver="2.9.1"
+PROFILE_DIR="/system/etc/GovTuner/current"
+ver="3.0"
 id="$(id)"; id="${id#*=}"; id="${id%%\(*}"; id="${id%% *}"
 CUR_GOVERNOR=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor);
 GOVERNOR=$CUR_GOVERNOR
 CLUSTER_DETECT="/sys/devices/system/cpu/cpu0/cpufreq/$CUR_GOVERNOR"
 OUTPUT_ID=$($busybox cat /data/system/test)
+
 $busybox sleep 1
 $busybox clear
 $busybox echo "Checking root"; $busybox sleep 0.2; $busybox clear;
@@ -59,25 +61,16 @@ if [ "$id" != "0" ] && [ "$id" != "root" ]; then
 		$busybox clear
 fi
 echo "After applying a profile.."
-echo sleep 1
-echo "...Wait for 10 seconds before closing the window"
+sleep 1
+echo "...Wait for 5 to 10 seconds before closing the window"
+chmod 755 /system/etc/init.d/gt_init
 
 while true; do
-mount -o remount,rw /system
-mount -o remount,rw /data
-$busybox mount -o remount,rw /system
-$busybox mount -o remount,rw /data
-if [ -f $init/GovTuner_battery ]; then
+if [ -f $PROFILE_DIR/GovTuner_battery ]; then
 	profile="\e[1;33mBattery\e[0m"
-elif [ -f $init/GovTuner_battery_cluster ]; then
-	profile="\e[1;33mBattery\e[0m"
-elif [ -f $init/GovTuner_balanced ]; then
+elif [ -f $PROFILE_DIR/GovTuner_balanced ]; then
 	profile="\e[1;36mBalanced\e[0m"
-	elif [ -f $init/GovTuner_balanced_cluster ]; then
-	profile="\e[1;36mBalanced\e[0m"
-elif [ -f $init/GovTuner_performance ]; then
-	profile="\e[1;34mPerformance\e[0m"
-elif [ -f $init/GovTuner_performance_cluster ]; then
+elif [ -f $PROFILE_DIR/GovTuner_performance ]; then
 	profile="\e[1;34mPerformance\e[0m"
 else
 	profile="\e[1;30mDefault\e[0m"
@@ -118,22 +111,20 @@ $busybox sleep 0.2
 $busybox echo "Copying battery profile to init.d"
 $busybox sleep 0.3
 $busybox echo ""
-mount -o remount,rw /system
 $busybox mount -o remount, rw /system
-if [ -e $init/GovTuner_balanced ]; then
-	$busybox rm -rf $init/GovTuner_balanced
+if [ -e $PROFILE_DIR/GovTuner_balanced ]; then
+	$busybox rm -rf $PROFILE_DIR/GovTuner_balanced
 fi
-if [ -e $init/GovTuner_performance ]; then
-	$busybox rm -rf $init/GovTuner_performance
+if [ -e $PROFILE_DIR/GovTuner_performance ]; then
+	$busybox rm -rf $PROFILE_DIR/GovTuner_performance
 fi
-$busybox cp -f $core/profiles/GovTuner_battery $init/GovTuner_battery
-$busybox chmod 755 $init/GovTuner_battery
-mount -o remount, ro /system
+$busybox cp -f $core/profiles/GovTuner_battery $PROFILE_DIR/GovTuner_battery
+$busybox chmod 755 $PROFILE_DIR/GovTuner_battery
 $busybox mount -o remount, ro /system
 $busybox echo "Applying battery tweaks"
 $busybox sleep 0.4
 $busybox echo ""
-$busybox setsid $init/GovTuner_battery&
+$busybox setsid $PROFILE_DIR/GovTuner_battery&
 $busybox sleep 0.3
 $busybox echo ""
 $busybox sleep 0.3
@@ -153,22 +144,20 @@ $busybox sleep 0.2
 $busybox echo "Copying balanced profile to init.d"
 $busybox sleep 0.3
 $busybox echo ""
-mount -o remount, rw /system
 $busybox mount -o remount, rw /system
-if [ -e $init/GovTuner_battery ]; then
-	$busybox rm -rf $init/GovTuner_battery
+if [ -e $PROFILE_DIR/GovTuner_battery ]; then
+	$busybox rm -rf $PROFILE_DIR/GovTuner_battery
 fi
-if [ -e $init/GovTuner_performance ]; then
-	$busybox rm -rf $init/GovTuner_performance
+if [ -e $PROFILE_DIR/GovTuner_performance ]; then
+	$busybox rm -rf $PROFILE_DIR/GovTuner_performance
 fi
-$busybox cp -f $core/profiles/GovTuner_balanced $init/GovTuner_balanced
-$busybox chmod 755 $init/GovTuner_balanced
-mount -o remount, ro /system
+$busybox cp -f $core/profiles/GovTuner_balanced $PROFILE_DIR/GovTuner_balanced
+$busybox chmod 755 $PROFILE_DIR/GovTuner_balanced
 $busybox mount -o remount, ro /system
 $busybox echo "Applying balanced tweaks"
 $busybox sleep 0.4
 $busybox echo ""
-$busybox setsid $init/GovTuner_balanced&
+$busybox setsid $PROFILE_DIR/GovTuner_balanced&
 $busybox sleep 0.3
 $busybox echo ""
 $busybox sleep 0.3
@@ -188,22 +177,20 @@ $busybox sleep 0.2
 $busybox echo "Copying performance profile to init.d"
 $busybox sleep 0.3
 $busybox echo ""
-mount -o remount, rw /system
 $busybox mount -o remount, rw /system
-if [ -e $init/GovTuner_battery ]; then
-	$busybox rm -rf $init/GovTuner_battery
+if [ -e $PROFILE_DIR/GovTuner_battery ]; then
+	$busybox rm -rf $PROFILE_DIR/GovTuner_battery
 fi
-if [ -e $init/GovTuner_balanced ]; then
-	$busybox rm -rf $init/GovTuner_balanced
+if [ -e $PROFILE_DIR/GovTuner_balanced ]; then
+	$busybox rm -rf $PROFILE_DIR/GovTuner_balanced
 fi
-$busybox cp -f $core/profiles/GovTuner_performance $init/GovTuner_performance
-$busybox chmod 755 $init/GovTuner_performance
-mount -o remount, ro /system
+$busybox cp -f $core/profiles/GovTuner_performance $PROFILE_DIR/GovTuner_performance
+$busybox chmod 755 $PROFILE_DIR/GovTuner_performance
 $busybox mount -o remount, ro /system
 $busybox echo "Applying performance tweaks"
 $busybox sleep 0.4
 $busybox echo ""
-$busybox setsid $init/GovTuner_performance&
+$busybox setsid $PROFILE_DIR/GovTuner_performance&
 $busybox sleep 0.3
 $busybox echo ""
 $busybox sleep 0.3
@@ -220,26 +207,24 @@ echo "Removing files"
 $busybox sleep 0.5
 echo "Killing process"
 $busybox sleep 0.5
-mount -o remount, rw /system
 $busybox mount -o remount, rw /system
-if [ -e $init/GovTuner_battery ]; then
-	$busybox rm -rf $init/GovTuner_battery
+if [ -e $PROFILE_DIR/GovTuner_battery ]; then
+	$busybox rm -rf $PROFILE_DIR/GovTuner_battery
 fi
-if [ -e $init/GovTuner_balanced ]; then
-	$busybox rm -rf $init/GovTuner_balanced
+if [ -e $PROFILE_DIR/GovTuner_balanced ]; then
+	$busybox rm -rf $PROFILE_DIR/GovTuner_balanced
 fi
-if [ -e $init/GovTuner_performance ]; then
-	$busybox rm -rf $init/GovTuner_performance
+if [ -e $PROFILE_DIR/GovTuner_performance ]; then
+	$busybox rm -rf $PROFILE_DIR/GovTuner_performance
 fi
-mount -o remount, ro /system
-$busybox mount -o remount, ro /system
 $busybox echo "Governor_Tuner Disabled"
 $busybox sleep 0.5
 $busybox clear;;
+
+
 c|C)$busybox clear;
 sh $core/Changelogs;;
 e|E)$busybox clear;
-mount -o remount,ro /system 2>/dev/null
 $busybox mount -o remount,ro /system 2>/dev/null
 exit;;
 *)$busybox clear;

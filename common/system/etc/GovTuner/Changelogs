@@ -14,25 +14,14 @@
 #=======================================================================#
 
 busybox="/system/etc/GovTuner/busybox"
-ver="3.0.2"
+ver="3.0.3"
 divider="==============================================="
 
 $busybox echo "CHANGELOG FOR $ver"
 $busybox echo "-------------------"
 $busybox echo ""
-$busybox echo "2.9"
-$busybox echo "Made the profiles be dynamic (description below)"
-$busybox echo "Now the profiles periodically check if the governor was changed and automatically apply the tunables for the new governor"
-$busybox echo "Updated interactive based governor for balanced profile since it showed to have a huge battery drain"
-$busybox echo "Fixed governor not showing in terminal emulator"
-$busybox echo ""
-$busybox echo "2.9.1"
-$busybox echo "Fixed performance profile tunables"
-$busybox echo "Fixed mouting the needed files which caused an error in terminal"
-$busybox echo ""
-$busybox echo "2.9.3"
-$busybox echo "Tweaked all interactive based governors in all profiles"
-$busybox echo "Fixed bugs"
+$busybox echo "Reverted from the new scaling method mode"
+$busybox echo "Recalculated target loads for all the profiles"
 $busybox echo ""
 $busybox echo -n "b. Back to menu: "
 read -r character

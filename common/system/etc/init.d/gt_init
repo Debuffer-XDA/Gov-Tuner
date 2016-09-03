@@ -17,7 +17,7 @@ divider="==============================================="
 core="/system/etc/GovTuner"
 busybox="$core/busybox"
 init="/system/etc/init.d"
-PROFILE_DIR="/system/etc/GovTuner/current"
-PROFILE=$($busybox cat /system/etc/GovTuner/current/profile)
+PROFILE_DIR="$core/current"
+PROFILE=$($busybox cat $PROFILE_DIR/profile)
 $busybox setsid $PROFILE_DIR/$PROFILE&
 echo "Done"

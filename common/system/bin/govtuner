@@ -63,7 +63,7 @@ fi
 echo "After applying a profile.."
 sleep 1
 echo "...Wait for 5 to 10 seconds before closing the window"
-chmod 755 /system/etc/init.d/gt_init
+chmod 755 $init/gt_init
 
 while true; do
 if [ -f $PROFILE_DIR/GovTuner_battery ]; then

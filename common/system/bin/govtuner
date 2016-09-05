@@ -130,7 +130,10 @@ $busybox echo ""
 $busybox sleep 0.3
 $busybox clear
 $busybox echo "GovTuner battery profile activated"
-$busybox echo "";;
+$busybox echo ""
+$busybox echo ""
+$busybox sleep 1
+$busybox clear ;;
 
 2)$busybox clear
 $busybox echo ""
@@ -160,7 +163,10 @@ $busybox echo ""
 $busybox sleep 0.3
 $busybox clear
 $busybox echo "GovTuner balanced profile activated"
-$busybox echo "";;
+$busybox echo ""
+$busybox echo ""
+$busybox sleep 1
+$busybox clear ;;
 
 3)$busybox clear
 $busybox echo ""
@@ -190,7 +196,10 @@ $busybox echo ""
 $busybox sleep 0.3
 $busybox clear
 $busybox echo "GovTuner performance profile activated"
-$busybox echo "";;
+$busybox echo ""
+$busybox echo ""
+$busybox sleep 1
+$busybox clear ;;
 
 u|U)$busybox clear
 kill -9 $OUTPUT_ID

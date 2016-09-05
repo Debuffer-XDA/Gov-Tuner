@@ -1184,7 +1184,8 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
  else 
- echo "Kernel is incompatible"
+ echo "$CUR_GOVERNOR governor is not compatible. Please, change it to a compatible governor."
+ echo "        You can know the compatible governors checking the XDA thread."
  echo ""
  fi
  sleep 180

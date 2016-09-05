@@ -127,7 +127,7 @@ $busybox echo ""
 $busybox setsid $PROFILE_DIR/GovTuner_battery&
 $busybox sleep 0.3
 $busybox echo ""
-$busybox sleep 0.3
+$busybox sleep 5
 $busybox clear
 $busybox echo "GovTuner battery profile activated"
 $busybox echo ""
@@ -160,7 +160,7 @@ $busybox echo ""
 $busybox setsid $PROFILE_DIR/GovTuner_balanced&
 $busybox sleep 0.3
 $busybox echo ""
-$busybox sleep 0.3
+$busybox sleep 5
 $busybox clear
 $busybox echo "GovTuner balanced profile activated"
 $busybox echo ""
@@ -193,7 +193,7 @@ $busybox echo ""
 $busybox setsid $PROFILE_DIR/GovTuner_performance&
 $busybox sleep 0.3
 $busybox echo ""
-$busybox sleep 0.3
+$busybox sleep 5
 $busybox clear
 $busybox echo "GovTuner performance profile activated"
 $busybox echo ""

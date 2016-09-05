@@ -1183,10 +1183,28 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
+	
+# ZZMOOVE
+
+elif [ $CUR_GOVERNOR = "zzmoove" ]; then
+ for i in /sys/devices/system/cpu/cpufreq/zzmoove; do
+	if [ -e "$GOVERNOR/afs_threshold1" ]; then
+		$busybox echo "100" > "$i/afs_threshold1";
+	fi
+ done
+	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
+ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+	echo ""
  else 
  echo "Kernel is incompatible"
  echo ""
  fi
+ $busybox echo -n "b. Back to menu: "
+ read -r character
+ case $character in
+ b|B)$busybox clear;
+ sh /system/bin/govtuner
  sleep 180
 
 # GOVERNOR TUNABLES FOR DUAL-CLUSTER DEVICES
@@ -2339,6 +2357,10 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
  echo "        You can know the compatible governors checking the XDA thread."
  echo ""
  fi
+ $busybox echo -n "b. Back to menu: "
+read -r character
+case $character in
+b|B)$busybox clear;
  sleep 180
  else
  $busybox sleep 180

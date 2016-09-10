@@ -14,14 +14,21 @@
 #=======================================================================#
 
 busybox="/system/etc/GovTuner/busybox"
-ver="3.0.3"
+ver="3.1"
 divider="==============================================="
 
 $busybox echo "CHANGELOG FOR $ver"
 $busybox echo "-------------------"
 $busybox echo ""
-$busybox echo "Reverted from the new scaling method mode"
-$busybox echo "Recalculated target loads for all the profiles"
+$busybox echo "Improved all profiles"
+$busybox echo "Tweaked all interactive based governors"
+$busybox echo "Added Zzmoove governor"
+$busybox echo ""
+$busybox echo "$divider"
+$busybox echo ""
+$busybox echo "I didn't tune zzmoove's hotplug for now."
+$busybox echo "This governor is under tests and who uses it will be very important to make a feedback."
+$busybox echo "After this tests and Zzmoove is stable I'll start working on it's hotplug. "
 $busybox echo ""
 $busybox echo -n "b. Back to menu: "
 read -r character

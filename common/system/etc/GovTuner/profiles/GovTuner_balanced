@@ -45,7 +45,7 @@ while [ 5 == 5 ]; do
  if [ "$CUR_GOVERNOR" = "interactive" ]; then
  for i in /sys/devices/system/cpu/cpufreq/interactive; do
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "0" > "$i/above_hispeed_delay";
+		$busybox echo "0 1400000:100000" > "$i/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$i/boost";
@@ -57,7 +57,7 @@ while [ 5 == 5 ]; do
 		$busybox echo "0" > "$i/boostpulse_duration";
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
-		$busybox echo "100" > "$i/go_hispeed_load";
+		$busybox echo "300" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR/hispeed_freq" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
@@ -69,7 +69,7 @@ while [ 5 == 5 ]; do
 		$busybox echo "0" > "$i/align_windows";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "0" > "$i/io_is_busy";
+		$busybox echo "1" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
 		$busybox echo "65000" > "$i/min_sample_time";
@@ -78,7 +78,7 @@ while [ 5 == 5 ]; do
 		$busybox echo "1" > "$i/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "95 $MIN_CPU_FREQ:79 400000:38 600000:83 900000:92 1100000:96 1400000:99" > "$i/target_loads";
+		$busybox echo "92 $MIN_CPU_FREQ:82 400000:31 600000:48 800000:68 1100000:81 1400000:92 1700000:97 1900000:99" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "40000" > "$i/timer_rate";
@@ -133,7 +133,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
  elif [ $CUR_GOVERNOR = "yankactive" ]; then
  for i in /sys/devices/system/cpu/cpufreq/yankactive; do
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "0" > "$i/above_hispeed_delay";
+		$busybox echo "0 1400000:100000" > "$i/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$i/boost";
@@ -145,13 +145,13 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "0" > "$i/boostpulse_duration";
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
-		$busybox echo "100" > "$i/go_hispeed_load";
+		$busybox echo "300" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR/hispeed_freq" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "0" > "$i/io_is_busy";
+		$busybox echo "1" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
 		$busybox echo "65000" > "$i/min_sample_time";
@@ -160,7 +160,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "1" > "$i/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "95 $MIN_CPU_FREQ:79 400000:38 600000:83 900000:92 1100000:96 1400000:99" > "$i/target_loads";
+		$busybox echo "92 $MIN_CPU_FREQ:82 400000:31 600000:48 800000:68 1100000:81 1400000:92 1700000:97 1900000:99" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "40000" > "$i/timer_rate";
@@ -185,7 +185,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
  elif [ $CUR_GOVERNOR = "intelliactive" ]; then
  for i in /sys/devices/system/cpu/cpufreq/intelliactive; do
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "0" > "$i/above_hispeed_delay";
+		$busybox echo "0 1400000:100000" > "$i/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$i/boost";
@@ -197,13 +197,13 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "0" > "$i/boostpulse_duration";
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
-		$busybox echo "100" > "$i/go_hispeed_load";
+		$busybox echo "300" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR/hispeed_freq" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "0" > "$i/io_is_busy";
+		$busybox echo "1" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
 		$busybox echo "65000" > "$i/min_sample_time";
@@ -215,7 +215,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "$MIN_CPU_FREQ" > "$i/sync_freq";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "95 $MIN_CPU_FREQ:79 400000:38 600000:83 900000:92 1100000:96 1400000:99" > "$i/target_loads";
+		$busybox echo "92 $MIN_CPU_FREQ:82 400000:31 600000:48 800000:68 1100000:81 1400000:92 1700000:97 1900000:99" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "40000" > "$i/timer_rate";
@@ -308,16 +308,16 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
  elif [ $CUR_GOVERNOR = "impulse" ]; then
  for i in /sys/devices/system/cpu/cpufreq/impulse; do
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "0" > "$i/above_hispeed_delay";
+		$busybox echo "0 1400000:100000" > "$i/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
-		$busybox echo "100" > "$i/go_hispeed_load";
+		$busybox echo "300" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR/hispeed_freq" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "0" > "$i/io_is_busy";
+		$busybox echo "1" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
 		$busybox echo "65000" > "$i/min_sample_time";
@@ -329,7 +329,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "-1" > "$i/timer_slack";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "95 $MIN_CPU_FREQ:79 400000:38 600000:83 900000:92 1100000:96 1400000:99" > "$i/target_loads";
+		$busybox echo "92 $MIN_CPU_FREQ:82 400000:31 600000:48 800000:68 1100000:81 1400000:92 1700000:97 1900000:99" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR/max_freq_hysteresis" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$i/max_freq_hysteresis";
@@ -357,7 +357,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "1" > "$i/ignore_nice_load";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "0" > "$i/io_is_busy";
+		$busybox echo "1" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/powersave_bias" ]; then
 		$busybox echo "0" > "$i/powersave_bias";
@@ -406,7 +406,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "1" > "$i/ignore_nice_load";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "0" > "$i/io_is_busy";
+		$busybox echo "1" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/micro_freq_up_threshold" ]; then
 		$busybox echo "80" > "$i/micro_freq_up_threshold";
@@ -440,7 +440,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
  elif [ $CUR_GOVERNOR = "barry_allen" ]; then
  for i in /sys/devices/system/cpu/cpufreq/barry_allen; do
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "0" > "$i/above_hispeed_delay";
+		$busybox echo "0 1400000:100000" > "$i/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/ba_lock" ]; then
 		$busybox echo "0" > "$i/ba_lock";
@@ -455,13 +455,13 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "0" > "$i/boostpulse_duration";
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
-		$busybox echo "100" > "$i/go_hispeed_load";
+		$busybox echo "300" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR/hispeed_freq" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "0" > "$i/io_is_busy";
+		$busybox echo "1" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
 		$busybox echo "65000" > "$i/min_sample_time";
@@ -473,7 +473,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "$MIN_CPU_FREQ" > "$i/sync_freq";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "95 $MIN_CPU_FREQ:79 400000:38 600000:83 900000:92 1100000:96 1400000:99" > "$i/target_loads";
+		$busybox echo "92 $MIN_CPU_FREQ:82 400000:31 600000:48 800000:68 1100000:81 1400000:92 1700000:97 1900000:99" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "40000" > "$i/timer_rate";
@@ -501,7 +501,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
  elif [ $CUR_GOVERNOR = "bluactive" ]; then
  for i in /sys/devices/system/cpu/cpufreq/bluactive; do
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "0" > "$i/above_hispeed_delay";
+		$busybox echo "0 1400000:100000" > "$i/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$i/boost";
@@ -513,13 +513,13 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "0" > "$i/boostpulse_duration";
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
-		$busybox echo "100" > "$i/go_hispeed_load";
+		$busybox echo "300" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR/hispeed_freq" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "0" > "$i/io_is_busy";
+		$busybox echo "1" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
 		$busybox echo "65000" > "$i/min_sample_time";
@@ -531,7 +531,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "$MIN_CPU_FREQ" > "$i/sync_freq";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "95 $MIN_CPU_FREQ:79 400000:38 600000:83 900000:92 1100000:96 1400000:99" > "$i/target_loads";
+		$busybox echo "92 $MIN_CPU_FREQ:82 400000:31 600000:48 800000:68 1100000:81 1400000:92 1700000:97 1900000:99" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "40000" > "$i/timer_rate";
@@ -633,7 +633,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "1" > "$i/ignore_nice_load";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "0" > "$i/io_is_busy";
+		$busybox echo "1" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
 		$busybox echo "1" > "$i/sampling_down_factor";
@@ -667,7 +667,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "1" > "$i/ignore_nice_load";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "0" > "$i/io_is_busy";
+		$busybox echo "1" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/optimal_freq" ]; then
 		$busybox echo "700000" > "$i/optimal_freq";
@@ -842,7 +842,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
  elif [ $CUR_GOVERNOR = "interactive_pro" ]; then
  for i in /sys/devices/system/cpu/cpufreq/interactive_pro; do
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "0" > "$i/above_hispeed_delay";
+		$busybox echo "0 1400000:100000" > "$i/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$i/boost";
@@ -854,13 +854,13 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "$MIN_CPU_FREQ" > "$i/freq_calc_thresh";
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
-		$busybox echo "100" > "$i/go_hispeed_load";
+		$busybox echo "300" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR/hispeed_freq" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "0" > "$i/io_is_busy";
+		$busybox echo "1" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
 		$busybox echo "65000" > "$i/min_sample_time";
@@ -872,7 +872,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "$MIN_CPU_FREQ" > "$i/sync_freq";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "95 $MIN_CPU_FREQ:79 400000:38 600000:83 900000:92 1100000:96 1400000:99" > "$i/target_loads";
+		$busybox echo "92 $MIN_CPU_FREQ:82 400000:31 600000:48 800000:68 1100000:81 1400000:92 1700000:97 1900000:99" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "40000" > "$i/timer_rate";
@@ -968,7 +968,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
  elif [ $CUR_GOVERNOR = "smartmax_eps" ]; then
  for i in /sys/devices/system/cpu/cpufreq/smartmax_eps; do
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "0" > "$i/io_is_busy";
+		$busybox echo "1" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/max_cpu_load" ]; then
 		$busybox echo "100" > "$i/max_cpu_load";
@@ -1075,7 +1075,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "10000" > "$i/down_sample_time";
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
-		$busybox echo "100" > "$i/go_hispeed_load";
+		$busybox echo "300" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR/hispeed_freq" ]; then
 		$busybox echo "1200000" > "$i/hispeed_freq";
@@ -1128,7 +1128,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
  elif [ $CUR_GOVERNOR = "blu_active" ]; then
  for i in /sys/devices/system/cpu/cpufreq/blu_active; do
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "0" > "$i/above_hispeed_delay";
+		$busybox echo "0 1400000:100000" > "$i/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boostpulse_duration" ]; then	
 		$busybox echo "0" > "$i/boostpulse_duration";
@@ -1137,7 +1137,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "0" > "$i/fastlane";
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
-		$busybox echo "100" > "$i/go_hispeed_load";
+		$busybox echo "300" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR/hispeed_freq" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
@@ -1146,7 +1146,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "600000" > "$i/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "0" > "$i/io_is_busy";
+		$busybox echo "1" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/low_load_down_threshold" ]; then
 		$busybox echo "25" > "$i/low_load_down_threshold";
@@ -1161,7 +1161,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "1" > "$i/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "95 $MIN_CPU_FREQ:79 400000:38 600000:83 900000:92 1100000:96 1400000:99" > "$i/target_loads";
+		$busybox echo "92 $MIN_CPU_FREQ:82 400000:31 600000:48 800000:68 1100000:81 1400000:92 1700000:97 1900000:99" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "40000" > "$i/timer_rate";
@@ -1183,6 +1183,196 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
 	echo ""
+	
+# ZZMOOVE
+	
+ elif [ $CUR_GOVERNOR = "zzmoove" ]; then
+ for i in /sys/devices/system/cpu/cpufreq/zzmoove; do
+	if [ -e "$GOVERNOR/afs_treshold1" ]; then
+		$busybox echo "32" > "$i/afs_treshold1";
+	fi
+	if [ -e "$GOVERNOR/afs_treshold2" ]; then
+		$busybox echo "49" > "$i/afs_treshold2";
+	fi
+	if [ -e "$GOVERNOR/afs_treshold3" ]; then
+		$busybox echo "67" > "$i/afs_treshold3";
+	fi
+	if [ -e "$GOVERNOR/afs_treshold4" ]; then
+		$busybox echo "84" > "$i/afs_treshold4";
+	fi
+	if [ -e "$GOVERNOR/auto_adjust_freq_threshold" ]; then
+		$busybox echo "0" > "$i/auto_adjust_freq_threshold";
+	fi
+	if [ -e "$GOVERNOR/block_down_multiplier_hotplug1" ]; then
+		$busybox echo "1" > "$i/block_down_multiplier_hotplug1";
+	fi
+	if [ -e "$GOVERNOR/block_down_multiplier_hotplug2" ]; then
+		$busybox echo "1" > "$i/block_down_multiplier_hotplug2";
+	fi
+	if [ -e "$GOVERNOR/block_down_multiplier_hotplug3" ]; then
+		$busybox echo "1" > "$i/block_down_multiplier_hotplug3";
+	fi
+	if [ -e "$GOVERNOR/block_down_multiplier_hotplug4" ]; then
+		$busybox echo "1" > "$i/block_down_multiplier_hotplug4";
+	fi
+	if [ -e "$GOVERNOR/disable_hotplug" ]; then
+		$busybox echo "1" > "$i/disable_hotplug";
+	fi
+	if [ -e "$GOVERNOR/disable_hotplug_sleep" ]; then
+		$busybox echo "1" > "$i/disable_hotplug_sleep";
+	fi
+	if [ -e "$GOVERNOR/early_demand" ]; then
+		$busybox echo "0" > "$i/early_demand";
+	fi
+	if [ -e "$GOVERNOR/early_demand_sleep" ]; then
+		$busybox echo "1" > "$i/early_demand_sleep";
+	fi
+	if [ -e "$GOVERNOR/fast_scaling_down" ]; then
+		$busybox echo "4" > "$i/fast_scaling_down";
+	fi
+	if [ -e "$GOVERNOR/fast_scaling_down_sleep" ]; then
+		$busybox echo "6" > "$i/fast_scaling_down_sleep";
+	fi
+	if [ -e "$GOVERNOR/fast_scaling_up_sleep" ]; then
+		$busybox echo "0" > "$i/fast_scaling_up_sleep";
+	fi
+	if [ -e "$GOVERNOR/fast_scaling_up" ]; then
+		$busybox echo "0" > "$i/fast_scaling_up";
+	fi
+	if [ -e "$GOVERNOR/freq_limit" ]; then
+		$busybox echo "0" > "$i/freq_limit";
+	fi
+	if [ -e "$GOVERNOR/freq_limit_sleep" ]; then
+		$busybox echo "900000" > "$i/freq_limit_sleep";
+	fi
+	if [ -e "$GOVERNOR/grad_up_threshold" ]; then
+		$busybox echo "30" > "$i/grad_up_threshold";
+	fi
+	if [ -e "$GOVERNOR/grad_up_threshold_sleep" ]; then
+		$busybox echo "38" > "$i/grad_up_threshold_sleep";
+	fi
+	if [ -e "$GOVERNOR/ignore_nice_load" ]; then
+		$busybox echo "1" > "$i/ignore_nice_load";
+	fi
+	if [ -e "$GOVERNOR/inputboost_cycles" ]; then
+		$busybox echo "0" > "$i/inputboost_cycles";
+	fi
+	if [ -e "$GOVERNOR/inputboost_punch_cycles" ]; then
+		$busybox echo "0" > "$i/inputboost_punch_cycles";
+	fi
+	if [ -e "$GOVERNOR/inputboost_punch_freq" ]; then
+		$busybox echo "0" > "$i/inputboost_punch_freq";
+	fi
+	if [ -e "$GOVERNOR/inputboost_punch_on_epenmove" ]; then
+		$busybox echo "0" > "$i/inputboost_punch_on_epenmove";
+	fi
+	if [ -e "$GOVERNOR/inputboost_punch_on_fingerdown" ]; then
+		$busybox echo "0" > "$i/inputboost_punch_on_fingerdown";
+	fi
+	if [ -e "$GOVERNOR/inputboost_punch_on_fingermove" ]; then
+		$busybox echo "0" > "$i/inputboost_punch_on_fingermove";
+	fi
+	if [ -e "$GOVERNOR/inputboost_typingbooster_cores" ]; then
+		$busybox echo "0" > "$i/inputboost_typingbooster_cores";
+	fi
+	if [ -e "$GOVERNOR/inputboost_typingbooster_up_threshold" ]; then
+		$busybox echo "60" > "$i/inputboost_typingbooster_up_threshold";
+	fi
+	if [ -e "$GOVERNOR/inputboost_up_threshold" ]; then
+		$busybox echo "100" > "$i/inputboost_up_threshold";
+	fi
+	if [ -e "$GOVERNOR/music_max_freq" ]; then
+		$busybox echo "600000" > "$i/music_max_freq";
+	fi
+	if [ -e "$GOVERNOR/music_min_cores" ]; then
+		$busybox echo "0" > "$i/music_min_cores";
+	fi
+	if [ -e "$GOVERNOR/music_min_freq" ]; then
+		$busybox echo "$MIN_CPU_FREQ" > "$i/music_min_freq";
+	fi
+	if [ -e "$GOVERNOR/profile_number" ]; then
+		$busybox echo "0" > "$i/profile_number";
+	fi
+	if [ -e "$GOVERNOR/profile_sticky_mode" ]; then
+		$busybox echo "1" > "$i/profile_sticky_mode";
+	fi
+	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
+		$busybox echo "1" > "$i/sampling_down_factor";
+	fi
+	if [ -e "$GOVERNOR/sampling_down_max_momentum" ]; then
+		$busybox echo "0" > "$i/sampling_down_max_momentum"; 
+	fi
+	if [ -e "$GOVERNOR/sampling_down_max_sensitivity" ]; then
+		$busybox echo "75" > "$i/sampling_down_max_sensitivity"; 
+	fi
+	if [ -e "$GOVERNOR/sampling_rate" ]; then
+		$busybox echo "100000" > "$i/sampling_rate"; 
+	fi
+	if [ -e "$GOVERNOR/sampling_rate_current" ]; then
+		$busybox echo "250000" > "$i/sampling_rate_current"; 
+	fi
+	if [ -e "$GOVERNOR/sampling_rate_idle" ]; then
+		$busybox echo "100000" > "$i/sampling_rate_idle"; 
+	fi
+	if [ -e "$GOVERNOR/sampling_rate_idle_delay" ]; then
+		$busybox echo "0" > "$i/sampling_rate_idle_delay"; 
+	fi
+	if [ -e "$GOVERNOR/sampling_rate_idle_threshold" ]; then
+		$busybox echo "50" > "$i/sampling_rate_idle_threshold"; 
+	fi
+	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
+		$busybox echo "30000" > "$i/sampling_rate_min"; 
+	fi
+	if [ -e "$GOVERNOR/sampling_rate_sleep_multiplier" ]; then
+		$busybox echo "2" > "$i/sampling_rate_sleep_multiplier"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_block_cycles" ]; then
+		$busybox echo "4" > "$i/scaling_block_cycles"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_block_force_down" ]; then
+		$busybox echo "2" > "$i/scaling_block_force_down"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_block_freq" ]; then
+		$busybox echo "1400000" > "$i/scaling_block_freq"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_block_threshold" ]; then
+		$busybox echo "0" > "$i/scaling_block_threshold"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_fastdown_down_threshold" ]; then
+		$busybox echo "95" > "$i/scaling_fastdown_down_threshold"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_fastdown_freq" ]; then
+		$busybox echo "0" > "$i/scaling_fastdown_freq"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_fastdown_up_threshold" ]; then
+		$busybox echo "99" > "$i/scaling_fastdown_up_threshold"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_proportional" ]; then
+		$busybox echo "0" > "$i/scaling_proportional"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_responsiveness_freq" ]; then
+		$busybox echo "0" > "$i/scaling_responsiveness_freq"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_responsiveness_up_threshold" ]; then
+		$busybox echo "90" > "$i/scaling_responsiveness_up_threshold"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_up_block_cycles" ]; then
+		$busybox echo "0" > "$i/scaling_up_block_cycles"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_up_block_freq" ]; then
+		$busybox echo "0" > "$i/scaling_up_block_freq"; 
+	fi
+	if [ -e "$GOVERNOR/smooth_up" ]; then
+		$busybox echo "75" > "$i/smooth_up"; 
+	fi
+	if [ -e "$GOVERNOR/smooth_up_sleep" ]; then
+		$busybox echo "100" > "$i/smooth_up_sleep"; 
+	fi
+ done
+	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+	echo ""
  else 
  echo "$CUR_GOVERNOR governor is not compatible. Please, change it to a compatible governor."
  echo "        You can know the compatible governors checking the XDA thread."
@@ -1197,7 +1387,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
  if [ "$CUR_GOVERNOR" = "interactive" ]; then
  for i in /sys/devices/system/cpu/*/cpufreq/interactive; do
 	if [ -e "$GOVERNOR1/above_hispeed_delay" ]; then
-		$busybox echo "0" > "$i/above_hispeed_delay";
+		$busybox echo "0 1400000:100000" > "$i/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR1/boost" ]; then
 		$busybox echo "0" > "$i/boost";
@@ -1209,7 +1399,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "0" > "$i/boostpulse_duration";
 	fi
 	if [ -e "$GOVERNOR1/go_hispeed_load" ]; then
-		$busybox echo "100" > "$i/go_hispeed_load";
+		$busybox echo "300" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR1/hispeed_freq" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
@@ -1221,7 +1411,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "0" > "$i/align_windows";
 	fi
 	if [ -e "$GOVERNOR1/io_is_busy" ]; then
-		$busybox echo "0" > "$i/io_is_busy";
+		$busybox echo "1" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR1/min_sample_time" ]; then
 		$busybox echo "65000" > "$i/min_sample_time";
@@ -1230,7 +1420,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "1" > "$i/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR1/target_loads" ]; then
-		$busybox echo "95 $MIN_CPU_FREQ:79 400000:38 600000:83 900000:92 1100000:96 1400000:99" > "$i/target_loads";
+		$busybox echo "92 $MIN_CPU_FREQ:82 400000:31 600000:48 800000:68 1100000:81 1400000:92 1700000:97 1900000:99" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR1/timer_rate" ]; then
 		$busybox echo "40000" > "$i/timer_rate";
@@ -1285,7 +1475,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
  elif [ $CUR_GOVERNOR = "yankactive" ]; then
  for i in /sys/devices/system/cpu/*/cpufreq/yankactive; do
 	if [ -e "$GOVERNOR1/above_hispeed_delay" ]; then
-		$busybox echo "0" > "$i/above_hispeed_delay";
+		$busybox echo "0 1400000:100000" > "$i/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR1/boost" ]; then
 		$busybox echo "0" > "$i/boost";
@@ -1297,13 +1487,13 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "0" > "$i/boostpulse_duration";
 	fi
 	if [ -e "$GOVERNOR1/go_hispeed_load" ]; then
-		$busybox echo "100" > "$i/go_hispeed_load";
+		$busybox echo "300" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR1/hispeed_freq" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR1/io_is_busy" ]; then
-		$busybox echo "0" > "$i/io_is_busy";
+		$busybox echo "1" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR1/min_sample_time" ]; then
 		$busybox echo "65000" > "$i/min_sample_time";
@@ -1312,7 +1502,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "1" > "$i/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR1/target_loads" ]; then
-		$busybox echo "95 $MIN_CPU_FREQ:79 400000:38 600000:83 900000:92 1100000:96 1400000:99" > "$i/target_loads";
+		$busybox echo "92 $MIN_CPU_FREQ:82 400000:31 600000:48 800000:68 1100000:81 1400000:92 1700000:97 1900000:99" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR1/timer_rate" ]; then
 		$busybox echo "40000" > "$i/timer_rate";
@@ -1337,7 +1527,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
  elif [ $CUR_GOVERNOR = "intelliactive" ]; then
  for i in /sys/devices/system/cpu/*/cpufreq/intelliactive; do
 	if [ -e "$GOVERNOR1/above_hispeed_delay" ]; then
-		$busybox echo "0" > "$i/above_hispeed_delay";
+		$busybox echo "0 1400000:100000" > "$i/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR1/boost" ]; then
 		$busybox echo "0" > "$i/boost";
@@ -1349,13 +1539,13 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "0" > "$i/boostpulse_duration";
 	fi
 	if [ -e "$GOVERNOR1/go_hispeed_load" ]; then
-		$busybox echo "100" > "$i/go_hispeed_load";
+		$busybox echo "300" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR1/hispeed_freq" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR1/io_is_busy" ]; then
-		$busybox echo "0" > "$i/io_is_busy";
+		$busybox echo "1" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR1/min_sample_time" ]; then
 		$busybox echo "65000" > "$i/min_sample_time";
@@ -1367,7 +1557,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "$MIN_CPU_FREQ" > "$i/sync_freq";
 	fi
 	if [ -e "$GOVERNOR1/target_loads" ]; then
-		$busybox echo "95 $MIN_CPU_FREQ:79 400000:38 600000:83 900000:92 1100000:96 1400000:99" > "$i/target_loads";
+		$busybox echo "92 $MIN_CPU_FREQ:82 400000:31 600000:48 800000:68 1100000:81 1400000:92 1700000:97 1900000:99" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR1/timer_rate" ]; then
 		$busybox echo "40000" > "$i/timer_rate";
@@ -1460,16 +1650,16 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
  elif [ $CUR_GOVERNOR = "impulse" ]; then
  for i in /sys/devices/system/cpu/*/cpufreq/impulse; do
 	if [ -e "$GOVERNOR1/above_hispeed_delay" ]; then
-		$busybox echo "0" > "$i/above_hispeed_delay";
+		$busybox echo "0 1400000:100000" > "$i/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR1/go_hispeed_load" ]; then
-		$busybox echo "100" > "$i/go_hispeed_load";
+		$busybox echo "300" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR1/hispeed_freq" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR1/io_is_busy" ]; then
-		$busybox echo "0" > "$i/io_is_busy";
+		$busybox echo "1" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR1/min_sample_time" ]; then
 		$busybox echo "65000" > "$i/min_sample_time";
@@ -1481,7 +1671,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "-1" > "$i/timer_slack";
 	fi
 	if [ -e "$GOVERNOR1/target_loads" ]; then
-		$busybox echo "95 $MIN_CPU_FREQ:79 400000:38 600000:83 900000:92 1100000:96 1400000:99" > "$i/target_loads";
+		$busybox echo "92 $MIN_CPU_FREQ:82 400000:31 600000:48 800000:68 1100000:81 1400000:92 1700000:97 1900000:99" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR1/max_freq_hysteresis" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$i/max_freq_hysteresis";
@@ -1509,7 +1699,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "1" > "$i/ignore_nice_load";
 	fi
 	if [ -e "$GOVERNOR1/io_is_busy" ]; then
-		$busybox echo "0" > "$i/io_is_busy";
+		$busybox echo "1" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR1/powersave_bias" ]; then
 		$busybox echo "0" > "$i/powersave_bias";
@@ -1558,7 +1748,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "1" > "$i/ignore_nice_load";
 	fi
 	if [ -e "$GOVERNOR1/io_is_busy" ]; then
-		$busybox echo "0" > "$i/io_is_busy";
+		$busybox echo "1" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR1/micro_freq_up_threshold" ]; then
 		$busybox echo "80" > "$i/micro_freq_up_threshold";
@@ -1592,7 +1782,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
  elif [ $CUR_GOVERNOR = "barry_allen" ]; then
  for i in /sys/devices/system/cpu/*/cpufreq/barry_allen; do
 	if [ -e "$GOVERNOR1/above_hispeed_delay" ]; then
-		$busybox echo "0" > "$i/above_hispeed_delay";
+		$busybox echo "0 1400000:100000" > "$i/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR1/ba_lock" ]; then
 		$busybox echo "0" > "$i/ba_lock";
@@ -1607,13 +1797,13 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "0" > "$i/boostpulse_duration";
 	fi
 	if [ -e "$GOVERNOR1/go_hispeed_load" ]; then
-		$busybox echo "100" > "$i/go_hispeed_load";
+		$busybox echo "300" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR1/hispeed_freq" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR1/io_is_busy" ]; then
-		$busybox echo "0" > "$i/io_is_busy";
+		$busybox echo "1" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR1/min_sample_time" ]; then
 		$busybox echo "65000" > "$i/min_sample_time";
@@ -1625,7 +1815,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "$MIN_CPU_FREQ" > "$i/sync_freq";
 	fi
 	if [ -e "$GOVERNOR1/target_loads" ]; then
-		$busybox echo "95 $MIN_CPU_FREQ:79 400000:38 600000:83 900000:92 1100000:96 1400000:99" > "$i/target_loads";
+		$busybox echo "92 $MIN_CPU_FREQ:82 400000:31 600000:48 800000:68 1100000:81 1400000:92 1700000:97 1900000:99" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR1/timer_rate" ]; then
 		$busybox echo "40000" > "$i/timer_rate";
@@ -1653,7 +1843,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
  elif [ $CUR_GOVERNOR = "bluactive" ]; then
  for i in /sys/devices/system/cpu/*/cpufreq/bluactive; do
 	if [ -e "$GOVERNOR1/above_hispeed_delay" ]; then
-		$busybox echo "0" > "$i/above_hispeed_delay";
+		$busybox echo "0 1400000:100000" > "$i/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR1/boost" ]; then
 		$busybox echo "0" > "$i/boost";
@@ -1665,13 +1855,13 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "0" > "$i/boostpulse_duration";
 	fi
 	if [ -e "$GOVERNOR1/go_hispeed_load" ]; then
-		$busybox echo "100" > "$i/go_hispeed_load";
+		$busybox echo "300" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR1/hispeed_freq" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR1/io_is_busy" ]; then
-		$busybox echo "0" > "$i/io_is_busy";
+		$busybox echo "1" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR1/min_sample_time" ]; then
 		$busybox echo "65000" > "$i/min_sample_time";
@@ -1683,7 +1873,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "$MIN_CPU_FREQ" > "$i/sync_freq";
 	fi
 	if [ -e "$GOVERNOR1/target_loads" ]; then
-		$busybox echo "95 $MIN_CPU_FREQ:79 400000:38 600000:83 900000:92 1100000:96 1400000:99" > "$i/target_loads";
+		$busybox echo "92 $MIN_CPU_FREQ:82 400000:31 600000:48 800000:68 1100000:81 1400000:92 1700000:97 1900000:99" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR1/timer_rate" ]; then
 		$busybox echo "40000" > "$i/timer_rate";
@@ -1785,7 +1975,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "1" > "$i/ignore_nice_load";
 	fi
 	if [ -e "$GOVERNOR1/io_is_busy" ]; then
-		$busybox echo "0" > "$i/io_is_busy";
+		$busybox echo "1" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR1/sampling_down_factor" ]; then
 		$busybox echo "1" > "$i/sampling_down_factor";
@@ -1819,7 +2009,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "1" > "$i/ignore_nice_load";
 	fi
 	if [ -e "$GOVERNOR1/io_is_busy" ]; then
-		$busybox echo "0" > "$i/io_is_busy";
+		$busybox echo "1" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR1/optimal_freq" ]; then
 		$busybox echo "700000" > "$i/optimal_freq";
@@ -1994,7 +2184,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
  elif [ $CUR_GOVERNOR = "interactive_pro" ]; then
  for i in /sys/devices/system/cpu/*/cpufreq/interactive_pro; do
 	if [ -e "$GOVERNOR1/above_hispeed_delay" ]; then
-		$busybox echo "0" > "$i/above_hispeed_delay";
+		$busybox echo "0 1400000:100000" > "$i/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR1/boost" ]; then
 		$busybox echo "0" > "$i/boost";
@@ -2006,13 +2196,13 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "$MIN_CPU_FREQ" > "$i/freq_calc_thresh";
 	fi
 	if [ -e "$GOVERNOR1/go_hispeed_load" ]; then
-		$busybox echo "100" > "$i/go_hispeed_load";
+		$busybox echo "300" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR1/hispeed_freq" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR1/io_is_busy" ]; then
-		$busybox echo "0" > "$i/io_is_busy";
+		$busybox echo "1" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR1/min_sample_time" ]; then
 		$busybox echo "65000" > "$i/min_sample_time";
@@ -2024,7 +2214,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "$MIN_CPU_FREQ" > "$i/sync_freq";
 	fi
 	if [ -e "$GOVERNOR1/target_loads" ]; then
-		$busybox echo "95 $MIN_CPU_FREQ:79 400000:38 600000:83 900000:92 1100000:96 1400000:99" > "$i/target_loads";
+		$busybox echo "92 $MIN_CPU_FREQ:82 400000:31 600000:48 800000:68 1100000:81 1400000:92 1700000:97 1900000:99" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR1/timer_rate" ]; then
 		$busybox echo "40000" > "$i/timer_rate";
@@ -2120,7 +2310,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
  elif [ $CUR_GOVERNOR = "smartmax_eps" ]; then
  for i in /sys/devices/system/cpu/*/cpufreq/smartmax_eps; do
 	if [ -e "$GOVERNOR1/io_is_busy" ]; then
-		$busybox echo "0" > "$i/io_is_busy";
+		$busybox echo "1" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR1/max_cpu_load" ]; then
 		$busybox echo "100" > "$i/max_cpu_load";
@@ -2227,7 +2417,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "10000" > "$i/down_sample_time";
 	fi
 	if [ -e "$GOVERNOR1/go_hispeed_load" ]; then
-		$busybox echo "100" > "$i/go_hispeed_load";
+		$busybox echo "300" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR1/hispeed_freq" ]; then
 		$busybox echo "1200000" > "$i/hispeed_freq";
@@ -2280,7 +2470,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
  elif [ $CUR_GOVERNOR = "blu_active" ]; then
  for i in /sys/devices/system/cpu/*/cpufreq/blu_active; do
 	if [ -e "$GOVERNOR1/above_hispeed_delay" ]; then
-		$busybox echo "0" > "$i/above_hispeed_delay";
+		$busybox echo "0 1400000:100000" > "$i/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR1/boostpulse_duration" ]; then	
 		$busybox echo "0" > "$i/boostpulse_duration";
@@ -2289,7 +2479,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "0" > "$i/fastlane";
 	fi
 	if [ -e "$GOVERNOR1/go_hispeed_load" ]; then
-		$busybox echo "100" > "$i/go_hispeed_load";
+		$busybox echo "300" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR1/hispeed_freq" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
@@ -2298,7 +2488,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "600000" > "$i/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR1/io_is_busy" ]; then
-		$busybox echo "0" > "$i/io_is_busy";
+		$busybox echo "1" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR1/low_load_down_threshold" ]; then
 		$busybox echo "25" > "$i/low_load_down_threshold";
@@ -2313,7 +2503,7 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 		$busybox echo "1" > "$i/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR1/target_loads" ]; then
-		$busybox echo "95 $MIN_CPU_FREQ:79 400000:38 600000:83 900000:92 1100000:96 1400000:99" > "$i/target_loads";
+		$busybox echo "92 $MIN_CPU_FREQ:82 400000:31 600000:48 800000:68 1100000:81 1400000:92 1700000:97 1900000:99" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR1/timer_rate" ]; then
 		$busybox echo "40000" > "$i/timer_rate";
@@ -2329,6 +2519,196 @@ $busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAG
 	fi
 	if [ -e "$GOVERNOR1/up_threshold_any_cpu_load" ]; then
 		$busybox echo "0" > "$i/up_threshold_any_cpu_load";
+	fi
+ done
+	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+$busybox echo "PROFILE SUCESSFULLY APPLIED. CLOSE THIS WINDOW TAB OR THIS MESSAGE WILL KEEP HERE FOREVER."
+	echo ""
+
+# ZZMOOVE
+	
+ elif [ $CUR_GOVERNOR = "zzmoove" ]; then
+ for i in /sys/devices/system/cpu/*/cpufreq/zzmoove; do
+	if [ -e "$GOVERNOR/afs_treshold1" ]; then
+		$busybox echo "32" > "$i/afs_treshold1";
+	fi
+	if [ -e "$GOVERNOR/afs_treshold2" ]; then
+		$busybox echo "49" > "$i/afs_treshold2";
+	fi
+	if [ -e "$GOVERNOR/afs_treshold3" ]; then
+		$busybox echo "67" > "$i/afs_treshold3";
+	fi
+	if [ -e "$GOVERNOR/afs_treshold4" ]; then
+		$busybox echo "84" > "$i/afs_treshold4";
+	fi
+	if [ -e "$GOVERNOR/auto_adjust_freq_threshold" ]; then
+		$busybox echo "0" > "$i/auto_adjust_freq_threshold";
+	fi
+	if [ -e "$GOVERNOR/block_down_multiplier_hotplug1" ]; then
+		$busybox echo "1" > "$i/block_down_multiplier_hotplug1";
+	fi
+	if [ -e "$GOVERNOR/block_down_multiplier_hotplug2" ]; then
+		$busybox echo "1" > "$i/block_down_multiplier_hotplug2";
+	fi
+	if [ -e "$GOVERNOR/block_down_multiplier_hotplug3" ]; then
+		$busybox echo "1" > "$i/block_down_multiplier_hotplug3";
+	fi
+	if [ -e "$GOVERNOR/block_down_multiplier_hotplug4" ]; then
+		$busybox echo "1" > "$i/block_down_multiplier_hotplug4";
+	fi
+	if [ -e "$GOVERNOR/disable_hotplug" ]; then
+		$busybox echo "1" > "$i/disable_hotplug";
+	fi
+	if [ -e "$GOVERNOR/disable_hotplug_sleep" ]; then
+		$busybox echo "1" > "$i/disable_hotplug_sleep";
+	fi
+	if [ -e "$GOVERNOR/early_demand" ]; then
+		$busybox echo "0" > "$i/early_demand";
+	fi
+	if [ -e "$GOVERNOR/early_demand_sleep" ]; then
+		$busybox echo "1" > "$i/early_demand_sleep";
+	fi
+	if [ -e "$GOVERNOR/fast_scaling_down" ]; then
+		$busybox echo "4" > "$i/fast_scaling_down";
+	fi
+	if [ -e "$GOVERNOR/fast_scaling_down_sleep" ]; then
+		$busybox echo "6" > "$i/fast_scaling_down_sleep";
+	fi
+	if [ -e "$GOVERNOR/fast_scaling_up_sleep" ]; then
+		$busybox echo "0" > "$i/fast_scaling_up_sleep";
+	fi
+	if [ -e "$GOVERNOR/fast_scaling_up" ]; then
+		$busybox echo "0" > "$i/fast_scaling_up";
+	fi
+	if [ -e "$GOVERNOR/freq_limit" ]; then
+		$busybox echo "0" > "$i/freq_limit";
+	fi
+	if [ -e "$GOVERNOR/freq_limit_sleep" ]; then
+		$busybox echo "900000" > "$i/freq_limit_sleep";
+	fi
+	if [ -e "$GOVERNOR/grad_up_threshold" ]; then
+		$busybox echo "30" > "$i/grad_up_threshold";
+	fi
+	if [ -e "$GOVERNOR/grad_up_threshold_sleep" ]; then
+		$busybox echo "38" > "$i/grad_up_threshold_sleep";
+	fi
+	if [ -e "$GOVERNOR/ignore_nice_load" ]; then
+		$busybox echo "1" > "$i/ignore_nice_load";
+	fi
+	if [ -e "$GOVERNOR/inputboost_cycles" ]; then
+		$busybox echo "0" > "$i/inputboost_cycles";
+	fi
+	if [ -e "$GOVERNOR/inputboost_punch_cycles" ]; then
+		$busybox echo "0" > "$i/inputboost_punch_cycles";
+	fi
+	if [ -e "$GOVERNOR/inputboost_punch_freq" ]; then
+		$busybox echo "0" > "$i/inputboost_punch_freq";
+	fi
+	if [ -e "$GOVERNOR/inputboost_punch_on_epenmove" ]; then
+		$busybox echo "0" > "$i/inputboost_punch_on_epenmove";
+	fi
+	if [ -e "$GOVERNOR/inputboost_punch_on_fingerdown" ]; then
+		$busybox echo "0" > "$i/inputboost_punch_on_fingerdown";
+	fi
+	if [ -e "$GOVERNOR/inputboost_punch_on_fingermove" ]; then
+		$busybox echo "0" > "$i/inputboost_punch_on_fingermove";
+	fi
+	if [ -e "$GOVERNOR/inputboost_typingbooster_cores" ]; then
+		$busybox echo "0" > "$i/inputboost_typingbooster_cores";
+	fi
+	if [ -e "$GOVERNOR/inputboost_typingbooster_up_threshold" ]; then
+		$busybox echo "60" > "$i/inputboost_typingbooster_up_threshold";
+	fi
+	if [ -e "$GOVERNOR/inputboost_up_threshold" ]; then
+		$busybox echo "100" > "$i/inputboost_up_threshold";
+	fi
+	if [ -e "$GOVERNOR/music_max_freq" ]; then
+		$busybox echo "600000" > "$i/music_max_freq";
+	fi
+	if [ -e "$GOVERNOR/music_min_cores" ]; then
+		$busybox echo "0" > "$i/music_min_cores";
+	fi
+	if [ -e "$GOVERNOR/music_min_freq" ]; then
+		$busybox echo "$MIN_CPU_FREQ" > "$i/music_min_freq";
+	fi
+	if [ -e "$GOVERNOR/profile_number" ]; then
+		$busybox echo "0" > "$i/profile_number";
+	fi
+	if [ -e "$GOVERNOR/profile_sticky_mode" ]; then
+		$busybox echo "1" > "$i/profile_sticky_mode";
+	fi
+	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
+		$busybox echo "1" > "$i/sampling_down_factor";
+	fi
+	if [ -e "$GOVERNOR/sampling_down_max_momentum" ]; then
+		$busybox echo "0" > "$i/sampling_down_max_momentum"; 
+	fi
+	if [ -e "$GOVERNOR/sampling_down_max_sensitivity" ]; then
+		$busybox echo "75" > "$i/sampling_down_max_sensitivity"; 
+	fi
+	if [ -e "$GOVERNOR/sampling_rate" ]; then
+		$busybox echo "100000" > "$i/sampling_rate"; 
+	fi
+	if [ -e "$GOVERNOR/sampling_rate_current" ]; then
+		$busybox echo "250000" > "$i/sampling_rate_current"; 
+	fi
+	if [ -e "$GOVERNOR/sampling_rate_idle" ]; then
+		$busybox echo "100000" > "$i/sampling_rate_idle"; 
+	fi
+	if [ -e "$GOVERNOR/sampling_rate_idle_delay" ]; then
+		$busybox echo "0" > "$i/sampling_rate_idle_delay"; 
+	fi
+	if [ -e "$GOVERNOR/sampling_rate_idle_threshold" ]; then
+		$busybox echo "50" > "$i/sampling_rate_idle_threshold"; 
+	fi
+	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
+		$busybox echo "30000" > "$i/sampling_rate_min"; 
+	fi
+	if [ -e "$GOVERNOR/sampling_rate_sleep_multiplier" ]; then
+		$busybox echo "2" > "$i/sampling_rate_sleep_multiplier"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_block_cycles" ]; then
+		$busybox echo "4" > "$i/scaling_block_cycles"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_block_force_down" ]; then
+		$busybox echo "2" > "$i/scaling_block_force_down"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_block_freq" ]; then
+		$busybox echo "1400000" > "$i/scaling_block_freq"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_block_threshold" ]; then
+		$busybox echo "0" > "$i/scaling_block_threshold"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_fastdown_down_threshold" ]; then
+		$busybox echo "95" > "$i/scaling_fastdown_down_threshold"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_fastdown_freq" ]; then
+		$busybox echo "0" > "$i/scaling_fastdown_freq"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_fastdown_up_threshold" ]; then
+		$busybox echo "99" > "$i/scaling_fastdown_up_threshold"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_proportional" ]; then
+		$busybox echo "0" > "$i/scaling_proportional"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_responsiveness_freq" ]; then
+		$busybox echo "0" > "$i/scaling_responsiveness_freq"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_responsiveness_up_threshold" ]; then
+		$busybox echo "90" > "$i/scaling_responsiveness_up_threshold"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_up_block_cycles" ]; then
+		$busybox echo "0" > "$i/scaling_up_block_cycles"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_up_block_freq" ]; then
+		$busybox echo "0" > "$i/scaling_up_block_freq"; 
+	fi
+	if [ -e "$GOVERNOR/smooth_up" ]; then
+		$busybox echo "75" > "$i/smooth_up"; 
+	fi
+	if [ -e "$GOVERNOR/smooth_up_sleep" ]; then
+		$busybox echo "100" > "$i/smooth_up_sleep"; 
 	fi
  done
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."

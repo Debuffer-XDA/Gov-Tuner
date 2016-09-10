@@ -18,7 +18,7 @@ core="/system/etc/GovTuner"
 busybox="$core/busybox"
 init="/system/etc/init.d"
 PROFILE_DIR="$core/current"
-ver="3.0.3"
+ver="3.1"
 id="$(id)"; id="${id#*=}"; id="${id%%\(*}"; id="${id%% *}"
 CUR_GOVERNOR=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor);
 GOVERNOR=$CUR_GOVERNOR

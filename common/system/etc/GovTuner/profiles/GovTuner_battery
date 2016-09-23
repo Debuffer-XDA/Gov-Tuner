@@ -81,7 +81,7 @@ while [ 5 == 5 ]; do
 		$busybox echo "99 $MIN_CPU_FREQ:87 600000:71 800000:85 900000:87 1100000:96 1400000:99"> "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
-		$busybox echo "22000" > "$i/timer_rate";
+		$busybox echo "20000" > "$i/timer_rate";
 	fi
 	if [ -e "$GOVERNOR/timer_slack" ]; then
 		$busybox echo "-1" > "$i/timer_slack";

@@ -229,6 +229,33 @@ $busybox echo "Governor_Tuner Disabled"
 $busybox sleep 0.5
 $busybox clear;;
 
+t|T)$busybox clear
+$busybox mount -o remount,rw /system 2>/dev/null
+if [ -f "$INIT_TEST" ]; then
+    cat $INIT_TEST
+   $busybox sleep 2
+else
+     echo "Init.D is NOT WORKING"
+     $busybox sleep 1
+     $busybox echo "Sometimes you may have to REBOOT after first flash to confirm if Init.D is working"
+     $busybox sleep 2
+fi
+$busybox sleep 0.5
+$busybox clear;;
+
+g|G)$busybox clear
+$busybox mount -o remount,rw /system 2>/dev/null
+OUTPUT_ID=$($busybox cat /data/system/test);
+if ps | grep "$OUTPUT_ID"
+    then
+            echo "GovTuner is ACTIVE, optimizing your device"
+            $busybox sleep 2
+else
+       echo "Not working"
+       $busybox sleep 2
+fi
+$busybox sleep 0.5
+$busybox clear;;
 
 c|C)$busybox clear;
 sh $core/Changelogs;;

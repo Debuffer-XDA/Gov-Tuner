@@ -15,7 +15,7 @@
 
 divider="==============================================="
 core="/system/etc/GovTuner"
-busybox="$core/busybox"
+busybox=/system/etc/GovTuner/busybox
 init="/system/etc/init.d"
 PROFILE_DIR="$core/current"
 ver="3.2"
@@ -119,7 +119,7 @@ $busybox sleep 0.2
 $busybox echo "Copying battery profile to init.d"
 $busybox sleep 0.3
 $busybox echo ""
-$busybox mount -o remount, rw /system
+$busybox mount -o remount,rw /system 2>/dev/null
 if [ -e $PROFILE_DIR/GovTuner_balanced ]; then
 	$busybox rm -rf $PROFILE_DIR/GovTuner_balanced
 fi
@@ -128,7 +128,7 @@ if [ -e $PROFILE_DIR/GovTuner_performance ]; then
 fi
 $busybox cp -f $core/profiles/GovTuner_battery $PROFILE_DIR/GovTuner_battery
 $busybox chmod 755 $PROFILE_DIR/GovTuner_battery
-$busybox mount -o remount, ro /system
+$busybox mount -o remount,ro /system 2>/dev/null
 $busybox echo "Applying battery tweaks"
 $busybox sleep 0.4
 $busybox echo ""
@@ -152,7 +152,7 @@ $busybox sleep 0.2
 $busybox echo "Copying balanced profile to init.d"
 $busybox sleep 0.3
 $busybox echo ""
-$busybox mount -o remount, rw /system
+$busybox mount -o remount,rw /system 2>/dev/null
 if [ -e $PROFILE_DIR/GovTuner_battery ]; then
 	$busybox rm -rf $PROFILE_DIR/GovTuner_battery
 fi
@@ -161,7 +161,7 @@ if [ -e $PROFILE_DIR/GovTuner_performance ]; then
 fi
 $busybox cp -f $core/profiles/GovTuner_balanced $PROFILE_DIR/GovTuner_balanced
 $busybox chmod 755 $PROFILE_DIR/GovTuner_balanced
-$busybox mount -o remount, ro /system
+$busybox mount -o remount,ro /system 2>/dev/null
 $busybox echo "Applying balanced tweaks"
 $busybox sleep 0.4
 $busybox echo ""
@@ -185,7 +185,7 @@ $busybox sleep 0.2
 $busybox echo "Copying performance profile to init.d"
 $busybox sleep 0.3
 $busybox echo ""
-$busybox mount -o remount, rw /system
+$busybox mount -o remount,rw /system 2>/dev/null
 if [ -e $PROFILE_DIR/GovTuner_battery ]; then
 	$busybox rm -rf $PROFILE_DIR/GovTuner_battery
 fi
@@ -194,7 +194,7 @@ if [ -e $PROFILE_DIR/GovTuner_balanced ]; then
 fi
 $busybox cp -f $core/profiles/GovTuner_performance $PROFILE_DIR/GovTuner_performance
 $busybox chmod 755 $PROFILE_DIR/GovTuner_performance
-$busybox mount -o remount, ro /system
+$busybox mount -o remount,ro /system 2>/dev/null
 $busybox echo "Applying performance tweaks"
 $busybox sleep 0.4
 $busybox echo ""
@@ -215,7 +215,7 @@ echo "Removing files"
 $busybox sleep 0.5
 echo "Killing process"
 $busybox sleep 0.5
-$busybox mount -o remount, rw /system
+$busybox mount -o remount,rw /system 2>/dev/null
 if [ -e $PROFILE_DIR/GovTuner_battery ]; then
 	$busybox rm -rf $PROFILE_DIR/GovTuner_battery
 fi
@@ -229,6 +229,33 @@ $busybox echo "Governor_Tuner Disabled"
 $busybox sleep 0.5
 $busybox clear;;
 
+t|T)$busybox clear
+$busybox mount -o remount,rw /system 2>/dev/null
+if [ -f "$INIT_TEST" ]; then
+    cat $INIT_TEST
+   $busybox sleep 2
+else
+     echo "Init.D is NOT WORKING"
+     $busybox sleep 1
+     $busybox echo "Sometimes you may have to REBOOT after first flash to confirm if Init.D is working"
+     $busybox sleep 2
+fi
+$busybox sleep 0.5
+$busybox clear;;
+
+g|G)$busybox clear
+$busybox mount -o remount,rw /system 2>/dev/null
+OUTPUT_ID=$($busybox cat /data/system/test);
+if ps | grep "$OUTPUT_ID"
+    then
+            echo "GovTuner is ACTIVE, optimizing your device"
+            $busybox sleep 2
+else
+       echo "Not working"
+       $busybox sleep 2
+fi
+$busybox sleep 0.5
+$busybox clear;;
 
 c|C)$busybox clear;
 sh $core/Changelogs;;

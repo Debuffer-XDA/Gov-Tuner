@@ -16,7 +16,10 @@
 divider="==============================================="
 core="/system/etc/GovTuner"
 busybox="/system/etc/GovTuner/busybox"
+<<<<<<< HEAD
 getprop="/system/bin/getprop"
+=======
+>>>>>>> origin/master
 init="/system/etc/init.d"
 PROFILE_DIR="$core/current"
 ver="3.3.1"
@@ -30,6 +33,45 @@ INIT_TEST="/gt_test"
 VER=$(${busybox} awk -F= '/ro.build.version.release/{print $NF}' /system/build.prop)
 DEVICE=$($getprop ro.product.model | grep '[a-zA-Z0-9]');
 FREQ_SOURCE=/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies
+
+# Cluster detection system
+
+# Max CPU Freq
+MAX_CPU_FREQ=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq);
+MAX_CPU_FREQ_2=$($busybox cat /sys/devices/system/cpu/cpu2/cpufreq/cpuinfo_max_freq);
+MAX_CPU_FREQ_4=$($busybox cat /sys/devices/system/cpu/cpu4/cpufreq/cpuinfo_max_freq);
+
+if [ -e $MAX_CPU_FREQ_2 ]; then
+	# Checks if MAX_CPU_FREQ_2 equals to MAX_CPU_FREQ
+	# If true, then this means the device is either octa / hexa core, or doesn't have cluster
+	if [ $MAX_CPU_FREQ = $MAX_CPU_FREQ_2 ]; then
+		# Assume no cluster here
+		NO_CLUSTER_1=true
+		IS_QUAD_CLUSTER=false
+	else
+		# This is a quad-core cluster device
+		NO_CLUSTER_1=false
+		NO_CLUSTER=false
+		IS_QUAD_CLUSTER=true
+		IS_QPLUS_CLUSTER=false
+	fi
+fi
+if [ -e $MAX_CPU_FREQ_4 ]; then
+	# If the system is still stubborn about it, detect the fourth core
+	# This is sometimes the marker that it's an octa / hexa core cluster
+	if [ $MAX_CPU_FREQ_4 = $MAX_CPU_FREQ ]; then
+			# Totally no cluster here
+		if [ $NO_CLUSTER_1 = "true" ]; then
+			NO_CLUSTER=true
+			IS_QPLUS_CLUSTER=false
+		else
+			# Yep, it's an octa / hexa core cluster
+			NO_CLUSTER=false
+			IS_QPLUS_CLUSTER=true
+			IS_QUAD_CLUSTER=false
+		fi
+	fi
+fi
 
 $busybox sleep 1
 $busybox clear
@@ -52,7 +94,7 @@ if [ "$id" != "0" ] && [ "$id" != "root" ]; then
 	$busybox echo "    Then type govtuner"
 	$busybox echo ""
 	$busybox echo ""
-	$busybox sleep 1
+	$busybox sleep 2
 	exit
 	else
 		$busybox clear
@@ -117,10 +159,15 @@ echo -e "\e[01;3"$c"m        |_|\__,_|_| |_|\___|_|  \e[00;37m"
 busybox sleep 0.1
 echo "                                 " 
 $busybox echo -e "Profile: $profile"
-if [ -d "$CLUSTER_DETECT" ]; then
-$busybox echo -e "Cluster device: Yes"
+if [ $NO_CLUSTER_1 = "true" ]; then
+	$busybox echo -e "Cluster device: No"
 else
-$busybox echo -e "Cluster device: No"
+	if [ $IS_QUAD_CLUSTER = "true" ]; then
+	$busybox echo -e "Cluster device: Yes, quad"
+	fi
+	if [ $IS_QPLUS_CLUSTER = "true" ]; then
+	$busybox echo -e "Cluster device: Yes, hexa / octa"
+	fi
 fi
 busybox echo "Device: ${DEVICE}" 
 busybox echo "Android Version: ${VER}"

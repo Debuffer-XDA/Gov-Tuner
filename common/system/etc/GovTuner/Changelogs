@@ -14,12 +14,17 @@
 #=======================================================================#
 
 busybox="/system/etc/GovTuner/busybox"
+<<<<<<< HEAD
 ver="3.3.1"
 divider="==============================================="
+=======
+ver="3.2"
+>>>>>>> origin/master
 
 $busybox echo "CHANGELOG FOR $ver"
 $busybox echo "-------------------"
 $busybox echo ""
+<<<<<<< HEAD
 $busybox echo "Improved balanced interactive governors"
 $busybox echo "Improved performance interactive governors"
 $busybox echo "Improved battery interactive governors"
@@ -33,6 +38,14 @@ $busybox echo "Improved code processing "
 $busybox echo "Added CPU Min and Max frequency, device model,  android version information"
 $busybox echo "**Code size is reduced by almost HALF**"
 $busybox echo "Fixed various errors of files not showing up"
+=======
+$busybox echo "Reformulated all interactive based governors for all profiles"
+$busybox echo "Reformulated all ondemand based governors for all profiles"
+$busybox echo "Optimized the profiles according to the designated function:"
+$busybox echo "- Battery is now more battery saver than it used to be"
+$busybox echo "- Balanced is now a real mix between battery and performance"
+$busybox echo "- Performance is now like : "fuck battery, i want my device as the flash""
+>>>>>>> origin/master
 $busybox echo ""
 $busybox echo -n "b. Back to menu: "
 read -r character

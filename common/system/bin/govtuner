@@ -1,7 +1,7 @@
 #!/system/bin/sh
 # Gov-Tuner Launcher
-# Copyright (C) 2016 Debuffer @ XDA-Developers
-#      With help from Paget96 and F4uzan
+# Copyright (C) 2016 Debuffer and Senthil360 @ XDA-Developers
+#      With help from Paget96 and F4uzan and GreekDragon
 #=======================================================================#
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -15,15 +15,21 @@
 
 divider="==============================================="
 core="/system/etc/GovTuner"
-busybox=/system/etc/GovTuner/busybox
+busybox="/system/etc/GovTuner/busybox"
+getprop="/system/bin/getprop"
 init="/system/etc/init.d"
 PROFILE_DIR="$core/current"
-ver="3.2"
+ver="3.3.1"
 id="$(id)"; id="${id#*=}"; id="${id%%\(*}"; id="${id%% *}"
 CUR_GOVERNOR=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor);
 GOVERNOR=$CUR_GOVERNOR
 CLUSTER_DETECT="/sys/devices/system/cpu/cpu0/cpufreq/$CUR_GOVERNOR"
-OUTPUT_ID=$($busybox cat /data/system/test)
+FIRST_RUN="/data/system/first_run"
+CHECK2="$PROFILE_DIR/profile"
+INIT_TEST="/gt_test"
+VER=$(${busybox} awk -F= '/ro.build.version.release/{print $NF}' /system/build.prop)
+DEVICE=$($getprop ro.product.model | grep '[a-zA-Z0-9]');
+FREQ_SOURCE=/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies
 
 $busybox sleep 1
 $busybox clear
@@ -60,52 +66,120 @@ if [ "$id" != "0" ] && [ "$id" != "root" ]; then
 		$busybox sleep 
 		$busybox clear
 fi
-echo "After applying a profile.."
+echo "After applying a profile..."
 sleep 1
-echo "...Wait for 5 to 10 seconds before closing the window"
-chmod 755 $init/gt_init
+echo "...Wait for 3 seconds before closing the window"
+sleep 2
 
 while true; do
 if [ -f $PROFILE_DIR/GovTuner_battery ]; then
 	profile="\e[1;33mBattery\e[0m"
+  c=1
 elif [ -f $PROFILE_DIR/GovTuner_balanced ]; then
-	profile="\e[1;36mBalanced\e[0m"
+	profile="\e[1;32mBalanced\e[0m"
+  c=6
 elif [ -f $PROFILE_DIR/GovTuner_performance ]; then
-	profile="\e[1;34mPerformance\e[0m"
+	profile="\e[1;35mPerformance\e[0m"
+  c=4
 else
 	profile="\e[1;30mDefault\e[0m"
+  c=0
 fi
 
-
-$busybox clear
-$busybox echo -e "Current version: $ver"
-$busybox echo -e "Governor: $CUR_GOVERNOR"
+busybox sleep 0.5
+$busybox clear;
+$busybox clear;
+echo "                      "
+busybox sleep 0.4
+echo -e "\e[01;3"$c"m  _____               \e[00;37m"
+busybox sleep 0.1
+echo -e "\e[01;3"$c"m / ____|              \e[00;37m"
+busybox sleep 0.1
+echo -e "\e[01;3"$c"m | | __  _____    __ \e[00;37m"
+busybox sleep 0.1
+echo -e "\e[01;3"$c"m | ||_ |/ _ \ \  / / \e[00;37m"
+busybox sleep 0.1
+echo -e "\e[01;3"$c"m | |_| | (_) \ \/ /  \e[00;37m"
+busybox sleep 0.1
+echo -e "\e[01;3"$c"m \_____|\___/ \__/   \e[00;37m"          
+busybox sleep 0.1
+echo -e "\e[01;3"$c"m      _______                   \e[00;37m"
+busybox sleep 0.1
+echo -e "\e[01;3"$c"m     |__   __|                  \e[00;37m"
+busybox sleep 0.1
+echo -e "\e[01;3"$c"m        | |_   _ _,__   ____,__ \e[00;37m"
+busybox sleep 0.1
+echo -e "\e[01;3"$c"m        | | | | |  _ \ / _ \ __| \e[00;37m"
+busybox sleep 0.1
+echo -e "\e[01;3"$c"m        | | |_| | | | |  __/ |  \e[00;37m"
+busybox sleep 0.1
+echo -e "\e[01;3"$c"m        |_|\__,_|_| |_|\___|_|  \e[00;37m"
+busybox sleep 0.1
+echo "                                 " 
 $busybox echo -e "Profile: $profile"
 if [ -d "$CLUSTER_DETECT" ]; then
 $busybox echo -e "Cluster device: Yes"
 else
 $busybox echo -e "Cluster device: No"
 fi
+busybox echo "Device: ${DEVICE}" 
+busybox echo "Android Version: ${VER}"
+if [ -f /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies ]; then
+UFREQ=$($busybox awk '{print $NF}' $FREQ_SOURCE);
+LFREQ=$($busybox awk -v 1=$1 '{print $1}' $FREQ_SOURCE);
+elif [ ! -f /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies ] &&  [ -f /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq ]; then
+UFREQ=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq);
+LFREQ=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq);
+elif [ ! -f /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq ] &&  [ ! -f /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies ]; then
+  Show_freq=false
+else
+ Show_freq=false
+fi
+if [ "$Show_freq" = "false" ]; then
+   $busybox echo ""
+   $busybox echo $divider
+else
+   MAX_FREQ=$(($UFREQ / 1000 ));
+   MIN_FREQ=$(($LFREQ / 1000 ));
+   $busybox echo "CPU Min: $MIN_FREQ MHz"
+   $busybox echo "CPU Max: $MAX_FREQ MHz"
+   $busybox echo ""
+   $busybox echo $divider
+fi
+$busybox echo ""
+$busybox echo "        -Please choose a profile-"
 $busybox echo ""
 $busybox echo $divider
 $busybox echo ""
-$busybox echo "Please choose a profile:"
 $busybox echo -e "\e[01;31m     1 - Battery \e[00;37m"
 $busybox echo ""
-$busybox echo -e "\e[01;32m     2 - Balanced \e[00;37m"
+$busybox echo -e "\e[01;36m     2 - Balanced \e[00;37m"
 $busybox echo ""
 $busybox echo -e "\e[01;34m     3 - Performance \e[00;37m"
 $busybox echo ""
 $busybox echo $divider
 $busybox echo ""
 $busybox echo -e "\e[01;37m u - Disable GovTuner \e[00;37m"
+$busybox echo -e "\e[01;37m c. $ver Changelog \e[00;37m"
+$busybox echo " e. Exit"
 $busybox echo ""
-$busybox echo -e "\e[01;37m g - Test GovTuner \e[00;37m" 
-$busybox echo "" 
-$busybox echo -e "\e[01;37m t - Test Init.d \e[00;37m" 
-$busybox echo "" 
-$busybox echo -e "\e[01;37mc. $ver Changelog \e[00;37m"
-$busybox echo "e. Exit"
+$busybox echo $divider
+$busybox echo ""
+$busybox echo ""
+OUTPUT_ID=$($busybox cat /data/system/test);
+if ps | grep "$OUTPUT_ID"
+    then
+            echo -e "\e[01;37m GovTuner \e[00;37m : \e[01;32m ACTIVE \e[00;37m"
+else
+       echo -e "\e[01;37m GovTuner \e[00;37m : \e[01;31m INACTIVE \e[00;37m"
+fi
+$busybox echo ""
+if [ -f "$INIT_TEST" ]; then
+    echo -e "\e[01;37m Init.d \e[00;37m : \e[01;32m WORKING \e[00;37m"
+else
+     echo -e "\e[01;37m Init.d \e[00;37m : \e[01;31m NOT WORKING \e[00;37m"
+     $busybox echo -e "\e[01;37m If you use 3rd party init.d emulators it's fine as well, it just won't show up here as active \e[00;37m"
+fi
 $busybox echo ""
 $busybox echo -n "Please select a profile:"
 read -r character
@@ -114,12 +188,19 @@ case $character in
 $busybox echo ""
 $busybox echo "Activating battery profile"
 $busybox sleep 0.3
+if [ ! -f "$CHECK2" ]; then
+   echo 1 > $FIRST_RUN
+else
+   echo 0 > $FIRST_RUN
+fi
 $busybox echo ""
 $busybox sleep 0.2
 $busybox echo "Copying battery profile to init.d"
 $busybox sleep 0.3
 $busybox echo ""
 $busybox mount -o remount,rw /system 2>/dev/null
+mount -o remount,rw /system 2>/dev/null
+
 if [ -e $PROFILE_DIR/GovTuner_balanced ]; then
 	$busybox rm -rf $PROFILE_DIR/GovTuner_balanced
 fi
@@ -128,7 +209,6 @@ if [ -e $PROFILE_DIR/GovTuner_performance ]; then
 fi
 $busybox cp -f $core/profiles/GovTuner_battery $PROFILE_DIR/GovTuner_battery
 $busybox chmod 755 $PROFILE_DIR/GovTuner_battery
-$busybox mount -o remount,ro /system 2>/dev/null
 $busybox echo "Applying battery tweaks"
 $busybox sleep 0.4
 $busybox echo ""
@@ -148,11 +228,17 @@ $busybox echo ""
 $busybox echo "Activating balanced profile"
 $busybox sleep 0.3
 $busybox echo ""
+if [ ! -f "$CHECK2" ]; then
+   echo 1 > $FIRST_RUN
+else
+   echo 0 > $FIRST_RUN
+fi
 $busybox sleep 0.2
 $busybox echo "Copying balanced profile to init.d"
 $busybox sleep 0.3
 $busybox echo ""
 $busybox mount -o remount,rw /system 2>/dev/null
+mount -o remount,rw /system 2>/dev/null
 if [ -e $PROFILE_DIR/GovTuner_battery ]; then
 	$busybox rm -rf $PROFILE_DIR/GovTuner_battery
 fi
@@ -161,7 +247,6 @@ if [ -e $PROFILE_DIR/GovTuner_performance ]; then
 fi
 $busybox cp -f $core/profiles/GovTuner_balanced $PROFILE_DIR/GovTuner_balanced
 $busybox chmod 755 $PROFILE_DIR/GovTuner_balanced
-$busybox mount -o remount,ro /system 2>/dev/null
 $busybox echo "Applying balanced tweaks"
 $busybox sleep 0.4
 $busybox echo ""
@@ -181,11 +266,17 @@ $busybox echo ""
 $busybox echo "Activating performance profile"
 $busybox sleep 0.3
 $busybox echo ""
+if [ ! -f "$CHECK2" ]; then
+   echo 1 > $FIRST_RUN
+else
+   echo 0 > $FIRST_RUN
+fi
 $busybox sleep 0.2
 $busybox echo "Copying performance profile to init.d"
 $busybox sleep 0.3
 $busybox echo ""
 $busybox mount -o remount,rw /system 2>/dev/null
+mount -o remount,rw /system 2>/dev/null
 if [ -e $PROFILE_DIR/GovTuner_battery ]; then
 	$busybox rm -rf $PROFILE_DIR/GovTuner_battery
 fi
@@ -194,7 +285,6 @@ if [ -e $PROFILE_DIR/GovTuner_balanced ]; then
 fi
 $busybox cp -f $core/profiles/GovTuner_performance $PROFILE_DIR/GovTuner_performance
 $busybox chmod 755 $PROFILE_DIR/GovTuner_performance
-$busybox mount -o remount,ro /system 2>/dev/null
 $busybox echo "Applying performance tweaks"
 $busybox sleep 0.4
 $busybox echo ""
@@ -210,12 +300,14 @@ $busybox sleep 1
 $busybox clear ;;
 
 u|U)$busybox clear
+$busybox mount -o remount,rw /system 2>/dev/null
+mount -o remount,rw /system 2>/dev/null
+OUTPUT_ID=$($busybox cat /data/system/test);
 kill -9 $OUTPUT_ID
 echo "Removing files"
 $busybox sleep 0.5
 echo "Killing process"
 $busybox sleep 0.5
-$busybox mount -o remount,rw /system 2>/dev/null
 if [ -e $PROFILE_DIR/GovTuner_battery ]; then
 	$busybox rm -rf $PROFILE_DIR/GovTuner_battery
 fi
@@ -225,35 +317,11 @@ fi
 if [ -e $PROFILE_DIR/GovTuner_performance ]; then
 	$busybox rm -rf $PROFILE_DIR/GovTuner_performance
 fi
+if [ -e $PROFILE_DIR/profile ]; then
+	$busybox rm -rf $PROFILE_DIR/profile
+fi
+echo 1 > $FIRST_RUN
 $busybox echo "Governor_Tuner Disabled"
-$busybox sleep 0.5
-$busybox clear;;
-
-t|T)$busybox clear
-$busybox mount -o remount,rw /system 2>/dev/null
-if [ -f "$INIT_TEST" ]; then
-    cat $INIT_TEST
-   $busybox sleep 2
-else
-     echo "Init.D is NOT WORKING"
-     $busybox sleep 1
-     $busybox echo "Sometimes you may have to REBOOT after first flash to confirm if Init.D is working"
-     $busybox sleep 2
-fi
-$busybox sleep 0.5
-$busybox clear;;
-
-g|G)$busybox clear
-$busybox mount -o remount,rw /system 2>/dev/null
-OUTPUT_ID=$($busybox cat /data/system/test);
-if ps | grep "$OUTPUT_ID"
-    then
-            echo "GovTuner is ACTIVE, optimizing your device"
-            $busybox sleep 2
-else
-       echo "Not working"
-       $busybox sleep 2
-fi
 $busybox sleep 0.5
 $busybox clear;;
 

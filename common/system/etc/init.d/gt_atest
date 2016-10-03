@@ -1,7 +1,7 @@
 #!/system/bin/sh
-# Gov-Tuner Launcher
+# Gov-Tuner init.d tester
 # Copyright (C) 2016 Debuffer and Senthil360 @ XDA-Developers
-#      With help from Paget96 and F4uzan and GreekDragon
+#      With help from Paget96 and Fouad and GreekDragon
 #=======================================================================#
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -15,10 +15,8 @@
 
 core="/system/etc/GovTuner"
 busybox=/system/etc/GovTuner/busybox
-PROFILE=$($busybox cat /system/etc/GovTuner/current/profile);
 $busybox mount -o remount,rw /system 2>/dev/null
 $busybox mount -o remount,rw / 2>/dev/null
-mount -o remount,rw /system 2>/dev/null
-mount -o remount,rw / 2>/dev/null
-$busybox sleep 120
-sh /system/etc/GovTuner/current/$PROFILE &
+echo "Init.d is Working" > /gt_test
+$busybox mount -o remount,ro / 2>/dev/null
+$busybox mount -o remount,ro /system 2>/dev/null

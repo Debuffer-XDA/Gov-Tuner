@@ -13,6 +13,8 @@
 #  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #=======================================================================#
 
+# TODO: Fix this on Cluster-based SoC
+
 busybox="/system/etc/GovTuner/busybox"
 CUR_GOVERNOR=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor);
 DIR="/sys/devices/system/cpu/cpufreq"

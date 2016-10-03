@@ -25,6 +25,38 @@ GOVERNOR=$CUR_GOVERNOR
 CLUSTER_DETECT="/sys/devices/system/cpu/cpu0/cpufreq/$CUR_GOVERNOR"
 OUTPUT_ID=$($busybox cat /data/system/test)
 
+# Cluster detection system
+
+# Max CPU Freq
+MAX_CPU_FREQ=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq);
+MAX_CPU_FREQ_2=$($busybox cat /sys/devices/system/cpu/cpu2/cpufreq/cpuinfo_max_freq);
+MAX_CPU_FREQ_4=$($busybox cat /sys/devices/system/cpu/cpu4/cpufreq/cpuinfo_max_freq);
+
+if [ -e $MAX_CPU_FREQ_2 ]; then
+	# Checks if MAX_CPU_FREQ_2 equals to MAX_CPU_FREQ
+	# If true, then this means the device is either octa / hexa core, or doesn't have cluster
+	if [ $MAX_CPU_FREQ = $MAX_CPU_FREQ_2 ]; then
+		# Assume no cluster here
+		NO_CLUSTER_1=true
+	else
+		# This is a quad-core cluster device
+		IS_QUAD_CLUSTER=true
+	fi
+fi
+if [ -e $MAX_CPU_FREQ_4 ]; then
+	# If the system is still stubborn about it, detect the fourth core
+	# This is sometimes the marker that it's an octa / hexa core cluster
+	if [ $MAX_CPU_FREQ_4 = $MAX_CPU_FREQ ]; then
+			# Totally no cluster here
+		if [ $NO_CLUSTER_1 = "true" ]; then
+			NO_CLUSTER=true
+		else
+			# Yep, it's an octa / hexa core cluster
+			IS_QPLUS_CLUSTER=true
+		fi
+	fi
+fi
+
 $busybox sleep 1
 $busybox clear
 $busybox echo "Checking root"; $busybox sleep 0.2; $busybox clear;
@@ -81,10 +113,15 @@ $busybox clear
 $busybox echo -e "Current version: $ver"
 $busybox echo -e "Governor: $CUR_GOVERNOR"
 $busybox echo -e "Profile: $profile"
-if [ -d "$CLUSTER_DETECT" ]; then
-$busybox echo -e "Cluster device: Yes"
+if [ $NO_CLUSTER_1 = "true" ]; then
+	$busybox echo -e "Cluster device: No"
 else
-$busybox echo -e "Cluster device: No"
+	if [ $IS_QUAD_CLUSTER = "true" ]; then
+	$busybox echo -e "Cluster device: Yes, quad"
+	fi
+	if [ $IS_QPLUS_CLUSTER = "true" ]; then
+	$busybox echo -e "Cluster device: Yes, hexa / octa"
+	fi
 fi
 $busybox echo ""
 $busybox echo $divider

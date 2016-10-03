@@ -15,7 +15,7 @@
 
 divider="==============================================="
 core="/system/etc/GovTuner"
-busybox=/system/etc/GovTuner/busybox
+busybox="/system/etc/GovTuner/busybox"
 init="/system/etc/init.d"
 PROFILE_DIR="$core/current"
 ver="3.2"

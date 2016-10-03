@@ -38,9 +38,13 @@ if [ -e $MAX_CPU_FREQ_2 ]; then
 	if [ $MAX_CPU_FREQ = $MAX_CPU_FREQ_2 ]; then
 		# Assume no cluster here
 		NO_CLUSTER_1=true
+		IS_QUAD_CLUSTER=false
 	else
 		# This is a quad-core cluster device
+		NO_CLUSTER_1=false
+		NO_CLUSTER=false
 		IS_QUAD_CLUSTER=true
+		IS_QPLUS_CLUSTER=false
 	fi
 fi
 if [ -e $MAX_CPU_FREQ_4 ]; then
@@ -50,9 +54,12 @@ if [ -e $MAX_CPU_FREQ_4 ]; then
 			# Totally no cluster here
 		if [ $NO_CLUSTER_1 = "true" ]; then
 			NO_CLUSTER=true
+			IS_QPLUS_CLUSTER=false
 		else
 			# Yep, it's an octa / hexa core cluster
+			NO_CLUSTER=false
 			IS_QPLUS_CLUSTER=true
+			IS_QUAD_CLUSTER=false
 		fi
 	fi
 fi

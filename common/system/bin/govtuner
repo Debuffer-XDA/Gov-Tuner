@@ -63,7 +63,7 @@ if [ "$id" != "0" ] && [ "$id" != "root" ]; then
 		$busybox echo "Loading GovTuner setup..."
 		$busybox sleep 0.3
 		$busybox echo ""
-		$busybox sleep 
+		$busybox sleep 0.3
 		$busybox clear
 fi
 echo "After applying a profile..."

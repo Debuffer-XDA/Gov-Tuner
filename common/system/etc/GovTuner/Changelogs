@@ -15,7 +15,6 @@
 
 busybox="/system/etc/GovTuner/busybox"
 ver="3.4"
-divider="==============================================="
 
 $busybox echo "CHANGELOG FOR $ver"
 $busybox echo "-------------------"

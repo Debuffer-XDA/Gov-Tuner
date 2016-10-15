@@ -52,7 +52,7 @@ if [ "$id" != "0" ] && [ "$id" != "root" ]; then
 	$busybox echo "    Then type govtuner"
 	$busybox echo ""
 	$busybox echo ""
-	$busybox sleep 1
+	$busybox sleep 2
 	exit
 	else
 		$busybox clear

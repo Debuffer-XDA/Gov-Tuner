@@ -88,7 +88,6 @@ fi
 
 $busybox sleep 0.5
 $busybox clear;
-$busybox clear;
 echo "                      "
 $busybox sleep 0.4
 echo -e "\e[01;3"$c"m  _____               \e[00;37m"

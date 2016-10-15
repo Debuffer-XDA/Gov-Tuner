@@ -88,33 +88,33 @@ fi
 
 $busybox sleep 0.5
 $busybox clear;
-echo "                      "
+$busybox echo "                      "
 $busybox sleep 0.4
-echo -e "\e[01;3"$c"m  _____               \e[00;37m"
+$busybox echo -e "\e[01;3"$c"m  _____               \e[00;37m"
 $busybox sleep 0.1
-echo -e "\e[01;3"$c"m / ____|              \e[00;37m"
+$busybox echo -e "\e[01;3"$c"m / ____|              \e[00;37m"
 $busybox sleep 0.1
-echo -e "\e[01;3"$c"m | | __  _____    __ \e[00;37m"
+$busybox echo -e "\e[01;3"$c"m | | __  _____    __ \e[00;37m"
 $busybox sleep 0.1
-echo -e "\e[01;3"$c"m | ||_ |/ _ \ \  / / \e[00;37m"
+$busybox echo -e "\e[01;3"$c"m | ||_ |/ _ \ \  / / \e[00;37m"
 $busybox sleep 0.1
-echo -e "\e[01;3"$c"m | |_| | (_) \ \/ /  \e[00;37m"
+$busybox echo -e "\e[01;3"$c"m | |_| | (_) \ \/ /  \e[00;37m"
 $busybox sleep 0.1
-echo -e "\e[01;3"$c"m \_____|\___/ \__/   \e[00;37m"          
+$busybox echo -e "\e[01;3"$c"m \_____|\___/ \__/   \e[00;37m"          
 $busybox sleep 0.1
-echo -e "\e[01;3"$c"m      _______                   \e[00;37m"
+$busybox echo -e "\e[01;3"$c"m      _______                   \e[00;37m"
 $busybox sleep 0.1
-echo -e "\e[01;3"$c"m     |__   __|                  \e[00;37m"
+$busybox echo -e "\e[01;3"$c"m     |__   __|                  \e[00;37m"
 $busybox sleep 0.1
-echo -e "\e[01;3"$c"m        | |_   _ _,__   ____,__ \e[00;37m"
+$busybox echo -e "\e[01;3"$c"m        | |_   _ _,__   ____,__ \e[00;37m"
 $busybox sleep 0.1
-echo -e "\e[01;3"$c"m        | | | | |  _ \ / _ \ __| \e[00;37m"
+$busybox echo -e "\e[01;3"$c"m        | | | | |  _ \ / _ \ __| \e[00;37m"
 $busybox sleep 0.1
-echo -e "\e[01;3"$c"m        | | |_| | | | |  __/ |  \e[00;37m"
+$busybox echo -e "\e[01;3"$c"m        | | |_| | | | |  __/ |  \e[00;37m"
 $busybox sleep 0.1
-echo -e "\e[01;3"$c"m        |_|\__,_|_| |_|\___|_|  \e[00;37m"
+$busybox echo -e "\e[01;3"$c"m        |_|\__,_|_| |_|\___|_|  \e[00;37m"
 $busybox sleep 0.1
-echo "                                 " 
+$busybox echo "                                 " 
 $busybox echo -e "Profile: $profile"
 if [ -d "$CLUSTER_DETECT" ]; then
 $busybox echo -e "Cluster device: Yes"

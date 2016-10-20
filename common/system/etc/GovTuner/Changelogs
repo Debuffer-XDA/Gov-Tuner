@@ -14,17 +14,28 @@
 #=======================================================================#
 
 busybox="/system/etc/GovTuner/busybox"
+<<<<<<< HEAD
 ver="3.5 BETA 1"
 divider="==============================================="
+=======
+ver="3.4"
+>>>>>>> origin/master
 
 $busybox echo "CHANGELOG FOR $ver"
 $busybox echo "-------------------"
 $busybox echo ""
+<<<<<<< HEAD
 $busybox echo "Updated balanced interactive tunables"
 $busybox echo "Updated battery interactive tunables"
 $busybox echo "Updated performance interactive tunables"
 $busybox echo "Fixed blu_active input_boost_freq parameter for battery profile"
 $busybox echo "Testing build for LSpeed"
+=======
+$busybox echo "Introduced the new scaling system for battery and performance profile"
+$busybox echo "This new system scales more dynamic according exclusively to the target_loads and is aimed to have a better performance without sacrifying the battery."
+$busybox echo ""
+$busybox echo "Fixes and improvements in "apply on boot" for some devices"
+>>>>>>> origin/master
 $busybox echo ""
 $busybox echo -n "b. Back to menu: "
 read -r character

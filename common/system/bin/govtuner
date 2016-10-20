@@ -19,7 +19,11 @@ busybox="/system/etc/GovTuner/busybox"
 getprop="/system/bin/getprop"
 init="/system/etc/init.d"
 PROFILE_DIR="$core/current"
+<<<<<<< HEAD
 ver="3.5 BETA 1"
+=======
+ver="3.4"
+>>>>>>> origin/master
 id="$(id)"; id="${id#*=}"; id="${id%%\(*}"; id="${id%% *}"
 CUR_GOVERNOR=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor);
 GOVERNOR=$CUR_GOVERNOR
@@ -63,7 +67,7 @@ if [ "$id" != "0" ] && [ "$id" != "root" ]; then
 		$busybox echo "Loading GovTuner setup..."
 		$busybox sleep 0.3
 		$busybox echo ""
-		$busybox sleep 
+		$busybox sleep 0.3
 		$busybox clear
 fi
 echo "After applying a profile..."
@@ -87,6 +91,7 @@ else
 fi
 
 $busybox sleep 0.5
+<<<<<<< HEAD
 $busybox clear;
 $busybox clear;
 echo "                      "
@@ -116,6 +121,36 @@ $busybox sleep 0.1
 echo -e "\e[01;3"$c"m        |_|\__,_|_| |_|\___|_|  \e[00;37m"
 $busybox sleep 0.1
 echo "                                 " 
+=======
+$busybox clear;
+$busybox echo "                      "
+$busybox sleep 0.4
+$busybox echo -e "\e[01;3"$c"m  _____               \e[00;37m"
+$busybox sleep 0.1
+$busybox echo -e "\e[01;3"$c"m / ____|              \e[00;37m"
+$busybox sleep 0.1
+$busybox echo -e "\e[01;3"$c"m | | __  _____    __ \e[00;37m"
+$busybox sleep 0.1
+$busybox echo -e "\e[01;3"$c"m | ||_ |/ _ \ \  / / \e[00;37m"
+$busybox sleep 0.1
+$busybox echo -e "\e[01;3"$c"m | |_| | (_) \ \/ /  \e[00;37m"
+$busybox sleep 0.1
+$busybox echo -e "\e[01;3"$c"m \_____|\___/ \__/   \e[00;37m"          
+$busybox sleep 0.1
+$busybox echo -e "\e[01;3"$c"m      _______                   \e[00;37m"
+$busybox sleep 0.1
+$busybox echo -e "\e[01;3"$c"m     |__   __|                  \e[00;37m"
+$busybox sleep 0.1
+$busybox echo -e "\e[01;3"$c"m        | |_   _ _,__   ____,__ \e[00;37m"
+$busybox sleep 0.1
+$busybox echo -e "\e[01;3"$c"m        | | | | |  _ \ / _ \ __| \e[00;37m"
+$busybox sleep 0.1
+$busybox echo -e "\e[01;3"$c"m        | | |_| | | | |  __/ |  \e[00;37m"
+$busybox sleep 0.1
+$busybox echo -e "\e[01;3"$c"m        |_|\__,_|_| |_|\___|_|  \e[00;37m"
+$busybox sleep 0.1
+$busybox echo "                                 " 
+>>>>>>> origin/master
 $busybox echo -e "Profile: $profile"
 if [ -d "$CLUSTER_DETECT" ]; then
 $busybox echo -e "Cluster device: Yes"

@@ -101,7 +101,11 @@ mount -o remount,rw /system 2>/dev/null
 		$busybox echo "1" > "$i/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
+<<<<<<< HEAD
 		$busybox echo "0 $MIN_CPU_FREQ:50 400000:29 600000:42 700000:43 800000:51 900000:54 1100000:65 1400000:76 1700000:88 1900000:95" > "$i/target_loads";
+=======
+		$busybox echo "1 $MIN_CPU_FREQ:32 400000:34 600000:40 700000:44 800000:49 900000:55 1100000:64 1400000:79 1700000:90 1900000:99" > "$i/target_loads";
+>>>>>>> origin/master
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "60000" > "$i/timer_rate";
@@ -179,7 +183,11 @@ mount -o remount,rw /system 2>/dev/null
 		$busybox echo "1" > "$i/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
+<<<<<<< HEAD
 		$busybox echo "0 $MIN_CPU_FREQ:50 400000:29 600000:42 700000:43 800000:51 900000:54 1100000:65 1400000:76 1700000:88 1900000:95" > "$i/target_loads";
+=======
+		$busybox echo "1 $MIN_CPU_FREQ:32 400000:34 600000:40 700000:44 800000:49 900000:55 1100000:64 1400000:79 1700000:90 1900000:99" > "$i/target_loads";
+>>>>>>> origin/master
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "60000" > "$i/timer_rate";
@@ -232,7 +240,11 @@ mount -o remount,rw /system 2>/dev/null
 		$busybox echo "$MIN_CPU_FREQ" > "$i/sync_freq";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
+<<<<<<< HEAD
 		$busybox echo "0 $MIN_CPU_FREQ:50 400000:29 600000:42 700000:43 800000:51 900000:54 1100000:65 1400000:76 1700000:88 1900000:95" > "$i/target_loads";
+=======
+		$busybox echo "1 $MIN_CPU_FREQ:32 400000:34 600000:40 700000:44 800000:49 900000:55 1100000:64 1400000:79 1700000:90 1900000:99" > "$i/target_loads";
+>>>>>>> origin/master
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "60000" > "$i/timer_rate";
@@ -340,7 +352,11 @@ mount -o remount,rw /system 2>/dev/null
 		$busybox echo "-1" > "$i/timer_slack";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
+<<<<<<< HEAD
 		$busybox echo "0 $MIN_CPU_FREQ:50 400000:29 600000:42 700000:43 800000:51 900000:54 1100000:65 1400000:76 1700000:88 1900000:95" > "$i/target_loads";
+=======
+		$busybox echo "1 $MIN_CPU_FREQ:32 400000:34 600000:40 700000:44 800000:49 900000:55 1100000:64 1400000:79 1700000:90 1900000:99" > "$i/target_loads";
+>>>>>>> origin/master
 	fi
 	if [ -e "$GOVERNOR/max_freq_hysteresis" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$i/max_freq_hysteresis";
@@ -478,7 +494,11 @@ mount -o remount,rw /system 2>/dev/null
 		$busybox echo "$MIN_CPU_FREQ" > "$i/sync_freq";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
+<<<<<<< HEAD
 		$busybox echo "0 $MIN_CPU_FREQ:50 400000:29 600000:42 700000:43 800000:51 900000:54 1100000:65 1400000:76 1700000:88 1900000:95" > "$i/target_loads";
+=======
+		$busybox echo "1 $MIN_CPU_FREQ:32 400000:34 600000:40 700000:44 800000:49 900000:55 1100000:64 1400000:79 1700000:90 1900000:99" > "$i/target_loads";
+>>>>>>> origin/master
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "60000" > "$i/timer_rate";
@@ -534,7 +554,11 @@ mount -o remount,rw /system 2>/dev/null
 		$busybox echo "$MIN_CPU_FREQ" > "$i/sync_freq";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
+<<<<<<< HEAD
 		$busybox echo "0 $MIN_CPU_FREQ:50 400000:29 600000:42 700000:43 800000:51 900000:54 1100000:65 1400000:76 1700000:88 1900000:95" > "$i/target_loads";
+=======
+		$busybox echo "1 $MIN_CPU_FREQ:32 400000:34 600000:40 700000:44 800000:49 900000:55 1100000:64 1400000:79 1700000:90 1900000:99" > "$i/target_loads";
+>>>>>>> origin/master
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "60000" > "$i/timer_rate";
@@ -859,7 +883,11 @@ mount -o remount,rw /system 2>/dev/null
 		$busybox echo "$MIN_CPU_FREQ" > "$i/sync_freq";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
+<<<<<<< HEAD
 		$busybox echo "0 $MIN_CPU_FREQ:50 400000:29 600000:42 700000:43 800000:51 900000:54 1100000:65 1400000:76 1700000:88 1900000:95" > "$i/target_loads";
+=======
+		$busybox echo "1 $MIN_CPU_FREQ:32 400000:34 600000:40 700000:44 800000:49 900000:55 1100000:64 1400000:79 1700000:90 1900000:99" > "$i/target_loads";
+>>>>>>> origin/master
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "60000" > "$i/timer_rate";

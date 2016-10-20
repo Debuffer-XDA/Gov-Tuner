@@ -30,6 +30,4 @@ Visit [the official thread in XDA](http://forum.xda-developers.com/android/softw
 - Smartmax_eps
 - Intellidemand
 - Tripndroid
-- ElementalX
-- Blu_Active
 - ... And more to come !

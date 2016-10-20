@@ -16,13 +16,10 @@
 divider="==============================================="
 core="/system/etc/GovTuner"
 busybox="/system/etc/GovTuner/busybox"
-<<<<<<< HEAD
 getprop="/system/bin/getprop"
-=======
->>>>>>> origin/master
 init="/system/etc/init.d"
 PROFILE_DIR="$core/current"
-ver="3.3.1"
+ver="3.5 BETA 1"
 id="$(id)"; id="${id#*=}"; id="${id%%\(*}"; id="${id%% *}"
 CUR_GOVERNOR=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor);
 GOVERNOR=$CUR_GOVERNOR
@@ -30,48 +27,9 @@ CLUSTER_DETECT="/sys/devices/system/cpu/cpu0/cpufreq/$CUR_GOVERNOR"
 FIRST_RUN="/data/system/first_run"
 CHECK2="$PROFILE_DIR/profile"
 INIT_TEST="/gt_test"
-VER=$(${busybox} awk -F= '/ro.build.version.release/{print $NF}' /system/build.prop)
+VER=$($busybox awk -F= '/ro.build.version.release/{print $NF}' /system/build.prop)
 DEVICE=$($getprop ro.product.model | grep '[a-zA-Z0-9]');
 FREQ_SOURCE=/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies
-
-# Cluster detection system
-
-# Max CPU Freq
-MAX_CPU_FREQ=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq);
-MAX_CPU_FREQ_2=$($busybox cat /sys/devices/system/cpu/cpu2/cpufreq/cpuinfo_max_freq);
-MAX_CPU_FREQ_4=$($busybox cat /sys/devices/system/cpu/cpu4/cpufreq/cpuinfo_max_freq);
-
-if [ -e $MAX_CPU_FREQ_2 ]; then
-	# Checks if MAX_CPU_FREQ_2 equals to MAX_CPU_FREQ
-	# If true, then this means the device is either octa / hexa core, or doesn't have cluster
-	if [ $MAX_CPU_FREQ = $MAX_CPU_FREQ_2 ]; then
-		# Assume no cluster here
-		NO_CLUSTER_1=true
-		IS_QUAD_CLUSTER=false
-	else
-		# This is a quad-core cluster device
-		NO_CLUSTER_1=false
-		NO_CLUSTER=false
-		IS_QUAD_CLUSTER=true
-		IS_QPLUS_CLUSTER=false
-	fi
-fi
-if [ -e $MAX_CPU_FREQ_4 ]; then
-	# If the system is still stubborn about it, detect the fourth core
-	# This is sometimes the marker that it's an octa / hexa core cluster
-	if [ $MAX_CPU_FREQ_4 = $MAX_CPU_FREQ ]; then
-			# Totally no cluster here
-		if [ $NO_CLUSTER_1 = "true" ]; then
-			NO_CLUSTER=true
-			IS_QPLUS_CLUSTER=false
-		else
-			# Yep, it's an octa / hexa core cluster
-			NO_CLUSTER=false
-			IS_QPLUS_CLUSTER=true
-			IS_QUAD_CLUSTER=false
-		fi
-	fi
-fi
 
 $busybox sleep 1
 $busybox clear
@@ -94,7 +52,7 @@ if [ "$id" != "0" ] && [ "$id" != "root" ]; then
 	$busybox echo "    Then type govtuner"
 	$busybox echo ""
 	$busybox echo ""
-	$busybox sleep 2
+	$busybox sleep 1
 	exit
 	else
 		$busybox clear
@@ -110,7 +68,7 @@ if [ "$id" != "0" ] && [ "$id" != "root" ]; then
 fi
 echo "After applying a profile..."
 sleep 1
-echo "...Wait for 3 seconds before closing the window"
+echo "... Wait for 3 seconds before closing the window!"
 sleep 2
 
 while true; do
@@ -128,49 +86,44 @@ else
   c=0
 fi
 
-busybox sleep 0.5
+$busybox sleep 0.5
 $busybox clear;
 $busybox clear;
 echo "                      "
-busybox sleep 0.4
+$busybox sleep 0.4
 echo -e "\e[01;3"$c"m  _____               \e[00;37m"
-busybox sleep 0.1
+$busybox sleep 0.1
 echo -e "\e[01;3"$c"m / ____|              \e[00;37m"
-busybox sleep 0.1
+$busybox sleep 0.1
 echo -e "\e[01;3"$c"m | | __  _____    __ \e[00;37m"
-busybox sleep 0.1
+$busybox sleep 0.1
 echo -e "\e[01;3"$c"m | ||_ |/ _ \ \  / / \e[00;37m"
-busybox sleep 0.1
+$busybox sleep 0.1
 echo -e "\e[01;3"$c"m | |_| | (_) \ \/ /  \e[00;37m"
-busybox sleep 0.1
+$busybox sleep 0.1
 echo -e "\e[01;3"$c"m \_____|\___/ \__/   \e[00;37m"          
-busybox sleep 0.1
+$busybox sleep 0.1
 echo -e "\e[01;3"$c"m      _______                   \e[00;37m"
-busybox sleep 0.1
+$busybox sleep 0.1
 echo -e "\e[01;3"$c"m     |__   __|                  \e[00;37m"
-busybox sleep 0.1
+$busybox sleep 0.1
 echo -e "\e[01;3"$c"m        | |_   _ _,__   ____,__ \e[00;37m"
-busybox sleep 0.1
+$busybox sleep 0.1
 echo -e "\e[01;3"$c"m        | | | | |  _ \ / _ \ __| \e[00;37m"
-busybox sleep 0.1
+$busybox sleep 0.1
 echo -e "\e[01;3"$c"m        | | |_| | | | |  __/ |  \e[00;37m"
-busybox sleep 0.1
+$busybox sleep 0.1
 echo -e "\e[01;3"$c"m        |_|\__,_|_| |_|\___|_|  \e[00;37m"
-busybox sleep 0.1
+$busybox sleep 0.1
 echo "                                 " 
 $busybox echo -e "Profile: $profile"
-if [ $NO_CLUSTER_1 = "true" ]; then
-	$busybox echo -e "Cluster device: No"
+if [ -d "$CLUSTER_DETECT" ]; then
+$busybox echo -e "Cluster device: Yes"
 else
-	if [ $IS_QUAD_CLUSTER = "true" ]; then
-	$busybox echo -e "Cluster device: Yes, quad"
-	fi
-	if [ $IS_QPLUS_CLUSTER = "true" ]; then
-	$busybox echo -e "Cluster device: Yes, hexa / octa"
-	fi
+$busybox echo -e "Cluster device: No"
 fi
-busybox echo "Device: ${DEVICE}" 
-busybox echo "Android Version: ${VER}"
+$busybox echo "Device: ${DEVICE}" 
+$busybox echo "Android Version: ${VER}"
 if [ -f /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies ]; then
 UFREQ=$($busybox awk '{print $NF}' $FREQ_SOURCE);
 LFREQ=$($busybox awk -v 1=$1 '{print $1}' $FREQ_SOURCE);
@@ -225,7 +178,7 @@ if [ -f "$INIT_TEST" ]; then
     echo -e "\e[01;37m Init.d \e[00;37m : \e[01;32m WORKING \e[00;37m"
 else
      echo -e "\e[01;37m Init.d \e[00;37m : \e[01;31m NOT WORKING \e[00;37m"
-     $busybox echo -e "\e[01;37m If you use 3rd party init.d emulators it's fine as well, it just won't show up here as active \e[00;37m"
+     $busybox echo -e "\e[01;37m If you use 3rd party init.d emulators, as Kernel Adiutor init.d emulator, it's fine as well, it just won't show up here as active \e[00;37m"
 fi
 $busybox echo ""
 $busybox echo -n "Please select a profile:"

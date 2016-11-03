@@ -64,6 +64,7 @@ mount -o remount,rw /system 2>/dev/null
  if [ -d "$GOVERNOR" ]; then
  for i in $FINAL_PATH/$CUR_GOVERNOR; do
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
+		$busybox echo "0 $MIN_CPU_FREQ:20000 1100000:35000 1400000:50000 1900000:100000" > "$i/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$i/boost";
@@ -96,15 +97,13 @@ mount -o remount,rw /system 2>/dev/null
 		$busybox echo "1" > "$i/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
+		$busybox echo "0 $MIN_CPU_FREQ:50 400000:25 600000:35 700000:40 800000:45 900000:50 1100000:70 1400000:85 1700000:95 1900000:99" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "20000" > "$i/timer_rate";
 	fi
 	if [ -e "$GOVERNOR/timer_slack" ]; then
-		$busybox echo "-1" > "$i/timer_slack";
-	fi
-	if [ -e "$GOVERNOR/two_phase_freq" ]; then
-		$busybox echo "1100000,1100000,1100000,1100000" > "$i/two_phase_freq";
+		$busybox echo "80000" > "$i/timer_slack";
 	fi
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_freq" ]; then
 		$busybox echo "0" > "$i/up_threshold_any_cpu_freq";

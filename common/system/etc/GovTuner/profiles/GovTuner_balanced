@@ -69,7 +69,7 @@ mount -o remount,rw /system 2>/dev/null
  if [ "$CUR_GOVERNOR" = "interactive" ]; then
  for i in $FINAL_PATH/interactive; do
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "0" > "$i/above_hispeed_delay";
+		$busybox echo "20000 1100000:30000 1400000:50000 1700000:75000 1900000:100000" > "$i/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$i/boost";
@@ -102,10 +102,10 @@ mount -o remount,rw /system 2>/dev/null
 		$busybox echo "1" > "$i/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "0 $MIN_CPU_FREQ:50 400000:29 600000:42 700000:43 800000:51 900000:54 1100000:65 1400000:76 1700000:88 1900000:95" > "$i/target_loads";
+		$busybox echo "80 $MIN_CPU_FREQ:50 400000:25 600000:35 700000:55 800000:45 900000:55 1100000:62 1400000:73 1700000:88 1900000:99" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
-		$busybox echo "60000" > "$i/timer_rate";
+		$busybox echo "20000" > "$i/timer_rate";
 	fi
 	if [ -e "$GOVERNOR/timer_slack" ]; then
 		$busybox echo "-1" > "$i/timer_slack";
@@ -153,7 +153,7 @@ mount -o remount,rw /system 2>/dev/null
  elif [ $CUR_GOVERNOR = "yankactive" ]; then
  for i in $FINAL_PATH/yankactive; do
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "0" > "$i/above_hispeed_delay";
+		$busybox echo "20000 1100000:30000 1400000:50000 1700000:75000 1900000:100000" > "$i/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$i/boost";
@@ -180,10 +180,10 @@ mount -o remount,rw /system 2>/dev/null
 		$busybox echo "1" > "$i/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "0 $MIN_CPU_FREQ:50 400000:29 600000:42 700000:43 800000:51 900000:54 1100000:65 1400000:76 1700000:88 1900000:95" > "$i/target_loads";
+		$busybox echo "80 $MIN_CPU_FREQ:50 400000:25 600000:35 700000:55 800000:45 900000:55 1100000:62 1400000:73 1700000:88 1900000:99" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
-		$busybox echo "60000" > "$i/timer_rate";
+		$busybox echo "20000" > "$i/timer_rate";
 	fi
 	if [ -e "$GOVERNOR/timer_slack" ]; then
 		$busybox echo "-1" > "$i/timer_slack";
@@ -203,7 +203,7 @@ mount -o remount,rw /system 2>/dev/null
  elif [ $CUR_GOVERNOR = "intelliactive" ]; then
  for i in $FINAL_PATH/intelliactive; do
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "0" > "$i/above_hispeed_delay";
+		$busybox echo "20000 1100000:30000 1400000:50000 1700000:75000 1900000:100000" > "$i/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$i/boost";
@@ -233,10 +233,10 @@ mount -o remount,rw /system 2>/dev/null
 		$busybox echo "$MIN_CPU_FREQ" > "$i/sync_freq";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "0 $MIN_CPU_FREQ:50 400000:29 600000:42 700000:43 800000:51 900000:54 1100000:65 1400000:76 1700000:88 1900000:95" > "$i/target_loads";
+		$busybox echo "80 $MIN_CPU_FREQ:50 400000:25 600000:35 700000:55 800000:45 900000:55 1100000:62 1400000:73 1700000:88 1900000:99" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
-		$busybox echo "60000" > "$i/timer_rate";
+		$busybox echo "20000" > "$i/timer_rate";
 	fi
 	if [ -e "$GOVERNOR/timer_slack" ]; then
 		$busybox echo "-1" > "$i/timer_slack";
@@ -320,7 +320,7 @@ mount -o remount,rw /system 2>/dev/null
  elif [ $CUR_GOVERNOR = "impulse" ]; then
  for i in $FINAL_PATH/impulse; do
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "0" > "$i/above_hispeed_delay";
+		$busybox echo "20000 1100000:30000 1400000:50000 1700000:75000 1900000:100000" > "$i/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
 		$busybox echo "100" > "$i/go_hispeed_load";
@@ -335,13 +335,13 @@ mount -o remount,rw /system 2>/dev/null
 		$busybox echo "80000" > "$i/min_sample_time";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
-		$busybox echo "60000" > "$i/timer_rate";
+		$busybox echo "20000" > "$i/timer_rate";
 	fi
 	if [ -e "$GOVERNOR/timer_slack" ]; then
 		$busybox echo "-1" > "$i/timer_slack";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "0 $MIN_CPU_FREQ:50 400000:29 600000:42 700000:43 800000:51 900000:54 1100000:65 1400000:76 1700000:88 1900000:95" > "$i/target_loads";
+		$busybox echo "80 $MIN_CPU_FREQ:50 400000:25 600000:35 700000:55 800000:45 900000:55 1100000:62 1400000:73 1700000:88 1900000:99" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR/max_freq_hysteresis" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$i/max_freq_hysteresis";
@@ -446,7 +446,7 @@ mount -o remount,rw /system 2>/dev/null
  elif [ $CUR_GOVERNOR = "barry_allen" ]; then
  for i in $FINAL_PATH/barry_allen; do
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "0" > "$i/above_hispeed_delay";
+		$busybox echo "20000 1100000:30000 1400000:50000 1700000:75000 1900000:100000" > "$i/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/ba_lock" ]; then
 		$busybox echo "0" > "$i/ba_lock";
@@ -479,10 +479,10 @@ mount -o remount,rw /system 2>/dev/null
 		$busybox echo "$MIN_CPU_FREQ" > "$i/sync_freq";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "0 $MIN_CPU_FREQ:50 400000:29 600000:42 700000:43 800000:51 900000:54 1100000:65 1400000:76 1700000:88 1900000:95" > "$i/target_loads";
+		$busybox echo "80 $MIN_CPU_FREQ:50 400000:25 600000:35 700000:55 800000:45 900000:55 1100000:62 1400000:73 1700000:88 1900000:99" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
-		$busybox echo "60000" > "$i/timer_rate";
+		$busybox echo "20000" > "$i/timer_rate";
 	fi
 	if [ -e "$GOVERNOR/timer_slack" ]; then
 		$busybox echo "-1" > "$i/timer_slack";
@@ -505,7 +505,7 @@ mount -o remount,rw /system 2>/dev/null
  elif [ $CUR_GOVERNOR = "bluactive" ]; then
  for i in $FINAL_PATH/bluactive; do
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "0" > "$i/above_hispeed_delay";
+		$busybox echo "20000 1100000:30000 1400000:50000 1700000:75000 1900000:100000" > "$i/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$i/boost";
@@ -535,10 +535,10 @@ mount -o remount,rw /system 2>/dev/null
 		$busybox echo "$MIN_CPU_FREQ" > "$i/sync_freq";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "0 $MIN_CPU_FREQ:50 400000:29 600000:42 700000:43 800000:51 900000:54 1100000:65 1400000:76 1700000:88 1900000:95" > "$i/target_loads";
+		$busybox echo "80 $MIN_CPU_FREQ:50 400000:25 600000:35 700000:55 800000:45 900000:55 1100000:62 1400000:73 1700000:88 1900000:99" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
-		$busybox echo "60000" > "$i/timer_rate";
+		$busybox echo "20000" > "$i/timer_rate";
 	fi
 	if [ -e "$GOVERNOR/timer_slack" ]; then
 		$busybox echo "-1" > "$i/timer_slack";
@@ -830,7 +830,7 @@ mount -o remount,rw /system 2>/dev/null
  elif [ $CUR_GOVERNOR = "interactive_pro" ]; then
  for i in $FINAL_PATH/interactive_pro; do
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "0" > "$i/above_hispeed_delay";
+		$busybox echo "20000 1100000:30000 1400000:50000 1700000:75000 1900000:100000" > "$i/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$i/boost";
@@ -860,10 +860,10 @@ mount -o remount,rw /system 2>/dev/null
 		$busybox echo "$MIN_CPU_FREQ" > "$i/sync_freq";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "0 $MIN_CPU_FREQ:50 400000:29 600000:42 700000:43 800000:51 900000:54 1100000:65 1400000:76 1700000:88 1900000:95" > "$i/target_loads";
+		$busybox echo "80 $MIN_CPU_FREQ:50 400000:25 600000:35 700000:55 800000:45 900000:55 1100000:62 1400000:73 1700000:88 1900000:99" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
-		$busybox echo "60000" > "$i/timer_rate";
+		$busybox echo "20000" > "$i/timer_rate";
 	fi
 	if [ -e "$GOVERNOR/timer_slack" ]; then
 		$busybox echo "-1" > "$i/timer_slack";

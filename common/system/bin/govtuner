@@ -160,8 +160,8 @@ $busybox echo -e "\e[01;34m     3 - Performance \e[00;37m"
 $busybox echo ""
 $busybox echo $divider
 $busybox echo ""
-$busybox echo -e "\e[01;37m u - Disable GovTuner \e[00;37m"
-$busybox echo -e "\e[01;37m c. $ver Changelog \e[00;37m"
+$busybox echo -e "\e[01;37m u. Disable GovTuner \e[00;37m"
+$busybox echo -e "\e[01;37m c. Changelog \e[00;37m"
 $busybox echo " e. Exit"
 $busybox echo ""
 $busybox echo $divider

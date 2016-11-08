@@ -13,12 +13,10 @@
 #  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #=======================================================================#
 busybox="/system/etc/GovTuner/busybox"
-ver="3.5 beta"
+ver="3.6"
 divider="==============================================="
 $busybox echo "CHANGELOG FOR $ver"
-$busybox echo "-------------------"
-$busybox echo "Implemented new way of applying tweaks based on Tunables"
-$busybox echo "This new method will depend on tunables only and not on governor, so many governors will be automatically supported"
+$busybox echo "----------------------"
 $busybox echo ""
 $busybox echo "Battery profile improvements"
 $busybox echo "Balanced profile improvements"

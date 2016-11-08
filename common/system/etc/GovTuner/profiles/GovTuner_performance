@@ -37,7 +37,9 @@ if [ "$CHECK1" -eq "1" ]; then
 else
    OUTPUT_ID=$($busybox cat /data/system/test)
    echo "Resetting GovTuner"
+   echo ""
    echo "Applying new profile"
+   echo ""
    echo 0 > $FIRST_RUN
    kill -9 $OUTPUT_ID
 fi
@@ -64,7 +66,7 @@ mount -o remount,rw /system 2>/dev/null
  if [ -d "$GOVERNOR" ]; then
  for i in $FINAL_PATH/$CUR_GOVERNOR; do
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "0 $MIN_CPU_FREQ:20000 1700000:50000" > "$i/above_hispeed_delay";
+		$busybox echo "20000" > "$i/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$i/boost";

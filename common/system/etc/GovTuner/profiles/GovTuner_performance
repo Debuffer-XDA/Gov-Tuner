@@ -56,6 +56,9 @@ mount -o remount,rw /system
 $busybox mount -o remount,rw /system 2>/dev/null
 mount -o remount,rw /system 2>/dev/null
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 7115c76... sync error fix
+=======
 >>>>>>> parent of 7115c76... sync error fix
  OUTPUT="/data/system/test"
  echo $$ > $OUTPUT
@@ -70,6 +73,10 @@ fi
 fi
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> parent of 7115c76... sync error fix
 =======
 =======
 >>>>>>> parent of 7115c76... sync error fix
@@ -146,9 +153,12 @@ fi
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
 <<<<<<< HEAD
+<<<<<<< HEAD
 		$busybox echo "50000" > "$i/min_sample_time"; 
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> parent of 7115c76... sync error fix
 		$busybox echo "50000" > "$i/min_sample_time";
 =======
 		$busybox echo "80000" > "$i/min_sample_time" 2>/dev/null
@@ -165,8 +175,11 @@ fi
 		$busybox echo "0 $MIN_CPU_FREQ:40 400000:20 600000:30 700000:35 800000:40 900000:45 1100000:55 1400000:60 1700000:75 1900000:95" > "$i/target_loads";
 =======
 <<<<<<< HEAD
+<<<<<<< HEAD
 		$busybox echo "0 $MIN_CPU_FREQ:40 400000:20 600000:30 700000:35 800000:40 900000:45 1100000:55 1400000:60 1700000:75 1900000:95" > "$i/target_loads";
 =======
+=======
+>>>>>>> parent of 7115c76... sync error fix
 		$busybox echo "0 $MIN_CPU_FREQ:40 400000:20 600000:30 700000:35 800000:40 900000:45 1100000:55 1400000:60 1700000:75 1900000:85" > "$i/target_loads" 2>/dev/null
 >>>>>>> parent of 7115c76... sync error fix
    echo "target_loads" >> $TUNED
@@ -181,8 +194,11 @@ fi
 		$busybox echo "-1" > "$i/timer_slack";
 =======
 <<<<<<< HEAD
+<<<<<<< HEAD
 		$busybox echo "-1" > "$i/timer_slack";
 =======
+=======
+>>>>>>> parent of 7115c76... sync error fix
 		$busybox echo "80000" > "$i/timer_slack" 2>/dev/null
 >>>>>>> parent of 7115c76... sync error fix
     echo "timer_slack" >> $TUNED
@@ -211,6 +227,9 @@ fi
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 7115c76... sync error fix
 =======
 >>>>>>> parent of 7115c76... sync error fix
 	if [ -e "$GOVERNOR/sampling_rate" ]; then
@@ -399,8 +418,11 @@ fi
     echo "statcycles_resetfreq" >> $TUNED
 	fi
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+>>>>>>> parent of 7115c76... sync error fix
+=======
 >>>>>>> parent of 7115c76... sync error fix
 	if [ -e "$GOVERNOR/input_boost_duration" ]; then
 		$busybox echo "0" > "$i/input_boost_duration";
@@ -700,6 +722,9 @@ fi
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 7115c76... sync error fix
 =======
 >>>>>>> parent of 7115c76... sync error fix
 	if [ -e "/data/system/tuned" ]; then

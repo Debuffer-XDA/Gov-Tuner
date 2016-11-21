@@ -256,8 +256,8 @@ $busybox sleep 0.2
 $busybox echo "Copying battery profile to init.d"
 $busybox sleep 0.3
 $busybox echo ""
-$busybox mount -o remount,rw /system 2>/dev/null
-mount -o remount,rw /system 2>/dev/null
+$busybox mount -o remount,rw /system 
+mount -o remount,rw /system 
 
 if [ -e $PROFILE_DIR/GovTuner_balanced ]; then
 	$busybox rm -rf $PROFILE_DIR/GovTuner_balanced
@@ -293,8 +293,8 @@ $busybox sleep 0.2
 $busybox echo "Copying balanced profile to init.d"
 $busybox sleep 0.3
 $busybox echo ""
-$busybox mount -o remount,rw /system 2>/dev/null
-mount -o remount,rw /system 2>/dev/null
+$busybox mount -o remount,rw /system 
+mount -o remount,rw /system 
 if [ -e $PROFILE_DIR/GovTuner_battery ]; then
 	$busybox rm -rf $PROFILE_DIR/GovTuner_battery
 fi
@@ -332,8 +332,8 @@ $busybox sleep 0.2
 $busybox echo "Copying performance profile to init.d"
 $busybox sleep 0.3
 $busybox echo ""
-$busybox mount -o remount,rw /system 2>/dev/null
-mount -o remount,rw /system 2>/dev/null
+$busybox mount -o remount,rw /system 
+mount -o remount,rw /system 
 if [ -e $PROFILE_DIR/GovTuner_battery ]; then
 	$busybox rm -rf $PROFILE_DIR/GovTuner_battery
 fi
@@ -358,8 +358,8 @@ $busybox clear ;;
 
 u|U)$busybox clear
 $busybox echo ""
-$busybox mount -o remount,rw /system 2>/dev/null
-mount -o remount,rw /system 2>/dev/null
+$busybox mount -o remount,rw /system 
+mount -o remount,rw /system 
 OUTPUT_ID=$($busybox cat /data/system/test);
 kill -9 $OUTPUT_ID
 echo "Removing files"
@@ -407,7 +407,7 @@ fi
 $busybox clear;;
 
 e|E)$busybox clear;
-$busybox mount -o remount,ro /system 2>/dev/null
+$busybox mount -o remount,ro /system 
 exit;;
 *)$busybox clear;
 $busybox echo "Invalid option, please try again"

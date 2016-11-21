@@ -22,18 +22,20 @@ FIRST_RUN="/data/system/first_run"
 CHECK1=$($busybox cat /data/system/first_run);
 REG_DIR="/sys/devices/system/cpu/cpufreq"
 CLU_DIR="/sys/devices/system/cpu/cpu0/cpufreq"
+HCHECK=/etc/GovTuner/zzmoove/HCheck
+CH=$($busybox cat $HCHECK);
+HON=/etc/GovTuner/zzmoove/HON
+HOFF=/etc/GovTuner/zzmoove/HOFF
 
 # Minimum CPU frequency
 MIN_CPU_FREQ=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq);
-
-# Maximum CPU frequency
-MAX_CPU_FREQ=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq);
 
 $busybox mount -o remount,rw /system 2>/dev/null
 mount -o remount,rw /system 2>/dev/null
 
 if [ "$CHECK1" -eq "1" ]; then
    echo "First Run"
+   echo ""
 else
    OUTPUT_ID=$($busybox cat /data/system/test)
    echo "Resetting GovTuner"
@@ -51,6 +53,14 @@ mount -o remount,rw /system 2>/dev/null
  echo $$ > $OUTPUT
  echo "GovTuner_battery" > $PROFILE
  
+if [ $CUR_GOVERNOR == "zzmoove" ]; then
+if [ $CH == 0 ]; then
+sh $HON
+elif [ $CH == 1 ]; then
+sh $HOFF
+fi
+fi
+ 
 #For REGULAR and SMALL clusters
  if [ -d "/sys/devices/system/cpu/cpufreq/$CUR_GOVERNOR" ]; then
      FINAL_PATH=$REG_DIR
@@ -66,7 +76,7 @@ mount -o remount,rw /system 2>/dev/null
  if [ -d "$GOVERNOR" ]; then
  for i in $FINAL_PATH/$CUR_GOVERNOR; do
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-		$busybox echo "20000 1100000:60000 1400000:100000" > "$i/above_hispeed_delay";
+		$busybox echo "20000 1100000:35000 1400000:60000 1700000:100000" > "$i/above_hispeed_delay";
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
 		$busybox echo "0" > "$i/boost";
@@ -93,19 +103,19 @@ mount -o remount,rw /system 2>/dev/null
 		$busybox echo "1" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-		$busybox echo "80000" > "$i/min_sample_time";
+		$busybox echo "50000" > "$i/min_sample_time";
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
 		$busybox echo "1" > "$i/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-		$busybox echo "0 $MIN_CPU_FREQ:60 400000:35 600000:45 700000:55 800000:60 900000:70 1100000:95 1400000:97 1700000:99" > "$i/target_loads";
+		$busybox echo "0 $MIN_CPU_FREQ:50 400000:35 600000:45 700000:50 800000:57 900000:64 1100000:85 1400000:95 1700000:99" > "$i/target_loads";
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
 		$busybox echo "20000" > "$i/timer_rate";
 	fi
 	if [ -e "$GOVERNOR/timer_slack" ]; then
-		$busybox echo "80000" > "$i/timer_slack";
+		$busybox echo "-1" > "$i/timer_slack";
 	fi
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_freq" ]; then
 		$busybox echo "0" > "$i/up_threshold_any_cpu_freq";
@@ -121,12 +131,6 @@ mount -o remount,rw /system 2>/dev/null
 	fi
 	if [ -e "$GOVERNOR/ignore_nice_load" ]; then
 		$busybox echo "1" > "$i/ignore_nice_load";
-	fi
-	if [ -e "$GOVERNOR/sampling_rate" ]; then
-		$busybox echo "100000" > "$i/sampling_rate";
-	fi
-	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
-		$busybox echo "30000" > "$i/sampling_rate_min";
 	fi
 	if [ -e "$GOVERNOR/up_threshold" ]; then
 		$busybox echo "98" > "$i/up_threshold";
@@ -260,7 +264,7 @@ mount -o remount,rw /system 2>/dev/null
 	if [ -e "$GOVERNOR/staycycles_resetfreq" ]; then
 		$busybox echo "$MIN_CPU_FREQ" > "$i/staycycles_resetfreq";
 	fi
-	if [ -e "$GOVERNOR/"input_boost_duration ]; then
+	if [ -e "$GOVERNOR/input_boost_duration" ]; then
 		$busybox echo "0" > "$i/input_boost_duration";
 	fi
 	if [ -e "$GOVERNOR/sampling_easy_factor" ]; then
@@ -296,9 +300,249 @@ mount -o remount,rw /system 2>/dev/null
 	if [ -e "$GOVERNOR/low_load_down_threshold" ]; then
 		$busybox echo "37" > "$i/low_load_down_threshold";
 	fi
+
+if [ $CUR_GOVERNOR = "zzmoove" ]; then
+
+	pn=$($busybox cat $GOVERNOR/profile_number)
+	if [ $pn != 0 ]; then
+		$busybox echo "0" > "$i/profile_number";
+	fi
+	if [ -e "$GOVERNOR/afs_threshold1" ]; then
+		$busybox echo "20" > "$i/afs_threshold1";
+	fi
+	if [ -e "$GOVERNOR/afs_threshold2" ]; then
+		$busybox echo "30" > "$i/afs_threshold2";
+	fi
+	if [ -e "$GOVERNOR/afs_threshold3" ]; then
+		$busybox echo "60" > "$i/afs_threshold3";
+	fi
+	if [ -e "$GOVERNOR/afs_threshold4" ]; then
+		$busybox echo "90" > "$i/afs_threshold4";
+	fi
+	if [ -e "$GOVERNOR/auto_adjust_freq_threshold" ]; then
+		$busybox echo "0" > "$i/auto_adjust_freq_threshold";
+	fi
+	if [ -e "$GOVERNOR/block_down_multiplier_hotplug1" ]; then
+		$busybox echo "1" > "$i/block_down_multiplier_hotplug1";
+	fi
+	if [ -e "$GOVERNOR/block_down_multiplier_hotplug2" ]; then
+		$busybox echo "1" > "$i/block_down_multiplier_hotplug2";
+	fi
+	if [ -e "$GOVERNOR/block_down_multiplier_hotplug3" ]; then
+		$busybox echo "1" > "$i/block_down_multiplier_hotplug3";
+	fi
+	if [ -e "$GOVERNOR/block_down_multiplier_hotplug4" ]; then
+		$busybox echo "1" > "$i/block_down_multiplier_hotplug4";
+	fi
+	if [ -e "$GOVERNOR/down_threshold" ]; then
+		$busybox echo "70" > "$i/down_threshold";
+	fi
+	if [ -e "$GOVERNOR/down_threshold_hotplug1" ]; then
+		$busybox echo "35" > "$i/down_threshold_hotplug1";
+	fi
+	if [ -e "$GOVERNOR/down_threshold_hotplug2" ]; then
+		$busybox echo "50" > "$i/down_threshold_hotplug2";
+	fi
+	if [ -e "$GOVERNOR/down_threshold_hotplug3" ]; then
+		$busybox echo "80" > "$i/down_threshold_hotplug3";
+	fi
+	if [ -e "$GOVERNOR/down_threshold_sleep" ]; then
+		$busybox echo "90" > "$i/down_threshold_sleep";
+	fi
+	if [ -e "$GOVERNOR/early_demand" ]; then
+		$busybox echo "0" > "$i/early_demand";
+	fi
+	if [ -e "$GOVERNOR/early_demand_sleep" ]; then
+		$busybox echo "0" > "$i/early_demand_sleep";
+	fi
+	if [ -e "$GOVERNOR/fast_scaling_down" ]; then
+		$busybox echo "4" > "$i/fast_scaling_down";
+	fi
+	if [ -e "$GOVERNOR/fast_scaling_down_sleep" ]; then
+		$busybox echo "6" > "$i/fast_scaling_down_sleep";
+	fi
+	if [ -e "$GOVERNOR/fast_scaling_up_sleep" ]; then
+		$busybox echo "0" > "$i/fast_scaling_up_sleep";
+	fi
+	if [ -e "$GOVERNOR/fast_scaling_up" ]; then
+		$busybox echo "0" > "$i/fast_scaling_up";
+	fi
+	if [ -e "$GOVERNOR/freq_limit" ]; then
+		$busybox echo "0" > "$i/freq_limit";
+	fi
+	if [ -e "$GOVERNOR/freq_limit_sleep" ]; then
+		$busybox echo "900000" > "$i/freq_limit_sleep";
+	fi
+	if [ -e "$GOVERNOR/grad_up_threshold" ]; then
+		$busybox echo "65" > "$i/grad_up_threshold";
+	fi
+	if [ -e "$GOVERNOR/grad_up_threshold_sleep" ]; then
+		$busybox echo "80" > "$i/grad_up_threshold_sleep";
+	fi
+	if [ -e "$GOVERNOR/hotplug_block_down_cycles" ]; then
+		$busybox echo "0" > "$i/hotplug_block_down_cycles"
+	fi
+	if [ -e "$GOVERNOR/hotplug_block_up_cycles" ]; then
+		$busybox echo "0" > "$i/hotplug_block_up_cycles"
+	fi
+	if [ -e "$GOVERNOR/hotplug_engage_freq" ]; then
+		$busybox echo "0" > "$i/hotplug_engage_freq"
+	fi
+	if [ -e "$GOVERNOR/hotplug_idle_freq" ]; then
+		$busybox echo "0" > "$i/hotplug_idle_freq"
+	fi
+	if [ -e "$GOVERNOR/hotplug_idle_threshold" ]; then
+		$busybox echo "0" > "$i/hotplug_idle_threshold"
+	fi
+	if [ -e "$GOVERNOR/hotplug_lock" ]; then
+		$busybox echo "0" > "$i/hotplug_lock"
+	fi
+	if [ -e "$GOVERNOR/hotplug_max_limit" ]; then
+		$busybox echo "0" > "$i/hotplug_max_limit"
+	fi
+	if [ -e "$GOVERNOR/hotplug_min_limit" ]; then
+		$busybox echo "0" > "$i/hotplug_min_limit"
+	fi
+	if [ -e "$GOVERNOR/hotplug_sleep" ]; then
+		$busybox echo "0" > "$i/hotplug_sleep"
+	fi
+	if [ -e "$GOVERNOR/hotplug_stagger_down" ]; then
+		$busybox echo "0" > "$i/hotplug_stagger_down"
+	fi
+	if [ -e "$GOVERNOR/hotplug_stagger_up" ]; then
+		$busybox echo "0" > "$i/hotplug_stagger_up"
+	fi
+	if [ -e "$GOVERNOR/ignore_nice_load" ]; then
+		$busybox echo "1" > "$i/ignore_nice_load";
+	fi
+	if [ -e "$GOVERNOR/inputboost_cycles" ]; then
+		$busybox echo "0" > "$i/inputboost_cycles";
+	fi
+	if [ -e "$GOVERNOR/inputboost_punch_cycles" ]; then
+		$busybox echo "0" > "$i/inputboost_punch_cycles";
+	fi
+	if [ -e "$GOVERNOR/inputboost_punch_freq" ]; then
+		$busybox echo "0" > "$i/inputboost_punch_freq";
+	fi
+	if [ -e "$GOVERNOR/inputboost_punch_on_epenmove" ]; then
+		$busybox echo "0" > "$i/inputboost_punch_on_epenmove";
+	fi
+	if [ -e "$GOVERNOR/inputboost_punch_on_fingerdown" ]; then
+		$busybox echo "0" > "$i/inputboost_punch_on_fingerdown";
+	fi
+	if [ -e "$GOVERNOR/inputboost_punch_on_fingermove" ]; then
+		$busybox echo "0" > "$i/inputboost_punch_on_fingermove";
+	fi
+	if [ -e "$GOVERNOR/inputboost_typingbooster_cores" ]; then
+		$busybox echo "0" > "$i/inputboost_typingbooster_cores";
+	fi
+	if [ -e "$GOVERNOR/inputboost_typingbooster_up_threshold" ]; then
+		$busybox echo "60" > "$i/inputboost_typingbooster_up_threshold";
+	fi
+	if [ -e "$GOVERNOR/inputboost_up_threshold" ]; then
+		$busybox echo "100" > "$i/inputboost_up_threshold";
+	fi
+	if [ -e "$GOVERNOR/music_max_freq" ]; then
+		$busybox echo "600000" > "$i/music_max_freq";
+	fi
+	if [ -e "$GOVERNOR/music_min_cores" ]; then
+		$busybox echo "0" > "$i/music_min_cores";
+	fi
+	if [ -e "$GOVERNOR/music_min_freq" ]; then
+		$busybox echo "$MIN_CPU_FREQ" > "$i/music_min_freq";
+	fi
+	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
+		$busybox echo "1" > "$i/sampling_down_factor";
+	fi
+	if [ -e "$GOVERNOR/sampling_down_max_momentum" ]; then
+		$busybox echo "0" > "$i/sampling_down_max_momentum"; 
+	fi
+	if [ -e "$GOVERNOR/sampling_down_max_sensitivity" ]; then
+		$busybox echo "75" > "$i/sampling_down_max_sensitivity"; 
+	fi
+	if [ -e "$GOVERNOR/sampling_rate" ]; then
+		$busybox echo "100000" > "$i/sampling_rate"; 
+	fi
+	if [ -e "$GOVERNOR/sampling_rate_idle" ]; then
+		$busybox echo "100000" > "$i/sampling_rate_idle"; 
+	fi
+	if [ -e "$GOVERNOR/sampling_rate_idle_delay" ]; then
+		$busybox echo "0" > "$i/sampling_rate_idle_delay"; 
+	fi
+	if [ -e "$GOVERNOR/sampling_rate_idle_threshold" ]; then
+		$busybox echo "50" > "$i/sampling_rate_idle_threshold"; 
+	fi
+	if [ -e "$GOVERNOR/sampling_rate_sleep_multiplier" ]; then
+		$busybox echo "2" > "$i/sampling_rate_sleep_multiplier"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_block_cycles" ]; then
+		$busybox echo "4" > "$i/scaling_block_cycles"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_block_force_down" ]; then
+		$busybox echo "2" > "$i/scaling_block_force_down"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_block_freq" ]; then
+		$busybox echo "1100000" > "$i/scaling_block_freq"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_block_threshold" ]; then
+		$busybox echo "0" > "$i/scaling_block_threshold"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_fastdown_down_threshold" ]; then
+		$busybox echo "0" > "$i/scaling_fastdown_down_threshold"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_fastdown_freq" ]; then
+		$busybox echo "0" > "$i/scaling_fastdown_freq"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_fastdown_up_threshold" ]; then
+		$busybox echo "0" > "$i/scaling_fastdown_up_threshold"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_proportional" ]; then
+		$busybox echo "0" > "$i/scaling_proportional"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_responsiveness_freq" ]; then
+		$busybox echo "0" > "$i/scaling_responsiveness_freq"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_responsiveness_up_threshold" ]; then
+		$busybox echo "90" > "$i/scaling_responsiveness_up_threshold"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_up_block_cycles" ]; then
+		$busybox echo "0" > "$i/scaling_up_block_cycles"; 
+	fi
+	if [ -e "$GOVERNOR/scaling_up_block_freq" ]; then
+		$busybox echo "0" > "$i/scaling_up_block_freq"; 
+	fi
+	if [ -e "$GOVERNOR/smooth_up" ]; then
+		$busybox echo "75" > "$i/smooth_up"; 
+	fi
+	if [ -e "$GOVERNOR/smooth_up_sleep" ]; then
+		$busybox echo "100" > "$i/smooth_up_sleep"; 
+	fi
+	if [ -e "$GOVERNOR/up_threshold" ]; then
+		$busybox echo "80" > "$i/up_threshold";
+	fi
+	if [ -e "$GOVERNOR/up_threshold_hotplug1" ]; then
+		$busybox echo "35" > "$i/up_threshold_hotplug1";
+	fi
+	if [ -e "$GOVERNOR/up_threshold_hotplug2" ]; then
+		$busybox echo "75" > "$i/up_threshold_hotplug2";
+	fi
+	if [ -e "$GOVERNOR/up_threshold_hotplug3" ]; then
+		$busybox echo "95" > "$i/up_threshold_hotplug3";
+	fi
+	if [ -e "$GOVERNOR/up_threshold_hotplug_freq1" ]; then
+		$busybox echo "0" > "$i/up_threshold_hotplug_freq1";
+	fi
+	if [ -e "$GOVERNOR/up_threshold_hotplug_freq2" ]; then
+		$busybox echo "0" > "$i/up_threshold_hotplug_freq2";
+	fi
+	if [ -e "$GOVERNOR/up_threshold_hotplug_freq3" ]; then
+		$busybox echo "0" > "$i/up_threshold_hotplug_freq3";
+	fi
+	if [ -e "$GOVERNOR/up_threshold_sleep" ]; then
+		$busybox echo "90" > "$i/up_threshold_sleep";
+	fi
+fi
  done
-	$busybox echo "Battery $CUR_GOVERNOR tweaks applied."
-   $busybox echo ""
  sleep 180 
  fi
 done

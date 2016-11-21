@@ -19,7 +19,7 @@ busybox="/system/etc/GovTuner/busybox"
 getprop="/system/bin/getprop"
 init="/system/etc/init.d"
 PROFILE_DIR="$core/current"
-ver="3.6"
+ver="3.7"
 id="$(id)"; id="${id#*=}"; id="${id%%\(*}"; id="${id%% *}"
 CUR_GOVERNOR=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor);
 GOVERNOR=$CUR_GOVERNOR
@@ -118,13 +118,36 @@ $busybox sleep 0.1
 echo "                                 " 
 
 $busybox echo -e "Profile: $profile"
+$busybox echo ""
+$busybox echo -e "Governor: $GOVERNOR"
+$busybox echo ""
+if [ $CUR_GOVERNOR = "zzmoove" ]; then
+if [ -d "$CLUSTER_DETECT" ]; then
+HOTPLUG=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/zzmoove/disable_hotplug)
+else
+HOTPLUG=$($busybox cat /sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug)
+fi
+if [ $HOTPLUG == 1 ]; then
+$busybox echo -e "Hotplug: Stock Hotplug"
+$busybox echo ""
+elif [ $HOTPLUG == 0 ]; then
+$busybox echo -e "Hotplug: Zzmoove Tweaked Hotplug"
+$busybox echo ""
+fi
+fi
 if [ -d "$CLUSTER_DETECT" ]; then
 $busybox echo -e "Cluster device: Yes"
+$busybox echo ""
 else
 $busybox echo -e "Cluster device: No"
+$busybox echo ""
 fi
 $busybox echo "Device: ${DEVICE}" 
+$busybox echo ""
 $busybox echo "Android Version: ${VER}"
+$busybox echo ""
+$busybox echo "GovTuner Version: $ver"
+$busybox echo ""
 if [ -f /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies ]; then
 UFREQ=$($busybox awk '{print $NF}' $FREQ_SOURCE);
 LFREQ=$($busybox awk -v 1=$1 '{print $1}' $FREQ_SOURCE);
@@ -143,6 +166,7 @@ else
    MAX_FREQ=$(($UFREQ / 1000 ));
    MIN_FREQ=$(($LFREQ / 1000 ));
    $busybox echo "CPU Min: $MIN_FREQ MHz"
+   $busybox echo ""
    $busybox echo "CPU Max: $MAX_FREQ MHz"
    $busybox echo ""
    $busybox echo $divider
@@ -160,6 +184,9 @@ $busybox echo -e "\e[01;34m     3 - Performance \e[00;37m"
 $busybox echo ""
 $busybox echo $divider
 $busybox echo ""
+if [ $CUR_GOVERNOR = "zzmoove" ]; then
+$busybox echo -e "\e[01;37m h. Hotplug"
+fi
 $busybox echo -e "\e[01;37m u. Disable GovTuner \e[00;37m"
 $busybox echo -e "\e[01;37m c. Changelog \e[00;37m"
 $busybox echo " e. Exit"
@@ -328,6 +355,10 @@ $busybox clear;;
 
 c|C)$busybox clear;
 sh $core/Changelogs;;
+
+h|H)$busybox clear;
+sh $core/Hotplug;;
+
 e|E)$busybox clear;
 $busybox mount -o remount,ro /system 2>/dev/null
 exit;;

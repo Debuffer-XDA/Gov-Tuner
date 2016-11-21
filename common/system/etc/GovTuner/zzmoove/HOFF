@@ -12,19 +12,28 @@
 #  GNU General Public License for more details.
 #  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #=======================================================================#
+
 busybox="/system/etc/GovTuner/busybox"
-ver="3.7"
-divider="==============================================="
-$busybox echo "CHANGELOG FOR $ver"
-$busybox echo "----------------------"
+CUR_GOVERNOR=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor);
+REG_DIR="/sys/devices/system/cpu/cpufreq"
+CLU_DIR="/sys/devices/system/cpu/cpu0/cpufreq"
+
+ if [ -d "/sys/devices/system/cpu/cpufreq/$CUR_GOVERNOR" ]; then
+     FINAL_PATH=$REG_DIR
+ elif [ -d "/sys/devices/system/cpu/cpu0/cpufreq/$CUR_GOVERNOR" ]; then
+     FINAL_PATH=$CLU_DIR
+ else
+     echo "Unsupported device architecture"
+ fi
+
+$busybox clear
+$busybox echo "Turning Stock hotplug ON."
+$busybox sleep 1
+$busybox echo "1" > "$FINAL_PATH/$CUR_GOVERNOR/disable_hotplug";
+$busybox echo "1" > "$FINAL_PATH/$CUR_GOVERNOR/disable_hotplug_sleep";
+start mpdecision
 $busybox echo ""
-$busybox echo "Battery profile improvements"
-$busybox echo "Balanced profile improvements"
-$busybox echo "Performance profile improvements"
-$busybox echo ""
-$busybox echo -n "b. Back to menu: "
-read -r character
-case $character in
-b|B)$busybox clear;
-sh /system/bin/govtuner;;
-esac
+$busybox sleep 1
+echo 1 > /etc/GovTuner/zzmoove/HCheck
+$busybox echo "Stock hotplug ON."
+$busybox clear

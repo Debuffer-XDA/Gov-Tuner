@@ -116,6 +116,9 @@ $busybox sleep 0.1
 echo -e "\e[01;3"$c"m        |_|\__,_|_| |_|\___|_|  \e[00;37m"
 $busybox sleep 0.1
 echo "                                 " 
+$busybox echo ""
+$busybox echo ""
+$busybox echo ""
 
 $busybox echo -e "Profile: $profile"
 $busybox echo ""
@@ -165,9 +168,17 @@ if [ "$Show_freq" = "false" ]; then
 else
    MAX_FREQ=$(($UFREQ / 1000 ));
    MIN_FREQ=$(($LFREQ / 1000 ));
+   if [ $MAX_FREQ -gt $MIN_FREQ ]; then
    $busybox echo "CPU Min: $MIN_FREQ MHz"
    $busybox echo ""
    $busybox echo "CPU Max: $MAX_FREQ MHz"
+   elif [ $MAX_FREQ -lt $MIN_FREQ ]; then
+   $busybox echo "CPU Min: $MAX_FREQ MHz"
+   $busybox echo "CPU Max: $MIN_FREQ MHz"
+   else
+     sleep 0.2
+   fi
+   $busybox echo ""
    $busybox echo ""
    $busybox echo $divider
 fi
@@ -189,25 +200,44 @@ $busybox echo -e "\e[01;37m h. Hotplug"
 fi
 $busybox echo -e "\e[01;37m u. Disable GovTuner \e[00;37m"
 $busybox echo -e "\e[01;37m c. Changelog \e[00;37m"
+$busybox echo -e "\e[01;37m t. Tuned Parameters \e[00;37m"
 $busybox echo " e. Exit"
 $busybox echo ""
 $busybox echo $divider
 $busybox echo ""
 $busybox echo ""
+if [ -e /data/system/test ]; then
 OUTPUT_ID=$($busybox cat /data/system/test);
-if ps | grep "$OUTPUT_ID"
+if ps | $busybox grep "$OUTPUT_ID"
     then
+            $busybox echo ""
             echo -e "\e[01;37m GovTuner \e[00;37m : \e[01;32m ACTIVE \e[00;37m"
+           $busybox echo ""
 else
        echo -e "\e[01;37m GovTuner \e[00;37m : \e[01;31m INACTIVE \e[00;37m"
+       $busybox echo ""
+fi
+elif [ ! -e /data/system/test ]; then
+   echo -e "\e[01;37m GovTuner \e[00;37m : \e[01;31m INACTIVE \e[00;37m"
+   $busybox echo ""
+else
+  echo ""
 fi
 $busybox echo ""
 if [ -f "$INIT_TEST" ]; then
     echo -e "\e[01;37m Init.d \e[00;37m : \e[01;32m WORKING \e[00;37m"
+   $busybox echo ""
 else
      echo -e "\e[01;37m Init.d \e[00;37m : \e[01;31m NOT WORKING \e[00;37m"
-     $busybox echo -e "\e[01;37m If you use 3rd party init.d emulators, as Kernel Adiutor init.d emulator, it's fine as well, it just won't show up here as active \e[00;37m"
+     $busybox echo -e "\e[01;37m Re-run GovTuner on after a reboot to activate the profiles \e[00;37m"
+    $busybox echo ""
 fi
+$busybox echo ""
+if [ -f "/data/system/unsupported" ]; then
+    CUR_GOVERNOR_UP=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor | $busybox tr "a-z" "A-Z");
+    echo -e "\e[01;37m No tunables found for\e[00;37m : \e[01;31m$CUR_GOVERNOR_UP \e[00;37m ,\e[01;37m change governor \e[00;37m"
+fi
+$busybox echo ""
 $busybox echo ""
 $busybox echo -n "Please select a profile:"
 read -r character
@@ -246,8 +276,6 @@ $busybox echo ""
 $busybox sleep 5
 $busybox clear
 $busybox echo "GovTuner battery profile activated"
-$busybox echo ""
-$busybox echo ""
 $busybox sleep 1
 $busybox clear ;;
 
@@ -291,6 +319,7 @@ $busybox clear ;;
 
 3)$busybox clear
 $busybox echo ""
+$busybox echo ""
 $busybox echo "Activating performance profile"
 $busybox sleep 0.3
 $busybox echo ""
@@ -328,6 +357,7 @@ $busybox sleep 1
 $busybox clear ;;
 
 u|U)$busybox clear
+$busybox echo ""
 $busybox mount -o remount,rw /system 2>/dev/null
 mount -o remount,rw /system 2>/dev/null
 OUTPUT_ID=$($busybox cat /data/system/test);
@@ -354,10 +384,28 @@ $busybox sleep 0.5
 $busybox clear;;
 
 c|C)$busybox clear;
+$busybox echo ""
 sh $core/Changelogs;;
 
+<<<<<<< HEAD
 h|H)$busybox clear;
 sh $core/Hotplug;;
+=======
+t|T)$busybox clear;
+$busybox echo ""
+if [ -e "/data/system/tuned" ]; then
+ TUNED=/data/system/tuned
+ $busybox echo -e "\e[01;34m The following parameters are tuned :- \e[00;37m"
+ $busybox echo ""
+ $busybox cat $TUNED
+ $busybox echo $divider
+ sleep 4
+else
+ "Nothing to show"
+  sleep 2
+fi
+$busybox clear;;
+>>>>>>> origin/master
 
 e|E)$busybox clear;
 $busybox mount -o remount,ro /system 2>/dev/null

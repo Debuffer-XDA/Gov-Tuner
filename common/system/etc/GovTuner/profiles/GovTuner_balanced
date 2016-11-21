@@ -92,6 +92,7 @@ fi
   echo "GovTuner_balanced" > $PROFILE
  GOVERNOR="$FINAL_PATH/$CUR_GOVERNOR"
  TUNED="/data/system/tuned"
+ 
  #TUNING_BEGINS
  
  if [ -d "$GOVERNOR" ]; then
@@ -488,37 +489,37 @@ if [ $CUR_GOVERNOR = "zzmoove" ]; then
 		$busybox echo "80" > "$i/grad_up_threshold_sleep";
 	fi
 	if [ -e "$GOVERNOR/hotplug_block_down_cycles" ]; then
-		$busybox echo "0" > "$i/hotplug_block_down_cycles"
+		$busybox echo "0" > "$i/hotplug_block_down_cycles";
 	fi
 	if [ -e "$GOVERNOR/hotplug_block_up_cycles" ]; then
-		$busybox echo "0" > "$i/hotplug_block_up_cycles"
+		$busybox echo "0" > "$i/hotplug_block_up_cycles";
 	fi
 	if [ -e "$GOVERNOR/hotplug_engage_freq" ]; then
-		$busybox echo "600000" > "$i/hotplug_engage_freq"
+		$busybox echo "600000" > "$i/hotplug_engage_freq";
 	fi
 	if [ -e "$GOVERNOR/hotplug_idle_freq" ]; then
-		$busybox echo "0" > "$i/hotplug_idle_freq"
+		$busybox echo "0" > "$i/hotplug_idle_freq";
 	fi
 	if [ -e "$GOVERNOR/hotplug_idle_threshold" ]; then
-		$busybox echo "0" > "$i/hotplug_idle_threshold"
+		$busybox echo "0" > "$i/hotplug_idle_threshold";
 	fi
 	if [ -e "$GOVERNOR/hotplug_lock" ]; then
-		$busybox echo "0" > "$i/hotplug_lock"
+		$busybox echo "0" > "$i/hotplug_lock";
 	fi
 	if [ -e "$GOVERNOR/hotplug_max_limit" ]; then
-		$busybox echo "0" > "$i/hotplug_max_limit"
+		$busybox echo "0" > "$i/hotplug_max_limit";
 	fi
 	if [ -e "$GOVERNOR/hotplug_min_limit" ]; then
-		$busybox echo "0" > "$i/hotplug_min_limit"
+		$busybox echo "0" > "$i/hotplug_min_limit";
 	fi
 	if [ -e "$GOVERNOR/hotplug_sleep" ]; then
-		$busybox echo "0" > "$i/hotplug_sleep"
+		$busybox echo "0" > "$i/hotplug_sleep";
 	fi
 	if [ -e "$GOVERNOR/hotplug_stagger_down" ]; then
-		$busybox echo "0" > "$i/hotplug_stagger_down"
+		$busybox echo "0" > "$i/hotplug_stagger_down";
 	fi
 	if [ -e "$GOVERNOR/hotplug_stagger_up" ]; then
-		$busybox echo "0" > "$i/hotplug_stagger_up"
+		$busybox echo "0" > "$i/hotplug_stagger_up";
 	fi
 	if [ -e "$GOVERNOR/ignore_nice_load" ]; then
 		$busybox echo "0" > "$i/ignore_nice_load";
@@ -651,8 +652,6 @@ if [ $CUR_GOVERNOR = "zzmoove" ]; then
 	fi
 fi
  done
-
-
   if [ -e "/data/system/tuned" ]; then
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
   $busybox echo ""

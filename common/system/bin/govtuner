@@ -116,10 +116,6 @@ $busybox sleep 0.1
 echo -e "\e[01;3"$c"m        |_|\__,_|_| |_|\___|_|  \e[00;37m"
 $busybox sleep 0.1
 echo "                                 " 
-$busybox echo ""
-$busybox echo ""
-$busybox echo ""
-
 $busybox echo -e "Profile: $profile"
 $busybox echo ""
 $busybox echo -e "Governor: $GOVERNOR"

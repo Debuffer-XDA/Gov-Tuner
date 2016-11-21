@@ -92,6 +92,7 @@ fi
   echo "GovTuner_balanced" > $PROFILE
  GOVERNOR="$FINAL_PATH/$CUR_GOVERNOR"
  TUNED="/data/system/tuned"
+ 
  #TUNING_BEGINS
  
  if [ -d "$GOVERNOR" ]; then

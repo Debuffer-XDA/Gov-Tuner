@@ -91,6 +91,7 @@ fi
   echo "GovTuner_balanced" > $PROFILE
  GOVERNOR="$FINAL_PATH/$CUR_GOVERNOR"
  TUNED="/data/system/tuned"
+ 
  #TUNING_BEGINS
  
  if [ -d "$GOVERNOR" ]; then
@@ -650,8 +651,6 @@ if [ $CUR_GOVERNOR = "zzmoove" ]; then
 	fi
 fi
  done
-
-
 	if [ -e "/data/system/tuned" ]; then
 	$busybox echo "Battery $CUR_GOVERNOR tweaks applied."
   $busybox echo ""

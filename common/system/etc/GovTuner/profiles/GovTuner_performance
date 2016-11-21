@@ -2,7 +2,7 @@
 # Gov-Tuner Performance Profile
 # Copyright (C) 2016 Debuffer &  Senthil360 @ XDA Developers
 # 	   With help from Paget96 and F4uzan and GreekDragon
-#=================================================================================================================================================#
+#=======================================================================#
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
 #  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -11,7 +11,7 @@
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #  GNU General Public License for more details.
 #  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#=================================================================================================================================================#
+#=======================================================================#
 
 # TODO: Fix this on Cluster-based SoC
 
@@ -31,8 +31,8 @@ HOFF=/etc/GovTuner/zzmoove/HOFF
 # Minimum CPU frequency
 MIN_CPU_FREQ=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq);
 
-$busybox mount -o remount,rw /system 
-mount -o remount,rw /system 
+$busybox mount -o remount,rw /system 2>/dev/null
+mount -o remount,rw /system 2>/dev/null
 
 if [ "$CHECK1" -eq "1" ]; then
    echo "First Run"
@@ -48,20 +48,15 @@ else
 fi
 
 while [ 5 == 5 ]; do
-$busybox mount -o remount,rw /system 
-mount -o remount,rw /system 
-
-<<<<<<< HEAD
-=======
 $busybox mount -o remount,rw /system 2>/dev/null
 mount -o remount,rw /system 2>/dev/null
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> parent of 7115c76... sync error fix
-=======
->>>>>>> parent of 7115c76... sync error fix
-=======
->>>>>>> parent of df352da... 1
+ if [ -f "/data/system/tuned" ]; then
+     rm -f /data/system/tuned
+ fi
+ if [ -f "/data/system/unsupported" ]; then
+     rm -f /data/system/unsupported
+ fi
+
  OUTPUT="/data/system/test"
  echo $$ > $OUTPUT
  echo "GovTuner_performance" > $PROFILE
@@ -73,24 +68,6 @@ elif [ $CH == 1 ]; then
 sh $HOFF
 fi
 fi
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> parent of 7115c76... sync error fix
-=======
-=======
->>>>>>> parent of 7115c76... sync error fix
-=======
->>>>>>> parent of df352da... 1
- if [ -f "/data/system/tuned" ]; then
-     rm -f /data/system/tuned
- fi
- if [ -f "/data/system/unsupported" ]; then
-     rm -f /data/system/unsupported
- fi
  
 #For REGULAR and SMALL clusters
  if [ -d "/sys/devices/system/cpu/cpufreq/$CUR_GOVERNOR" ]; then
@@ -98,28 +75,16 @@ fi
  elif [ -d "/sys/devices/system/cpu/cpu0/cpufreq/$CUR_GOVERNOR" ]; then
      FINAL_PATH=$CLU_DIR
  else
-     $busybox clear;
-     $busybox echo ""
-     $busybox echo ""
-     $busybox echo ""
-     $busybox echo ""
-     $busybox echo "$CUR_GOVERNOR" > /data/system/unsupported
-     $busybox echo -e "\e[01;33m *** $CUR_GOVERNOR_UP is not tunable *** \e[00;37m"
-     sleep 5
-     $busybox rm -f /system/etc/GovTuner/current/*
-     break;
+     echo "Unsupported device architecture"
  fi
-  OUTPUT="/data/system/test"
-  echo $$ > $OUTPUT
-  echo "GovTuner_balanced" > $PROFILE
  GOVERNOR="$FINAL_PATH/$CUR_GOVERNOR"
  TUNED="/data/system/tuned"
- 
- #TUNING_BEGINS
+
+#TUNING_BEGINS
  
  if [ -d "$GOVERNOR" ]; then
- for i in $FINAL_PATH/$CUR_GOVERNOR; do
-  chmod 644 $GOVERNOR/*
+ for i in $FINAL_PATH/$CUR_GOVERNOR; do 
+ chmod 644 $GOVERNOR/*
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
 		$busybox echo "20000" > "$i/above_hispeed_delay" 
    echo "above_hispeed_delay" >> $TUNED
@@ -157,21 +122,7 @@ fi
     echo "io_is_busy" >> $TUNED
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 		$busybox echo "50000" > "$i/min_sample_time"; 
-=======
-<<<<<<< HEAD
-=======
->>>>>>> parent of 7115c76... sync error fix
-		$busybox echo "50000" > "$i/min_sample_time";
-=======
-		$busybox echo "80000" > "$i/min_sample_time" 2>/dev/null
->>>>>>> parent of 7115c76... sync error fix
-=======
-		$busybox echo "50000" > "$i/min_sample_time"; 
->>>>>>> parent of df352da... 1
     echo "min_sample_time" >> $TUNED
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
@@ -179,21 +130,7 @@ fi
    echo "sampling_down_factor" >> $TUNED
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
-<<<<<<< HEAD
-<<<<<<< HEAD
 		$busybox echo "0 $MIN_CPU_FREQ:40 400000:20 600000:30 700000:35 800000:40 900000:45 1100000:55 1400000:60 1700000:75 1900000:95" > "$i/target_loads";
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-		$busybox echo "0 $MIN_CPU_FREQ:40 400000:20 600000:30 700000:35 800000:40 900000:45 1100000:55 1400000:60 1700000:75 1900000:95" > "$i/target_loads";
-=======
-=======
->>>>>>> parent of 7115c76... sync error fix
-		$busybox echo "0 $MIN_CPU_FREQ:40 400000:20 600000:30 700000:35 800000:40 900000:45 1100000:55 1400000:60 1700000:75 1900000:85" > "$i/target_loads" 2>/dev/null
->>>>>>> parent of 7115c76... sync error fix
-=======
-		$busybox echo "0 $MIN_CPU_FREQ:40 400000:20 600000:30 700000:35 800000:40 900000:45 1100000:55 1400000:60 1700000:75 1900000:95" > "$i/target_loads";
->>>>>>> parent of df352da... 1
    echo "target_loads" >> $TUNED
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
@@ -202,18 +139,6 @@ fi
 	fi
 	if [ -e "$GOVERNOR/timer_slack" ]; then
 		$busybox echo "-1" > "$i/timer_slack";
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-		$busybox echo "-1" > "$i/timer_slack";
-=======
-=======
->>>>>>> parent of 7115c76... sync error fix
-		$busybox echo "80000" > "$i/timer_slack" 2>/dev/null
->>>>>>> parent of 7115c76... sync error fix
-=======
->>>>>>> parent of df352da... 1
     echo "timer_slack" >> $TUNED
 	fi
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_freq" ]; then
@@ -236,17 +161,6 @@ fi
 		$busybox echo "1" > "$i/ignore_nice_load" 
     echo "ignore_nice_load" >> $TUNED
 	fi
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> parent of 7115c76... sync error fix
-=======
->>>>>>> parent of 7115c76... sync error fix
-=======
->>>>>>> parent of df352da... 1
 	if [ -e "$GOVERNOR/sampling_rate" ]; then
 		$busybox echo "45000" > "$i/sampling_rate" 
     echo "sampling_rate" >> $TUNED
@@ -431,19 +345,9 @@ fi
 		$busybox echo "1100000" > "$i/staycycles_resetfreq" 
     echo "statcycles_resetfreq" >> $TUNED
 	fi
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> parent of 7115c76... sync error fix
-=======
->>>>>>> parent of 7115c76... sync error fix
-=======
->>>>>>> parent of df352da... 1
 	if [ -e "$GOVERNOR/input_boost_duration" ]; then
 		$busybox echo "0" > "$i/input_boost_duration";
-
+	fi
 	if [ -e "$GOVERNOR/"input_boost_duration ]; then
 		$busybox echo "0" > "$i/input_boost_duration" 
     echo "input_boost_duration" >> $TUNED
@@ -735,18 +639,7 @@ if [ $CUR_GOVERNOR = "zzmoove" ]; then
 	fi
 fi
  done
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> parent of 7115c76... sync error fix
-=======
->>>>>>> parent of 7115c76... sync error fix
-=======
->>>>>>> parent of df352da... 1
-	if [ -e "/data/system/tuned" ]; then
+  if [ -e "/data/system/tuned" ]; then
 	$busybox echo "Performance $CUR_GOVERNOR tweaks applied."
   $busybox echo ""
   else 

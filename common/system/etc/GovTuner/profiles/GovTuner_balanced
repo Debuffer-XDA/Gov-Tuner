@@ -1,7 +1,8 @@
 #!/system/bin/sh
-# Gov-Tuner Balanced_Profile
+# Gov-Tuner Balanced Profile
 # Copyright (C) 2016 Debuffer &  Senthil360 @ XDA Developers
 # 	   With help from Paget96 and F4uzan and GreekDragon
+#=======================================================================#
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
 #  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -10,6 +11,7 @@
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #  GNU General Public License for more details.
 #  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#=======================================================================#
 
 # TODO: Fix this on Cluster-based SoC
 
@@ -29,8 +31,8 @@ HOFF=/etc/GovTuner/zzmoove/HOFF
 # Minimum CPU frequency
 MIN_CPU_FREQ=$($busybox cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq);
 
-$busybox mount -o remount,rw /system 
-mount -o remount,rw /system 
+$busybox mount -o remount,rw /system 2>/dev/null
+mount -o remount,rw /system 2>/dev/null
 
 if [ "$CHECK1" -eq "1" ]; then
    echo "First Run"
@@ -46,24 +48,19 @@ else
 fi
 
 while [ 5 == 5 ]; do
-$busybox mount -o remount,rw /system 
-mount -o remount,rw /system 
-
-<<<<<<< HEAD
-=======
 $busybox mount -o remount,rw /system 2>/dev/null
 mount -o remount,rw /system 2>/dev/null
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> parent of 7115c76... sync error fix
-=======
->>>>>>> parent of 7115c76... sync error fix
-=======
->>>>>>> parent of df352da... 1
+ if [ -f "/data/system/tuned" ]; then
+     rm -f /data/system/tuned
+ fi
+ if [ -f "/data/system/unsupported" ]; then
+     rm -f /data/system/unsupported
+ fi
+
  OUTPUT="/data/system/test"
  echo $$ > $OUTPUT
  echo "GovTuner_balanced" > $PROFILE
-
+ 
 if [ $CUR_GOVERNOR == "zzmoove" ]; then
 if [ $CH == 0 ]; then
 sh $HON
@@ -71,24 +68,6 @@ elif [ $CH == 1 ]; then
 sh $HOFF
 fi
 fi
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> parent of 7115c76... sync error fix
-=======
-=======
->>>>>>> parent of 7115c76... sync error fix
-=======
->>>>>>> parent of df352da... 1
- if [ -f "/data/system/tuned" ]; then
-     rm -f /data/system/tuned
- fi
- if [ -f "/data/system/unsupported" ]; then
-     rm -f /data/system/unsupported
- fi
  
 #For REGULAR and SMALL clusters
  if [ -d "/sys/devices/system/cpu/cpufreq/$CUR_GOVERNOR" ]; then
@@ -96,414 +75,246 @@ fi
  elif [ -d "/sys/devices/system/cpu/cpu0/cpufreq/$CUR_GOVERNOR" ]; then
      FINAL_PATH=$CLU_DIR
  else
-     $busybox clear;
-     $busybox echo ""
-     $busybox echo ""
-     $busybox echo ""
-     $busybox echo "$CUR_GOVERNOR" > /data/system/unsupported
-     $busybox echo -e "\e[01;33m *** $CUR_GOVERNOR_UP is not tunable *** \e[00;37m"
-     sleep 5
-     echo "$CUR_GOVERNOR" > /data/system/unsupported
-     $busybox rm -f /system/etc/GovTuner/current/*
-     break;
+     echo "Unsupported device architecture"
  fi
-  OUTPUT="/data/system/test"
-  echo $$ > $OUTPUT
-  echo "GovTuner_balanced" > $PROFILE
  GOVERNOR="$FINAL_PATH/$CUR_GOVERNOR"
  TUNED="/data/system/tuned"
- 
+
  #TUNING_BEGINS
  
- if [ -d "$GOVERNOR" ]; then
+if [ -d "$GOVERNOR" ]; then
  for i in $FINAL_PATH/$CUR_GOVERNOR; do
-  chmod 644 $GOVERNOR/*
+ chmod 644 $GOVERNOR/*
 	if [ -e "$GOVERNOR/above_hispeed_delay" ]; then
-<<<<<<< HEAD
-<<<<<<< HEAD
 		$busybox echo "20000 1400000:50000 1700000:100000" > "$i/above_hispeed_delay";
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-		$busybox echo "20000 1400000:50000 1700000:100000" > "$i/above_hispeed_delay";
-=======
-=======
->>>>>>> parent of 7115c76... sync error fix
-		$busybox echo "20000 1400000:50000 1700000:20000" > "$i/above_hispeed_delay" 2>/dev/null
->>>>>>> parent of 7115c76... sync error fix
-=======
-		$busybox echo "20000 1400000:50000 1700000:100000" > "$i/above_hispeed_delay";
->>>>>>> parent of df352da... 1
-   echo "above_hispeed_delay" >> $TUNED
+		echo "above_hispeed_delay" >> $TUNED
 	fi
 	if [ -e "$GOVERNOR/boost" ]; then
-		$busybox echo "0" > "$i/boost" 
-    echo "boost" >> $TUNED
+		$busybox echo "0" > "$i/boost";
+		echo "boost" >> $TUNED
 	fi
 	if [ -e "$GOVERNOR/boostpulse" ]; then
-		$busybox echo "0" > "$i/boostpulse" 
-    echo "boostpulse" >> $TUNED
+		$busybox echo "0" > "$i/boostpulse";
+		echo "boostpulse" >> $TUNED
 	fi
 	if [ -e "$GOVERNOR/boostpulse_duration" ]; then	
-		$busybox echo "0" > "$i/boostpulse_duration" 
-    echo "boostpulse_duration" >> $TUNED
+		$busybox echo "0" > "$i/boostpulse_duration";
+		echo "boostpulse_duration" >> $TUNED
 	fi
 	if [ -e "$GOVERNOR/go_hispeed_load" ]; then
-		$busybox echo "300" > "$i/go_hispeed_load" 
-    echo "go_hispeed_load" >> $TUNED
+		$busybox echo "300" > "$i/go_hispeed_load";
 	fi
 	if [ -e "$GOVERNOR/hispeed_freq" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq" 
-    echo "hispeed_freq" >> $TUNED
+		$busybox echo "$MIN_CPU_FREQ" > "$i/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR/max_freq_hysteresis" ]; then
-		$busybox echo "0" > "$i/max_freq_hysteresis" 
-    echo "max_freq_hysteresis" >> $TUNED
+		$busybox echo "0" > "$i/max_freq_hysteresis";
 	fi
 	if [ -e "$GOVERNOR/align_windows" ]; then
-		$busybox echo "0" > "$i/align_windows" 
-    echo "align_windows" >> $TUNED
+		$busybox echo "0" > "$i/align_windows";
 	fi
 	if [ -e "$GOVERNOR/io_is_busy" ]; then
-		$busybox echo "1" > "$i/io_is_busy" 
-    echo "io_is_busy" >> $TUNED
+		$busybox echo "1" > "$i/io_is_busy";
 	fi
 	if [ -e "$GOVERNOR/min_sample_time" ]; then
-<<<<<<< HEAD
-<<<<<<< HEAD
 		$busybox echo "50000" > "$i/min_sample_time";
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-		$busybox echo "50000" > "$i/min_sample_time";
-=======
-=======
->>>>>>> parent of 7115c76... sync error fix
-		$busybox echo "80000" > "$i/min_sample_time" 2>/dev/null
->>>>>>> parent of 7115c76... sync error fix
-=======
-		$busybox echo "50000" > "$i/min_sample_time";
->>>>>>> parent of df352da... 1
-    echo "min_sample_time" >> $TUNED
 	fi
 	if [ -e "$GOVERNOR/sampling_down_factor" ]; then
-		$busybox echo "1" > "$i/sampling_down_factor" 
-   echo "sampling_down_factor" >> $TUNED
+		$busybox echo "1" > "$i/sampling_down_factor";
 	fi
 	if [ -e "$GOVERNOR/target_loads" ]; then
 		$busybox echo "0 $MIN_CPU_FREQ:50 400000:25 600000:35 700000:40 800000:50 900000:63 1100000:78 1400000:93 1700000:97 1900000:99" > "$i/target_loads";
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-		$busybox echo "0 $MIN_CPU_FREQ:50 400000:25 600000:35 700000:40 800000:50 900000:63 1100000:78 1400000:93 1700000:97 1900000:99" > "$i/target_loads";
-=======
-=======
->>>>>>> parent of 7115c76... sync error fix
-		$busybox echo "0 $MIN_CPU_FREQ:50 400000:25 600000:35 700000:40 800000:45 900000:50 1100000:65 1400000:93 1700000:97 1900000:99" > "$i/target_loads" 2>/dev/null
->>>>>>> parent of 7115c76... sync error fix
-=======
->>>>>>> parent of df352da... 1
-   echo "target_loads" >> $TUNED
 	fi
 	if [ -e "$GOVERNOR/timer_rate" ]; then
-		$busybox echo "20000" > "$i/timer_rate" 
-    echo "timer_rate" >> $TUNED
+		$busybox echo "20000" > "$i/timer_rate";
 	fi
 	if [ -e "$GOVERNOR/timer_slack" ]; then
-<<<<<<< HEAD
-<<<<<<< HEAD
 		$busybox echo "-1" > "$i/timer_slack";
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-		$busybox echo "-1" > "$i/timer_slack";
-=======
-=======
->>>>>>> parent of 7115c76... sync error fix
-		$busybox echo "80000" > "$i/timer_slack" 2>/dev/null
->>>>>>> parent of 7115c76... sync error fix
-=======
-		$busybox echo "-1" > "$i/timer_slack";
->>>>>>> parent of df352da... 1
-    echo "timer_slack" >> $TUNED
 	fi
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_freq" ]; then
-		$busybox echo "0" > "$i/up_threshold_any_cpu_freq" 
-    echo "up_threshold_any_cpu_freq" >> $TUNED
+		$busybox echo "0" > "$i/up_threshold_any_cpu_freq";
 	fi
 	if [ -e "$GOVERNOR/up_threshold_any_cpu_load" ]; then
-		$busybox echo "0" > "$i/up_threshold_any_cpu_load" 
-   echo "up_threshold_any_cpu_load" >> $TUNED
+		$busybox echo "0" > "$i/up_threshold_any_cpu_load";
 	fi
 	if [ -e "$GOVERNOR/down_threshold" ]; then
-		$busybox echo "80" > "$i/down_threshold" 
-    echo "down_threshold" >> $TUNED
+		$busybox echo "80" > "$i/down_threshold";
 	fi
 	if [ -e "$GOVERNOR/freq_step" ]; then
-		$busybox echo "15" > "$i/freq_step" 
-    echo "freq_step" >> $TUNED
+		$busybox echo "15" > "$i/freq_step";
 	fi
 	if [ -e "$GOVERNOR/ignore_nice_load" ]; then
-		$busybox echo "1" > "$i/ignore_nice_load" 
-    echo "ignore_nice_load" >> $TUNED
-	fi
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> parent of 7115c76... sync error fix
-=======
->>>>>>> parent of 7115c76... sync error fix
-=======
->>>>>>> parent of df352da... 1
-	if [ -e "$GOVERNOR/sampling_rate" ]; then
-		$busybox echo "75000" > "$i/sampling_rate" 
-    echo "sampling_rate" >> $TUNED
-	fi
-	if [ -e "$GOVERNOR/sampling_rate_min" ]; then
-		$busybox echo "30000" > "$i/sampling_rate_min" 
-    echo "sampling_rate_min" >> $TUNED
+		$busybox echo "1" > "$i/ignore_nice_load";
 	fi
 	if [ -e "$GOVERNOR/up_threshold" ]; then
-		$busybox echo "75" > "$i/up_threshold" 
-    echo "up_threshold" >> $TUNED
+		$busybox echo "75" > "$i/up_threshold";
 	fi
 	if [ -e "$GOVERNOR/sync_freq" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$i/sync_freq" 
-    echo "sync_freq" >> $TUNED
+		$busybox echo "$MIN_CPU_FREQ" > "$i/sync_freq";
 	fi
 	if [ -e "$GOVERNOR/two_phase_freq" ]; then
-		$busybox echo "1100000,1100000,1100000,1100000" > "$i/two_phase_freq" 
-    echo "two_phase_freq" >> $TUNED
+		$busybox echo "1100000,1100000,1100000,1100000" > "$i/two_phase_freq";
 	fi
 	if [ -e "$GOVERNOR/jump_level" ]; then
-		$busybox echo "1000000" > "$i/jump_level" 
-     echo "jump_level" >> $TUNED
+		$busybox echo "1000000" > "$i/jump_level";
 	fi
 	if [ -e "$GOVERNOR/jump_threshold" ]; then
-		$busybox echo "75" > "$i/jump_threshold" 
-    echo "jump_threshold" >> $TUNED
+		$busybox echo "75" > "$i/jump_threshold";
 	fi
 	if [ -e "$GOVERNOR/powersave_bias" ]; then
-		$busybox echo "0" > "$i/powersave_bias" 
-    echo "powersave_bias" >> $TUNED
+		$busybox echo "0" > "$i/powersave_bias";
 	fi
 	if [ -e "$GOVERNOR/down_differential" ]; then
-		$busybox echo "47" > "$i/down_differential" 
-    echo "down_differential" >> $TUNED
+		$busybox echo "47" > "$i/down_differential";
 	fi
 	if [ -e "$GOVERNOR/second_phase_freq" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$i/second_phase_freq" 
-    echo "second_phase_freq" >> $TUNED
+		$busybox echo "$MIN_CPU_FREQ" > "$i/second_phase_freq";
 	fi
 	if [ -e "$GOVERNOR/boostfreq" ]; then
-		$busybox echo "0" > "$i/boostfreq" 
-    echo "boostfreq" >> $TUNED
+		$busybox echo "0" > "$i/boostfreq";
 	fi
 	if [ -e "$GOVERNOR/micro_freq_up_threshold" ]; then
-		$busybox echo "80" > "$i/micro_freq_up_threshold" 
-    echo "micro_freq_up_threshold" >> $TUNED
+		$busybox echo "80" > "$i/micro_freq_up_threshold";
 	fi
 	if [ -e "$GOVERNOR/up_threshold_min_freq" ]; then
-		$busybox echo "600000" > "$i/up_threshold_min_freq" 
-    echo "up_threshold_min_freq" >> $TUNED
+		$busybox echo "600000" > "$i/up_threshold_min_freq";
 	fi
 	if [ -e "$GOVERNOR/ba_lock" ]; then
-		$busybox echo "0" > "$i/ba_lock" 
-    echo "ba_lock" >> $TUNED
+		$busybox echo "0" > "$i/ba_lock";
 	fi
 	if [ -e "$GOVERNOR/down_differential_multi_core" ]; then
-		$busybox echo "35" > "$i/down_differential_multi_core" 
-    echo "down_differential_multi_core" >> $TUNED
+		$busybox echo "35" > "$i/down_differential_multi_core";
 	fi
 	if [ -e "$GOVERNOR/freq_down_step" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$i/freq_down_step" 
-    echo "freq_down_step" >> $TUNED
+		$busybox echo "$MIN_CPU_FREQ" > "$i/freq_down_step";
 	fi
 	if [ -e "$GOVERNOR/freq_down_step_barrier" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$i/freq_down_step_barrier" 
-    echo "freq_down_step_barrier" >> $TUNED
+		$busybox echo "$MIN_CPU_FREQ" > "$i/freq_down_step_barrier";
 	fi
 	if [ -e "$GOVERNOR/input_event_min_freq" ]; then
-		$busybox echo "600000, 600000, 600000, 600000" > "$i/input_event_min_freq" 
-    echo "input_event_min_freq" >> $TUNED
+		$busybox echo "600000, 600000, 600000, 600000" > "$i/input_event_min_freq";
 	fi
 	if [ -e "$GOVERNOR/optimal_freq" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$i/optimal_freq" 
-    echo "optimal_freq" >> $TUNED
+		$busybox echo "$MIN_CPU_FREQ" > "$i/optimal_freq";
 	fi
 	if [ -e "$GOVERNOR/shortcut" ]; then
-		$busybox echo "0" > "$i/shortcut" 
-    echo "shortcut" >> $TUNED
+		$busybox echo "0" > "$i/shortcut";
 	fi
 	if [ -e "$GOVERNOR/up_threshold_multi_core" ]; then
-		$busybox echo "0" > "$i/up_threshold_multi_core" 
-    echo "up_threshold_multi_core" >> $TUNED
+		$busybox echo "0" > "$i/up_threshold_multi_core";
 	fi
 	if [ -e "$GOVERNOR/freq_responsiveness" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$i/freq_responsiveness" 
-    echo "freq_responsiveness" >> $TUNED
+		$busybox echo "$MIN_CPU_FREQ" > "$i/freq_responsiveness";
 	fi
 	if [ -e "$GOVERNOR/awake_ideal_freq" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$i/awake_ideal_freq" 
-    echo "awake_ideal_freq" >> $TUNED
+		$busybox echo "$MIN_CPU_FREQ" > "$i/awake_ideal_freq";
 	fi
 	if [ -e "$GOVERNOR/boost_duration" ]; then
-		$busybox echo "0" > "$i/boost_duration" 
-    echo "boost_duration" >> $TUNED
+		$busybox echo "0" > "$i/boost_duration";
 	fi
 	if [ -e "$GOVERNOR/boost_freq" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$i/boost_freq" 
-    echo "boost_freq" >> $TUNED
+		$busybox echo "$MIN_CPU_FREQ" > "$i/boost_freq";
 	fi
 	if [ -e "$GOVERNOR/debug_mask" ]; then
-		$busybox echo "32" > "$i/debug_mask" 
-    echo "debug_mask" >> $TUNED
+		$busybox echo "32" > "$i/debug_mask";
 	fi
 	if [ -e "$GOVERNOR/down_rate" ]; then
-		$busybox echo "10000" > "$i/down_rate" 
-    echo "down_rate" >> $TUNED
+		$busybox echo "10000" > "$i/down_rate";
 	fi
 	if [ -e "$GOVERNOR/ignore_nice" ]; then
-		$busybox echo "0" > "$i/ignore_nice" 
-    echo "ignore_nice" >> $TUNED
+		$busybox echo "0" > "$i/ignore_nice";
 	fi
-	if [ -e "$GOVERNOR/input_boost_duration" ]; then
-		$busybox echo "0" > "$i/input_boost_duration" 
-    echo "input_boost_duration" >> $TUNED
-	fi
-	if [ -e "$GOVERNOR/max_cpu_load" ]; then
-		$busybox echo "100" > "$i/max_cpu_load" 
-    echo "max_cpu_load" >> $TUNED
-	fi
-	if [ -e "$GOVERNOR/min_cpu_load" ]; then
-		$busybox echo "5" > "$i/min_cpu_load" 
-    echo "min_cpu_load" >> $TUNED
-	fi
-	if [ -e "$GOVERNOR/min_sampling_rate" ]; then
-		$busybox echo "20000" > "$i/min_sampling_rate" 
-    echo "min_sampling_rate" >> $TUNED
-	fi
-	if [ -e "$GOVERNOR/ramp_down_step" ]; then
-		$busybox echo "162000" > "$i/ramp_down_step" 
-    echo "ramp_down_step" >> $TUNED
-	fi
-	if [ -e "$GOVERNOR/ramp_up_during_boost" ]; then
-		$busybox echo "0" > "$i/ramp_up_during_boost" 
-    echo "ramp_up_during_boost" >> $TUNED
-	fi
-	if [ -e "$GOVERNOR/ramp_up_step" ]; then
-		$busybox echo "100000" > "$i/ramp_up_step" 
-    echo "ramp_up_step" >> $TUNED
-	fi
-	if [ -e "$GOVERNOR/suspend_ideal_freq" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$i/suspend_ideal_freq" 
-     echo "suspend_ideal_freq" >> $TUNED
-	fi
-	if [ -e "$GOVERNOR/touch_poke_freq" ]; then
-		$busybox echo "0" > "$i/touch_poke_freq" 
-    echo "touch_poke_freq" >> $TUNED
-	fi
-	if [ -e "$GOVERNOR/up_rate" ]; then
-		$busybox echo "0" > "$i/up_rate" 
-    echo "up_rate" >> $TUNED
-	fi
-	if [ -e "$GOVERNOR/optimal_max_freq" ]; then
-		$busybox echo "1500000" > "$i/optimal_max_freq" 
-    echo "optimal_max_freq" >> $TUNED
-	fi
-	if [ -e "$GOVERNOR/freq_calc_thresh" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$i/freq_calc_thresh" 
-    echo "freq_calc_thresh" >> $TUNED
-	fi
-	if [ -e "$GOVERNOR/allowed_misses" ]; then
-		$busybox echo "5" > "$i/allowed_misses" 
-    echo "allowed_misses" >> $TUNED
-	fi
-	if [ -e "$GOVERNOR/target_residency" ]; then
-		$busybox echo "10000" > "$i/target_residency" 
-    echo "target_residency" >> $TUNED
-	fi
-	if [ -e "$GOVERNOR/inter_hifreq" ]; then
-		$busybox echo "1100000" > "$i/inter_hifreq" 
-    echo "inter_hifreq" >> $TUNED
-	fi
-	if [ -e "$GOVERNOR/inter_lofreq" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$i/inter_lofreq" 
-    echo "inter_lofreq" >> $TUNED
-	fi
-	if [ -e "$GOVERNOR/inter_staycycles" ]; then
-		$busybox echo "2" > "$i/inter_staycycles" 
-     echo "inter_staycycles" >> $TUNED
-	fi
-	if [ -e "$GOVERNOR/staycycles_resetfreq" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$i/staycycles_resetfreq" 
-    echo "statcycles_resetfreq" >> $TUNED
-	fi
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> parent of 7115c76... sync error fix
-=======
->>>>>>> parent of 7115c76... sync error fix
-=======
->>>>>>> parent of df352da... 1
 	if [ -e "$GOVERNOR/input_boost_duration" ]; then
 		$busybox echo "0" > "$i/input_boost_duration";
-
-	if [ -e "$GOVERNOR/"input_boost_duration ]; then
-		$busybox echo "0" > "$i/input_boost_duration" 
-    echo "input_boost_duration" >> $TUNED
+	fi
+	if [ -e "$GOVERNOR/max_cpu_load" ]; then
+		$busybox echo "100" > "$i/max_cpu_load";
+	fi
+	if [ -e "$GOVERNOR/min_cpu_load" ]; then
+		$busybox echo "5" > "$i/min_cpu_load";
+	fi
+	if [ -e "$GOVERNOR/min_sampling_rate" ]; then
+		$busybox echo "20000" > "$i/min_sampling_rate";
+	fi
+	if [ -e "$GOVERNOR/ramp_down_step" ]; then
+		$busybox echo "162000" > "$i/ramp_down_step";
+	fi
+	if [ -e "$GOVERNOR/ramp_up_during_boost" ]; then
+		$busybox echo "0" > "$i/ramp_up_during_boost";
+	fi
+	if [ -e "$GOVERNOR/ramp_up_step" ]; then
+		$busybox echo "100000" > "$i/ramp_up_step";
+	fi
+	if [ -e "$GOVERNOR/suspend_ideal_freq" ]; then
+		$busybox echo "$MIN_CPU_FREQ" > "$i/suspend_ideal_freq";
+	fi
+	if [ -e "$GOVERNOR/touch_poke_freq" ]; then
+		$busybox echo "0" > "$i/touch_poke_freq";
+	fi
+	if [ -e "$GOVERNOR/up_rate" ]; then
+		$busybox echo "0" > "$i/up_rate";
+	fi
+	if [ -e "$GOVERNOR/optimal_max_freq" ]; then
+		$busybox echo "1500000" > "$i/optimal_max_freq";
+	fi
+	if [ -e "$GOVERNOR/freq_calc_thresh" ]; then
+		$busybox echo "$MIN_CPU_FREQ" > "$i/freq_calc_thresh";
+	fi
+	if [ -e "$GOVERNOR/allowed_misses" ]; then
+		$busybox echo "5" > "$i/allowed_misses";
+	fi
+	if [ -e "$GOVERNOR/target_residency" ]; then
+		$busybox echo "10000" > "$i/target_residency";
+	fi
+	if [ -e "$GOVERNOR/inter_hifreq" ]; then
+		$busybox echo "1100000" > "$i/inter_hifreq";
+	fi
+	if [ -e "$GOVERNOR/inter_lofreq" ]; then
+		$busybox echo "$MIN_CPU_FREQ" > "$i/inter_lofreq";
+	fi
+	if [ -e "$GOVERNOR/inter_staycycles" ]; then
+		$busybox echo "2" > "$i/inter_staycycles";
+	fi
+	if [ -e "$GOVERNOR/staycycles_resetfreq" ]; then
+		$busybox echo "$MIN_CPU_FREQ" > "$i/staycycles_resetfreq";
+	fi
+	if [ -e "$GOVERNOR/input_boost_duration" ]; then
+		$busybox echo "0" > "$i/input_boost_duration";
 	fi
 	if [ -e "$GOVERNOR/sampling_easy_factor" ]; then
-		$busybox echo "2" > "$i/sampling_easy_factor" 
-    echo "sampling_easy_factor" >> $TUNED
+		$busybox echo "2" > "$i/sampling_easy_factor";
 	fi
 	if [ -e "$GOVERNOR/sampling_interim_factor" ]; then
-		$busybox echo "3" > "$i/sampling_interim_factor" 
-    echo "sampling_interim_factor" >> $TUNED
+		$busybox echo "3" > "$i/sampling_interim_factor";
 	fi
 	if [ -e "$GOVERNOR/ui_sampling_rate" ]; then
-		$busybox echo "50000" > "$i/ui_sampling_rate" 
-   echo "ui_sampling_rate" >> $TUNED
+		$busybox echo "50000" > "$i/ui_sampling_rate";
 	fi
 	if [ -e "$GOVERNOR/ui_timeout" ]; then
-		$busybox echo "40" > "$i/ui_timeout" 
-    echo "ui_timeout" >> $TUNED
+		$busybox echo "40" > "$i/ui_timeout";
 	fi
 	if [ -e "$GOVERNOR/down_sample_time" ]; then
-		$busybox echo "10000" > "$i/down_sample_time" 
-    echo "down_sample_time" >> $TUNED
+		$busybox echo "10000" > "$i/down_sample_time";
 	fi
 	if [ -e "$GOVERNOR/up_sample_time" ]; then
-		$busybox echo "40000" > "$i/up_sample_time" 
-    echo "up_sample_time" >> $TUNED
+		$busybox echo "40000" > "$i/up_sample_time";
 	fi
 	if [ -e "$GOVERNOR/active_floor_freq" ]; then
-		$busybox echo "$MIN_CPU_FREQ" > "$i/active_floor_freq" 
-   echo "active_floor_freq" >> $TUNED
+		$busybox echo "$MIN_CPU_FREQ" > "$i/active_floor_freq";
 	fi
 	if [ -e "$GOVERNOR/powersave" ]; then
-		$busybox echo "1" > "$i/powersave" 
-    echo "powesave" >> $TUNED
+		$busybox echo "1" > "$i/powersave";
 	fi
 	if [ -e "$GOVERNOR/fastlane" ]; then
-		$busybox echo "0" > "$i/fastlane" 
-    echo "fastlane" >> $TUNED
+		$busybox echo "0" > "$i/fastlane";
 	fi
 	if [ -e "$GOVERNOR/input_boost_freq" ]; then
-		$busybox echo "600000" > "$i/input_boost_freq" 
-    echo "input_boost_freq" >> $TUNED
+		$busybox echo "600000" > "$i/hispeed_freq";
 	fi
 	if [ -e "$GOVERNOR/low_load_down_threshold" ]; then
-		$busybox echo "20" > "$i/low_load_down_threshold" 
-    echo "low_load_down_threshold" >> $TUNED
+		$busybox echo "20" > "$i/low_load_down_threshold";
 	fi
+	
 	
 if [ $CUR_GOVERNOR = "zzmoove" ]; then
 
@@ -747,17 +558,6 @@ if [ $CUR_GOVERNOR = "zzmoove" ]; then
 	fi
 fi
  done
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> parent of 7115c76... sync error fix
-=======
->>>>>>> parent of 7115c76... sync error fix
-=======
->>>>>>> parent of df352da... 1
   if [ -e "/data/system/tuned" ]; then
 	$busybox echo "Balanced $CUR_GOVERNOR tweaks applied."
   $busybox echo ""

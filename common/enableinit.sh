@@ -1,5 +1,6 @@
 #!/sbin/sh
 # Init.d enabler by ALEXNDR (_alexndr @ XDA)
+#edited by veez21 to detect sysinit scripts in system
 
 OUTFD=/proc/self/fd/$2
 
@@ -67,6 +68,11 @@ cat /system/build.prop | grep "ro.product.cpu.abi=" | grep "64" >/dev/null && SY
 # /system/etc/*.boot.sh
 #
 # /system/bin/debuggerd is used if there is no suitable *.sh file in /system/etc
+
+#if sysinit is present, abort 
+if [ -x /system/bin/sysinit -o -x /system/xbin/sysinit ]; then
+exit
+fi
 
 BOOTFILE=$(ls /system/etc/*.sh 2>/dev/null | grep -m 1 "/init\..*\.post_boot\.sh$") ||
 BOOTFILE=$(ls /system/etc/*.sh 2>/dev/null | grep -m 1 "\.post_boot\.sh$") ||

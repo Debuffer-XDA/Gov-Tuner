@@ -13,28 +13,35 @@
 #  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #=======================================================================#
 busybox="/system/etc/GovTuner/busybox"
-ver="3.7.1"
+ver="4.0 - RC 23.1"
 divider="==============================================="
 $busybox echo "CHANGELOG FOR $ver"
 $busybox echo "----------------------"
 $busybox echo ""
-$busybox echo "Battery profile improvements"
-$busybox echo "Balanced profile improvements"
-$busybox echo "Performance profile improvements"
-$busybox echo "Battery profile improvements"
-$busybox echo "Balanced profile improvements"
-$busybox echo "Performance profile improvements"
-$busybox echo "Added Zzmoove governor compatibility"
-$busybox echo "Added Zzmoove built-in hotplug compatibility - Zzmoove has a built-in hotplug which has a much better compatibility with the governor than any other hotplug. Govtuner configures the governor and the hotplug for the best usage according to the selected profile."
-$busybox echo "Added more options to user in the main screen - Hotplug and hotplug check when using Zzmoove governor ONLY."
-$busybox echo "Added Zzmoove/Stock hotplug apply for zzmoove governor users"
-$busybox echo "Added new hotplug option to switch from Zzmoove/Stock hotplug"
-$busybox echo "Code optimizations"
-$busybox echo "Bug fixes"
+$busybox echo "Now supports more devices! (mostly cluster devices)"
+$busybox echo "New algorithm in detecting clusters!"
+$busybox echo "Tuned Parameters updated"
+$busybox echo "Tweaked Parameters added"
+$busybox echo "Fixed On boot error"
+$busybox echo "No more gt_test! All GovTuner init is now in gt_init"
+$busybox echo "Customizable sleep time in gt_init"
+$busybox echo "SuperSU su.d support"
+$busybox echo "Increase Performance Added"
+$busybox echo "New Parameters for ondemand/conservative based governors"
+$busybox echo "Fixed Several issues with several devices
+(S7 Edge, Mi 4i, Mi 4c?, Note 4, Lenovo P1 Turbo, Zenfone 2 and etc)"
+$busybox echo "Governor Changer Updated"
+$busybox echo "Added option to change Execution Time Interval"
+$busybox echo "Some Optimizations for a few governor parameters"
+$busybox echo "Removed unsupported parameters for certain governors"
+$busybox echo "First launch since boot detector added"
+$busybox echo "Almost all saved Choices are saved"
+$busybox echo "Profiles' code reduced"
+$busybox echo "New UI with fancy animations"
+$busybox echo "Optimized Code"
 $busybox echo ""
-$busybox echo -n "b. Back to menu: "
-read -r character
-case $character in
-b|B)$busybox clear;
-sh /system/bin/govtuner;;
-esac
+$busybox echo ""
+$busybox echo -n "Press enter to go back: "
+read
+clear
+exit

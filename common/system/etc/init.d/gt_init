@@ -12,12 +12,22 @@
 #  GNU General Public License for more details.
 #  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #=======================================================================#
+
+# You can edit this for your preference
+SLEEP_TIME=30
+
 core="/system/etc/GovTuner"
 busybox=/system/etc/GovTuner/busybox
-PROFILE=$($busybox cat /system/etc/GovTuner/current/profile);
+PROFILE=$($busybox cat /data/system/GovTuner/current/profile);
 $busybox mount -o remount,rw /system 2>/dev/null
 $busybox mount -o remount,rw / 2>/dev/null
 mount -o remount,rw /system 2>/dev/null
 mount -o remount,rw / 2>/dev/null
-$busybox sleep 120
-sh /system/etc/GovTuner/current/$PROFILE &
+$busybox rm /data/system/tuned 2>/dev/null
+$busybox rm /data/system/tweaked 2>/dev/null
+echo "Init.d is Working" > /gt_test
+(
+$busybox sleep $SLEEP_TIME
+$busybox echo 1 > /data/system/first_launch
+$busybox nohup /data/system/GovTuner/current/$PROFILE &
+)&

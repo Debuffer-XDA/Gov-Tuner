@@ -204,22 +204,6 @@ if [ "$core_ctl" -eq 0 ]; then
  alt_detect
 fi
 
-#IPER_stuff
-if [ -e "/data/system/IPER" ]; then
-		IPER=$($busybox cat /data/system/IPER);
-		if [ $? -ne 0 ]; then
-			echo 1 > /data/system/IPER
-		fi
-	else
-		IPER=1
-		$busybox echo "1" > "/data/system/IPER";
-	fi
-
-if [ "$IPER" -gt 10 ]; then
-	echo 10 > /data/system/IPER
-	IPER=10
-fi
-
 #SET ARRAY
 if [ "$bL" -eq 1 ]; then
  if [ "$TC" -eq 1 ] && [ "$TC" -ne 0 ]; then
@@ -227,27 +211,20 @@ if [ "$bL" -eq 1 ]; then
 	CDF[0]=$(((($MAX_FREQ_0 - $MIN_FREQ_0) / 160000) * 10000))
 	CDF[1]=$(((($MAX_FREQ_1 - $MIN_FREQ_1) / 160000) * 10000))
 	CDF[2]=$(((($MAX_FREQ_2 - $MIN_FREQ_2) / 160000) * 10000))
-	IP[0]=$(((${CDF[0]} / 10) * $IPER))
-	IP[1]=$(((${CDF[1]} / 10) * $IPER))
-	IP[2]=$(((${CDF[2]} / 10) * $IPER))
  fi
  if [ "$DC" -eq 1 ] && [ "$DC" -ne 0 ]; then
 	#For DUAL CLUSTER
 	CDF[0]=$(((($MAX_FREQ_0 - $MIN_FREQ_0) / 160000) * 10000))
 	CDF[2]=$(((($MAX_FREQ_2 - $MIN_FREQ_2) / 160000) * 10000))
-	IP[0]=$(((${CDF[0]} / 10) * $IPER))
-	IP[2]=$(((${CDF[2]} / 10) * $IPER))
  fi
 fi
 if [ "$SC" -eq 1 ] && [ "$CD" -eq 1 ]; then
 		#For SINGLE CLUSTER
 		CDF[0]=$(((($MAX_FREQ_0 - $MIN_FREQ_0) / 160000) * 10000))
-		IP[0]=$(((${CDF[0]} / 10) * $IPER))
 fi
 if [ "$REG" -eq 1 ] && [ "$CD" -eq 0 ]; then
 		#For REGULAR
 		CDF[0]=$(((($MAX_FREQ_0 - $MIN_FREQ_0) / 160000) * 10000))
-		IP[0]=$(((${CDF[0]} / 10) * $IPER))
 fi
 
 percent_out(){
@@ -257,43 +234,10 @@ percent_out(){
 	echo "$((200*$val/$total % 2 + 100*$val/$total))"
 }
 
-# Set IP for ondemand based govs
-# up_threshold
-BASE_UPT=70
-IPT=$(($((IPER*3))-$((IPER/2))))
-UPT=$((BASE_UPT-IPT))
-# sampling_rate
-# Rather than calculating, we would rather use preset values to be more accurate across IP values
-if [ "$IPER" -eq 1 ]; then
-	SMPR=53000
-elif [ "$IPER" -le 6 ] && [ "$IPER" -ge 2 ]; then
-	SMPR=47000
-elif [ "$IPER" -le 10 ] && [ "$IPER" -ge 7 ]; then
-	SMPR=43500
-else
-	SMPR=43500
-fi
-# down_differential
-BASE_DDF=20
-IPD=$(($((IPER*2))-$((IPER/2))))
-DDF=$((BASE_DDF-IPD))
-# down_threshold
-PERCENT=57
-for i in $($busybox seq 1 $UPT); do
-	if [ "$(percent_out $i $UPT)" == "$PERCENT" ]; then
-		DTH=$i
-		break
-	fi
-done
-if [ -z "$DTH" ]; then
-	DTH=$((UPT/3))
-fi
-
 #For TUNING_BEGINS
 if [ "$core_ctl" -eq 1 ]; then
    ga=0; gc=4;
 fi
-
 
 TUNED="/data/system/tuned"
 TWEAKED="/data/system/tweaked"
@@ -316,6 +260,84 @@ cecho() {
 
 z=5
 while [ 5 == $z ]; do
+#IPER_stuff
+if [ -e "/data/system/IPER" ]; then
+		IPER=$($busybox cat /data/system/IPER);
+		if [ $? -ne 0 ]; then
+			echo 1 > /data/system/IPER
+		fi
+	else
+		IPER=1
+		$busybox echo "1" > "/data/system/IPER";
+fi
+
+# IP Values
+if [ "$bL" -eq 1 ]; then
+ if [ "$TC" -eq 1 ] && [ "$TC" -ne 0 ]; then
+	#For TRIPLE CLUSTER
+	IP[0]=$(((${CDF[0]} / 10) * $IPER))
+	HSF[0]=$((${CDF[0]}  * ($IPER-1)))
+	IP[1]=$(((${CDF[1]} / 10) * $IPER))
+	HSF[1]=$((${CDF[1]}  * ($IPER-1)))
+	IP[2]=$(((${CDF[2]} / 10) * $IPER))
+	HSF[2]=$((${CDF[2]}  * ($IPER-1)))
+ fi
+ if [ "$DC" -eq 1 ] && [ "$DC" -ne 0 ]; then
+	#For DUAL CLUSTER
+	IP[0]=$(((${CDF[0]} / 10) * $IPER))
+	HSF[0]=$((${CDF[0]}  * ($IPER-1)))
+	IP[2]=$(((${CDF[2]} / 10) * $IPER))
+	HSF[2]=$((${CDF[2]}  * ($IPER-1)))
+ fi
+fi
+if [ "$SC" -eq 1 ] && [ "$CD" -eq 1 ]; then
+		#For SINGLE CLUSTER
+		IP[0]=$(((${CDF[0]} / 10) * $IPER))
+		HSF[0]=$((${CDF[0]}  * ($IPER-1)))
+fi
+if [ "$REG" -eq 1 ] && [ "$CD" -eq 0 ]; then
+		#For REGULAR
+		IP[0]=$(((${CDF[0]} / 10) * $IPER))
+		HSF[0]=$((${CDF[0]}  * ($IPER-1)))
+fi
+
+# Set IP for ondemand based govs
+# up_threshold
+BASE_UPT=70
+IPT=$(($((IPER*3))-$((IPER/2))))
+UPT=$((BASE_UPT-IPT))
+
+# sampling_rate
+# Rather than calculating, we would rather use preset values to be more accurate across IP values
+
+if [ "$IPER" -eq 1 ]; then
+	SMPR=53000
+elif [ "$IPER" -le 6 ] && [ "$IPER" -ge 2 ]; then
+	SMPR=47000
+elif [ "$IPER" -le 10 ] && [ "$IPER" -ge 7 ]; then
+	SMPR=43500
+else
+	SMPR=43500
+fi
+
+# down_differential
+BASE_DDF=20
+IPD=$(($((IPER*2))-$((IPER/2))))
+DDF=$((BASE_DDF-IPD))
+
+# down_threshold
+PERCENT=57
+for i in $($busybox seq 1 $UPT); do
+	if [ "$(percent_out $i $UPT)" == "$PERCENT" ]; then
+		DTH=$i
+		break
+	fi
+done
+if [ -z "$DTH" ]; then
+	DTH=$((UPT/3))
+fi
+# End Calculations
+
 	if [ -f $INTERVAL ] && [[ $(cat $INTERVAL 2>/dev/null) && $(cat $INTERVAL) -eq 0 ]]; then
 		z=1
 	fi
@@ -395,9 +417,9 @@ while [ 5 == $z ]; do
 					fi
 				fi
 				if [ -e "$i/hispeed_freq" ]; then
-						cecho "$MIN_FREQ_0" $i/hispeed_freq;
-						$busybox echo "LITTLE $MIN_FREQ_0"
-						sleep 1
+						cecho "$((${HSF[0]} + $MIN_FREQ_0))" $i/hispeed_freq;
+						$busybox echo "LITTLE $((${HSF[0]} + $MIN_FREQ_0))"
+						$busybox sleep 1
 				fi
 				if [ -e "$i/max_freq_hysteresis" ]; then
 					cecho "0" $i/max_freq_hysteresis;
@@ -906,9 +928,9 @@ while [ 5 == $z ]; do
 						fi
 					fi
 					if [ -e "$i/hispeed_freq" ]; then
-							cecho "$MIN_FREQ_1" $i/hispeed_freq;
-							$busybox echo "MIDDLE $MIN_FREQ_1"
-							sleep 1
+							cecho "$((${HSF[1]} + $MIN_FREQ_1))" $i/hispeed_freq;
+							$busybox echo "MIDDLE $((${HSF[1]} + $MIN_FREQ_1))"
+							$busybox sleep 1
 					fi
 					if [ -e "$i/max_freq_hysteresis" ]; then
 						cecho "0" $i/max_freq_hysteresis;
@@ -1411,9 +1433,9 @@ while [ 5 == $z ]; do
 						fi
 					fi
 					if [ -e "$i/hispeed_freq" ]; then
-							cecho "$MIN_FREQ_2" $i/hispeed_freq;
-							$busybox echo "BIG $MIN_FREQ_2"
-							sleep 1
+							cecho "$((${HSF[2]} + $MIN_FREQ_2))" $i/hispeed_freq;
+							$busybox echo "BIG $((${HSF[2]} + $MIN_FREQ_2))"
+							$busybox sleep 1
 					fi
 					if [ -e "$i/max_freq_hysteresis" ]; then
 						cecho "0" $i/max_freq_hysteresis;

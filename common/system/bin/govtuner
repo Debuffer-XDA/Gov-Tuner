@@ -970,6 +970,7 @@ fi
 				$busybox rm -rf $PROFILE_DIR/profile
 			fi
 			echo 1 > $FIRST_RUN
+			$busybox echo "1" > "/data/system/IPER"
 			$busybox echo "Governor_Tuner Disabled"
 			$busybox sleep 0.5
 			$busybox clear

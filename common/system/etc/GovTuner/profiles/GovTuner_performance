@@ -59,12 +59,21 @@ if [ ! -f $INTERVAL ]; then
   echo 180 > $INTERVAL
 fi
 
+# Devices with core_ctl hotplug have constantly changing clusters which makes it impossible to read from them. So setting core_ctl to 1 will change the
+# way how GT works on the device.
 for z in $cpu/cpu*; do
 		if [ -d $z/cpufreq/core_ctl ]; then
 			core_ctl=1
 		fi
 done
 
+# Alt_detect algorithm by @Senthil360
+# This is the new Cluster_detection algorithm. Further additions to this set of conditions , must always follow this order
+# i) Check whether CD =1 or CD = 0; i.e if cpufreq/$cur_governor exists on /sys/devices/system/cpu or in one of sys/devices/system/cpu/cpu$i directories
+# ii) Check for the number "scaling_governor" files in /sys/devices/system/cpu/cpu$i folder, given that those are actual files and not symlinks
+# iii) If CD = 0; (/sys/devices/system/cpu/cpufreq/$cur_governor); then check if the max frequencies in those folders are equal (REG=1) or not (DC=1) to confirm
+# The  min and Max frequencies, must be initialized , sorted and stored in this function itself. Because sorting values, while the script is actively printing its output at
+# the terminal can return false values and also increases the memory footprint by using more registers.
 alt_detect() {
     cpu=/sys/devices/system/cpu
 	i=0

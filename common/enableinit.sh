@@ -69,7 +69,7 @@ cat /system/build.prop | grep "ro.product.cpu.abi=" | grep "64" >/dev/null && SY
 #
 # /system/bin/debuggerd is used if there is no suitable *.sh file in /system/etc
 
-#if sysinit is present, abort 
+#if sysinit is present, abort
 if [ -x /system/bin/sysinit -o -x /system/xbin/sysinit ]; then
 exit
 fi

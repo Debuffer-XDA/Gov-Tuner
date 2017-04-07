@@ -13,38 +13,16 @@
 #  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #=======================================================================#
 
-# TODO: Fix this on Cluster-based SoC
 
 busybox="/system/etc/GovTuner/busybox"
 FIRST_RUN="/data/system/first_run"
-IPER=$(cat /data/system/IPER)
+IPER=$($busybox cat /data/system/IPER)
 INTERVAL=/data/system/INTERVAL_SEC
 core="/system/etc/GovTuner"
 PROFILE_DIR="/data/system/GovTuner/current"
 PROFILE="/data/system/GovTuner/current/profile"
-bigLITTLE=0
-IN=0
 CD=2
-SF=0
-HP=0
-HOTPLUG=2
-ROOT=0
-FIRST_LAUNCH=/data/system/first_launch
-cpu_freq=2
-core_cpufreq=2
 core_ctl=0
-sm3=0
-
-# colors
-G='\e[01;32m'
-R='\e[01;31m'
-N='\e[00;37;40m'
-Y='\e[01;33m'
-B='\e[01;34m'
-V='\e[01;35m'
-Bl='\e[01;30m'
-C='\e[01;36m'
-W='\e[01;37m'
 
 if [ -s "/data/system/test" ]; then
 	OUTPUT_ID=$($busybox cat /data/system/test)
@@ -88,11 +66,11 @@ alt_detect() {
 			gov[$c]=$z/cpufreq/${cur_gov[$c]}
             gov_r[$c]=$cpu/cpufreq/${cur_gov[$c]}
             change[$c]=$z/cpufreq/scaling_governor
-            gov_avail[$c]=$z/cpufreq/scaling_available_governors        
+            gov_avail[$c]=$z/cpufreq/scaling_available_governors
 			freq_u[$c]=$z/cpufreq/cpuinfo_max_freq
             freq_l[$c]=$z/cpufreq/cpuinfo_min_freq
 			c=$((c+1))
-			sleep 0.5
+			$busybox sleep 0.5
 		fi
     done
     m=0
@@ -107,10 +85,10 @@ alt_detect() {
              fi
              if [ "${#gov[@]}" -eq 2 ]; then
                  DC=1
-                 sm1=$($busybox cat "${freq_u[0]}" | cut -d ' ' -f1)
-	               sm2=$($busybox cat "${freq_u[1]}" | cut -d ' ' -f1)
-                  gd1=$($busybox cat "${freq_l[0]}" | cut -d ' ' -f1)
-                  gd2=$($busybox cat "${freq_l[1]}" | cut -d ' ' -f1)     
+                  sm1=$($busybox cat "${freq_u[0]}" | $busybox cut -d ' ' -f1)
+	              sm2=$($busybox cat "${freq_u[1]}" | $busybox cut -d ' ' -f1)
+                  gd1=$($busybox cat "${freq_l[0]}" | $busybox cut -d ' ' -f1)
+                  gd2=$($busybox cat "${freq_l[1]}" | $busybox cut -d ' ' -f1)
                  if [ "$sm1" -lt "$sm2" ]; then
                     ga=0; gc=1;
                     MAX_FREQ_0="$sm1"
@@ -132,12 +110,12 @@ alt_detect() {
               fi
              if [ "${#gov[@]}" -eq 3 ]; then
                  TC=1
-                 sm1=$($busybox cat "${freq_u[0]}" | cut -d ' ' -f1)
-	               sm2=$($busybox cat "${freq_u[1]}" | cut -d ' ' -f1)
-                 sm3=$($busybox cat "${freq_u[2]}" | cut -d ' ' -f1)
-                 gd1=$($busybox cat "${freq_l[0]}" | cut -d ' ' -f1)
-                 gd2=$($busybox cat "${freq_l[1]}" | cut -d ' ' -f1)
-                 gd3=$($busybox cat "${freq_l[2]}" | cut -d ' ' -f1)
+                 sm1=$($busybox cat "${freq_u[0]}" | $busybox cut -d ' ' -f1)
+	             sm2=$($busybox cat "${freq_u[1]}" | $busybox cut -d ' ' -f1)
+                 sm3=$($busybox cat "${freq_u[2]}" | $busybox cut -d ' ' -f1)
+                 gd1=$($busybox cat "${freq_l[0]}" | $busybox cut -d ' ' -f1)
+                 gd2=$($busybox cat "${freq_l[1]}" | $busybox cut -d ' ' -f1)
+                 gd3=$($busybox cat "${freq_l[2]}" | $busybox cut -d ' ' -f1)
                  if [ "$sm1" -lt "$sm2" ] && [ "$sm2" -lt "sm3" ]; then
                      ga=0; gb=1; gc=2;
                      MAX_FREQ_0="$sm1"
@@ -175,10 +153,10 @@ alt_detect() {
          fi
          if [ -d "${gov_r[0]}" ] || [ -d "${gov_r[1]}" ]; then
             if [ "${#gov[@]}" -eq 2 ]; then
-                  sm1=$($busybox cat "${freq_u[0]}" | cut -d ' ' -f1)
-	              sm2=$($busybox cat "${freq_u[1]}" | cut -d ' ' -f1)
-                  gd1=$($busybox cat "${freq_l[0]}" | cut -d ' ' -f1)
-                  gd2=$($busybox cat "${freq_l[1]}" | cut -d ' ' -f1)     
+                  sm1=$($busybox cat "${freq_u[0]}" | $busybox cut -d ' ' -f1)
+	              sm2=$($busybox cat "${freq_u[1]}" | $busybox cut -d ' ' -f1)
+                  gd1=$($busybox cat "${freq_l[0]}" | $busybox cut -d ' ' -f1)
+                  gd2=$($busybox cat "${freq_l[1]}" | $busybox cut -d ' ' -f1)
                 if [ "$sm1" -lt "$sm2" ]; then
                     ga=0; gc=1;
                     MAX_FREQ_0="$sm1"
@@ -200,8 +178,8 @@ alt_detect() {
                 if [ "$sm2" -eq "$sm1" ]; then
                    REG=1
                    ga=0; CD=0; DC=0;
-                   MAX_FREQ_0=$($busybox cat "$cpu/cpu0/cpufreq/cpuinfo_max_freq" | cut -d ' ' -f1)
-                   MIN_FREQ_0=$($busybox cat "$cpu/cpu0/cpufreq/cpuinfo_min_freq" | cut -d ' ' -f1)
+                   MAX_FREQ_0=$($busybox cat "$cpu/cpu0/cpufreq/cpuinfo_max_freq" | $busybox cut -d ' ' -f1)
+                   MIN_FREQ_0=$($busybox cat "$cpu/cpu0/cpufreq/cpuinfo_min_freq" | $busybox cut -d ' ' -f1)
                    DEVICE=REGULAR
 				   unset gov[0];
 				   unset gov[1];
@@ -211,14 +189,14 @@ alt_detect() {
 			if [ "${#gov[@]}" -ne 2 ]; then
 			       REG=1
                    ga=0; CD=0; DC=0;
-                   MAX_FREQ_0=$($busybox cat "$cpu/cpu0/cpufreq/cpuinfo_max_freq" | cut -d ' ' -f1)
-                   MIN_FREQ_0=$($busybox cat "$cpu/cpu0/cpufreq/cpuinfo_min_freq" | cut -d ' ' -f1)
+                   MAX_FREQ_0=$($busybox cat "$cpu/cpu0/cpufreq/cpuinfo_max_freq" | $busybox cut -d ' ' -f1)
+                   MIN_FREQ_0=$($busybox cat "$cpu/cpu0/cpufreq/cpuinfo_min_freq" | $busybox cut -d ' ' -f1)
                    DEVICE=REGULAR
 				   unset gov[0];
 				   unset gov[1];
 				   gov[0]=$cpu/cpufreq/${cur_gov[0]}
-			fi	   
-         fi			
+			fi
+         fi
      m=$(($m+1))
     done
 }
@@ -240,7 +218,7 @@ if [ -e "/data/system/IPER" ]; then
 if [ "$IPER" -gt 10 ]; then
 	echo 10 > /data/system/IPER
 	IPER=10
-fi	
+fi
 
 #SET ARRAY
 if [ "$bL" -eq 1 ]; then
@@ -260,7 +238,7 @@ if [ "$bL" -eq 1 ]; then
 	IP[0]=$(((${CDF[0]} / 10) * $IPER))
 	IP[2]=$(((${CDF[2]} / 10) * $IPER))
  fi
-fi 
+fi
 if [ "$SC" -eq 1 ] && [ "$CD" -eq 1 ]; then
 		#For SINGLE CLUSTER
 		CDF[0]=$(((($MAX_FREQ_0 - $MIN_FREQ_0) / 160000) * 10000))
@@ -293,7 +271,7 @@ elif [ "$IPER" -le 6 ] && [ "$IPER" -ge 2 ]; then
 elif [ "$IPER" -le 10 ] && [ "$IPER" -ge 7 ]; then
 	SMPR=43500
 else
-	SMPR=43500 
+	SMPR=43500
 fi
 # down_differential
 BASE_DDF=20
@@ -354,7 +332,7 @@ while [ 5 == $z ]; do
 	OUTPUT="/data/system/test"
 	$busybox echo $$ > $OUTPUT
 	$busybox echo "GovTuner_performance" > $PROFILE
-	
+
 	#Power efficient
 	if [ -e "/sys/module/workqueue/parameters/power_efficient" ]; then
 		#Tweaks adding
@@ -882,7 +860,7 @@ while [ 5 == $z ]; do
 				      echo "Breaking small cluster"
 					  break 1
 					fi
-                fi	
+                fi
 			done
 		fi
 		#For MIDDLE cluster
@@ -1389,7 +1367,7 @@ while [ 5 == $z ]; do
 					fi
 				done
 			fi
-		fi	
+		fi
 		#For BIG and dual cluster
 		if [ "$DC" -eq 1 ] || [ "$TC" -eq 1 ] || [ "$core_ctl" -eq 1 ]; then
 			if [ -d ${gov[$gc]} ] || [ "$core_ctl" -eq 1 ]; then
@@ -1915,7 +1893,7 @@ while [ 5 == $z ]; do
 					$busybox echo "Performance ${cur_gov[$ga]} tweaks applied.";
 					$busybox echo "Performance ${cur_gov[$gc]} tweaks applied.";
 				fi
-			fi	
+			fi
 			if [ "$SC" -eq 1 ] || [ "$REG" -eq 1 ]; then
 				$busybox echo "Performance ${cur_gov[$ga]} tweaks applied.";
 			fi

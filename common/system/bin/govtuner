@@ -26,7 +26,7 @@ core="/system/etc/GovTuner"
 busybox="/system/etc/GovTuner/busybox"
 getprop="/system/bin/getprop"
 init="/system/etc/init.d"
-ver="4.0 RC 23. 1"
+ver="4.0 RC 23. 3"
 id="$(id)"; id="${id#*=}"; id="${id%%\(*}"; id="${id%% *}"
 FIRST_RUN="/data/system/first_run"
 INIT_TEST="/gt_test"
@@ -36,7 +36,9 @@ CD=2
 ROOT=0
 INTERVAL=/data/system/INTERVAL_SEC
 core_ctl=0
-TIME=$($busybox cat /proc/uptime | cut -d '.' -f1)
+TIME=$($busybox cat /proc/uptime | $busybox cut -d '.' -f1)
+#Hold your horses :P. Added this check to provide time for the device to initialize CPU parameters properly. This also solves the init.d not working errors
+# caused due to early launching of scripts
 if [ "$TIME" -lt 180 ]; then
    echo "GovTuner must be run atleast after a time interval of 3 minutes after booting. This is to ensure the CPU directories are set properly, this script will exit now. Please run after 3 minutes"
    sleep 15
@@ -59,7 +61,8 @@ Bl='\e[01;30m'
 C='\e[01;36m'
 W='\e[01;37m'
 while true; do
-
+# Devices with core_ctl hotplug have constantly changing clusters which makes it impossible to read from them. So setting core_ctl to 1 will change the
+# way how GT works on the device.
 for z in $cpu/cpu*; do
 		if [ -d $z/cpufreq/core_ctl ]; then
 			core_ctl=1
@@ -203,7 +206,7 @@ interval_choose() {
 }
 apply_profile() {
 	# apply_profile battery/balanced/performance
-	
+
 	if [ "$1" == "battery" ]; then
 		profile=battery
 		pro_file=GovTuner_battery
@@ -249,8 +252,13 @@ apply_profile() {
 	$busybox clear
 	return
 }
-
-# Alternative Cluster Detect if the previous one fails
+# Alt_detect algorithm by @Senthil360
+# This is the new Cluster_detection algorithm. Further additions to this set of conditions , must always follow this order
+# i) Check whether CD =1 or CD = 0; i.e if cpufreq/$cur_governor exists on /sys/devices/system/cpu or in one of sys/devices/system/cpu/cpu$i directories
+# ii) Check for the number "scaling_governor" files in /sys/devices/system/cpu/cpu$i folder, given that those are actual files and not symlinks
+# iii) If CD = 0; (/sys/devices/system/cpu/cpufreq/$cur_governor); then check if the max frequencies in those folders are equal (REG=1) or not (DC=1) to confirm
+# The  min and Max frequencies, must be initialized , sorted and stored in this function itself. Because sorting values, while the script is actively printing its output at
+# the terminal can return false values and also increases the memory footprint by using more registers.
 alt_detect() {
     cpu=/sys/devices/system/cpu
 	i=0
@@ -269,7 +277,7 @@ alt_detect() {
 			freq_u[$c]=$z/cpufreq/cpuinfo_max_freq
             freq_l[$c]=$z/cpufreq/cpuinfo_min_freq
 			c=$((c+1))
-			sleep 0.5
+			$busybox sleep 0.5
 		fi
     done
     m=0
@@ -284,10 +292,10 @@ alt_detect() {
              fi
              if [ "${#gov[@]}" -eq 2 ]; then
                  DC=1
-                  sm1=$($busybox cat "${freq_u[0]}" | cut -d ' ' -f1)
-	              sm2=$($busybox cat "${freq_u[1]}" | cut -d ' ' -f1)
-                  gd1=$($busybox cat "${freq_l[0]}" | cut -d ' ' -f1)
-                  gd2=$($busybox cat "${freq_l[1]}" | cut -d ' ' -f1)     
+                  sm1=$($busybox cat "${freq_u[0]}" | $busybox cut -d ' ' -f1)
+	              sm2=$($busybox cat "${freq_u[1]}" | $busybox cut -d ' ' -f1)
+                  gd1=$($busybox cat "${freq_l[0]}" | $busybox cut -d ' ' -f1)
+                  gd2=$($busybox cat "${freq_l[1]}" | $busybox cut -d ' ' -f1)
                  if [ "$sm1" -lt "$sm2" ]; then
                     ga=0; gc=1;
                     MAX_FREQ_0="$sm1"
@@ -309,12 +317,12 @@ alt_detect() {
               fi
              if [ "${#gov[@]}" -eq 3 ]; then
                  TC=1
-                 sm1=$($busybox cat "${freq_u[0]}" | cut -d ' ' -f1)
-	               sm2=$($busybox cat "${freq_u[1]}" | cut -d ' ' -f1)
-                 sm3=$($busybox cat "${freq_u[2]}" | cut -d ' ' -f1)
-                 gd1=$($busybox cat "${freq_l[0]}" | cut -d ' ' -f1)
-                 gd2=$($busybox cat "${freq_l[1]}" | cut -d ' ' -f1)
-                 gd3=$($busybox cat "${freq_l[2]}" | cut -d ' ' -f1)
+                 sm1=$($busybox cat "${freq_u[0]}" | $busybox cut -d ' ' -f1)
+	             sm2=$($busybox cat "${freq_u[1]}" | $busybox cut -d ' ' -f1)
+                 sm3=$($busybox cat "${freq_u[2]}" | $busybox cut -d ' ' -f1)
+                 gd1=$($busybox cat "${freq_l[0]}" | $busybox cut -d ' ' -f1)
+                 gd2=$($busybox cat "${freq_l[1]}" | $busybox cut -d ' ' -f1)
+                 gd3=$($busybox cat "${freq_l[2]}" | $busybox cut -d ' ' -f1)
                  if [ "$sm1" -lt "$sm2" ] && [ "$sm2" -lt "sm3" ]; then
                      ga=0; gb=1; gc=2;
                      MAX_FREQ_0="$sm1"
@@ -352,10 +360,10 @@ alt_detect() {
          fi
          if [ -d "${gov_r[0]}" ] || [ -d "${gov_r[1]}" ]; then
             if [ "${#gov[@]}" -eq 2 ]; then
-                  sm1=$($busybox cat "${freq_u[0]}" | cut -d ' ' -f1)
-	              sm2=$($busybox cat "${freq_u[1]}" | cut -d ' ' -f1)
-                  gd1=$($busybox cat "${freq_l[0]}" | cut -d ' ' -f1)
-                  gd2=$($busybox cat "${freq_l[1]}" | cut -d ' ' -f1)     
+                  sm1=$($busybox cat "${freq_u[0]}" | $busybox cut -d ' ' -f1)
+	              sm2=$($busybox cat "${freq_u[1]}" | $busybox cut -d ' ' -f1)
+                  gd1=$($busybox cat "${freq_l[0]}" | $busybox cut -d ' ' -f1)
+                  gd2=$($busybox cat "${freq_l[1]}" | $busybox cut -d ' ' -f1)
                 if [ "$sm1" -lt "$sm2" ]; then
                     ga=0; gc=1;
                     MAX_FREQ_0="$sm1"
@@ -377,8 +385,8 @@ alt_detect() {
                 if [ "$sm2" -eq "$sm1" ]; then
                    REG=1
                    ga=0; CD=0; DC=0;
-                   MAX_FREQ_0=$($busybox cat "$cpu/cpu0/cpufreq/cpuinfo_max_freq" | cut -d ' ' -f1)
-                   MIN_FREQ_0=$($busybox cat "$cpu/cpu0/cpufreq/cpuinfo_min_freq" | cut -d ' ' -f1)
+                   MAX_FREQ_0=$($busybox cat "$cpu/cpu0/cpufreq/cpuinfo_max_freq" | $busybox cut -d ' ' -f1)
+                   MIN_FREQ_0=$($busybox cat "$cpu/cpu0/cpufreq/cpuinfo_min_freq" | $busybox cut -d ' ' -f1)
                    DEVICE=REGULAR
 				   unset gov[0];
 				   unset gov[1];
@@ -388,14 +396,14 @@ alt_detect() {
 			if [ "${#gov[@]}" -ne 2 ]; then
 			       REG=1
                    ga=0; CD=0; DC=0;
-                   MAX_FREQ_0=$($busybox cat "$cpu/cpu0/cpufreq/cpuinfo_max_freq" | cut -d ' ' -f1)
-                   MIN_FREQ_0=$($busybox cat "$cpu/cpu0/cpufreq/cpuinfo_min_freq" | cut -d ' ' -f1)
+                   MAX_FREQ_0=$($busybox cat "$cpu/cpu0/cpufreq/cpuinfo_max_freq" | $busybox cut -d ' ' -f1)
+                   MIN_FREQ_0=$($busybox cat "$cpu/cpu0/cpufreq/cpuinfo_min_freq" | $busybox cut -d ' ' -f1)
                    DEVICE=REGULAR
 				   unset gov[0];
 				   unset gov[1];
 				   gov[0]=$cpu/cpufreq/${cur_gov[0]}
-			fi	   
-         fi			
+			fi
+         fi
      m=$(($m+1))
     done
 }
@@ -434,7 +442,7 @@ if [ -e "/sys/module/workqueue/parameters/power_efficient" ]; then
 	fi
 fi
 #Terminal_output_Begins
-if [ "$core_ctl" -eq 0 ]; then  
+if [ "$core_ctl" -eq 0 ]; then
 	if [ "$ROOT" -eq 0 ]; then
 		$busybox clear
 		$busybox echo -e "Check number core: ${G}OK ($CORE)${N}"
@@ -454,9 +462,9 @@ if [ "$core_ctl" -eq 0 ]; then
 			$busybox echo -e "Check bigLITTLE: ${G}OK ($bL)${N}"
 		fi
 		$busybox echo ""
-		$busybox echo "If, by any chance, the script is malfunctioning, 
-send screenshot/s of that/those error/s to the 
-development team so that it can/might be resolved. 
+		$busybox echo "If, by any chance, the script is malfunctioning,
+send screenshot/s of that/those error/s to the
+development team so that it can/might be resolved.
 Thank you."
 		$busybox sleep 5
 	fi
@@ -470,7 +478,7 @@ Thank you."
 		$busybox sleep 1
 		exit 1
 	fi
-fi	
+fi
 	if [ "$ROOT" -eq 0 ]; then
 		$busybox clear
 		$busybox echo "Checking root"; $busybox sleep 0.2; $busybox clear;
@@ -494,7 +502,7 @@ fi
 			$busybox echo ""
 			$busybox sleep 1
 			exit 1
-		else 
+		else
 			ROOT=1
 			$busybox clear
 			$busybox sleep 0.3
@@ -580,7 +588,8 @@ fi
 
 	$busybox echo -e "Profile: $profile"
 	$busybox echo ""
-if [ "$core_ctl" -eq 0 ]; then	
+# Always double quote array elements and expansions to prevent globbing and word-splitting.
+if [ "$core_ctl" -eq 0 ]; then
 	a=0
 	for i in "${cur_gov[@]}"; do
 		if [ "$i" = "zzmoove" ]; then
@@ -644,9 +653,10 @@ fi
 	$busybox echo ""
 	$busybox echo -e "Govtuner Version: ${W}$ver${N}"
 	$busybox echo ""
-if [ "$core_ctl" -eq 0 ]; then	
+if [ "$core_ctl" -eq 0 ]; then
 	if [ "$bL" -eq 1 ] && [ "$bL" -ne 0 ]; then
 		if [ "$TC" -eq 1 ] && [ "$TC" -ne 0 ]; then
+		    #For triple cluster
 				if [ "$MAX_FREQ_0" -gt "$MIN_FREQ_0" ]; then
 					$busybox echo -e "CPU LITTLE Min/Max: ${W}$(($MIN_FREQ_0 / 1000)) MHz${N} / ${W}$(($MAX_FREQ_0 / 1000)) MHz${N}"
 				fi
@@ -665,9 +675,9 @@ if [ "$core_ctl" -eq 0 ]; then
 				if [ "$MAX_FREQ_2" -lt "$MIN_FREQ_2" ]; then
 					$busybox echo -e "CPU BIG Min/Max: ${W}$(($MAX_FREQ_2 / 1000)) MHz${N} / ${W}$(($MIN_FREQ_2 / 1000)) MHz${N}"
 				fi
-		fi	
+		fi
 		if [ "$DC" -eq 1 ] && [ "$DC" -ne 0 ]; then
-			#For 2 CPU
+			#For dual cluster
 			    if [ "$MAX_FREQ_0" -gt "$MIN_FREQ_0" ]; then
 					$busybox echo -e "CPU LITTLE Min/Max: ${W}$(($MIN_FREQ_0 / 1000)) MHz${N} / ${W}$(($MAX_FREQ_0 / 1000)) MHz${N}"
 				fi
@@ -690,7 +700,7 @@ if [ "$core_ctl" -eq 0 ]; then
 				if [ "$MAX_FREQ_0" -lt "$MIN_FREQ_0" ]; then
 					$busybox echo -e "CPU Min/Max: ${W}$(($MAX_FREQ_0 / 1000)) MHz${N} / ${W}$(($MIN_FREQ_0 / 1000)) MHz${N}"
 				fi
-	fi			
+	fi
 	if [ "$REG" -eq 1 ] && [ "$CD" -eq 0 ]; then
 		#For Regular Cluster
 			    if [ "$MAX_FREQ_0" -gt "$MIN_FREQ_0" ]; then
@@ -700,11 +710,11 @@ if [ "$core_ctl" -eq 0 ]; then
 					$busybox echo -e "CPU  Min/Max: ${W}$(($MAX_FREQ_0 / 1000)) MHz${N} / ${W}$(($MIN_FREQ_0 / 1000)) MHz${N}"
 				fi
 	fi
-fi	
+fi
 if [ "$core_ctl" -eq 1 ]; then
    	$busybox echo ""
 	$busybox echo "If some options (like change governor) do not show on your device ,it means that your device has core_ctl hotplug , unfortunately we cannot add those options to your device. "
-fi	
+fi
 	$busybox echo ""
 	$busybox echo $divider
 	$busybox echo "        -Please choose a profile-"
@@ -740,10 +750,10 @@ if [ "$core_ctl" -eq 0 ]; then
 		fi
 		a=$(($a + 1))
 	done
-fi	
+fi
 if [ "$core_ctl" -eq 0 ]; then
 	$busybox echo -e "${W} g. Change Governor ${N}"
-fi	
+fi
 	if [ "$IPER" -eq 1 ]; then
 		$busybox echo -e "${R} i.${N} ${W}Increase performance${N} ${R}($IPER)${N}"
 	else
@@ -843,7 +853,7 @@ fi
 				c=$(($c + 1))
 	        done
 		;;
-			
+
 		z|Z)
 			$busybox clear;
 			$busybox echo "Enabling zzmoove hotplug"
@@ -924,7 +934,7 @@ fi
 						;;
 					esac
 				fi
-			fi	
+			fi
 			if [ "$SC" -eq 1 ] && [ "$SC" -ne 0 ]; then
 						#For Cluster
 						$busybox clear
@@ -934,7 +944,7 @@ fi
 						#For Regular
 						$busybox clear
 						gov_changer "${change[$ga]}" "${gov_avail[$ga]}"
-		
+
 			fi
 			$busybox clear;
 		;;
@@ -980,7 +990,7 @@ fi
 			$busybox clear;
 			$busybox echo "";
 			#Increase performance
-			$busybox echo -e "${W}Increase device's performance 
+			$busybox echo -e "${W}Increase device's performance
 to improve responsiveness.${N}";
 			if [ "$c" -eq 1 ]; then
 				LIM=4
@@ -989,7 +999,7 @@ to improve responsiveness.${N}";
 			elif [ "$c" -eq 4 ]; then
 				LIM=10
 			else
-				LIM=10; 
+				LIM=10;
 			fi
 			$busybox echo "Type a value between 1 (off) to $LIM (maximum)";
 			echo -e "CURRENT: ${G}$IPER${N}"

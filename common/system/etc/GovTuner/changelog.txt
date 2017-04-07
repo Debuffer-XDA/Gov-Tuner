@@ -1,0 +1,21 @@
+- Now supports more devices! (mostly cluster devices)
+- New algorithm in detecting clusters!
+- Tuned Parameters updated
+- Tweaked Parameters added
+- Fixed On boot error
+- No more gt_test! All GovTuner init is now in gt_init
+- Customizable sleep time in gt_init
+- SuperSU su.d support
+- Increase Performance Added
+- New Parameters for ondemand/conservative based governors
+- Fixed Several issues with several devices
+(S7 Edge, Mi 4i, Mi 4c?, Note 4, Lenovo P1 Turbo, Zenfone 2 and etc)
+- Governor Changer Updated
+- Added option to change Execution Time Interval
+- Some Optimizations for a few governor parameters
+- Removed unsupported parameters for certain governors
+- First launch since boot detector added
+- Almost all saved Choices are saved
+- Profiles' code reduced
+- New UI with fancy animations
+- Optimized Code

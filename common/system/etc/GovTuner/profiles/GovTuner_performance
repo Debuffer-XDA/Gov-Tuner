@@ -22,7 +22,6 @@ INTERVAL=/data/system/INTERVAL_SEC
 core="/system/etc/GovTuner"
 PROFILE_DIR="/data/system/GovTuner/current"
 PROFILE="/data/system/GovTuner/current/profile"
-INIT_TEST="/gt_test"
 bigLITTLE=0
 IN=0
 CD=2

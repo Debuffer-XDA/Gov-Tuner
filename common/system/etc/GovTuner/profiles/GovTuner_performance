@@ -1400,10 +1400,10 @@ fi
 				TL_3=$(($TL_2 + ${CDF[2]} + ${IP[2]}))
 				TL_4=$(($TL_3 + (${CDF[2]} * 2)))
 				TL_5=$(($TL_4 + (${CDF[2]} * 2)))
-				TL_6=$(($TL_5 + ${CDF[2]}))
+				TL_6=$(($TL_5 + (${CDF[2]} * 2)))
 				TL_7=$(($TL_6 + ${CDF[2]}))
 				TL_8=$(($TL_7 + ${CDF[2]}))
-				TL_9=$(($TL_8 + ${CDF[2]}))
+				TL_9=$(($TL_8 + (${CDF[2]} * 2)))
 				for i in ${gov[$gc]}; do
 				if [ "$bL" -eq 1 ]; then
 								$busybox echo -e "\e[01;37m Governor BIG core: ${cur_gov[$ga]} \e[00;37m" >> $TUNED

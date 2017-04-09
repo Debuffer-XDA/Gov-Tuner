@@ -14,7 +14,7 @@
 #=======================================================================#
 
 # You can edit this for your preference
-SLEEP_TIME=30
+SLEEP_TIME=60
 
 core="/system/etc/GovTuner"
 busybox=/system/etc/GovTuner/busybox

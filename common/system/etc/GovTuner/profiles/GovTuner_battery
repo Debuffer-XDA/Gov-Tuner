@@ -203,21 +203,6 @@ if [ "$core_ctl" -eq 0 ]; then
  alt_detect
 fi
 
-if [ -e "/data/system/IPER" ]; then
-		IPER=$($busybox cat /data/system/IPER);
-		if [ $? -ne 0 ]; then
-			echo 1 > /data/system/IPER
-		fi
-	else
-		IPER=1
-		$busybox echo "1" > "/data/system/IPER";
-	fi
-
-if [ "$IPER" -gt 10 ]; then
-	echo 10 > /data/system/IPER
-	IPER=10
-fi
-
 #SET ARRAY
 if [ "$bL" -eq 1 ]; then
  if [ "$TC" -eq 1 ] && [ "$TC" -ne 0 ]; then
@@ -225,27 +210,20 @@ if [ "$bL" -eq 1 ]; then
 	CDF[0]=$(((($MAX_FREQ_0 - $MIN_FREQ_0) / 160000) * 10000))
 	CDF[1]=$(((($MAX_FREQ_1 - $MIN_FREQ_1) / 160000) * 10000))
 	CDF[2]=$(((($MAX_FREQ_2 - $MIN_FREQ_2) / 160000) * 10000))
-	IP[0]=$(((${CDF[0]} / 10) * $IPER))
-	IP[1]=$(((${CDF[1]} / 10) * $IPER))
-	IP[2]=$(((${CDF[2]} / 10) * $IPER))
  fi
  if [ "$DC" -eq 1 ] && [ "$DC" -ne 0 ]; then
 	#For DUAL CLUSTER
 	CDF[0]=$(((($MAX_FREQ_0 - $MIN_FREQ_0) / 160000) * 10000))
 	CDF[2]=$(((($MAX_FREQ_2 - $MIN_FREQ_2) / 160000) * 10000))
-	IP[0]=$(((${CDF[0]} / 10) * $IPER))
-	IP[2]=$(((${CDF[2]} / 10) * $IPER))
  fi
 fi
 if [ "$SC" -eq 1 ] && [ "$CD" -eq 1 ]; then
 		#For SINGLE CLUSTER
 		CDF[0]=$(((($MAX_FREQ_0 - $MIN_FREQ_0) / 160000) * 10000))
-		IP[0]=$(((${CDF[0]} / 10) * $IPER))
 fi
 if [ "$REG" -eq 1 ] && [ "$CD" -eq 0 ]; then
 		#For REGULAR
 		CDF[0]=$(((($MAX_FREQ_0 - $MIN_FREQ_0) / 160000) * 10000))
-		IP[0]=$(((${CDF[0]} / 10) * $IPER))
 fi
 
 percent_out(){
@@ -255,6 +233,72 @@ percent_out(){
 	echo "$((200*$val/$total % 2 + 100*$val/$total))"
 }
 
+#For TUNING_BEGINS
+if [ "$core_ctl" -eq 1 ]; then
+   ga=0; gc=4;
+fi
+
+TUNED="/data/system/tuned"
+TWEAKED="/data/system/tweaked"
+cecho() {
+	#cecho "value" path/file
+	file=$2; val=$1
+	echo $val > $file 2>/dev/null
+	if [ $? -ne 0 ] || [ "$(cat $file)" != "$val" ]; then
+		echo "$($busybox basename $file): ${R}error${N}" >> $TUNED
+		echo "$($busybox basename $file): ${R}$(cat $file)${N}" >> $TWEAKED
+	else
+		echo "$($busybox basename $file): ${G}optimized${N}" >> $TUNED
+		echo "$($busybox basename $file): ${G}$(cat $file)${N}" >> $TWEAKED
+	fi
+  if [ "$(cat $INTERVAL)" == "0" ]; then
+  echo active > /data/system/test
+  fi
+	unset file; unset val
+}
+
+z=5
+while [ 5 == $z ]; do
+#IPER_stuff
+if [ -e "/data/system/IPER" ]; then
+		IPER=$($busybox cat /data/system/IPER);
+		if [ $? -ne 0 ]; then
+			echo 1 > /data/system/IPER
+		fi
+	else
+		IPER=1
+		$busybox echo "1" > "/data/system/IPER";
+fi
+
+# IP Values
+if [ "$bL" -eq 1 ]; then
+ if [ "$TC" -eq 1 ] && [ "$TC" -ne 0 ]; then
+	#For TRIPLE CLUSTER
+	IP[0]=$(((${CDF[0]} / 10) * $IPER))
+	HSF[0]=$((${CDF[0]}  * ($IPER-1)))
+	IP[1]=$(((${CDF[1]} / 10) * $IPER))
+	HSF[1]=$((${CDF[1]}  * ($IPER-1)))
+	IP[2]=$(((${CDF[2]} / 10) * $IPER))
+	HSF[2]=$((${CDF[2]}  * ($IPER-1)))
+ fi
+ if [ "$DC" -eq 1 ] && [ "$DC" -ne 0 ]; then
+	#For DUAL CLUSTER
+	IP[0]=$(((${CDF[0]} / 10) * $IPER))
+	HSF[0]=$((${CDF[0]}  * ($IPER-1)))
+	IP[2]=$(((${CDF[2]} / 10) * $IPER))
+	HSF[2]=$((${CDF[2]}  * ($IPER-1)))
+ fi
+fi
+if [ "$SC" -eq 1 ] && [ "$CD" -eq 1 ]; then
+		#For SINGLE CLUSTER
+		IP[0]=$(((${CDF[0]} / 10) * $IPER))
+		HSF[0]=$((${CDF[0]}  * ($IPER-1)))
+fi
+if [ "$REG" -eq 1 ] && [ "$CD" -eq 0 ]; then
+		#For REGULAR
+		IP[0]=$(((${CDF[0]} / 10) * $IPER))
+		HSF[0]=$((${CDF[0]}  * ($IPER-1)))
+fi
 # Set up_threshold for ondemand
 BASE=100
 IPT=$(($((IPER*3))-$((IPER/2))))
@@ -285,33 +329,8 @@ done
 if [ -z "$DTH" ]; then
 	DTH=$(($((UPT/4))*3))
 fi
+# End Calculations
 
-#For TUNING_BEGINS
-if [ "$core_ctl" -eq 1 ]; then
-   ga=0; gc=4;
-fi
-
-TUNED="/data/system/tuned"
-TWEAKED="/data/system/tweaked"
-cecho() {
-	#cecho "value" path/file
-	file=$2; val=$1
-	echo $val > $file 2>/dev/null
-	if [ $? -ne 0 ] || [ "$(cat $file)" != "$val" ]; then
-		echo "$($busybox basename $file): ${R}error${N}" >> $TUNED
-		echo "$($busybox basename $file): ${R}$(cat $file)${N}" >> $TWEAKED
-	else
-		echo "$($busybox basename $file): ${G}optimized${N}" >> $TUNED
-		echo "$($busybox basename $file): ${G}$(cat $file)${N}" >> $TWEAKED
-	fi
-  if [ "$(cat $INTERVAL)" == "0" ]; then
-  echo active > /data/system/test
-  fi
-	unset file; unset val
-}
-
-z=5
-while [ 5 == $z ]; do
 	if [ -f $INTERVAL ] && [[ $(cat $INTERVAL 2>/dev/null) && $(cat $INTERVAL) -eq 0 ]]; then
 		z=1
 	fi
@@ -391,9 +410,9 @@ while [ 5 == $z ]; do
 					fi
 				fi
 				if [ -e "$i/hispeed_freq" ]; then
-						cecho "$MIN_FREQ_0" $i/hispeed_freq;
-						$busybox echo "LITTLE $MIN_FREQ_0"
-						sleep 1
+						cecho "$((${HSF[0]} + $MIN_FREQ_0))" $i/hispeed_freq;
+						$busybox echo "LITTLE $((${HSF[0]} + $MIN_FREQ_0))"
+						$busybox sleep 1
 				fi
 				if [ -e "$i/max_freq_hysteresis" ]; then
 					cecho "0" $i/max_freq_hysteresis;
@@ -902,9 +921,9 @@ while [ 5 == $z ]; do
 						fi
 					fi
 					if [ -e "$i/hispeed_freq" ]; then
-							cecho "$MIN_FREQ_1" $i/hispeed_freq;
-							$busybox echo "MIDDLE $MIN_FREQ_1"
-							sleep 1
+							cecho "$((${HSF[1]} + $MIN_FREQ_1))" $i/hispeed_freq;
+							$busybox echo "MIDDLE $((${HSF[1]} + $MIN_FREQ_1))"
+							$busybox sleep 1
 					fi
 					if [ -e "$i/max_freq_hysteresis" ]; then
 						cecho "0" $i/max_freq_hysteresis;
@@ -1407,9 +1426,9 @@ while [ 5 == $z ]; do
 						fi
 					fi
 					if [ -e "$i/hispeed_freq" ]; then
-							cecho "$MIN_FREQ_2" $i/hispeed_freq;
-							$busybox echo "BIG $MIN_FREQ_2"
-							sleep 1
+							cecho "$((${HSF[2]} + $MIN_FREQ_2))" $i/hispeed_freq;
+							$busybox echo "BIG $((${HSF[2]} + $MIN_FREQ_2))"
+							$busybox sleep 1
 					fi
 					if [ -e "$i/max_freq_hysteresis" ]; then
 						cecho "0" $i/max_freq_hysteresis;

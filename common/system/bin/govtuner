@@ -26,7 +26,7 @@ core="/system/etc/GovTuner"
 busybox="/system/etc/GovTuner/busybox"
 getprop="/system/bin/getprop"
 init="/system/etc/init.d"
-ver="4.0 RC 23. 3"
+ver="4.0 RC 23.4"
 id="$(id)"; id="${id#*=}"; id="${id%%\(*}"; id="${id%% *}"
 FIRST_RUN="/data/system/first_run"
 INIT_TEST="/gt_test"
@@ -49,7 +49,6 @@ if [ ! -d "/data/system/GovTuner/current" ]; then
 fi
 sleep 0.4
 PROFILE_DIR="/data/system/GovTuner/current"
-PROFILE="/data/system/GovTuner/current/profile"
 # colors
 G='\e[01;32m'
 R='\e[01;31m'
@@ -237,6 +236,8 @@ apply_profile() {
 	fi
 	$busybox cp -f $core/profiles/$pro_file $PROFILE_DIR/$pro_file
 	$busybox chmod 755 $PROFILE_DIR/$pro_file
+	$busybox sleep 0.5
+	$busybox dos2unix "$PROFILE_DIR/$pro_file"
 	$busybox echo "Applying $profile tweaks"
 	$busybox sleep 0.4
 	$busybox echo ""
@@ -970,6 +971,7 @@ fi
 				$busybox rm -rf $PROFILE_DIR/profile
 			fi
 			echo 1 > $FIRST_RUN
+			$busybox echo "1" > "/data/system/IPER"
 			$busybox echo "Governor_Tuner Disabled"
 			$busybox sleep 0.5
 			$busybox clear

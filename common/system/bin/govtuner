@@ -78,7 +78,7 @@ gov_changer() {
 	clear
 
 	echo "Current Gov: ${G}$(cat $governor | tr a-z A-Z)${N}"
-	echo "====="
+	echo $divider
 
 	governors=($(cat $govs))
 	total=${#governors[@]}
@@ -87,7 +87,7 @@ gov_changer() {
 		count=$((count+1))
 		echo "$count - ${W}$govc${N}"
 	done
-	echo "====="
+	echo $divider
 	echo "0 - Back"
 	echo -n -e "[Choice]: "
 	read key

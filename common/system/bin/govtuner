@@ -1,10 +1,11 @@
 #!/system/bin/sh
 # Gov-Tuner Launcher
-# Copyright (C) 2016 Debuffer and Senthil360 @ XDA-Developers
-#      With help from Paget96 , F4uzan , GreekDragon , N1m0Y and veez21.
+# Copyright (C) 2016 - 2017 Debuffer and Senthil360 @ XDA-Developers
+#      With help from Paget96, F4uzan, GreekDragon, N1m0Y and veez21.
 #=#
 #  This program is free software: you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License as published by#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 #  This program is distributed in the hope that it will be useful,
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the

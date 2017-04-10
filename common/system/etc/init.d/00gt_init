@@ -15,19 +15,18 @@
 
 # You can edit this for your preference
 SLEEP_TIME=60
-
-core="/system/etc/GovTuner"
 busybox=/system/etc/GovTuner/busybox
-PROFILE=$($busybox cat /data/system/GovTuner/current/profile);
-$busybox mount -o remount,rw /system 2>/dev/null
-$busybox mount -o remount,rw / 2>/dev/null
-mount -o remount,rw /system 2>/dev/null
-mount -o remount,rw / 2>/dev/null
 $busybox rm /data/system/tuned 2>/dev/null
 $busybox rm /data/system/tweaked 2>/dev/null
-echo "Init.d is Working" > /gt_test
-(
 $busybox sleep $SLEEP_TIME
-$busybox echo 1 > /data/system/first_launch
-$busybox nohup /data/system/GovTuner/current/$PROFILE &
-)&
+$busybox mount -o remount,rw /
+$busybox echo "Init.d is Working" > /gt_test
+$busybox mount -o remount,ro /
+if [ -s /data/system/GovTuner/current/profile ]; then
+   PROFILE=$($busybox cat /data/system/GovTuner/current/profile);
+   $busybox mount -o remount,rw /data
+   $busybox echo 1 > /data/system/first_launch
+   $busybox date >> /data/system/first_launch
+   $busybox sh /data/system/GovTuner/current/$PROFILE &
+   $busybox mount -o remount,ro /data
+fi

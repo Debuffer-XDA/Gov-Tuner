@@ -215,7 +215,7 @@ toolbox_mount() {
 
 
 ui_print "****************************************"
-ui_print "*          Gov-Tuner v 4.0 BETA       *"
+ui_print "*          Gov-Tuner v 4.0.1       *"
 ui_print "****************************************"
 ui_print ""
 ui_print "@Debuffer"

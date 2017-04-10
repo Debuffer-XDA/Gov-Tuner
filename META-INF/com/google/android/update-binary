@@ -232,6 +232,10 @@ mount /system
 mount -o rw,remount /system
 mount -o rw,remount /system /system
 toolbox_mount /system
+mount /data
+mount -o rw,remount /data
+mount -o rw,remount /data /data
+toolbox_mount /data
 
 if [ -z "$BIN" ]; then
   if [ ! -f "/sbin/unzip" ]; then
@@ -351,6 +355,7 @@ ui_print "Unmounting system..."
 rm /system/toybox
 rm /system/toolbox
 umount /system
+umount /data
 
 ui_print "****************************************"
 ui_print "*          Install Complete!           *"

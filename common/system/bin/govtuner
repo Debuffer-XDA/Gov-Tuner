@@ -803,9 +803,9 @@ fi
 	    fi
 	fi
 	$busybox echo ""
-	if [ -f /system/etc/init.d/gt_init ]; then
+	if [ -f /system/etc/init.d/00gt_init ]; then
 		Init="Init.d"; init=initd
-	elif [ -f /system/su.d/gt_init ]; then
+	elif [ -f /system/su.d/00gt_init ]; then
 		Init="Su.d"; init=sud
 	else
 		Init="ERROR"
@@ -1108,8 +1108,8 @@ to improve responsiveness.${N}";
 					$busybox mv /system/etc/init.d/gt_atest /system/su.d
 					sleep 0.4
 				fi
-				if [ -f /system/etc/init.d/gt_init ]; then
-					$busybox mv /system/etc/init.d/gt_init /system/su.d
+				if [ -f /system/etc/init.d/00gt_init ]; then
+					$busybox mv /system/etc/init.d/00gt_init /system/su.d
 					sleep 0.4
 				fi
 				chmod -R 700 /system/su.d;

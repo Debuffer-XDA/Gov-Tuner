@@ -4,8 +4,7 @@
 #      With help from Paget96 , F4uzan , GreekDragon , N1m0Y and veez21.
 #=#
 #  This program is free software: you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License as published by
-#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  it under the terms of the GNU General Public License as published by#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 #  This program is distributed in the hope that it will be useful,
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
@@ -26,7 +25,7 @@ core="/system/etc/GovTuner"
 busybox="/system/etc/GovTuner/busybox"
 getprop="/system/bin/getprop"
 init="/system/etc/init.d"
-ver="4.0 RC 23.4"
+ver="4.0"
 id="$(id)"; id="${id#*=}"; id="${id%%\(*}"; id="${id%% *}"
 FIRST_RUN="/data/system/first_run"
 INIT_TEST="/gt_test"
@@ -253,7 +252,7 @@ apply_profile() {
 	$busybox clear
 	return
 }
-# Alt_detect algorithm by @Senthil360
+# Alt_detect algorithm by @Senthil360 , veez21 and N1m0Y.
 # This is the new Cluster_detection algorithm. Further additions to this set of conditions , must always follow this order
 # i) Check whether CD =1 or CD = 0; i.e if cpufreq/$cur_governor exists on /sys/devices/system/cpu or in one of sys/devices/system/cpu/cpu$i directories
 # ii) Check for the number "scaling_governor" files in /sys/devices/system/cpu/cpu$i folder, given that those are actual files and not symlinks
@@ -294,7 +293,7 @@ alt_detect() {
              if [ "${#gov[@]}" -eq 2 ]; then
                  DC=1
                   sm1=$($busybox cat "${freq_u[0]}" | $busybox cut -d ' ' -f1)
-	              sm2=$($busybox cat "${freq_u[1]}" | $busybox cut -d ' ' -f1)
+	          sm2=$($busybox cat "${freq_u[1]}" | $busybox cut -d ' ' -f1)
                   gd1=$($busybox cat "${freq_l[0]}" | $busybox cut -d ' ' -f1)
                   gd2=$($busybox cat "${freq_l[1]}" | $busybox cut -d ' ' -f1)
                  if [ "$sm1" -lt "$sm2" ]; then
@@ -319,12 +318,12 @@ alt_detect() {
              if [ "${#gov[@]}" -eq 3 ]; then
                  TC=1
                  sm1=$($busybox cat "${freq_u[0]}" | $busybox cut -d ' ' -f1)
-	             sm2=$($busybox cat "${freq_u[1]}" | $busybox cut -d ' ' -f1)
+	         sm2=$($busybox cat "${freq_u[1]}" | $busybox cut -d ' ' -f1)
                  sm3=$($busybox cat "${freq_u[2]}" | $busybox cut -d ' ' -f1)
                  gd1=$($busybox cat "${freq_l[0]}" | $busybox cut -d ' ' -f1)
                  gd2=$($busybox cat "${freq_l[1]}" | $busybox cut -d ' ' -f1)
                  gd3=$($busybox cat "${freq_l[2]}" | $busybox cut -d ' ' -f1)
-                 if [ "$sm1" -lt "$sm2" ] && [ "$sm2" -lt "sm3" ]; then
+                 if [ "$sm1" -lt "$sm2" ] && [ "$sm2" -lt "$sm3" ]; then
                      ga=0; gb=1; gc=2;
                      MAX_FREQ_0="$sm1"
                      MIN_FREQ_0="$gd1"
@@ -335,7 +334,7 @@ alt_detect() {
                      DEVICE=TRIPLE_CLUSTER
                      bL=1; TC=1; CD=1;
                  fi
-                 if [ "$sm2" -lt "$sm3" ] && [ "$sm3" -lt "sm1" ]; then
+                 if [ "$sm2" -lt "$sm3" ] && [ "$sm3" -lt "$sm1" ]; then
                      ga=2; gb=0; gc=1;
                      MAX_FREQ_0="$sm2"
                      MIN_FREQ_0="$gd2"
@@ -346,7 +345,7 @@ alt_detect() {
                      DEVICE=TRIPLE_CLUSTER_SCRAMBLED
                      bL=1; TC=1; CD=1;
                  fi
-                 if [ "$sm3" -lt "$sm1" ] && [ "$sm1" -lt "sm2" ]; then
+                 if [ "$sm3" -lt "$sm1" ] && [ "$sm1" -lt "$sm2" ]; then
                      ga=1; gb=2; gc=0;
                      MAX_FREQ_0="$sm3"
                      MIN_FREQ_0="$gd3"
@@ -362,7 +361,7 @@ alt_detect() {
          if [ -d "${gov_r[0]}" ] || [ -d "${gov_r[1]}" ]; then
             if [ "${#gov[@]}" -eq 2 ]; then
                   sm1=$($busybox cat "${freq_u[0]}" | $busybox cut -d ' ' -f1)
-	              sm2=$($busybox cat "${freq_u[1]}" | $busybox cut -d ' ' -f1)
+	          sm2=$($busybox cat "${freq_u[1]}" | $busybox cut -d ' ' -f1)
                   gd1=$($busybox cat "${freq_l[0]}" | $busybox cut -d ' ' -f1)
                   gd2=$($busybox cat "${freq_l[1]}" | $busybox cut -d ' ' -f1)
                 if [ "$sm1" -lt "$sm2" ]; then

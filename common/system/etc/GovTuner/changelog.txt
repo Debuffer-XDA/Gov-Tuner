@@ -1,3 +1,11 @@
+- For 4.0.1
+- Fixed Init.d errors caused due to bad mount
+- Fixed problem of mounting data partition
+- Updated Tunables for Battery
+- Updated Uninstaller
+- Fixed typo in algorithm for Triple cluster devices
+
+- For 4.0
 - Now supports more devices! (mostly cluster devices)
 - New algorithm in detecting clusters!
 - Tuned Parameters updated

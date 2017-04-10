@@ -379,7 +379,7 @@ fi
 			TL_5=$(($TL_4 + ${CDF[0]}))
 			TL_6=$(($TL_5 + ${CDF[0]} + (${CDF[0]} / 2)))
 			TL_7=$(($TL_6 + (${CDF[0]} * 2)))
-			TL_8=$(($TL_7 + (${CDF[0]} * 2)))
+			TL_8=$(($TL_7 + ${CDF[0]}))
 			TL_9=$(($TL_8 + (${CDF[0]} * 3)))
 			for i in ${gov[$ga]}; do
 				if [ "$bL" -eq 1 ]; then
@@ -430,7 +430,7 @@ fi
 					cecho "1" $i/sampling_down_factor;
 				fi
 				if [ -e "$i/target_loads" ]; then
-					cecho "0 $MIN_FREQ_0:50 $TL_1:35 $TL_2:45 $TL_3:52 $TL_4:59 $TL_5:75 $TL_6:90 $TL_7:95 $TL_8:99 $TL_9:85" $i/target_loads;
+					cecho "0 $MIN_FREQ_0:50 $TL_1:35 $TL_2:45 $TL_3:52 $TL_4:59 $TL_5:75 $TL_6:90 $TL_7:95 $TL_9:99" $i/target_loads;
 				fi
 				if [ -e "$i/timer_rate" ]; then
 					cecho "20000" $i/timer_rate;

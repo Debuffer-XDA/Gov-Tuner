@@ -45,7 +45,7 @@ if [ "$TIME" -lt 180 ]; then
    exit
 fi
 if [ ! -d "/data/system/GovTuner/current" ]; then
-   $busybox mount -o remount,rw /data 2>dev/null
+   $busybox mount -o remount,rw /data 2>/dev/null
    $busybox mkdir /data/system/GovTuner/current
    $busybox sleep 0.4
    $busybox mount -o remount,ro /data 2>/dev/null
@@ -248,7 +248,7 @@ apply_profile() {
 	$busybox setsid $PROFILE_DIR/$pro_file&
 	$busybox sleep 0.3
 	$busybox echo ""
-        $busybox mount -o remount,ro /data 2>dev/null
+        $busybox mount -o remount,ro /data 2>/dev/null
 	$busybox sleep 3
 	$busybox clear
 	$busybox echo "GovTuner $profile profile activated"

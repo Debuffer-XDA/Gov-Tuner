@@ -226,7 +226,7 @@ apply_profile() {
 	$busybox echo ""
 	$busybox sleep 0.2
 	$busybox echo "Copying $profile profile to init.d"
-        $busybox mount -o remount,rw /data 2>dev/null
+        $busybox mount -o remount,rw /data 2>/dev/null
 	$busybox sleep 0.3
 	$busybox echo ""
 	if [ -e $PROFILE_DIR/GovTuner_balanced ]; then

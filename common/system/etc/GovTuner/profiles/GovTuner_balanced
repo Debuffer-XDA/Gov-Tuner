@@ -23,6 +23,17 @@ PROFILE="/data/system/GovTuner/current/profile"
 CD=2
 core_ctl=0
 
+# colors
+G='\e[01;32m'
+R='\e[01;31m'
+N='\e[00;37;40m'
+Y='\e[01;33m'
+B='\e[01;34m'
+V='\e[01;35m'
+Bl='\e[01;30m'
+C='\e[01;36m'
+W='\e[01;37m'
+
 if [ -s "/data/system/test" ]; then
 	OUTPUT_ID=$($busybox cat /data/system/test)
 	$busybox echo "Resetting GovTuner"
@@ -898,12 +909,12 @@ fi
 				TL_9=$(($TL_8 + (${CDF[1]} * 3)))
 				for i in ${gov[$gb]}; do
 				if [ "$bL" -eq 1 ]; then
-								$busybox echo -e "\e[01;37m Governor MIDDLE core: ${cur_gov[$ga]} \e[00;37m" >> $TUNED
-								$busybox echo -e "\e[01;37m Governor MIDDLE core: ${cur_gov[$ga]} \e[00;37m" >> $TWEAKED
+								$busybox echo -e "\e[01;37m Governor MIDDLE core: ${cur_gov[$gb]} \e[00;37m" >> $TUNED
+								$busybox echo -e "\e[01;37m Governor MIDDLE core: ${cur_gov[$gb]} \e[00;37m" >> $TWEAKED
 				fi
 				if [ "$SC" -eq 1 ] || [ "$REG" -eq 1 ]; then
-				   $busybox echo -e "\e[01;37m Governor: ${cur_gov[$ga]} \e[00;37m" >> $TUNED
-				   $busybox echo -e "\e[01;37m Governor: ${cur_gov[$ga]} \e[00;37m" >> $TWEAKED
+				   $busybox echo -e "\e[01;37m Governor: ${cur_gov[$gb]} \e[00;37m" >> $TUNED
+				   $busybox echo -e "\e[01;37m Governor: ${cur_gov[$gb]} \e[00;37m" >> $TWEAKED
 				fi
 					chmod 644 $i/*
 					if [ -e "$i/above_hispeed_delay" ]; then
@@ -1402,8 +1413,8 @@ fi
 				TL_9=$(($TL_8 + (${CDF[2]} * 3)))
 				for i in ${gov[$gc]}; do
 				if [ "$bL" -eq 1 ]; then
-								$busybox echo -e "\e[01;37m Governor BIG core: ${cur_gov[$ga]} \e[00;37m" >> $TUNED
-								$busybox echo -e "\e[01;37m Governor BIG core: ${cur_gov[$ga]} \e[00;37m" >> $TWEAKED
+								$busybox echo -e "\e[01;37m Governor BIG core: ${cur_gov[$gc]} \e[00;37m" >> $TUNED
+								$busybox echo -e "\e[01;37m Governor BIG core: ${cur_gov[$gc]} \e[00;37m" >> $TWEAKED
 				fi
 				if [ "$SC" -eq 1 ] || [ "$REG" -eq 1 ]; then
 				   $busybox echo -e "\e[01;37m Governor: ${cur_gov[$gc]} \e[00;37m" >> $TUNED

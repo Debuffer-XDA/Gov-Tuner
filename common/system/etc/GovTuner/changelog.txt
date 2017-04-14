@@ -1,3 +1,11 @@
+- For 4.0.2
+- Fixed Tuned and Tweaked colors and cpus
+- Fix typo in 2>/dev/null
+- Profiles will be re-evaluated in next update on this base
+- Changed file structure to combat problems caused by recovery
+- **(For DEVS in GIT) Added build sh and bat (win and Linux) for developers working with GT on git (Life saving feature for developers from @F4uzan)
+- **(For DEVS in GIT) Added option to push zip to sdcard and reboot to recovery using adb (Linux only ATM)
+
 - For 4.0.1
 - Fixed Init.d errors caused due to bad mount
 - Fixed problem of mounting data partition
@@ -8,10 +16,6 @@
 - For 4.0
 - Now supports more devices! (mostly cluster devices)
 - New algorithm in detecting clusters!
-- Tuned Parameters updated
-- Tweaked Parameters added
-- Fixed On boot error
-- No more gt_test! All GovTuner init is now in gt_init
 - Customizable sleep time in gt_init
 - SuperSU su.d support
 - Increase Performance Added
@@ -20,10 +24,5 @@
 (S7 Edge, Mi 4i, Mi 4c?, Note 4, Lenovo P1 Turbo, Zenfone 2 and etc)
 - Governor Changer Updated
 - Added option to change Execution Time Interval
-- Some Optimizations for a few governor parameters
-- Removed unsupported parameters for certain governors
 - First launch since boot detector added
-- Almost all saved Choices are saved
-- Profiles' code reduced
-- New UI with fancy animations
 - Optimized Code

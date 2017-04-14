@@ -15,7 +15,7 @@ version=$1
 dir=$(pwd)
 
 echo ""
-echo "Building Gov-Tuner v$2"
+echo "Building Gov-Tuner v$1"
 echo "----------------------"
 
 # Build and copy uninstaller before doing anything
@@ -30,3 +30,45 @@ echo "Building output zip"
 zip -r Gov-Tuner_$version.zip . -x ".git/*" "win/*" "uninstaller/*" "build.*" ".gitignore">/dev/null
 echo "Output created: $dir/Gov-Tuner_$version.zip"
 echo ""
+
+echo "Push file to sdcard? (Y/n) : "
+  read -r p
+  case $p in
+	y|Y)
+          total=$(adb devices | grep "device" | wc -l)
+          if [ "$total" -le 1 ]; then
+             echo "Device not found , check adb connection"
+             exit
+          fi
+          if [ "$total" -gt 1 ]; then
+             adb push Gov-Tuner_$version.zip /sdcard/Gov-Tuner_$version.zip
+             echo "File copied to sdcard"
+               echo "Reboot recovery? (Y/n) : "
+               read -r q
+               case $q in
+                  y|Y)
+                     echo "Rebooting to recovery in 3 seconds , press Ctrl+C to abort"
+                     sleep 4
+                     adb reboot recovery
+                  ;;
+                  n|N)
+                     echo "Carry on with the development"
+                     exit
+                  ;;
+                  *)
+	             echo "Invalid option, please try again";
+	             exit
+	          ;;
+               esac
+          fi
+        ;;
+        n|N)
+          echo "Carry on with the development"
+          exit
+        ;;
+
+        *)
+	  echo "Invalid option, please try again";
+	  exit
+	;;
+  esac

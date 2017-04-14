@@ -16,8 +16,13 @@
 
 version=$2
 
+# Build and copy uninstaller before doing anything
+cd uninstaller; zip -r Uninstall_Gov-Tuner.zip .
+mv Uninstall_Gov-Tuner.zip ../common/system/etc/GovTuner
+cd ..
+
 if [ $1 == "-zip" ]; then
-	zip -r Gov-Tuner_$version.zip . -x ".git/*" "win/*" "build.*"
+	zip -r Gov-Tuner_$version.zip . -x ".git/*" "win/*" "uninstaller/*" "build.*"
 else
 	git archive -o Gov-Tuner_$version.zip HEAD
 fi

@@ -20,10 +20,17 @@ title Gov-Tuner Buildscript
 
 set use_zip=%1
 set version=%2
-set zip_dir=win/zip.exe
+set zip_dir=win
+set zip_exec=zip.exe
+
+:: Build and copy uninstaller before doing anything
+cd uninstaller
+..\%zip_dir%\%zip_exec% -r Uninstall_Gov-Tuner.zip .
+move /y Uninstall_Gov-Tuner.zip ../common/system/etc/GovTuner
+cd ..
 
 if "%use_zip%" == "-zip" (
-	start %zip_dir% -r Gov-Tuner_%version%.zip . -x ".git/*" "win/*" "build.*"
+	start %zip_dir%\%zip_exec% -r Gov-Tuner_%version%.zip . -x ".git/*" "win/*" "uninstaller/*" "build.*"
 ) else (
 	git archive -o Gov-Tuner_%version%.zip HEAD
 )

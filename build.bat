@@ -1,6 +1,4 @@
 @Echo Off
-title Gov-Tuner Buildscript
-
 :: Gov-Tuner ZIP creation script
 :: Written by F4uzan, with the help of Gov-Tuner Team
 :: zip and bzip2 binaries provided by GnuWin / gnuwin32 at http://gnuwin32.sourceforge.net

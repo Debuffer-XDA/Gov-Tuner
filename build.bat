@@ -23,7 +23,7 @@ set version=%2
 set zip_dir=win/zip.exe
 
 if "%use_zip%" == "-zip" (
-	start %zip_dir% -r Gov-Tuner_%version%.zip . -x ".git/*" "win/*"
+	start %zip_dir% -r Gov-Tuner_%version%.zip . -x ".git/*" "win/*" "build.*"
 ) else (
 	git archive -o Gov-Tuner_%version%.zip HEAD
 )

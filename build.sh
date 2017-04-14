@@ -31,7 +31,7 @@ cd ..
 if [ $1 == "-zip" ]; then
 	echo "Using zip to build output"
 	echo "Building output zip"
-	zip -r Gov-Tuner_$version.zip . -x ".git/*" "win/*" "uninstaller/*" "build.*">/dev/null
+	zip -r Gov-Tuner_$version.zip . -x ".git/*" "win/*" "uninstaller/*" "build.*" ".gitignore">/dev/null
 	echo "Output created: $dir/Gov-Tuner_$version.zip"
 else
 	echo "Using git to build output"

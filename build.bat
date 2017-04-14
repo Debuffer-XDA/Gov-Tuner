@@ -38,7 +38,7 @@ cd ..
 if "%use_zip%" == "-zip" (
 	echo Using zip to build output
 	echo Building output zip
-	%zip_dir%\%zip_exec% -r Gov-Tuner_%version%.zip . -x ".git/*" "win/*" "uninstaller/*" "build.*">nul
+	%zip_dir%\%zip_exec% -r Gov-Tuner_%version%.zip . -x ".git/*" "win/*" "uninstaller/*" "build.*" ".gitignore">nul
 	echo Output created: %dir%\Gov-Tuner_%version%.zip
 ) else (
 	echo Using git to build output

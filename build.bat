@@ -7,19 +7,14 @@ title Gov-Tuner Buildscript
 ::
 :: This script should build a zip archive containing all the files excluding the ".git" folder
 :: "zip" binary is provided in the "win" folder, this folder will also be excluded out when compiling the zip
-:: "git" binary can be separately installed and will be needed in case you're building without the "zip" arguments
 ::
 :: Arguments:
-:: build <ARGUMENTS> <VERSION>
-::
-:: Additional arguments:
-:: -zip	: Use zip instead of git archive
+:: build <VERSION>
 ::
 :: Example:
 :: build 4.0.1
 
-set use_zip=%1
-set version=%2
+set version=%1
 set zip_dir=win
 set zip_exec=zip.exe
 set dir=%cd%
@@ -35,14 +30,7 @@ echo Moving Uninstaller to common\system\etc\GovTuner
 move /y Uninstall_Gov-Tuner.zip ../common/system/etc/GovTuner>nul
 cd ..
 
-if "%use_zip%" == "-zip" (
-	echo Using zip to build output
-	echo Building output zip
-	%zip_dir%\%zip_exec% -r Gov-Tuner_%version%.zip . -x ".git/*" "win/*" "uninstaller/*" "build.*" ".gitignore">nul
-	echo Output created: %dir%\Gov-Tuner_%version%.zip
-) else (
-	echo Using git to build output
-	echo Building output zip
-	git archive -o Gov-Tuner_%version%.zip HEAD
-	echo Output created: %dir%\Gov-Tuner_%version%.zip
-)
+echo Using zip to build output
+echo Building output zip
+%zip_dir%\%zip_exec% -r Gov-Tuner_%version%.zip . -x ".git/*" "win/*" "uninstaller/*" "build.*" ".gitignore">nul
+echo Output created: %dir%\Gov-Tuner_%version%.zip

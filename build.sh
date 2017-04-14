@@ -17,7 +17,7 @@
 version=$2
 
 if [ $1 == "-zip" ]; then
-	zip -r Gov-Tuner_$version.zip . -x *.git*
+	zip -r Gov-Tuner_$version.zip . -x ".git/*"
 else
 	git archive -o Gov-Tuner_$version.zip HEAD
 fi

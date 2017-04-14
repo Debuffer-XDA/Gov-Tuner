@@ -31,7 +31,7 @@ echo -----------------------------
 echo Building Uninstaller
 cd uninstaller
 ..\%zip_dir%\%zip_exec% -r Uninstall_Gov-Tuner.zip .>nul
-echo Moving Uninstaller to common/system/etc/GovTuner
+echo Moving Uninstaller to common\system\etc\GovTuner
 move /y Uninstall_Gov-Tuner.zip ../common/system/etc/GovTuner>nul
 cd ..
 
@@ -39,10 +39,10 @@ if "%use_zip%" == "-zip" (
 	echo Using zip to build output
 	echo Building output zip
 	%zip_dir%\%zip_exec% -r Gov-Tuner_%version%.zip . -x ".git/*" "win/*" "uninstaller/*" "build.*">nul
-	echo Output created: %dir%/Gov-Tuner_%version%.zip
+	echo Output created: %dir%\Gov-Tuner_%version%.zip
 ) else (
 	echo Using git to build output
 	echo Building output zip
 	git archive -o Gov-Tuner_%version%.zip HEAD
-	echo Output created: %dir%/Gov-Tuner_%version%.zip
+	echo Output created: %dir%\Gov-Tuner_%version%.zip
 )

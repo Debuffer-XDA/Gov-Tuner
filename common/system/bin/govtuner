@@ -37,6 +37,14 @@ INTERVAL=/data/system/INTERVAL_SEC
 core_ctl=0
 TIME=$($busybox cat /proc/uptime | $busybox cut -d '.' -f1)
 
+# Set up Busybox for seemless integration in GT script
+alias busybox="$busybox"
+for i in $($busybox --list); do
+	if [ "$i" != 'echo' ]; then
+		alias $i="$busybox $i"
+	fi
+done
+
 #Hold your horses :P. Added this check to provide time for the device to initialize CPU parameters properly. This also solves the init.d not working errors
 # caused due to early launching of scripts
 if [ "$TIME" -lt 180 ]; then

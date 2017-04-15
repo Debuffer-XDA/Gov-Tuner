@@ -15,7 +15,6 @@
 
 # = DEBUG =====
 # govtuner --verbose
-
 if [ "$1" == "--verbose" ]; then
 	set -x
 fi
@@ -37,21 +36,23 @@ ROOT=0
 INTERVAL=/data/system/INTERVAL_SEC
 core_ctl=0
 TIME=$($busybox cat /proc/uptime | $busybox cut -d '.' -f1)
+
 #Hold your horses :P. Added this check to provide time for the device to initialize CPU parameters properly. This also solves the init.d not working errors
 # caused due to early launching of scripts
 if [ "$TIME" -lt 180 ]; then
-   echo "GovTuner must be run atleast after a time interval of 3 minutes after booting. This is to ensure the CPU directories are set properly, this script will exit now. Please run after 3 minutes"
-   sleep 15
-   exit
+	echo "GovTuner must be run atleast after a time interval of 3 minutes after booting. This is to ensure the CPU directories are set properly, this script will exit now. Please run after 3 minutes"
+	sleep 15
+	exit
 fi
 if [ ! -d "/data/system/GovTuner/current" ]; then
-   $busybox mount -o remount,rw /data 2>/dev/null
-   $busybox mkdir /data/system/GovTuner/current
-   $busybox sleep 0.4
-   $busybox mount -o remount,ro /data 2>/dev/null
+	$busybox mount -o remount,rw /data 2>/dev/null
+	$busybox mkdir /data/system/GovTuner/current
+	$busybox sleep 0.4
+	$busybox mount -o remount,ro /data 2>/dev/null
 fi
 sleep 0.4
 PROFILE_DIR="/data/system/GovTuner/current"
+
 # colors
 G='\e[01;32m'
 R='\e[01;31m'
@@ -62,429 +63,433 @@ V='\e[01;35m'
 Bl='\e[01;30m'
 C='\e[01;36m'
 W='\e[01;37m'
+
 while true; do
-# Devices with core_ctl hotplug have constantly changing clusters which makes it impossible to read from them. So setting core_ctl to 1 will change the
-# way how GT works on the device.
-for z in $cpu/cpu*; do
+	# Devices with core_ctl hotplug have constantly changing clusters which makes it impossible to read from them. So setting core_ctl to 1 will change the
+	# way how GT works on the device.
+	for z in $cpu/cpu*; do
 		if [ -d $z/cpufreq/core_ctl ]; then
 			core_ctl=1
 		fi
-done
-
-#Govchanger
-gov_changer() {
-    alt_detect
-	governor=$1
-	govs=$2
-	chmod 644 $govs
-	chmod 644 $governor
-	clear
-
-	echo "Current Gov: ${G}$(cat $governor | tr a-z A-Z)${N}"
-	echo $divider
-
-	governors=($(cat $govs))
-	total=${#governors[@]}
-	count=0
-	for govc in "${governors[@]}"; do
-		count=$((count+1))
-		echo "$count - ${W}$govc${N}"
 	done
-	echo $divider
-	echo "0 - Back"
-	echo -n -e "[Choice]: "
-	read key
-	if [ "$key" = "" ]; then
-		echo "No key entered"
-		return 1
-	elif [ "$key" = "0" ]; then
-		return
-	fi
 
-	no=$(echo $key | tr -d '0-9')
-	if [ $no ]; then
-		echo "Numbers Only"
-		return 1
-	fi
+	#Govchanger
+	gov_changer() {
+		alt_detect
+		governor=$1
+		govs=$2
+		chmod 644 $govs
+		chmod 644 $governor
+		clear
 
-	govnum=$((key-1))
-	if [ "$govnum" -lt "$total" ]; then
-		echo "Changing to ${governors[$govnum]}"
-		echo ${governors[$govnum]} > $governor
-		sleep 2
-		return
-	else
-		echo "Number out of range!"
-		sleep 2
-		return 1
-	fi
-}
+		echo "Current Gov: ${G}$(cat $governor | tr a-z A-Z)${N}"
+		echo $divider
 
-interval_choose() {
-	if [ ! -f $INTERVAL ]; then
-		echo 180 > $INTERVAL
-	fi
-	clear
-	echo "Current Interval: ${G}$(cat $INTERVAL)${N} secs"
-	echo $divider
-	echo " 1 - ${W}30 secs${N}"
-	echo " 2 - ${W}1 min / 60 secs${N}"
-	echo " 3 - ${W}2 mins / 120 secs${N}"
-	echo " 4 - ${W}3 mins / 180 secs${N}"
-	echo " 5 - Custom"
-	echo " 6 - ${R}Locked${N}"
-	echo " 0 - Back"
-	echo $divider
-	echo -n -e "[Choice]: "
-	read int
-	case $int in
-		1)
-			echo "Changing to 30 secs"
-			echo 30 > $INTERVAL
-			sleep 2
-			clear
+		governors=($(cat $govs))
+		total=${#governors[@]}
+		count=0
+		for govc in "${governors[@]}"; do
+			count=$((count+1))
+			echo "$count - ${W}$govc${N}"
+		done
+		echo $divider
+		echo "0 - Back"
+		echo -n -e "[Choice]: "
+		read key
+		if [ "$key" = "" ]; then
+			echo "No key entered"
+			return 1
+		elif [ "$key" = "0" ]; then
 			return
-		;;
-		2)
-			echo "Changing to 1 min"
-			echo 60 > $INTERVAL
+		fi
+
+		no=$(echo $key | tr -d '0-9')
+		if [ $no ]; then
+			echo "Numbers Only"
+			return 1
+		fi
+
+		govnum=$((key-1))
+		if [ "$govnum" -lt "$total" ]; then
+			echo "Changing to ${governors[$govnum]}"
+			echo ${governors[$govnum]} > $governor
 			sleep 2
-			clear
 			return
-		;;
-		3)
-			echo "Changing to 2 mins"
-			echo 120 > $INTERVAL
+		else
+			echo "Number out of range!"
 			sleep 2
-			clear
-			return
-		;;
-		4)
-			echo "Changing to 3 mins"
+			return 1
+		fi
+	}
+
+	interval_choose() {
+		if [ ! -f $INTERVAL ]; then
 			echo 180 > $INTERVAL
-			sleep 2
-			clear
-			return
-		;;
-		5)
-			clear
-			echo -n -e "Change to (in seconds): "
-			read cus
-			if [ "$cus" == "" ]; then
-				echo "Error"
-				sleep 1
-				return 1
-			fi
-			tmp=$(echo $cus | tr -d '0-9')
-			if [ $tmp ]; then
-				echo Error
-				sleep 1
-				return 1
-			else
-				echo "Changing to $cus"
-				echo $cus > $INTERVAL
+		fi
+		clear
+		echo "Current Interval: ${G}$(cat $INTERVAL)${N} secs"
+		echo $divider
+		echo " 1 - ${W}30 secs${N}"
+		echo " 2 - ${W}1 min / 60 secs${N}"
+		echo " 3 - ${W}2 mins / 120 secs${N}"
+		echo " 4 - ${W}3 mins / 180 secs${N}"
+		echo " 5 - Custom"
+		echo " 6 - ${R}Locked${N}"
+		echo " 0 - Back"
+		echo $divider
+		echo -n -e "[Choice]: "
+		read int
+		case $int in
+			1)
+				echo "Changing to 30 secs"
+				echo 30 > $INTERVAL
 				sleep 2
 				clear
 				return
-			fi
-		;;
-		6)
-			echo "Locked loop"
-			echo 0 > $INTERVAL
-			sleep 2
-			clear
-			return
-		;;
-		0)
-			clear; return
-		;;
-		*)
-			echo "Invalid!"
-			sleep 1
-			clear
-			return 1
-		;;
-	esac
-}
-apply_profile() {
-	# apply_profile battery/balanced/performance
+			;;
+			2)
+				echo "Changing to 1 min"
+				echo 60 > $INTERVAL
+				sleep 2
+				clear
+				return
+			;;
+			3)
+				echo "Changing to 2 mins"
+				echo 120 > $INTERVAL
+				sleep 2
+				clear
+				return
+			;;
+			4)
+				echo "Changing to 3 mins"
+				echo 180 > $INTERVAL
+				sleep 2
+				clear
+				return
+			;;
+			5)
+				clear
+				echo -n -e "Change to (in seconds): "
+				read cus
+				if [ "$cus" == "" ]; then
+					echo "Error"
+					sleep 1
+					return 1
+				fi
+				tmp=$(echo $cus | tr -d '0-9')
+				if [ $tmp ]; then
+					echo Error
+					sleep 1
+					return 1
+				else
+					echo "Changing to $cus"
+					echo $cus > $INTERVAL
+					sleep 2
+					clear
+					return
+				fi
+			;;
+			6)
+				echo "Locked loop"
+				echo 0 > $INTERVAL
+				sleep 2
+				clear
+				return
+			;;
+			0)
+				clear; return
+			;;
+			*)
+				echo "Invalid!"
+				sleep 1
+				clear
+				return 1
+			;;
+		esac
+	}
 
-	if [ "$1" == "battery" ]; then
-		profile=battery
-		pro_file=GovTuner_battery
-	elif [ "$1" == "balanced" ]; then
-		profile=balanced
-		pro_file=GovTuner_balanced
-	elif [ "$1" == "performance" ]; then
-		profile=performance
-		pro_file=GovTuner_performance
-	fi
-	$busybox clear
-	$busybox echo ""
-	$busybox echo "Activating $profile profile"
-	$busybox sleep 0.3
-	$busybox echo ""
-	$busybox sleep 0.2
-	$busybox echo "Copying $profile profile to init.d"
-        $busybox mount -o remount,rw /data 2>/dev/null
-	$busybox sleep 0.3
-	$busybox echo ""
-	if [ -e $PROFILE_DIR/GovTuner_balanced ]; then
-		$busybox rm -rf $PROFILE_DIR/GovTuner_balanced
-	fi
-	if [ -e $PROFILE_DIR/GovTuner_performance ]; then
-		$busybox rm -rf $PROFILE_DIR/GovTuner_performance
-	fi
-	if [ -e $PROFILE_DIR/GovTuner_battery ]; then
-		$busybox rm -rf $PROFILE_DIR/GovTuner_battery
-	fi
-	$busybox cp -f $core/profiles/$pro_file $PROFILE_DIR/$pro_file
-	$busybox chmod 755 $PROFILE_DIR/$pro_file
-	$busybox sleep 0.5
-	$busybox dos2unix "$PROFILE_DIR/$pro_file"
-	$busybox echo "Applying $profile tweaks"
-	$busybox sleep 0.4
-	$busybox echo ""
-	$busybox setsid $PROFILE_DIR/$pro_file&
-	$busybox sleep 0.3
-	$busybox echo ""
-        $busybox mount -o remount,ro /data 2>/dev/null
-	$busybox sleep 3
-	$busybox clear
-	$busybox echo "GovTuner $profile profile activated"
-	$busybox echo ""
-	$busybox echo ""
-	$busybox sleep 2
-	$busybox clear
-	return
-}
-# Alt_detect algorithm by @Senthil360 , veez21 and N1m0Y.
-# This is the new Cluster_detection algorithm. Further additions to this set of conditions , must always follow this order
-# i) Check whether CD =1 or CD = 0; i.e if cpufreq/$cur_governor exists on /sys/devices/system/cpu or in one of sys/devices/system/cpu/cpu$i directories
-# ii) Check for the number "scaling_governor" files in /sys/devices/system/cpu/cpu$i folder, given that those are actual files and not symlinks
-# iii) If CD = 0; (/sys/devices/system/cpu/cpufreq/$cur_governor); then check if the max frequencies in those folders are equal (REG=1) or not (DC=1) to confirm
-# The  min and Max frequencies, must be initialized , sorted and stored in this function itself. Because sorting values, while the script is actively printing its output at
-# the terminal can return false values and also increases the memory footprint by using more registers.
-alt_detect() {
-    cpu=/sys/devices/system/cpu
-	i=0
-	while [ -d "/sys/devices/system/cpu/cpu$i" ]; do
-		i=$(($i + 1))
-		CORE=$i
-	done
-	c=0
-    for z in $cpu/cpu*; do
-		if [ -f $z/cpufreq/scaling_governor ] && [ ! -L $z/cpufreq/scaling_governor ] && [ ! -L $z/cpufreq ]; then
-            cur_gov[$c]=$(cat $z/cpufreq/scaling_governor)
-			gov[$c]=$z/cpufreq/${cur_gov[$c]}
-            gov_r[$c]=$cpu/cpufreq/${cur_gov[$c]}
-            change[$c]=$z/cpufreq/scaling_governor
-            gov_avail[$c]=$z/cpufreq/scaling_available_governors
-			freq_u[$c]=$z/cpufreq/cpuinfo_max_freq
-            freq_l[$c]=$z/cpufreq/cpuinfo_min_freq
-			c=$((c+1))
-			$busybox sleep 0.5
+	apply_profile() {
+		# apply_profile battery/balanced/performance
+
+		if [ "$1" == "battery" ]; then
+			profile=battery
+			pro_file=GovTuner_battery
+		elif [ "$1" == "balanced" ]; then
+			profile=balanced
+			pro_file=GovTuner_balanced
+		elif [ "$1" == "performance" ]; then
+			profile=performance
+			pro_file=GovTuner_performance
 		fi
-    done
-    m=0
-    while [ "$m" -lt "${#gov[@]}" ]; do
-         if [ -d "${gov[$m]}" ]; then
-             #Cluster_Device
-             if [ "${#gov[@]}" -eq 1 ]; then
-                 SC=1
-                 ga=0;
-                 DEVICE=SINGLE_CLUSTER
-                 SC=1; CD=1;
-             fi
-             if [ "${#gov[@]}" -eq 2 ]; then
-                 DC=1
-                  sm1=$($busybox cat "${freq_u[0]}" | $busybox cut -d ' ' -f1)
-	          sm2=$($busybox cat "${freq_u[1]}" | $busybox cut -d ' ' -f1)
-                  gd1=$($busybox cat "${freq_l[0]}" | $busybox cut -d ' ' -f1)
-                  gd2=$($busybox cat "${freq_l[1]}" | $busybox cut -d ' ' -f1)
-                 if [ "$sm1" -lt "$sm2" ]; then
-                    ga=0; gc=1;
-                    MAX_FREQ_0="$sm1"
-                    MIN_FREQ_0="$gd1"
-                    MAX_FREQ_2="$sm2"
-                    MIN_FREQ_2="$gd2"
-                    DEVICE=DUAL_CLUSTER
-                    bL=1; DC=1; CD=1;
-                 fi
-                 if [ "$sm2" -lt "$sm1" ]; then
-                    ga=1; gc=0;
-                    MAX_FREQ_0="$sm2"
-                    MIN_FREQ_0="$gd2"
-                    MAX_FREQ_2="$sm1"
-                    MIN_FREQ_2="$gd1"
-                    DEVICE=DUAL_CLUSTER_INVERTED
-                     bL=1; DC=1; CD=1;
-                 fi
-              fi
-             if [ "${#gov[@]}" -eq 3 ]; then
-                 TC=1
-                 sm1=$($busybox cat "${freq_u[0]}" | $busybox cut -d ' ' -f1)
-	         sm2=$($busybox cat "${freq_u[1]}" | $busybox cut -d ' ' -f1)
-                 sm3=$($busybox cat "${freq_u[2]}" | $busybox cut -d ' ' -f1)
-                 gd1=$($busybox cat "${freq_l[0]}" | $busybox cut -d ' ' -f1)
-                 gd2=$($busybox cat "${freq_l[1]}" | $busybox cut -d ' ' -f1)
-                 gd3=$($busybox cat "${freq_l[2]}" | $busybox cut -d ' ' -f1)
-                 if [ "$sm1" -lt "$sm2" ] && [ "$sm2" -lt "$sm3" ]; then
-                     ga=0; gb=1; gc=2;
-                     MAX_FREQ_0="$sm1"
-                     MIN_FREQ_0="$gd1"
-                     MAX_FREQ_1="$sm2"
-                     MIN_FREQ_1="$gd2"
-                     MAX_FREQ_2="$sm3"
-                     MIN_FREQ_2="$gd3"
-                     DEVICE=TRIPLE_CLUSTER
-                     bL=1; TC=1; CD=1;
-                 fi
-                 if [ "$sm2" -lt "$sm3" ] && [ "$sm3" -lt "$sm1" ]; then
-                     ga=2; gb=0; gc=1;
-                     MAX_FREQ_0="$sm2"
-                     MIN_FREQ_0="$gd2"
-                     MAX_FREQ_1="$sm3"
-                     MIN_FREQ_1="$gd3"
-                     MAX_FREQ_2="$sm1"
-                     MIN_FREQ_2="$gd1"
-                     DEVICE=TRIPLE_CLUSTER_SCRAMBLED
-                     bL=1; TC=1; CD=1;
-                 fi
-                 if [ "$sm3" -lt "$sm1" ] && [ "$sm1" -lt "$sm2" ]; then
-                     ga=1; gb=2; gc=0;
-                     MAX_FREQ_0="$sm3"
-                     MIN_FREQ_0="$gd3"
-                     MAX_FREQ_1="$sm1"
-                     MIN_FREQ_1="$gd1"
-                     MAX_FREQ_2="$sm2"
-                     MIN_FREQ_2="$gd2"
-                     DEVICE=TRIPLE_CLUSTER_INVERTED
-                     bL=1; TC=1; CD=1;
-                 fi
-             fi
-         fi
-         if [ -d "${gov_r[0]}" ] || [ -d "${gov_r[1]}" ]; then
-            if [ "${#gov[@]}" -eq 2 ]; then
-                  sm1=$($busybox cat "${freq_u[0]}" | $busybox cut -d ' ' -f1)
-	          sm2=$($busybox cat "${freq_u[1]}" | $busybox cut -d ' ' -f1)
-                  gd1=$($busybox cat "${freq_l[0]}" | $busybox cut -d ' ' -f1)
-                  gd2=$($busybox cat "${freq_l[1]}" | $busybox cut -d ' ' -f1)
-                if [ "$sm1" -lt "$sm2" ]; then
-                    ga=0; gc=1;
-                    MAX_FREQ_0="$sm1"
-                    MIN_FREQ_0="$gd1"
-                    MAX_FREQ_1="$sm2"
-                    MIN_FREQ_1="$gd2"
-                    DEVICE=DUAL_CLUSTER
-                    bL=1; DC=1; CD=0;
-                fi
-                if [ "$sm2" -lt "$sm1" ]; then
-                    ga=1; gc=0;
-                    MAX_FREQ_0="$sm2"
-                    MIN_FREQ_0="$gd2"
-                    MAX_FREQ_1="$sm1"
-                    MIN_FREQ_1="$gd1"
-                    DEVICE=DUAL_CLUSTER_INVERTED
-                     bL=1; DC=1; CD=0;
-                fi
-                if [ "$sm2" -eq "$sm1" ]; then
-                   REG=1
-                   ga=0; CD=0; DC=0;
-                   MAX_FREQ_0=$($busybox cat "$cpu/cpu0/cpufreq/cpuinfo_max_freq" | $busybox cut -d ' ' -f1)
-                   MIN_FREQ_0=$($busybox cat "$cpu/cpu0/cpufreq/cpuinfo_min_freq" | $busybox cut -d ' ' -f1)
-                   DEVICE=REGULAR
-				   unset gov[0];
-				   unset gov[1];
-				   gov[0]=$cpu/cpufreq/${cur_gov[0]}
-                fi
+		$busybox clear
+		$busybox echo ""
+		$busybox echo "Activating $profile profile"
+		$busybox sleep 0.3
+		$busybox echo ""
+		$busybox sleep 0.2
+		$busybox echo "Copying $profile profile to init.d"
+		$busybox mount -o remount,rw /data 2>/dev/null
+		$busybox sleep 0.3
+		$busybox echo ""
+		if [ -e $PROFILE_DIR/GovTuner_balanced ]; then
+			$busybox rm -rf $PROFILE_DIR/GovTuner_balanced
+		fi
+		if [ -e $PROFILE_DIR/GovTuner_performance ]; then
+			$busybox rm -rf $PROFILE_DIR/GovTuner_performance
+		fi
+		if [ -e $PROFILE_DIR/GovTuner_battery ]; then
+			$busybox rm -rf $PROFILE_DIR/GovTuner_battery
+		fi
+		$busybox cp -f $core/profiles/$pro_file $PROFILE_DIR/$pro_file
+		$busybox chmod 755 $PROFILE_DIR/$pro_file
+		$busybox sleep 0.5
+		$busybox dos2unix "$PROFILE_DIR/$pro_file"
+		$busybox echo "Applying $profile tweaks"
+		$busybox sleep 0.4
+		$busybox echo ""
+		$busybox setsid $PROFILE_DIR/$pro_file&
+		$busybox sleep 0.3
+		$busybox echo ""
+		$busybox mount -o remount,ro /data 2>/dev/null
+		$busybox sleep 3
+		$busybox clear
+		$busybox echo "GovTuner $profile profile activated"
+		$busybox echo ""
+		$busybox echo ""
+		$busybox sleep 2
+		$busybox clear
+		return
+	}
+
+	# Alt_detect algorithm by @Senthil360 , veez21 and N1m0Y.
+	# This is the new Cluster_detection algorithm. Further additions to this set of conditions , must always follow this order
+	# i) Check whether CD =1 or CD = 0; i.e if cpufreq/$cur_governor exists on /sys/devices/system/cpu or in one of sys/devices/system/cpu/cpu$i directories
+	# ii) Check for the number "scaling_governor" files in /sys/devices/system/cpu/cpu$i folder, given that those are actual files and not symlinks
+	# iii) If CD = 0; (/sys/devices/system/cpu/cpufreq/$cur_governor); then check if the max frequencies in those folders are equal (REG=1) or not (DC=1) to confirm
+	# The  min and Max frequencies, must be initialized , sorted and stored in this function itself. Because sorting values, while the script is actively printing its output at
+	# the terminal can return false values and also increases the memory footprint by using more registers.
+	alt_detect() {
+		cpu=/sys/devices/system/cpu
+		i=0
+		while [ -d "/sys/devices/system/cpu/cpu$i" ]; do
+			i=$(($i + 1))
+			CORE=$i
+		done
+		c=0
+		for z in $cpu/cpu*; do
+			if [ -f $z/cpufreq/scaling_governor ] && [ ! -L $z/cpufreq/scaling_governor ] && [ ! -L $z/cpufreq ]; then
+				cur_gov[$c]=$(cat $z/cpufreq/scaling_governor)
+				gov[$c]=$z/cpufreq/${cur_gov[$c]}
+				gov_r[$c]=$cpu/cpufreq/${cur_gov[$c]}
+				change[$c]=$z/cpufreq/scaling_governor
+				gov_avail[$c]=$z/cpufreq/scaling_available_governors
+				freq_u[$c]=$z/cpufreq/cpuinfo_max_freq
+				freq_l[$c]=$z/cpufreq/cpuinfo_min_freq
+				c=$((c+1))
+				$busybox sleep 0.5
 			fi
-			if [ "${#gov[@]}" -ne 2 ]; then
-			       REG=1
-                   ga=0; CD=0; DC=0;
-                   MAX_FREQ_0=$($busybox cat "$cpu/cpu0/cpufreq/cpuinfo_max_freq" | $busybox cut -d ' ' -f1)
-                   MIN_FREQ_0=$($busybox cat "$cpu/cpu0/cpufreq/cpuinfo_min_freq" | $busybox cut -d ' ' -f1)
-                   DEVICE=REGULAR
-				   unset gov[0];
-				   unset gov[1];
-				   gov[0]=$cpu/cpufreq/${cur_gov[0]}
+		done
+		m=0
+		while [ "$m" -lt "${#gov[@]}" ]; do
+			if [ -d "${gov[$m]}" ]; then
+				#Cluster_Device
+				if [ "${#gov[@]}" -eq 1 ]; then
+					SC=1
+					ga=0;
+					DEVICE=SINGLE_CLUSTER
+					SC=1; CD=1;
+				fi
+				if [ "${#gov[@]}" -eq 2 ]; then
+					DC=1
+					sm1=$($busybox cat "${freq_u[0]}" | $busybox cut -d ' ' -f1)
+					sm2=$($busybox cat "${freq_u[1]}" | $busybox cut -d ' ' -f1)
+					gd1=$($busybox cat "${freq_l[0]}" | $busybox cut -d ' ' -f1)
+					gd2=$($busybox cat "${freq_l[1]}" | $busybox cut -d ' ' -f1)
+					if [ "$sm1" -lt "$sm2" ]; then
+						ga=0; gc=1;
+						MAX_FREQ_0="$sm1"
+						MIN_FREQ_0="$gd1"
+						MAX_FREQ_2="$sm2"
+						MIN_FREQ_2="$gd2"
+						DEVICE=DUAL_CLUSTER
+						bL=1; DC=1; CD=1;
+					fi
+					if [ "$sm2" -lt "$sm1" ]; then
+						ga=1; gc=0;
+						MAX_FREQ_0="$sm2"
+						MIN_FREQ_0="$gd2"
+						MAX_FREQ_2="$sm1"
+						MIN_FREQ_2="$gd1"
+						DEVICE=DUAL_CLUSTER_INVERTED
+						bL=1; DC=1; CD=1;
+					fi
+				fi
+				if [ "${#gov[@]}" -eq 3 ]; then
+					TC=1
+					sm1=$($busybox cat "${freq_u[0]}" | $busybox cut -d ' ' -f1)
+					sm2=$($busybox cat "${freq_u[1]}" | $busybox cut -d ' ' -f1)
+					sm3=$($busybox cat "${freq_u[2]}" | $busybox cut -d ' ' -f1)
+					gd1=$($busybox cat "${freq_l[0]}" | $busybox cut -d ' ' -f1)
+					gd2=$($busybox cat "${freq_l[1]}" | $busybox cut -d ' ' -f1)
+					gd3=$($busybox cat "${freq_l[2]}" | $busybox cut -d ' ' -f1)
+					if [ "$sm1" -lt "$sm2" ] && [ "$sm2" -lt "$sm3" ]; then
+						ga=0; gb=1; gc=2;
+						MAX_FREQ_0="$sm1"
+						MIN_FREQ_0="$gd1"
+						MAX_FREQ_1="$sm2"
+						MIN_FREQ_1="$gd2"
+						MAX_FREQ_2="$sm3"
+						MIN_FREQ_2="$gd3"
+						DEVICE=TRIPLE_CLUSTER
+						bL=1; TC=1; CD=1;
+					fi
+					if [ "$sm2" -lt "$sm3" ] && [ "$sm3" -lt "$sm1" ]; then
+						ga=2; gb=0; gc=1;
+						MAX_FREQ_0="$sm2"
+						MIN_FREQ_0="$gd2"
+						MAX_FREQ_1="$sm3"
+						MIN_FREQ_1="$gd3"
+						MAX_FREQ_2="$sm1"
+						MIN_FREQ_2="$gd1"
+						DEVICE=TRIPLE_CLUSTER_SCRAMBLED
+						bL=1; TC=1; CD=1;
+					fi
+					if [ "$sm3" -lt "$sm1" ] && [ "$sm1" -lt "$sm2" ]; then
+						ga=1; gb=2; gc=0;
+						MAX_FREQ_0="$sm3"
+						MIN_FREQ_0="$gd3"
+						MAX_FREQ_1="$sm1"
+						MIN_FREQ_1="$gd1"
+						MAX_FREQ_2="$sm2"
+						MIN_FREQ_2="$gd2"
+						DEVICE=TRIPLE_CLUSTER_INVERTED
+						bL=1; TC=1; CD=1;
+					fi
+				fi
 			fi
-         fi
-     m=$(($m+1))
-    done
-}
-if [ "$core_ctl" -eq 0 ]; then
- alt_detect
-fi
-#For REGULAR and SMALL clusters
+			if [ -d "${gov_r[0]}" ] || [ -d "${gov_r[1]}" ]; then
+				if [ "${#gov[@]}" -eq 2 ]; then
+					sm1=$($busybox cat "${freq_u[0]}" | $busybox cut -d ' ' -f1)
+					sm2=$($busybox cat "${freq_u[1]}" | $busybox cut -d ' ' -f1)
+					gd1=$($busybox cat "${freq_l[0]}" | $busybox cut -d ' ' -f1)
+					gd2=$($busybox cat "${freq_l[1]}" | $busybox cut -d ' ' -f1)
+					if [ "$sm1" -lt "$sm2" ]; then
+						ga=0; gc=1;
+						MAX_FREQ_0="$sm1"
+						MIN_FREQ_0="$gd1"
+						MAX_FREQ_1="$sm2"
+						MIN_FREQ_1="$gd2"
+						DEVICE=DUAL_CLUSTER
+						bL=1; DC=1; CD=0;
+					fi
+					if [ "$sm2" -lt "$sm1" ]; then
+						ga=1; gc=0;
+						MAX_FREQ_0="$sm2"
+						MIN_FREQ_0="$gd2"
+						MAX_FREQ_1="$sm1"
+						MIN_FREQ_1="$gd1"
+						DEVICE=DUAL_CLUSTER_INVERTED
+						bL=1; DC=1; CD=0;
+					fi
+					if [ "$sm2" -eq "$sm1" ]; then
+						REG=1
+						ga=0; CD=0; DC=0;
+						MAX_FREQ_0=$($busybox cat "$cpu/cpu0/cpufreq/cpuinfo_max_freq" | $busybox cut -d ' ' -f1)
+						MIN_FREQ_0=$($busybox cat "$cpu/cpu0/cpufreq/cpuinfo_min_freq" | $busybox cut -d ' ' -f1)
+						DEVICE=REGULAR
+						unset gov[0];
+						unset gov[1];
+						gov[0]=$cpu/cpufreq/${cur_gov[0]}
+					fi
+				fi
+				if [ "${#gov[@]}" -ne 2 ]; then
+					REG=1
+					ga=0; CD=0; DC=0;
+					MAX_FREQ_0=$($busybox cat "$cpu/cpu0/cpufreq/cpuinfo_max_freq" | $busybox cut -d ' ' -f1)
+					MIN_FREQ_0=$($busybox cat "$cpu/cpu0/cpufreq/cpuinfo_min_freq" | $busybox cut -d ' ' -f1)
+					DEVICE=REGULAR
+					unset gov[0];
+					unset gov[1];
+					gov[0]=$cpu/cpufreq/${cur_gov[0]}
+				fi
+			fi
+			m=$(($m+1))
+		done
+	}
 
-# Interval Fix
-if [ ! -f $INTERVAL_SEC ]; then
-	echo 180 > $INTERVAL_SEC
-fi
+	if [ "$core_ctl" -eq 0 ]; then
+		alt_detect
+	fi
 
-# Retry Application of values
-if [ "$core_ctl" -eq 0 ]; then
- alt_detect
-fi
+	# Interval Fix
+	if [ ! -f $INTERVAL_SEC ]; then
+		echo 180 > $INTERVAL_SEC
+	fi
 
-#IPER_stuff
-if [ -e "/data/system/IPER" ]; then
+	# Retry Application of values
+	if [ "$core_ctl" -eq 0 ]; then
+		alt_detect
+	fi
+
+	#IPER_stuff
+	if [ -e "/data/system/IPER" ]; then
 		IPER=$($busybox cat /data/system/IPER);
 		if [ $? -ne 0 ]; then
 			echo 1 > /data/system/IPER
 		fi
-else
+	else
 		IPER=1
 		$busybox echo "1" > "/data/system/IPER";
-fi
-
-if [ -e "/sys/module/workqueue/parameters/power_efficient" ]; then
-	if [ -e "/data/system/PE" ]; then
-			PE=$($busybox cat /data/system/PE);
-	else
-			PE=$($busybox cat /sys/module/workqueue/parameters/power_efficient)
-	    	$busybox echo "$PE" > "/data/system/PE";
 	fi
-fi
-#Terminal_output_Begins
-if [ "$core_ctl" -eq 0 ]; then
-	if [ "$ROOT" -eq 0 ]; then
-		$busybox clear
-		$busybox echo -e "Check number core: ${G}OK ($CORE)${N}"
-		$busybox echo -e "Check regular and small clusters: ${G}OK (CD$CD)${N}"
-		if [ "$CD" -eq 1 ] && [ "$CD" -ne 0 ]; then
-			if [ "${#gov[@]}" -eq 1 ]; then
-				$busybox echo -e "Check number clusters: ${G}OK (${#gov[@]})${N}"
-			elif [ "${#gov[@]}" -eq 2 ]; then
-				$busybox echo -e "Check number clusters: ${G}OK (${#gov[@]})${N}"
-			elif [ "${#gov[@]}" -eq 3 ]; then
-				$busybox echo -e "Check number clusters: ${G}OK (${#gov[@]})${N}"
-			else
-				$busybox echo -e "Check number clusters: ${G}OK (${#gov[@]})${N}"
+
+	if [ -e "/sys/module/workqueue/parameters/power_efficient" ]; then
+		if [ -e "/data/system/PE" ]; then
+			PE=$($busybox cat /data/system/PE);
+		else
+			PE=$($busybox cat /sys/module/workqueue/parameters/power_efficient)
+			$busybox echo "$PE" > "/data/system/PE";
+		fi
+	fi
+
+	#Terminal_output_Begins
+	if [ "$core_ctl" -eq 0 ]; then
+		if [ "$ROOT" -eq 0 ]; then
+			$busybox clear
+			$busybox echo -e "Check number core: ${G}OK ($CORE)${N}"
+			$busybox echo -e "Check regular and small clusters: ${G}OK (CD$CD)${N}"
+			if [ "$CD" -eq 1 ] && [ "$CD" -ne 0 ]; then
+				if [ "${#gov[@]}" -eq 1 ]; then
+					$busybox echo -e "Check number clusters: ${G}OK (${#gov[@]})${N}"
+				elif [ "${#gov[@]}" -eq 2 ]; then
+					$busybox echo -e "Check number clusters: ${G}OK (${#gov[@]})${N}"
+				elif [ "${#gov[@]}" -eq 3 ]; then
+					$busybox echo -e "Check number clusters: ${G}OK (${#gov[@]})${N}"
+				else
+					$busybox echo -e "Check number clusters: ${G}OK (${#gov[@]})${N}"
+				fi
 			fi
-		fi
-		if [ "$CD" -eq 1 ] && [ "$CD" -ne 0 ]; then
-			$busybox echo -e "Check bigLITTLE: ${G}OK ($bL)${N}"
-		fi
-		$busybox echo ""
-		$busybox echo "If, by any chance, the script is malfunctioning,
+			if [ "$CD" -eq 1 ] && [ "$CD" -ne 0 ]; then
+				$busybox echo -e "Check bigLITTLE: ${G}OK ($bL)${N}"
+			fi
+			$busybox echo ""
+			$busybox echo "If, by any chance, the script is malfunctioning,
 send screenshot/s of that/those error/s to the
 development team so that it can/might be resolved.
 Thank you."
-		$busybox sleep 5
+			$busybox sleep 5
+		fi
+		if [ "$CD" -eq 3 ]; then
+			$busybox sleep 1
+			$busybox echo ""
+			$busybox echo ""
+			$busybox echo "		Unsupported device!"
+			$busybox echo ""
+			$busybox echo ""
+			$busybox sleep 1
+			exit 1
+		fi
 	fi
-	if [ "$CD" -eq 3 ]; then
-		$busybox sleep 1
-		$busybox echo ""
-		$busybox echo ""
-		$busybox echo "		Unsupported device!"
-		$busybox echo ""
-		$busybox echo ""
-		$busybox sleep 1
-		exit 1
-	fi
-fi
 	if [ "$ROOT" -eq 0 ]; then
 		$busybox clear
 		$busybox echo "Checking root"; $busybox sleep 0.2; $busybox clear;
@@ -522,29 +527,29 @@ fi
 			$busybox clear
 		fi
 	fi
-    echo 1 > $FIRST_RUN
-    GA=0
+	echo 1 > $FIRST_RUN
+	GA=0
 	if [ -s /data/system/test ]; then
 		OUTPUT_ID=$($busybox cat /data/system/test)
-		  if ps | grep "$OUTPUT_ID" ; then
-					echo "Process Alive and Running"
-					sleep 0.4
-					echo "Fixing unintended event..."
-                    GA=1
-					echo 0 > $FIRST_RUN
-       fi
-    fi
-    OUTPUT_FR=$($busybox cat $FIRST_RUN)
-    if [ "$OUTPUT_FR" -eq 1 ] && [ "$OUTPUT_FR" -ne 0 ]; then
-			if [ -e $PROFILE_DIR/GovTuner_battery ]; then
-				$busybox setsid $PROFILE_DIR/GovTuner_battery&
-			fi
-			if [ -e $PROFILE_DIR/GovTuner_balanced ]; then
-				$busybox setsid $PROFILE_DIR/GovTuner_balanced&
-			fi
-			if [ -e $PROFILE_DIR/GovTuner_performance ]; then
-				$busybox setsid $PROFILE_DIR/GovTuner_performance&
-			fi
+		if ps | grep "$OUTPUT_ID" ; then
+			echo "Process Alive and Running"
+			sleep 0.4
+			echo "Fixing unintended event..."
+			GA=1
+			echo 0 > $FIRST_RUN
+		fi
+	fi
+	OUTPUT_FR=$($busybox cat $FIRST_RUN)
+	if [ "$OUTPUT_FR" -eq 1 ] && [ "$OUTPUT_FR" -ne 0 ]; then
+		if [ -e $PROFILE_DIR/GovTuner_battery ]; then
+			$busybox setsid $PROFILE_DIR/GovTuner_battery&
+		fi
+		if [ -e $PROFILE_DIR/GovTuner_balanced ]; then
+			$busybox setsid $PROFILE_DIR/GovTuner_balanced&
+		fi
+		if [ -e $PROFILE_DIR/GovTuner_performance ]; then
+			$busybox setsid $PROFILE_DIR/GovTuner_performance&
+		fi
 	fi
 	sleep 3
 	if [ -f $PROFILE_DIR/GovTuner_battery ]; then
@@ -561,7 +566,7 @@ fi
 		c=0
 	fi
 
-	$busybox sleep 0.5
+	$busybox sleep 1
 	$busybox clear;
 	$busybox clear;
 	echo "                      "
@@ -591,66 +596,65 @@ fi
 	echo -e "\e[01;3"$c"m        |_|\__,_|_| |_|\___|_|  ${N}"
 	$busybox sleep 0.1
 	echo "                                 "
-
 	$busybox echo -e "Profile: $profile"
 	$busybox echo ""
-# Always double quote array elements and expansions to prevent globbing and word-splitting.
-if [ "$core_ctl" -eq 0 ]; then
-	a=0
-	for i in "${cur_gov[@]}"; do
-		if [ "$i" = "zzmoove" ]; then
-			if [ "$CD" -eq 1 ] && [ "$CD" -ne 0 ]; then
-				if [ -f ${gov[$a]}/disable_hotplug ]; then
-					HOTPLUG=$($busybox cat ${gov[$a]}/disable_hotplug)
+	# Always double quote array elements and expansions to prevent globbing and word-splitting.
+	if [ "$core_ctl" -eq 0 ]; then
+		a=0
+		for i in "${cur_gov[@]}"; do
+			if [ "$i" = "zzmoove" ]; then
+				if [ "$CD" -eq 1 ] && [ "$CD" -ne 0 ]; then
+					if [ -f ${gov[$a]}/disable_hotplug ]; then
+						HOTPLUG=$($busybox cat ${gov[$a]}/disable_hotplug)
+					fi
 				fi
-			fi
-			if [ "$CD" -eq 0 ] && [ "$CD" -ne 1 ]; then
-				if [ -f /sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug ]; then
-					HOTPLUG=$($busybox cat /sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug)
+				if [ "$CD" -eq 0 ] && [ "$CD" -ne 1 ]; then
+					if [ -f /sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug ]; then
+						HOTPLUG=$($busybox cat /sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug)
+					fi
 				fi
+				if [ "$HOTPLUG" -eq 1 ]; then
+					$busybox echo -e "CPU$a Hotplug: Stock Hotplug"
+				fi
+				if [ "$HOTPLUG" -eq 0 ]; then
+					$busybox echo -e "CPU$a Hotplug: Zzmoove Tweaked Hotplug"
+				fi
+				$busybox echo ""
 			fi
-			if [ "$HOTPLUG" -eq 1 ]; then
-				$busybox echo -e "CPU$a Hotplug: Stock Hotplug"
-			fi
-			if [ "$HOTPLUG" -eq 0 ]; then
-				$busybox echo -e "CPU$a Hotplug: Zzmoove Tweaked Hotplug"
-			fi
+			a=$(($a + 1))
+		done
+	fi
+	if [ "$core_ctl" -eq 0 ]; then
+		if [ "$CD" -eq 1 ] && [ "$CD" -ne 0 ]; then
+			$busybox echo -e "Cluster device: ${W}Yes${N}"
 			$busybox echo ""
 		fi
-		a=$(($a + 1))
-	done
-fi
-if [ "$core_ctl" -eq 0 ]; then
-	if [ "$CD" -eq 1 ] && [ "$CD" -ne 0 ]; then
-		$busybox echo -e "Cluster device: ${W}Yes${N}"
-		$busybox echo ""
-	fi
-	if [ "$REG" -eq 1 ] && [ "$CD" -eq 0 ]; then
-		$busybox echo -e "Cluster device: No"
-		$busybox echo ""
-	fi
-	if [ "$bL" -eq 1 ] && [ "$bL" -ne 0 ]; then
-		#For bigLITTLE
-		$busybox echo -e "bigLITTLE: ${W}present${N}"
-		$busybox echo ""
-		if [ "$TC" -eq 1 ] && [ "$TC" -ne 0 ]; then
-			#For 3 CPU
+		if [ "$REG" -eq 1 ] && [ "$CD" -eq 0 ]; then
+			$busybox echo -e "Cluster device: No"
+			$busybox echo ""
+		fi
+		if [ "$bL" -eq 1 ] && [ "$bL" -ne 0 ]; then
+			#For bigLITTLE
+			$busybox echo -e "bigLITTLE: ${W}present${N}"
+			$busybox echo ""
+			if [ "$TC" -eq 1 ] && [ "$TC" -ne 0 ]; then
+				#For 3 CPU
 				$busybox echo -e "Governor LITTLE core: ${W}${cur_gov[$ga]}${N}"
 				$busybox echo -e "Governor Middle core: ${W}${cur_gov[$gb]}${N}"
 				$busybox echo -e "Governor big core:    ${W}${cur_gov[$gc]}${N}"
-		fi
-	    if [ "$DC" -eq 1 ] && [ "$DC" -ne 0 ]; then
+			fi
+			if [ "$DC" -eq 1 ] && [ "$DC" -ne 0 ]; then
 				$busybox echo -e "Governor LITTLE core: ${W}${cur_gov[$ga]}${N}"
 				$busybox echo -e "Governor big core:    ${W}${cur_gov[$gc]}${N}"
+			fi
+		fi
+		if [ "$SC" -eq 1 ] && [ "$CD" -eq 1 ]; then
+			$busybox echo -e "Governor: ${W}${cur_gov[$ga]}${N}"
+		fi
+		if [ "$REG" -eq 1 ] && [ "$CD" -eq 0 ]; then
+			$busybox echo -e "Governor: ${W}${cur_gov[$ga]}${N}"
 		fi
 	fi
-	if [ "$SC" -eq 1 ] && [ "$CD" -eq 1 ]; then
-	        $busybox echo -e "Governor: ${W}${cur_gov[$ga]}${N}"
-    fi
-	if [ "$REG" -eq 1 ] && [ "$CD" -eq 0 ]; then
-	        $busybox echo -e "Governor: ${W}${cur_gov[$ga]}${N}"
-    fi
-fi
 
 	$busybox echo ""
 	$busybox echo -e "Device: ${W}${DEVICE}${N}"
@@ -659,10 +663,10 @@ fi
 	$busybox echo ""
 	$busybox echo -e "Govtuner Version: ${W}$ver${N}"
 	$busybox echo ""
-if [ "$core_ctl" -eq 0 ]; then
-	if [ "$bL" -eq 1 ] && [ "$bL" -ne 0 ]; then
-		if [ "$TC" -eq 1 ] && [ "$TC" -ne 0 ]; then
-		    #For triple cluster
+	if [ "$core_ctl" -eq 0 ]; then
+		if [ "$bL" -eq 1 ] && [ "$bL" -ne 0 ]; then
+			if [ "$TC" -eq 1 ] && [ "$TC" -ne 0 ]; then
+				#For triple cluster
 				if [ "$MAX_FREQ_0" -gt "$MIN_FREQ_0" ]; then
 					$busybox echo -e "CPU LITTLE Min/Max: ${W}$(($MIN_FREQ_0 / 1000)) MHz${N} / ${W}$(($MAX_FREQ_0 / 1000)) MHz${N}"
 				fi
@@ -681,10 +685,10 @@ if [ "$core_ctl" -eq 0 ]; then
 				if [ "$MAX_FREQ_2" -lt "$MIN_FREQ_2" ]; then
 					$busybox echo -e "CPU BIG Min/Max: ${W}$(($MAX_FREQ_2 / 1000)) MHz${N} / ${W}$(($MIN_FREQ_2 / 1000)) MHz${N}"
 				fi
-		fi
-		if [ "$DC" -eq 1 ] && [ "$DC" -ne 0 ]; then
-			#For dual cluster
-			    if [ "$MAX_FREQ_0" -gt "$MIN_FREQ_0" ]; then
+			fi
+			if [ "$DC" -eq 1 ] && [ "$DC" -ne 0 ]; then
+				#For dual cluster
+				if [ "$MAX_FREQ_0" -gt "$MIN_FREQ_0" ]; then
 					$busybox echo -e "CPU LITTLE Min/Max: ${W}$(($MIN_FREQ_0 / 1000)) MHz${N} / ${W}$(($MAX_FREQ_0 / 1000)) MHz${N}"
 				fi
 				if [ "$MAX_FREQ_0" -lt "$MIN_FREQ_0" ]; then
@@ -696,31 +700,31 @@ if [ "$core_ctl" -eq 0 ]; then
 				if [ "$MAX_FREQ_2" -lt "$MIN_FREQ_2" ]; then
 					$busybox echo -e "CPU BIG Min/Max: ${W}$(($MAX_FREQ_2 / 1000)) MHz${N} / ${W}$(($MIN_FREQ_2 / 1000)) MHz${N}"
 				fi
+			fi
+		fi
+		if [ "$SC" -eq 1 ] && [ "$CD" -eq 1 ]; then
+			#For Single Cluster
+			if [ "$MAX_FREQ_0" -gt "$MIN_FREQ_0" ]; then
+				$busybox echo -e "CPU  Min/Max: ${W}$(($MIN_FREQ_0 / 1000)) MHz${N} / ${W}$(($MAX_FREQ_0 / 1000)) MHz${N}"
+			fi
+			if [ "$MAX_FREQ_0" -lt "$MIN_FREQ_0" ]; then
+				$busybox echo -e "CPU Min/Max: ${W}$(($MAX_FREQ_0 / 1000)) MHz${N} / ${W}$(($MIN_FREQ_0 / 1000)) MHz${N}"
+			fi
+		fi
+		if [ "$REG" -eq 1 ] && [ "$CD" -eq 0 ]; then
+			#For Regular Cluster
+			if [ "$MAX_FREQ_0" -gt "$MIN_FREQ_0" ]; then
+				$busybox echo -e "CPU  Min/Max: ${W}$(($MIN_FREQ_0 / 1000)) MHz${N} / ${W}$(($MAX_FREQ_0 / 1000)) MHz${N}"
+			fi
+			if [ "$MAX_FREQ_0" -lt "$MIN_FREQ_0" ]; then
+				$busybox echo -e "CPU  Min/Max: ${W}$(($MAX_FREQ_0 / 1000)) MHz${N} / ${W}$(($MIN_FREQ_0 / 1000)) MHz${N}"
+			fi
 		fi
 	fi
-	if [ "$SC" -eq 1 ] && [ "$CD" -eq 1 ]; then
-		#For Single Cluster
-			    if [ "$MAX_FREQ_0" -gt "$MIN_FREQ_0" ]; then
-					$busybox echo -e "CPU  Min/Max: ${W}$(($MIN_FREQ_0 / 1000)) MHz${N} / ${W}$(($MAX_FREQ_0 / 1000)) MHz${N}"
-				fi
-				if [ "$MAX_FREQ_0" -lt "$MIN_FREQ_0" ]; then
-					$busybox echo -e "CPU Min/Max: ${W}$(($MAX_FREQ_0 / 1000)) MHz${N} / ${W}$(($MIN_FREQ_0 / 1000)) MHz${N}"
-				fi
+	if [ "$core_ctl" -eq 1 ]; then
+		$busybox echo ""
+		$busybox echo "If some options (like change governor) do not show on your device ,it means that your device has core_ctl hotplug , unfortunately we cannot add those options to your device. "
 	fi
-	if [ "$REG" -eq 1 ] && [ "$CD" -eq 0 ]; then
-		#For Regular Cluster
-			    if [ "$MAX_FREQ_0" -gt "$MIN_FREQ_0" ]; then
-					$busybox echo -e "CPU  Min/Max: ${W}$(($MIN_FREQ_0 / 1000)) MHz${N} / ${W}$(($MAX_FREQ_0 / 1000)) MHz${N}"
-				fi
-				if [ "$MAX_FREQ_0" -lt "$MIN_FREQ_0" ]; then
-					$busybox echo -e "CPU  Min/Max: ${W}$(($MAX_FREQ_0 / 1000)) MHz${N} / ${W}$(($MIN_FREQ_0 / 1000)) MHz${N}"
-				fi
-	fi
-fi
-if [ "$core_ctl" -eq 1 ]; then
-   	$busybox echo ""
-	$busybox echo "If some options (like change governor) do not show on your device ,it means that your device has core_ctl hotplug , unfortunately we cannot add those options to your device. "
-fi
 	$busybox echo ""
 	$busybox echo $divider
 	$busybox echo "        -Please choose a profile-"
@@ -731,35 +735,35 @@ fi
 	$busybox echo ""
 	$busybox echo -e "${B}     3 - Performance ${N}"
 	$busybox echo $divider
-if [ "$core_ctl" -eq 0 ]; then
-	a=0
-	for i in "${cur_gov[@]}"; do
-		if [ "$i" = "zzmoove" ]; then
-			if [ "$CD" -eq 1 ] && [ "$CD" -ne 0 ]; then
-				if [ -f ${gov[$a]}/disable_hotplug ]; then
-					HOTPLUG=$($busybox cat ${gov[$a]}/disable_hotplug)
-					$busybox echo "--- Zzmoove hotplug found , please choose ---"
-					$busybox echo -e "${W} s. Stock Hotplug ${N}"
-					$busybox echo -e "${W} z. Zzmoove Hotplug ${N}"
-					$busybox echo "---"
+	if [ "$core_ctl" -eq 0 ]; then
+		a=0
+		for i in "${cur_gov[@]}"; do
+			if [ "$i" = "zzmoove" ]; then
+				if [ "$CD" -eq 1 ] && [ "$CD" -ne 0 ]; then
+					if [ -f ${gov[$a]}/disable_hotplug ]; then
+						HOTPLUG=$($busybox cat ${gov[$a]}/disable_hotplug)
+						$busybox echo "--- Zzmoove hotplug found , please choose ---"
+						$busybox echo -e "${W} s. Stock Hotplug ${N}"
+						$busybox echo -e "${W} z. Zzmoove Hotplug ${N}"
+						$busybox echo "---"
+					fi
+				fi
+				if [ "$CD" -eq 0 ] && [ "$CD" -ne 1 ]; then
+					if [ -f /sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug ]; then
+						HOTPLUG=$($busybox cat /sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug)
+						$busybox echo "--- Zzmoove hotplug found , please choose ---"
+						$busybox echo -e "${W} s. Stock Hotplug ${N}"
+						$busybox echo -e "${W} z. Zzmoove Hotplug ${N}"
+						$busybox echo "---"
+					fi
 				fi
 			fi
-			if [ "$CD" -eq 0 ] && [ "$CD" -ne 1 ]; then
-				if [ -f /sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug ]; then
-					HOTPLUG=$($busybox cat /sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug)
-					$busybox echo "--- Zzmoove hotplug found , please choose ---"
-					$busybox echo -e "${W} s. Stock Hotplug ${N}"
-					$busybox echo -e "${W} z. Zzmoove Hotplug ${N}"
-					$busybox echo "---"
-				fi
-			fi
-		fi
-		a=$(($a + 1))
-	done
-fi
-if [ "$core_ctl" -eq 0 ]; then
-	$busybox echo -e "${W} g. Change Governor ${N}"
-fi
+			a=$(($a + 1))
+		done
+	fi
+	if [ "$core_ctl" -eq 0 ]; then
+		$busybox echo -e "${W} g. Change Governor ${N}"
+	fi
 	if [ "$IPER" -eq 1 ]; then
 		$busybox echo -e "${R} i.${N} ${W}Increase performance${N} ${R}($IPER)${N}"
 	else
@@ -793,14 +797,14 @@ fi
 	$busybox echo " e. Exit"
 	$busybox echo $divider
 	if [ -s /data/system/test ]; then
-	    sleep 0.2
+		sleep 0.2
 		OUTPUT_ID=$($busybox cat /data/system/test)
 		if ps | grep "$OUTPUT_ID" ; then
-		sleep 0.2
+			sleep 0.2
 			echo -e "${W} GovTuner${N}: ${G} ACTIVE ${N}"
-        else
+		else
 			echo -e "${W} GovTuner${N}: ${R} INACTIVE ${N} (RE-RUN GovTuner)"
-	    fi
+		fi
 	fi
 	$busybox echo ""
 	if [ -f /system/etc/init.d/00gt_init ]; then
@@ -843,7 +847,7 @@ fi
 			$busybox echo "Enabling zzmoove hotplug"
 			sleep 2
 			c=0
-	        for i in "${cur_gov[@]}"; do
+			for i in "${cur_gov[@]}"; do
 				if [ "$i" = "zzmoove" ]; then
 					if [ "$CD" -eq 1 ] && [ "$CD" -ne 0 ]; then
 						if [ -f ${gov[$c]}/disable_hotplug ]; then
@@ -857,7 +861,7 @@ fi
 					fi
 				fi
 				c=$(($c + 1))
-	        done
+			done
 		;;
 
 		z|Z)
@@ -865,7 +869,7 @@ fi
 			$busybox echo "Enabling zzmoove hotplug"
 			sleep 2
 			d=0
-	        for i in "${cur_gov[@]}"; do
+			for i in "${cur_gov[@]}"; do
 				if [ "$i" = "zzmoove" ]; then
 					if [ "$CD" -eq 1 ] && [ "$CD" -ne 0 ]; then
 						if [ -f ${gov[$d]}/disable_hotplug ]; then
@@ -879,7 +883,7 @@ fi
 					fi
 				fi
 				d=$(($d + 1))
-	        done
+			done
 		;;
 
 		g|G)
@@ -942,15 +946,14 @@ fi
 				fi
 			fi
 			if [ "$SC" -eq 1 ] && [ "$SC" -ne 0 ]; then
-						#For Cluster
-						$busybox clear
-						gov_changer "${change[$ga]}" "${gov_avail[$ga]}"
+				#For Cluster
+				$busybox clear
+				gov_changer "${change[$ga]}" "${gov_avail[$ga]}"
 			fi
 			if [ "$REG" -eq 1 ] && [ "$CD" -eq 0 ]; then
-						#For Regular
-						$busybox clear
-						gov_changer "${change[$ga]}" "${gov_avail[$ga]}"
-
+				#For Regular
+				$busybox clear
+				gov_changer "${change[$ga]}" "${gov_avail[$ga]}"
 			fi
 			$busybox clear;
 		;;

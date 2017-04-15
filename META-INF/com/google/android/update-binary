@@ -1,6 +1,6 @@
 #!/sbin/sh
 #
-# Copyright (c) 2016 - Debuffer
+# Copyright (c) 2016 - 2017 Debuffer
 #Senthil360
 #Paget96
 #F4uzan
@@ -14,7 +14,7 @@
 # Thanks to Chainfire and Paget96 @ XDA-Developers
 #
 #
-# Copyright (c) 2016 - Paget96
+# Copyright (c) 2016 - 2017 Paget96
 #     Busybox installer
 #
 #
@@ -315,6 +315,7 @@ rm -rf /system/etc/GovTuner/current/profile
 rm -rf /system/etc/init.d/GovTuner_performance
 rm -rf /data/init.d/GovTuner_performance
 rm -rf /system/etc/init.d/gt_init
+rm -f /system/etc/init.d/00gt_init
 rm -rf /system/etc/init.d/gt_test
 rm -rf /system/etc/init.d/gt_atest
 rm -rf /system/bin/tune

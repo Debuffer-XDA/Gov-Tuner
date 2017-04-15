@@ -14,8 +14,8 @@
 version=$1
 dir=$(pwd)
 
-echo ""
-echo "Building Gov-Tuner v$1"
+
+echo "Building Gov-Tuner v$version"
 echo "----------------------"
 
 # Build and copy uninstaller before doing anything
@@ -27,7 +27,7 @@ cd ..
 
 echo "Using zip to build output"
 echo "Building output zip"
-zip -r Gov-Tuner_$version.zip . -x ".git/*" "win/*" "uninstaller/*" "build.*" ".gitignore">/dev/null
+zip -r Gov-Tuner_$version.zip . -x ".git/*" "win/*" "uninstaller/*" "build.*" ".gitignore" "Gov-Tuner_*.zip">/dev/null
 echo "Output created: $dir/Gov-Tuner_$version.zip"
 echo ""
 

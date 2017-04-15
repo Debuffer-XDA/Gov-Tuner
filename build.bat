@@ -1,6 +1,4 @@
 @Echo Off
-title Gov-Tuner Buildscript
-
 :: Gov-Tuner ZIP creation script
 :: Written by F4uzan, with the help of Gov-Tuner Team
 :: zip and bzip2 binaries provided by GnuWin / gnuwin32 at http://gnuwin32.sourceforge.net
@@ -32,5 +30,5 @@ cd ..
 
 echo Using zip to build output
 echo Building output zip
-%zip_dir%\%zip_exec% -r Gov-Tuner_%version%.zip . -x ".git/*" "win/*" "uninstaller/*" "build.*" ".gitignore">nul
+%zip_dir%\%zip_exec% -r Gov-Tuner_%version%.zip . -x ".git/*" "win/*" "uninstaller/*" "build.*" ".gitignore" "Gov-Tuner_*.zip">nul
 echo Output created: %dir%\Gov-Tuner_%version%.zip

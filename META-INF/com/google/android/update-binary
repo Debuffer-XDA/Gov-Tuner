@@ -1,6 +1,6 @@
 #!/sbin/sh
 #
-# Copyright (c) 2016 - Debuffer
+# Copyright (c) 2016 - 2017 Debuffer
 #Senthil360
 #Paget96
 #F4uzan
@@ -14,7 +14,7 @@
 # Thanks to Chainfire and Paget96 @ XDA-Developers
 #
 #
-# Copyright (c) 2016 - Paget96
+# Copyright (c) 2016 - 2017 Paget96
 #     Busybox installer
 #
 #
@@ -215,7 +215,7 @@ toolbox_mount() {
 
 
 ui_print "****************************************"
-ui_print "*          Gov-Tuner v 4.0.1       *"
+ui_print "*          Gov-Tuner v 4.0.2       *"
 ui_print "****************************************"
 ui_print ""
 ui_print "@Debuffer"
@@ -309,14 +309,18 @@ rm -rf /data/system/GovTuner
 rm -rf /system/etc/GovTuner/current/GovTuner_battery
 rm -rf /system/etc/GovTuner/current/GovTuner_balanced
 rm -rf /system/etc/GovTuner/current/GovTuner_performance
+rm -f /system/etc/GovTuner/govtuner
+rm -f /system/etc/GovTuner/00gt_init
 rm -rf /system/etc/GovTuner/current/profile
 rm -rf /system/etc/init.d/GovTuner_performance
 rm -rf /data/init.d/GovTuner_performance
 rm -rf /system/etc/init.d/gt_init
+rm -f /system/etc/init.d/00gt_init
 rm -rf /system/etc/init.d/gt_test
 rm -rf /system/etc/init.d/gt_atest
 rm -rf /system/bin/tune
 rm -rf /system/bin/govtuner
+rm -f /system/bin/govtuner
 rm -rf /system/etc/GovTuner
 rm -rf /data/system/test
 rm -rf /data/system/tuned
@@ -340,17 +344,15 @@ cp -rf $COM/system/etc/GovTuner /system/etc/GovTuner
 chmod 777 /system/etc/GovTuner/
 cp -rf $COM/data/system/GovTuner /data/system/GovTuner
 chmod 777 /data/system/GovTuner
-cp -rf $COM/system/etc/init.d/00gt_init /system/etc/init.d/00gt_init
+cp -f $COM/system/etc/GovTuner/govtuner /system/bin/govtuner
+chmod 777 /system/bin/govtuner
+chown 0.2000 /system/bin/govtuner
+cp -f $COM/system/etc/GovTuner/00gt_init /system/etc/init.d/00gt_init
 chmod 777 /system/etc/init.d/00gt_init
 cp -rf $BIN/* /system/etc/GovTuner/
 chmod 777 /system/etc/GovTuner/busybox
 chown 0.2000 /system/etc/GovTuner/busybox
-
-cp -rf $COM/system/bin/govtuner /system/bin/govtuner
-chmod 777 /system/bin/govtuner
-chown 0.2000 /system/bin/govtuner
 sh /tmp/gov-tuner/common/enableinit.sh
-
 ui_print "Unmounting system..."
 rm /system/toybox
 rm /system/toolbox

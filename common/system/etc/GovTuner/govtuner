@@ -54,7 +54,7 @@ if [ "$TIME" -lt 180 ]; then
 fi
 if [ ! -d "/data/system/GovTuner/current" ]; then
 	$busybox mount -o remount,rw /data 2>/dev/null
-	$busybox mkdir /data/system/GovTuner/current
+	$busybox mkdir -p /data/system/GovTuner/current
 	$busybox sleep 0.4
 	$busybox mount -o remount,ro /data 2>/dev/null
 fi

@@ -15,7 +15,7 @@ version=$1
 dir=$(pwd)
 
 echo ""
-echo "Building Gov-Tuner v$2"
+echo "Building Gov-Tuner v$version"
 echo "----------------------"
 
 # Build and copy uninstaller before doing anything

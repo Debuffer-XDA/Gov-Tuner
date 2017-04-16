@@ -6,8 +6,14 @@
 :: This script should build a zip archive containing all the files excluding the ".git" folder
 :: "zip" binary is provided in the "win" folder, this folder will also be excluded out when compiling the zip
 ::
-:: Arguments:
-:: build <VERSION>
+:: Usage:
+:: build <ARGUMENTS> <VERSION>
+::
+:: Additional arguments:
+:: build: Build a regular flashable zip
+:: magisk : Build a Magisk-compatible zip
+:: install : Build a regular zip then install
+:: magisk-install : Build a Magisk-compatible zip then install
 ::
 :: Example:
 :: build 4.0.1

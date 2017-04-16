@@ -5,8 +5,14 @@
 # This script should build a zip archive containing all the files excluding the ".git" folder
 # Works on Linux with proper "zip" installation
 #
-# Arguments:
-# ./build.sh <VERSION>
+# Usage:
+# ./build.sh <ARGUMENTS> <VERSION>
+#
+# Additional arguments:
+# build: Build a regular flashable zip
+# magisk : Build a Magisk-compatible zip
+# install : Build a regular zip then install
+# magisk-install : Build a Magisk-compatible zip then install
 #
 # Example:
 # ./build.sh 4.0.1

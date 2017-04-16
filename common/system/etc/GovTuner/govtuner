@@ -821,6 +821,8 @@ Thank you."
 		Init="Init.d"; init=initd
 	elif [ -f /system/su.d/00gt_init ]; then
 		Init="Su.d"; init=sud
+	elif [ -f /system/etc/GovTuner/init/00gt_init ]; then
+		Init="Magisk"; init=magisk
 	else
 		Init="ERROR"
 	fi

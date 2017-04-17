@@ -36,7 +36,7 @@ cd ..
 
 echo "Using zip to build output"
 echo "Building output zip"
-zip -r output/Gov-Tuner_$version.zip . -x ".git/*" "win/*" "uninstaller/*" "build.*" ".gitignore" "Gov-Tuner_*.zip">/dev/null
+zip -r output/Gov-Tuner_$version.zip . -x ".git/*" "win/*" "uninstaller/*" "output/*" "magisk/*" "build.*" ".gitignore" "Gov-Tuner_*.zip">/dev/null
 echo "Output created: $dir/output/Gov-Tuner_$version.zip"
 echo ""
 

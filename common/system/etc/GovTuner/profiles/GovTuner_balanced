@@ -458,7 +458,7 @@ while [ 5 == $z ]; do
 					cecho "20000" $i/timer_rate;
 				fi
 				if [ -e "$i/timer_slack" ]; then
-					cecho "0" $i/timer_slack;
+					cecho "20000" $i/timer_slack;
 				fi
 				if [ -e "$i/up_threshold_any_cpu_freq" ]; then
 					cecho "0" $i/up_threshold_any_cpu_freq;
@@ -969,7 +969,7 @@ while [ 5 == $z ]; do
 						cecho "20000" $i/timer_rate;
 					fi
 					if [ -e "$i/timer_slack" ]; then
-						cecho "0" $i/timer_slack;
+						cecho "20000" $i/timer_slack;
 					fi
 					if [ -e "$i/up_threshold_any_cpu_freq" ]; then
 						cecho "0" $i/up_threshold_any_cpu_freq;
@@ -1473,7 +1473,7 @@ while [ 5 == $z ]; do
 						cecho "20000" $i/timer_rate;
 					fi
 					if [ -e "$i/timer_slack" ]; then
-						cecho "0" $i/timer_slack;
+						cecho "20000" $i/timer_slack;
 					fi
 					if [ -e "$i/up_threshold_any_cpu_freq" ]; then
 						cecho "0" $i/up_threshold_any_cpu_freq;

@@ -426,9 +426,14 @@ while [ 5 == $z ]; do
 					fi
 				fi
 				if [ -e "$i/hispeed_freq" ]; then
+                                   if [ "$bL" -eq 1 ]; then 
 					cecho "$((${HSF[0]} + $MIN_FREQ_0))" $i/hispeed_freq;
 					$busybox echo "LITTLE $((${HSF[0]} + $MIN_FREQ_0))"
 					$busybox sleep 1
+                                   elif [ "$bL" -ne 1 ]; then
+                                        cecho "$((${HSF[0]} + $TL_5))" $i/hispeed_freq;
+                                        $busybox sleep 1
+                                   fi
 				fi
 				if [ -e "$i/max_freq_hysteresis" ]; then
 					cecho "0" $i/max_freq_hysteresis;

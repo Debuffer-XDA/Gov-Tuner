@@ -23,6 +23,10 @@ set zip_dir=win
 set zip_exec=zip.exe
 set dir=%cd%
 
+if not exist "output" (
+	md output
+)
+
 echo:
 echo Building Gov-Tuner v%version%
 echo -----------------------------
@@ -36,5 +40,5 @@ cd ..
 
 echo Using zip to build output
 echo Building output zip
-%zip_dir%\%zip_exec% -r Gov-Tuner_%version%.zip . -x ".git/*" "win/*" "uninstaller/*" "build.*" ".gitignore" "Gov-Tuner_*.zip">nul
-echo Output created: %dir%\Gov-Tuner_%version%.zip
+%zip_dir%\%zip_exec% -r output/Gov-Tuner_%version%.zip . -x ".git/*" "win/*" "uninstaller/*" "build.*" ".gitignore" "Gov-Tuner_*.zip">nul
+echo Output created: %dir%\output\Gov-Tuner_%version%.zip

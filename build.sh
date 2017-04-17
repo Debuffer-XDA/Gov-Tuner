@@ -20,6 +20,9 @@
 version=$1
 dir=$(pwd)
 
+if [ ! -d output ]; then
+	mkdir output
+fi
 
 echo "Building Gov-Tuner v$version"
 echo "----------------------"
@@ -33,8 +36,8 @@ cd ..
 
 echo "Using zip to build output"
 echo "Building output zip"
-zip -r Gov-Tuner_$version.zip . -x ".git/*" "win/*" "uninstaller/*" "build.*" ".gitignore" "Gov-Tuner_*.zip">/dev/null
-echo "Output created: $dir/Gov-Tuner_$version.zip"
+zip -r output/Gov-Tuner_$version.zip . -x ".git/*" "win/*" "uninstaller/*" "build.*" ".gitignore" "Gov-Tuner_*.zip">/dev/null
+echo "Output created: $dir/output/Gov-Tuner_$version.zip"
 echo ""
 
 echo "Push file to sdcard? (Y/n) : "

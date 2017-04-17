@@ -38,12 +38,14 @@ core_ctl=0
 TIME=$($busybox cat /proc/uptime | $busybox cut -d '.' -f1)
 
 # Set up Busybox for seemless integration in GT script
-alias busybox="$busybox"
+alias busybox="$busybox"; zap=1
 for i in $($busybox --list); do
-	if [ "$i" != 'echo' ]; then
+	if [ "$i" != 'echo' ] && [ "$zap" -ge 5 ]; then
 		alias $i="$busybox $i"
 	fi
+	zap=$(($zap+1))
 done
+unset zap
 
 #Hold your horses :P. Added this check to provide time for the device to initialize CPU parameters properly. This also solves the init.d not working errors
 # caused due to early launching of scripts
@@ -819,6 +821,8 @@ Thank you."
 		Init="Init.d"; init=initd
 	elif [ -f /system/su.d/00gt_init ]; then
 		Init="Su.d"; init=sud
+	elif [ -f /system/etc/GovTuner/init/00gt_init ]; then
+		Init="Magisk"; init=magisk; INIT_TEST="/system/etc/GovTuner/init/gt_test"
 	else
 		Init="ERROR"
 	fi

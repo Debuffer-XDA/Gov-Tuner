@@ -446,7 +446,13 @@ while [ 5 == $z ]; do
 					cecho "1" $i/sampling_down_factor;
 				fi
 				if [ -e "$i/target_loads" ]; then
-					cecho "0 $MIN_FREQ_0:50 $TL_1:30 $TL_2:40 $TL_3:45 $TL_4:55 $TL_5:90 $TL_6:75 $TL_7:95 $TL_8:80 $TL_9:90" $i/target_loads;
+                                   if [ "${CDF[0]}" -lt 150000 ] && [ "${CDF[0]}" -gt 110000 ]; then
+                                        cecho "0 $MIN_FREQ_0:40 $TL_1:30 $TL_2:25 $TL_3:50 $TL_4:60 $TL_5:68 $TL_6:75 $TL_7:82 $TL_8:89" $i/target_loads;
+                                   elif [ "${CDF[0]}" -lt 110000 ] && [ "${CDF[0]}" -gt 0 ]; then
+                                        cecho "0 $MIN_FREQ_0:30 $TL_1:20 $TL_2:30 $TL_4:50 $TL_5:60 $TL_6:68 $TL_7:75 $TL_8:79" $i/target_loads;
+                                   else
+					cecho "0 $MIN_FREQ_0:50 $TL_1:30 $TL_2:40 $TL_3:45 $TL_4:55 $TL_5:60 $TL_6:75 $TL_7:85 $TL_8:92 $TL_9:98" $i/target_loads;
+                                   fi
 				fi
 				if [ -e "$i/timer_rate" ]; then
 					cecho "20000" $i/timer_rate;

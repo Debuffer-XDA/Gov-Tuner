@@ -5,8 +5,14 @@
 # This script should build a zip archive containing all the files excluding the ".git" folder
 # Works on Linux with proper "zip" installation
 #
-# Arguments:
-# ./build.sh <VERSION>
+# Usage:
+# ./build.sh <ARGUMENTS> <VERSION>
+#
+# Additional arguments:
+# build: Build a regular flashable zip
+# magisk : Build a Magisk-compatible zip
+# install : Build a regular zip then install
+# magisk-install : Build a Magisk-compatible zip then install
 #
 # Example:
 # ./build.sh 4.0.1
@@ -14,6 +20,9 @@
 version=$1
 dir=$(pwd)
 
+if [ ! -d output ]; then
+	mkdir output
+fi
 
 echo "Building Gov-Tuner v$version"
 echo "----------------------"
@@ -27,8 +36,8 @@ cd ..
 
 echo "Using zip to build output"
 echo "Building output zip"
-zip -r Gov-Tuner_$version.zip . -x ".git/*" "win/*" "uninstaller/*" "build.*" ".gitignore" "Gov-Tuner_*.zip">/dev/null
-echo "Output created: $dir/Gov-Tuner_$version.zip"
+zip -r output/Gov-Tuner_$version.zip . -x ".git/*" "win/*" "uninstaller/*" "output/*" "magisk/*" "build.*" ".gitignore" "Gov-Tuner_*.zip">/dev/null
+echo "Output created: $dir/output/Gov-Tuner_$version.zip"
 echo ""
 
 echo "Push file to sdcard? (Y/n) : "

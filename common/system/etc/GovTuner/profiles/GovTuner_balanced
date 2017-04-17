@@ -408,7 +408,7 @@ while [ 5 == $z ]; do
 				fi
 				chmod 644 $i/*
 				if [ -e "$i/above_hispeed_delay" ]; then
-					cecho "20000 $TL_3:30000 $TL_5:50000 $TL_6:70000 $TL_7:100000 $TL_8:20000" $i/above_hispeed_delay;
+					cecho "20000 $((${HSF[0]} + $MIN_FREQ_0)):30000 $TL_7:60000 $TL_8:20000" $i/above_hispeed_delay;
 				fi
 				if [ -e "$i/boost" ]; then
 					cecho "0" $i/boost;

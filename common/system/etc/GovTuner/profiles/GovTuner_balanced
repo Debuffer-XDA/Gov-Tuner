@@ -408,7 +408,7 @@ while [ 5 == $z ]; do
 				fi
 				chmod 644 $i/*
 				if [ -e "$i/above_hispeed_delay" ]; then
-					cecho "20000 $TL_3:30000 $TL_5:50000 $TL_6:70000 $TL_7:100000 $TL_8:20000" $i/above_hispeed_delay;
+					cecho "20000 $((${HSF[0]} + $MIN_FREQ_0)):30000 $TL_7:60000 $TL_8:20000" $i/above_hispeed_delay;
 				fi
 				if [ -e "$i/boost" ]; then
 					cecho "0" $i/boost;
@@ -426,9 +426,14 @@ while [ 5 == $z ]; do
 					fi
 				fi
 				if [ -e "$i/hispeed_freq" ]; then
+                                   if [ "$bL" -eq 1 ]; then 
 					cecho "$((${HSF[0]} + $MIN_FREQ_0))" $i/hispeed_freq;
 					$busybox echo "LITTLE $((${HSF[0]} + $MIN_FREQ_0))"
 					$busybox sleep 1
+                                   elif [ "$bL" -ne 1 ]; then
+                                        cecho "$((${HSF[0]} + $TL_5))" $i/hispeed_freq;
+                                        $busybox sleep 1
+                                   fi
 				fi
 				if [ -e "$i/max_freq_hysteresis" ]; then
 					cecho "0" $i/max_freq_hysteresis;
@@ -446,13 +451,19 @@ while [ 5 == $z ]; do
 					cecho "1" $i/sampling_down_factor;
 				fi
 				if [ -e "$i/target_loads" ]; then
-					cecho "0 $MIN_FREQ_0:50 $TL_1:30 $TL_2:40 $TL_3:45 $TL_4:55 $TL_5:90 $TL_6:75 $TL_7:95 $TL_8:80 $TL_9:90" $i/target_loads;
+                                   if [ "${CDF[0]}" -lt 150000 ] && [ "${CDF[0]}" -gt 110000 ]; then
+                                        cecho "0 $MIN_FREQ_0:40 $TL_1:30 $TL_2:25 $TL_3:50 $TL_4:60 $TL_5:68 $TL_6:75 $TL_7:82 $TL_8:89" $i/target_loads;
+                                   elif [ "${CDF[0]}" -lt 110000 ] && [ "${CDF[0]}" -gt 0 ]; then
+                                        cecho "0 $MIN_FREQ_0:30 $TL_1:20 $TL_2:30 $TL_4:50 $TL_5:60 $TL_6:68 $TL_7:75 $TL_8:79" $i/target_loads;
+                                   else
+					cecho "0 $MIN_FREQ_0:50 $TL_1:30 $TL_2:40 $TL_3:45 $TL_4:55 $TL_5:60 $TL_6:75 $TL_7:85 $TL_8:92 $TL_9:98" $i/target_loads;
+                                   fi
 				fi
 				if [ -e "$i/timer_rate" ]; then
 					cecho "20000" $i/timer_rate;
 				fi
 				if [ -e "$i/timer_slack" ]; then
-					cecho "0" $i/timer_slack;
+					cecho "20000" $i/timer_slack;
 				fi
 				if [ -e "$i/up_threshold_any_cpu_freq" ]; then
 					cecho "0" $i/up_threshold_any_cpu_freq;
@@ -468,6 +479,15 @@ while [ 5 == $z ]; do
 				fi
 				if [ -e "$i/ignore_nice_load" ]; then
 					cecho "1" $i/ignore_nice_load;
+				fi
+                                if [ -e "$i/use_migration_notif" ]; then
+                                         cecho "1" $i/use_migration_notif;
+                                fi
+                                if [ -e "$i/use_sched_load" ]; then
+                                         cecho "0" $i/use_sched_load;
+                                fi
+                                if [ -e "$i/ignore_hispeed_on_notif" ]; then
+					 cecho "1" $i/ignore_hispeed_on_notif;
 				fi
 				if [ -e "$i/sampling_rate" ] && [[ "${cur_gov[$ga]}" != "conservative" && "${cur_gov[$ga]}" != "lionfish" ]]; then
 					cecho "$SMPR" $i/sampling_rate;
@@ -963,7 +983,7 @@ while [ 5 == $z ]; do
 						cecho "20000" $i/timer_rate;
 					fi
 					if [ -e "$i/timer_slack" ]; then
-						cecho "0" $i/timer_slack;
+						cecho "20000" $i/timer_slack;
 					fi
 					if [ -e "$i/up_threshold_any_cpu_freq" ]; then
 						cecho "0" $i/up_threshold_any_cpu_freq;
@@ -980,6 +1000,15 @@ while [ 5 == $z ]; do
 					if [ -e "$i/ignore_nice_load" ]; then
 						cecho "1" $i/ignore_nice_load;
 					fi
+                                        if [ -e "$i/use_migration_notif" ]; then
+                                                cecho "1" $i/use_migration_notif;
+                                        fi
+                                        if [ -e "$i/use_sched_load" ]; then
+                                                cecho "0" $i/use_sched_load;
+                                        fi
+                                        if [ -e "$i/ignore_hispeed_on_notif" ]; then
+					         cecho "1" $i/ignore_hispeed_on_notif;
+				        fi
 					if [ -e "$i/sampling_rate" ] && [[ "${cur_gov[$gb]}" != "conservative" && "${cur_gov[$gb]}" != "lionfish" ]]; then
 						cecho "60000" $i/sampling_rate;
 					fi
@@ -1467,7 +1496,7 @@ while [ 5 == $z ]; do
 						cecho "20000" $i/timer_rate;
 					fi
 					if [ -e "$i/timer_slack" ]; then
-						cecho "0" $i/timer_slack;
+						cecho "20000" $i/timer_slack;
 					fi
 					if [ -e "$i/up_threshold_any_cpu_freq" ]; then
 						cecho "0" $i/up_threshold_any_cpu_freq;
@@ -1484,6 +1513,15 @@ while [ 5 == $z ]; do
 					if [ -e "$i/ignore_nice_load" ]; then
 						cecho "1" $i/ignore_nice_load;
 					fi
+                                        if [ -e "$i/use_migration_notif" ]; then
+                                                cecho "1" $i/use_migration_notif;
+                                        fi
+                                        if [ -e "$i/use_sched_load" ]; then
+                                                 cecho "0" $i/use_sched_load;
+                                        fi
+                                        if [ -e "$i/ignore_hispeed_on_notif" ]; then
+					         cecho "1" $i/ignore_hispeed_on_notif;
+				        fi
 					if [ -e "$i/sampling_rate" ] && [[ "${cur_gov[$gc]}" != "conservative" && "${cur_gov[$gc]}" != "lionfish" ]]; then
 						cecho "60000" $i/sampling_rate;
 					fi

@@ -469,6 +469,15 @@ while [ 5 == $z ]; do
 				if [ -e "$i/ignore_nice_load" ]; then
 					cecho "1" $i/ignore_nice_load;
 				fi
+                                if [ -e "$i/use_migration_notif" ]; then
+                                         cecho "1" $i/use_migration_notif;
+                                fi
+                                if [ -e "$i/use_sched_load" ]; then
+                                         cecho "0" $i/use_sched_load;
+                                fi
+                                if [ -e "$i/ignore_hispeed_on_notif" ]; then
+					 cecho "1" $i/ignore_hispeed_on_notif;
+				fi
 				if [ -e "$i/sampling_rate" ] && [[ "${cur_gov[$ga]}" != "conservative" && "${cur_gov[$ga]}" != "lionfish" ]]; then
 					cecho "$SMPR" $i/sampling_rate;
 				fi
@@ -980,6 +989,15 @@ while [ 5 == $z ]; do
 					if [ -e "$i/ignore_nice_load" ]; then
 						cecho "1" $i/ignore_nice_load;
 					fi
+                                        if [ -e "$i/use_migration_notif" ]; then
+                                                 cecho "1" $i/use_migration_notif;
+                                        fi
+                                        if [ -e "$i/use_sched_load" ]; then
+                                                 cecho "0" $i/use_sched_load;
+                                        fi
+                                        if [ -e "$i/ignore_hispeed_on_notif" ]; then
+					        cecho "1" $i/ignore_hispeed_on_notif;
+				        fi
 					if [ -e "$i/sampling_rate" ] && [[ "${cur_gov[$gb]}" != "conservative" && "${cur_gov[$gb]}" != "lionfish" ]]; then
 						cecho "75000" $i/sampling_rate;
 					fi
@@ -1484,6 +1502,15 @@ while [ 5 == $z ]; do
 					if [ -e "$i/ignore_nice_load" ]; then
 						cecho "1" $i/ignore_nice_load;
 					fi
+                                        if [ -e "$i/use_migration_notif" ]; then
+                                                cecho "1" $i/use_migration_notif;
+                                        fi
+                                        if [ -e "$i/use_sched_load" ]; then
+                                                 cecho "0" $i/use_sched_load;
+                                        fi
+                                        if [ -e "$i/ignore_hispeed_on_notif" ]; then
+					        cecho "1" $i/ignore_hispeed_on_notif;
+				        fi
 					if [ -e "$i/sampling_rate" ] && [[ "${cur_gov[$gc]}" != "conservative" && "${cur_gov[$gc]}" != "lionfish" ]]; then
 						cecho "75000" $i/sampling_rate;
 					fi

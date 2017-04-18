@@ -544,7 +544,9 @@ Thank you."
 		if ps | grep "$OUTPUT_ID" ; then
 			echo "Process Alive and Running"
 			sleep 0.4
+			if [ "$(cat $FIRST_RUN)" == "1" ]; then
 			echo "Fixing unintended event..."
+			fi
 			GA=1
 			echo 0 > $FIRST_RUN
 		fi
